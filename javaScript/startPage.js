@@ -1,8 +1,8 @@
-if (!window.localStorage.getItem("quiz-user")) {
+if (!window.localStorage.getItem("user")) {
     renderStartPage();
 }
-function renderStartPage(){
-    main.innerHTML=`
+function renderStartPage() {
+    main.innerHTML = `
     <h2>Welcome to YumYumClub</h2>
     <div class=image>image</div>
     <p id=message></p>
