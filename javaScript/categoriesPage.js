@@ -48,11 +48,14 @@ function renderCategoriesPage(){
             for (const recipeName in data.meals) {
                 const recipe = data.meals[recipeName];
                 const recipeDiv = document.createElement("div");
+                recipeDiv.classList.add("recepie");
                 console.log(recipe.strMeal);
                 recipeDiv.innerHTML =`
                     <h2>${recipe.strMeal}</h2>
-                    
-                `;
+                    <div>
+                    <img src="${recipe.strMealThumb}"> 
+                    </div>
+                `; 
                 divRecipes.appendChild(recipeDiv);
             }
         })
