@@ -44,7 +44,7 @@ function renderRegisterPage() {
                 message.innerHTML = `The user ${data.username} was successfully added!`;
                 //if it's not ok
             } else {
-                message.innerHTML = `Something went wrong`;
+                message.innerHTML = `<span>${data.message}</span>.`;
             }
             //if something went wrong, we print out the error message we got from the database
         } catch (error) {
