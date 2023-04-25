@@ -5,6 +5,7 @@ function renderRegisterPage() {
                 <h2>Register</h2>
                 <p id=message></p>
                 <form>
+                <input type=text id=email placeholder=email>
                     <input type=text id=username placeholder=Username>
                     <input type=password id=password placeholder=Password>
                     <button type=submit>Register</button>
@@ -18,17 +19,19 @@ function renderRegisterPage() {
     let RegisterButton = main.querySelector("form");
     RegisterButton.addEventListener("submit", async function (event) {
         event.preventDefault();
+        let emailInput = main.querySelector("#email").value;
         let usernameInput = main.querySelector("#username").value;
         let passwordInput = main.querySelector("#password").value;
         let message = main.querySelector("#message");
 
-        //Try to fetch  
+        //Try to register
         try {
             let response = await fetch("../loginregister-api/register.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     //The value is from the two inputs
+                    email: emailInput,
                     username: usernameInput,
                     password: passwordInput,
 
@@ -36,7 +39,7 @@ function renderRegisterPage() {
             });
             let data = await response.json();
 
-            //if the response is ok
+            //if the response is ok and the user is added
             if (response.ok) {
                 message.innerHTML = `The user ${data.username} was successfully added!`;
                 //if it's not ok
@@ -47,7 +50,9 @@ function renderRegisterPage() {
         } catch (error) {
             message.textContent = `${error.message}`;
         }
-
+        emailInput = main.querySelector("#email").textContent = "";
+        usernameInput = main.querySelector("#username").textContent = "";
+        passwordInput = main.querySelector("#password").textContent = "";
     });
 }
 

@@ -33,6 +33,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){ // make sure its the right method
     }
 
     $newUser = [ // create new user
+        "email" => $post["email"],
         "username" => $post["username"],
         "password" => $post["password"]
     ];

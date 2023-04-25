@@ -1,6 +1,6 @@
-if (!window.localStorage.getItem("user")) {
-    renderStartPage();
-}
+// if (!window.localStorage.getItem("user")) {
+renderStartPage();
+// }
 function renderStartPage() {
     main.innerHTML = `
     <h2>Welcome to YumYumClub</h2>
