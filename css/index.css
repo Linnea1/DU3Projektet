@@ -7,7 +7,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
+    height: 100vh;
 }
 
 #wrapper {
@@ -44,6 +44,8 @@ input {
     width: 90%;
     margin: 10px;
     font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid black;
 }
 
 button {
@@ -51,16 +53,19 @@ button {
     font-size: 16px;
     padding: 10px;
     width: 90%;
+    border-radius: 10px;
+    border: 1px solid black;
 }
 
 footer {
     margin-top: auto;
 }
 
-.recepie{
+.recepie {
     background-color: beige;
 }
-img{
+
+img {
     width: 270px;
     border-radius: 10px;
 }

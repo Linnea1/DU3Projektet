@@ -11,6 +11,7 @@ function renderCategoriesPage() {
         <button onclick="">Menu</button>
         <div class=image></div>
             <h2>What kind of recepie are you looking for?</h2>
+            <input type="text" name="search" placeholder="search for recipe">
             <p>${username}</p>
         </div>
         <div class="categories"></div>
@@ -32,16 +33,17 @@ function renderCategoriesPage() {
         .catch(error => console.error(error));
 
     function renderRecepiesAfterCategory(event) {
+        let category = event.target.innerHTML;
         main.innerHTML = `
             <div class="header">
             <button onclick="">Menu</button>
-            <h2>YumYumClub</h2>
+            <div class=image></div>
+            <h2>${category}</h2>
             <p>${username}</p>
             <button onclick="renderCategoriesPage()">Go Back</button>
             </div>
             <div class="recipes"></div>
         `;
-        let category = event.target.innerHTML;
         const divRecipes = document.querySelector(".recipes");
         fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
 
