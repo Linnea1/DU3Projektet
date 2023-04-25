@@ -7,7 +7,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
 
 }
 
@@ -56,4 +55,12 @@ button {
 
 footer {
     margin-top: auto;
+}
+
+.recepie{
+    background-color: beige;
+}
+img{
+    width: 270px;
+    border-radius: 10px;
 }

@@ -44,6 +44,7 @@ function renderCategoriesPage() {
         let category = event.target.innerHTML;
         const divRecipes = document.querySelector(".recipes");
         fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -54,11 +55,14 @@ function renderCategoriesPage() {
                     console.log(recipe.strMeal);
                     recipeDiv.innerHTML = `
                     <h2>${recipe.strMeal}</h2>
-                    
+                    <div>
+                    <img src="${recipe.strMealThumb}"> 
+                    </div>
                 `;
                     divRecipes.appendChild(recipeDiv);
                 }
             })
             .catch(error => console.error(error));
+
     }
 }
