@@ -20,5 +20,15 @@
         "email": "erik@hej",
         "username": "morgan",
         "password": "p\u00e5lsson"
+    },
+    {
+        "email": "frewf",
+        "username": "fwe",
+        "password": "few"
+    },
+    {
+        "email": "rg",
+        "username": "grg",
+        "password": "gregreg"
     }
 ]

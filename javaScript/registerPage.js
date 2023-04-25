@@ -2,6 +2,7 @@ function renderRegisterPage() {
     let main = document.querySelector("main");
 
     main.innerHTML = `
+                <div class=image></div>
                 <h2>Register</h2>
                 <p id=message></p>
                 <form>
@@ -50,9 +51,7 @@ function renderRegisterPage() {
         } catch (error) {
             message.textContent = `${error.message}`;
         }
-        emailInput = main.querySelector("#email").textContent = "";
-        usernameInput = main.querySelector("#username").textContent = "";
-        passwordInput = main.querySelector("#password").textContent = "";
+
     });
 }
 

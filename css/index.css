@@ -1,0 +1,54 @@
+body {
+    margin: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+}
+
+#wrapper {
+    background-color: lightpink;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+main {}
+
+.image {
+    background-image: url("../test-01.png");
+    height: 100px;
+    width: 100px;
+    background-size: contain;
+    border-radius: 50px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+input {
+    text-align: center;
+    height: 40px;
+    width: 90%;
+    margin: 10px;
+    font-size: 16px;
+}
+
+button {
+    margin: 10px;
+    font-size: 16px;
+    padding: 10px;
+    width: 90%;
+}
+
+footer {
+    margin-top: auto;
+}
