@@ -1,3 +1,7 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 body {
     margin: 0px;
     display: flex;
@@ -16,6 +20,7 @@ body {
     text-align: center;
     padding: 20px;
     border-radius: 10px;
+    overflow: scroll;
 }
 
 main {}

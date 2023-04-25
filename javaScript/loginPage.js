@@ -44,7 +44,7 @@ function renderLoginPage() {
                 user = data;
 
                 // logged in! (adding function later)
-                // renderSomethingPage();
+                renderCategoriesPage()
             }
         } catch (err) { // if something went wrong
             errorMessage.textContent = `Error: ${err.message}`;
