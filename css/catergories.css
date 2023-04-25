@@ -1,0 +1,60 @@
+#wrapper {
+    overflow: scroll;
+    max-height: 600px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+}
+
+.header>button {
+    width: 22%;
+    display: flex;
+}
+
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+}
+
+.category {
+    width: auto;
+    background-color: white;
+    margin: 10px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-weight: bolder;
+    font-size: 15px;
+    border: 1px solid gray;
+
+}
+
+.category:hover {
+    background-color: rgb(186, 242, 237);
+
+    border: 1px solid black;
+}
+
+.recipe {
+    width: 90%;
+    background-color: white;
+    margin: 10px;
+    border-radius: 10px;
+    padding: 5px;
+    border: 1px solid gray;
+}
+
+.recipe>h2 {
+    font-size: 15px;
+}
+
+.recipe:hover {
+    background-color: rgb(186, 242, 237);
+    border: 1px solid black;
+}
