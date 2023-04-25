@@ -34,8 +34,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){ // make sure its the right method
 
     $newUser = [ // create new user
         "username" => $post["username"],
-        "password" => $post["password"],
-        "points" => 0
+        "password" => $post["password"]
     ];
     $users[] = $newUser; 
     file_put_contents($filename, json_encode($users, JSON_PRETTY_PRINT)); // add new user to file
