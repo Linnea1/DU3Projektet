@@ -4,7 +4,7 @@ function renderLoginPage() {
             <h2>Login</h2>
             <p id=message></p>
             <form>
-                <input type=text id=username placeholder=Username or eMail>
+                <input type=text id=username placeholder=Username/eMail>
                 <input type=password id=password placeholder=Password>
                 <button type=submit>Login</button>
             </form>
@@ -27,8 +27,8 @@ function renderLoginPage() {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    username: username,
-                    password: password,
+                    username: username.value,
+                    password: password.value,
                 }),
             });
 
