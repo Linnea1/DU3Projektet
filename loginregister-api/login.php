@@ -21,8 +21,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if($users != []){ // if first user, no need to loop through
         foreach($users as $user){
-            if($user["username"] == $post["username"] or $user["email"] == $post["email"] and $user["password"] == $post["password"]){
-                send_JSON($user); // check so username and password is correct
+            if($user["username"] == $post["username"] and $user["password"] == $post["password"]){
+                unset($user["password"]); // dont send password
+                send_JSON($user); 
+                // check so username and password is correct
             }
         }
     } 

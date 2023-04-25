@@ -8,6 +8,6 @@ function renderStartPage() {
     <p id=message></p>
     <button onclick="renderLoginPage()">Login</button>
     <button onclick="renderRegisterPage()">Register</button> 
-    <button onclick="renderGuestPage()">Continue as Guest</button>  
+    <button onclick="renderCategoriesPage()">Continue as Guest</button>  
     `;
 }
