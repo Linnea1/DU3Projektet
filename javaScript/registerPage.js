@@ -18,19 +18,19 @@ function renderRegisterPage() {
     let RegisterButton = main.querySelector("form");
     RegisterButton.addEventListener("submit", async function (event) {
         event.preventDefault();
-        let usernameInput = main.querySelector("#id");
-        let passwordInput = main.querySelector("#password");
+        let usernameInput = main.querySelector("#username").value;
+        let passwordInput = main.querySelector("#password").value;
         let message = main.querySelector("#message");
 
         //Try to fetch  
         try {
-            let response = await fetch("loginregister-api/register.php", {
+            let response = await fetch("../loginregister-api/register.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     //The value is from the two inputs
-                    username: usernameInput.value,
-                    password: passwordInput.value,
+                    username: usernameInput,
+                    password: passwordInput,
 
                 }),
             });
