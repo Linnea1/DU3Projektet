@@ -1,4 +1,5 @@
 
+
 function like_recipe(event) {
     event.stopPropagation();
     const liker_dom = event.target.parentElement;
@@ -62,12 +63,10 @@ function renderCategoriesPage() {
 
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 for (const recipeName in data.meals) {
                     const recipe = data.meals[recipeName];
                     const recipeDiv = document.createElement("div");
                     recipeDiv.classList.add("recipe");
-                    console.log(recipe.strMeal);
                     recipeDiv.innerHTML = `
                     <h2>${recipe.strMeal}</h2>
                     <div class="liker">
@@ -99,7 +98,7 @@ function searhDish(event) {
         <button onclick="renderCategoriesPage()">Go Back</button>
         <div class="recipes"></div>
         `;
-        const divRecipes = document.querySelector(".recipes");
+        let divForAllaRecipes = document.querySelector(".recipes");
 
 
         fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchField}`)
@@ -120,7 +119,7 @@ function searhDish(event) {
                     <div>
                     <img src="${recipe_img}"> 
                     </div>`;
-                    divRecipes.appendChild(recipe_div);
+                    divForAllaRecipes.appendChild(recipe_div);
 
                     recipe_div.querySelector("#first").addEventListener("click", like_recipe);
                     recipe_div.querySelector("#second").addEventListener("click", like_recipe);
@@ -128,4 +127,6 @@ function searhDish(event) {
             })
     }
 }
+
+
 
