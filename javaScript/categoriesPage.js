@@ -32,7 +32,7 @@ function renderCategoriesPage() {
                 const category = data.meals[categoryName];
                 const categoryDiv = document.createElement("div");
                 categoryDiv.classList.add("category");
-                categoryDiv.addEventListener("click", renderRecepiesAfterCategory);
+                categoryDiv.addEventListener("click", setCategory);
                 categoryDiv.textContent = category.strCategory;
                 divCategories.appendChild(categoryDiv);
             }
@@ -41,8 +41,12 @@ function renderCategoriesPage() {
 
     
 }
-function renderRecepiesAfterCategory(event) {
+function setCategory(event){
     category = event.target.innerHTML;
+    renderRecepiesAfterCategory();
+}
+function renderRecepiesAfterCategory() {
+    
     main.innerHTML = `
         <div class="header">
         <button onclick="">Menu</button>

@@ -22,7 +22,7 @@ function renderRecipe(recipe, event) {
         <button">Menu</button>
         <p>${username}</p>
         <div class=image></div>
-        <button class="goBack">Go Back</button>
+        <button onclick = "renderRecepiesAfterCategory()">Go Back</button>
         </div>
         <div class="recipe">
             <h2><b>${recipe.strMeal}</b></h2>
