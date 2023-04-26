@@ -3,3 +3,6 @@ let user = null;
 // This is where we render all of our pages
 let main = document.querySelector("main");
 
+let wrapper = document.querySelector("#wrapper");
+
+

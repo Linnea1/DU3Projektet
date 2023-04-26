@@ -7,9 +7,12 @@ function renderCategoriesPage() {
     }
 
     main.innerHTML = `
-        <div class="header">
-        <button onclick="">Menu</button>
-        <div class=image></div>
+        <div id="sticky"></div>
+        <div class="info">
+            <header>
+                <button onclick="">Menu</button>
+                <div class=image></div>
+            </header>
             <h2>What kind of recepie are you looking for?</h2>
             <input type="text" name="search" placeholder="search for recipe">
             <p>${username}</p>

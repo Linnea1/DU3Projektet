@@ -3,7 +3,9 @@ renderStartPage();
 // }
 function renderStartPage() {
     main.innerHTML = `
-    <div class=image></div>
+    <header>
+        <div class=image></div>
+    </header>
     <h2>Welcome to YumYumClub</h2>
     <p id=message></p>
     <button onclick="renderLoginPage()">Login</button>

@@ -2,7 +2,9 @@ function renderRegisterPage() {
     let main = document.querySelector("main");
 
     main.innerHTML = `
-                <div class=image></div>
+                <header>
+                    <div class=image></div>
+                </header>
                 <h2>Register</h2>
                 <p id=message></p>
                 <form>

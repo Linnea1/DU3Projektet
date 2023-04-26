@@ -24,6 +24,11 @@ body {
 
 main {}
 
+header {
+    display: flex;
+    justify-content: center;
+}
+
 .image {
     background-image: url("../icons/test-01.png");
     height: 100px;
