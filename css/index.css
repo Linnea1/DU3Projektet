@@ -25,7 +25,7 @@ body {
 main {}
 
 .image {
-    background-image: url("../test-01.png");
+    background-image: url("../icons/test-01.png");
     height: 100px;
     width: 100px;
     background-size: contain;

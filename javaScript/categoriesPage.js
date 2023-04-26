@@ -57,11 +57,25 @@ function renderCategoriesPage() {
                     console.log(recipe.strMeal);
                     recipeDiv.innerHTML = `
                     <h2>${recipe.strMeal}</h2>
+                    <div class="liker">
+                         <button></button>
+                         <button></button>
+                    </div>
                     <div>
-                    <img src="${recipe.strMealThumb}"> 
+                        <img src="${recipe.strMealThumb}"> 
                     </div>
                 `;
                     divRecipes.appendChild(recipeDiv);
+
+                    recipeDiv.querySelector("button:first-child").addEventListener("click", like_city);
+                    recipeDiv.querySelector("button:last-child").addEventListener("click", like_city);
+                }
+
+
+                function like_city(event) {
+                    event.stopPropagation();
+                    const liker_dom = event.target.parentElement;
+                    liker_dom.classList.toggle("liked");
                 }
             })
             .catch(error => console.error(error));
