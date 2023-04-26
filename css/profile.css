@@ -1,0 +1,39 @@
+.icon {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background-color: rgba(228, 230, 231, 255);
+
+    background-image: url(../icons/blank-face-test.webp);
+    background-position: center;
+    background-size: 80%;
+    background-repeat: no-repeat;
+}
+
+.columns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 10px;
+}
+
+.columns>* {
+    transition: color 0.4s;
+    cursor: pointer;
+}
+
+.columns>*:hover {
+    color: gray;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#sticky {
+    display: none;
+}

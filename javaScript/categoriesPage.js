@@ -15,11 +15,13 @@ function renderCategoriesPage() {
             </header>
             <h2>What kind of recepie are you looking for?</h2>
             <input type="text" name="search" placeholder="search for recipe">
-            <p>${username}</p>
+            <p id="user">${username}</p>
         </div>
         <div class="categories"></div>
     `;
     const divCategories = document.querySelector(".categories");
+    document.querySelector("#user").addEventListener("click", RenderUserPage); // to get to user profile
+    // won't be "p" later
 
     fetch("https://www.themealdb.com/api/json/v1/1/list.php?c=list")
         .then(response => response.json())
