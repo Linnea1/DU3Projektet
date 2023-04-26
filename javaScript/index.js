@@ -6,3 +6,9 @@ let main = document.querySelector("main");
 let wrapper = document.querySelector("#wrapper");
 
 
+let username;
+if (!window.localStorage.getItem("user")) {
+    username = "Guest";
+} else {
+    username = localStorage.getItem("user");
+}

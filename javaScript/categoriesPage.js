@@ -6,12 +6,6 @@ function like_recipe(event) {
 }
 
 function renderCategoriesPage() {
-    let username;
-    if (!window.localStorage.getItem("user")) {
-        username = "Guest";
-    } else {
-        username = localStorage.getItem("user");
-    }
 
     main.innerHTML = `
         <div id="sticky"></div>
@@ -45,20 +39,22 @@ function renderCategoriesPage() {
         })
         .catch(error => console.error(error));
 
-    function renderRecepiesAfterCategory(event) {
-        let category = event.target.innerHTML;
-        main.innerHTML = `
-            <div class="header">
-            <button onclick="">Menu</button>
-            <div class=image></div>
-            <h2>${category}</h2>
-            <p>${username}</p>
-            <button onclick="renderCategoriesPage()">Go Back</button>
-            </div>
-            <div class="recipes"></div>
-        `;
-        const divRecipes = document.querySelector(".recipes");
-        fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+    
+}
+function renderRecepiesAfterCategory(event) {
+    category = event.target.innerHTML;
+    main.innerHTML = `
+        <div class="header">
+        <button onclick="">Menu</button>
+        <div class=image></div>
+        <h2>${category}</h2>
+        <p>${username}</p>
+        <button onclick="renderCategoriesPage()">Go Back</button>
+        </div>
+        <div class="recipes"></div>
+    `;
+    const divRecipes = document.querySelector(".recipes");
+    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
 
             .then(response => response.json())
             .then(data => {
@@ -81,13 +77,13 @@ function renderCategoriesPage() {
 
                     recipeDiv.querySelector("#first").addEventListener("click", like_recipe);
                     recipeDiv.querySelector("#second").addEventListener("click", like_recipe);
+                    recipeDiv.addEventListener("click",renderRecipe.bind(this, recipe))
                 }
 
             })
             .catch(error => console.error(error));
 
     }
-}
 
 function searhDish(event) {
 
