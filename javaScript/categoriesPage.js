@@ -1,3 +1,10 @@
+
+function like_recipe(event) {
+    event.stopPropagation();
+    const liker_dom = event.target.parentElement;
+    liker_dom.classList.toggle("liked");
+}
+
 function renderCategoriesPage() {
     let username;
     if (!window.localStorage.getItem("user")) {
@@ -17,6 +24,9 @@ function renderCategoriesPage() {
         <div class="categories"></div>
     `;
     const divCategories = document.querySelector(".categories");
+    let searchField = main.querySelector("input");
+    searchField.addEventListener("keyup", searhDish);
+
 
     fetch("https://www.themealdb.com/api/json/v1/1/list.php?c=list")
         .then(response => response.json())
@@ -58,27 +68,61 @@ function renderCategoriesPage() {
                     recipeDiv.innerHTML = `
                     <h2>${recipe.strMeal}</h2>
                     <div class="liker">
-                         <button></button>
-                         <button></button>
-                    </div>
+                        <button id="first"></button>
+                        <button id="second"></button>
                     <div>
                         <img src="${recipe.strMealThumb}"> 
                     </div>
                 `;
                     divRecipes.appendChild(recipeDiv);
 
-                    recipeDiv.querySelector("button:first-child").addEventListener("click", like_city);
-                    recipeDiv.querySelector("button:last-child").addEventListener("click", like_city);
+                    recipeDiv.querySelector("#first").addEventListener("click", like_recipe);
+                    recipeDiv.querySelector("#second").addEventListener("click", like_recipe);
                 }
 
-
-                function like_city(event) {
-                    event.stopPropagation();
-                    const liker_dom = event.target.parentElement;
-                    liker_dom.classList.toggle("liked");
-                }
             })
             .catch(error => console.error(error));
 
     }
 }
+
+function searhDish(event) {
+
+    if (event.key == "Enter") {
+        let searchField = event.target.value
+        console.log(searchField);
+
+        document.querySelector("main").innerHTML = `
+        <button onclick="renderCategoriesPage()">Go Back</button>
+        <div class="recipes"></div>
+        `;
+        const divRecipes = document.querySelector(".recipes");
+
+
+        fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchField}`)
+            .then(r => r.json())
+            .then(response => {
+
+
+                for (const recipeName in response.meals) {
+                    let recipe_name = response.meals[recipeName].strMeal;
+                    let recipe_img = response.meals[recipeName].strMealThumb;
+                    let recipe_div = document.createElement("div");
+                    recipe_div.classList.add("recipe");
+                    recipe_div.innerHTML = `
+                    <h2>${recipe_name}</h2>
+                    <div class="liker">
+                        <button id="first"></button>
+                        <button id="second"></button>
+                    <div>
+                    <img src="${recipe_img}"> 
+                    </div>`;
+                    divRecipes.appendChild(recipe_div);
+
+                    recipe_div.querySelector("#first").addEventListener("click", like_recipe);
+                    recipe_div.querySelector("#second").addEventListener("click", like_recipe);
+                }
+            })
+    }
+}
+
