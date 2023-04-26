@@ -1,10 +1,5 @@
+let category;
 function renderCategoriesPage() {
-    let username;
-    if (!window.localStorage.getItem("user")) {
-        username = "Guest";
-    } else {
-        username = localStorage.getItem("user");
-    }
 
     main.innerHTML = `
         <div class="header">
@@ -32,39 +27,41 @@ function renderCategoriesPage() {
         })
         .catch(error => console.error(error));
 
-    function renderRecepiesAfterCategory(event) {
-        let category = event.target.innerHTML;
-        main.innerHTML = `
-            <div class="header">
-            <button onclick="">Menu</button>
-            <div class=image></div>
-            <h2>${category}</h2>
-            <p>${username}</p>
-            <button onclick="renderCategoriesPage()">Go Back</button>
-            </div>
-            <div class="recipes"></div>
-        `;
-        const divRecipes = document.querySelector(".recipes");
-        fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+    
+}
+function renderRecepiesAfterCategory(event) {
+    category = event.target.innerHTML;
+    main.innerHTML = `
+        <div class="header">
+        <button onclick="">Menu</button>
+        <div class=image></div>
+        <h2>${category}</h2>
+        <p>${username}</p>
+        <button onclick="renderCategoriesPage()">Go Back</button>
+        </div>
+        <div class="recipes"></div>
+    `;
+    const divRecipes = document.querySelector(".recipes");
+    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
 
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                for (const recipeName in data.meals) {
-                    const recipe = data.meals[recipeName];
-                    const recipeDiv = document.createElement("div");
-                    recipeDiv.classList.add("recipe");
-                    console.log(recipe.strMeal);
-                    recipeDiv.innerHTML = `
-                    <h2>${recipe.strMeal}</h2>
-                    <div>
-                    <img src="${recipe.strMealThumb}"> 
-                    </div>
-                `;
-                    divRecipes.appendChild(recipeDiv);
-                }
-            })
-            .catch(error => console.error(error));
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            for (const recipeName in data.meals) {
+                const recipe = data.meals[recipeName];
+                const recipeDiv = document.createElement("div");
+                recipeDiv.classList.add("recipe");
+                recipeDiv.addEventListener("click",renderRecipe.bind(this, recipe))
+                console.log(recipe.strMeal);
+                recipeDiv.innerHTML = `
+                <h2>${recipe.strMeal}</h2>
+                <div>
+                <img src="${recipe.strMealThumb}"> 
+                </div>
+            `;
+                divRecipes.appendChild(recipeDiv);
+            }
+        })
+        .catch(error => console.error(error));
 
-    }
 }
