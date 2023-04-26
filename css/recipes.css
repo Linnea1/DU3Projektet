@@ -30,7 +30,7 @@ img {
     width: 30px;
 }
 
-.liker button:first-child {
+.liker #first {
     background-image: url(/icons/like_empty.png);
     background-size: contain;
     position: absolute;
@@ -38,7 +38,7 @@ img {
     right: -5px;
 }
 
-.liker button:last-child {
+.liker #second {
     background-image: url(/icons/like_full.png);
     background-size: contain;
     transition: opacity .5s;
@@ -46,7 +46,7 @@ img {
     display: none;
 }
 
-.liker.liked button:last-child {
+.liker.liked #second {
     position: absolute;
     z-index: 10;
     display: block;
