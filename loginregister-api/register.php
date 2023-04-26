@@ -26,7 +26,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){ // make sure its the right method
         send_JSON(["message"=>"Wrong data"], 401);
     }
 
-    if(!str_contains($post["email"], "@")){ // checking that the email is an email
+    if(!preg_match("/(@)(.)/", $post["email"])){ // checking that the email has @ and .
         send_JSON(["message"=>"Please enter a valid email"], 401);
     }
 
