@@ -3,5 +3,25 @@
         "email": "erica@hej",
         "username": "erica",
         "password": "hej"
+    },
+    {
+        "email": "erik@hej",
+        "username": "erik",
+        "password": "hej"
+    },
+    {
+        "email": "ballong@hej",
+        "username": "ballong",
+        "password": "ballong"
+    },
+    {
+        "email": "hej@hej",
+        "username": "redbull",
+        "password": "redbull"
+    },
+    {
+        "email": "lo@hej",
+        "username": "lolo",
+        "password": "lolo"
     }
 ]

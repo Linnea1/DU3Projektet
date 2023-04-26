@@ -1,0 +1,44 @@
+[
+    {
+        "username": "lolo",
+        "meal": [
+            "Breakfast Potatoes",
+            "English Breakfast",
+            "Smoked Haddock Kedgeree"
+        ]
+    },
+    {
+        "username": "ballong",
+        "meal": [
+            "Mbuzi Choma (Roasted Goat)",
+            "Ayam Percik",
+            "Chick-Fil-A Sandwich",
+            "Chicken Alfredo Primavera",
+            "Chicken Couscous",
+            "Jerk chicken with rice & peas",
+            "Kapsalon"
+        ]
+    },
+    {
+        "username": "erica",
+        "meal": "Beef and Mustard Pie"
+    },
+    {
+        "username": "redbull",
+        "meal": [
+            "Apam balik",
+            "Dundee cake",
+            "Jam Roly-Poly",
+            "Key Lime Pie",
+            "Key Lime Pie",
+            "Krispy Kreme Donut",
+            "Mince Pies",
+            "Nanaimo Bars",
+            "Beef and Mustard Pie",
+            "Cevapi Sausages",
+            "Mulukhiyah",
+            "Steak and Kidney Pie",
+            "Kapsalon"
+        ]
+    }
+]

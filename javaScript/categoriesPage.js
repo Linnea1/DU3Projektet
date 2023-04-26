@@ -1,10 +1,41 @@
+async function AddRecipesAsFavourite(recipe) {
+    let parent = recipe.parentElement
+    console.log(parent.innerText);
+    let nameOfDish = parent.innerText;
+    let user = JSON.parse(localStorage.getItem('user'));
+    console.log(user.username);
 
+    try {
+        let response = await fetch("../loginregister-api/add_favourite.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                username: user.username,
+                meal: nameOfDish
+            }),
+        })
+        let data = await response.json();
+        console.log(data);
+
+
+    } catch (error) {
+        console.log(error);
+    }
+
+}
 
 function like_recipe(event) {
     event.stopPropagation();
     const liker_dom = event.target.parentElement;
     liker_dom.classList.toggle("liked");
+
+    if (liker_dom.classList.contains("liked")) {
+        AddRecipesAsFavourite(liker_dom)
+    } else {
+        console.log("Ej favorit");
+    }
 }
+
 
 function renderCategoriesPage() {
     let username;
