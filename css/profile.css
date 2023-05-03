@@ -19,7 +19,7 @@
 }
 
 .columns>* {
-    transition: color 0.4s;
+    transition: color 0.3s;
     cursor: pointer;
 }
 
@@ -32,6 +32,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.red {
+    color: red;
+    cursor: pointer;
 }
 
 #sticky {
