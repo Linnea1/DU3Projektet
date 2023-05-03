@@ -106,29 +106,29 @@ function searhDish(event) {
 
         fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchField}`)
             .then(r => r.json())
-            .then(response => {
-
-
-                for (const recipeName in response.meals) {
-                    let recipe_name = response.meals[recipeName].strMeal;
-                    let recipe_img = response.meals[recipeName].strMealThumb;
-                    let recipe_div = document.createElement("div");
-                    recipe_div.classList.add("recipe");
-                    recipe_div.innerHTML = `
-                    <h2 class="name">${recipe_name}</h2>
-                    <div class="liker">
-                        <button id="first"></button>
-                        <button id="second"></button>
-                    <div>
-                    <img src="${recipe_img}"> 
-                    </div>`;
-                    divRecipes.appendChild(recipe_div);
-
-                    recipe_div.querySelector("#first").addEventListener("click", like_recipe);
-                    recipe_div.querySelector("#second").addEventListener("click", like_recipe);
-                    console.log(response.meals)
-                    recipe_div.addEventListener("click", callForRecipe.bind(this, response.meals))
+            .then(data => {
+                console.log(data);
+                for (const recipeName in data.meals) {
+                    const recipe = data.meals[recipeName];
+                    const recipeDiv = document.createElement("div");
+                    recipeDiv.classList.add("recipe");
+                    console.log(recipe.strMeal);
+                    recipeDiv.innerHTML = `
+                        <h2>${recipe.strMeal}</h2>
+                        <div class="liker">
+                            <button id="first"></button>
+                            <button id="second"></button>
+                        <div>
+                            <img src="${recipe.strMealThumb}"> 
+                        </div>
+                    `;
+                    divRecipes.appendChild(recipeDiv);
+    
+                    recipeDiv.querySelector("#first").addEventListener("click", like_recipe);
+                    recipeDiv.querySelector("#second").addEventListener("click", like_recipe);
+                    recipeDiv.addEventListener("click", renderRecipe.bind(this, recipe))
                 }
+    
             })
     }
 }
