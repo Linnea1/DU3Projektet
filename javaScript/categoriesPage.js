@@ -113,7 +113,7 @@ function searhDish(event) {
                     let recipe_div = document.createElement("div");
                     recipe_div.classList.add("recipe");
                     recipe_div.innerHTML = `
-                    <h2>${recipe_name}</h2>
+                    <h2 class="name">${recipe_name}</h2>
                     <div class="liker">
                         <button id="first"></button>
                         <button id="second"></button>
@@ -124,8 +124,14 @@ function searhDish(event) {
 
                     recipe_div.querySelector("#first").addEventListener("click", like_recipe);
                     recipe_div.querySelector("#second").addEventListener("click", like_recipe);
+                    console.log(response.meals)
+                    recipe_div.addEventListener("click",callForRecipe.bind(this, response.meals))
                 }
             })
     }
+}
+function callForRecipe(recipe, event){
+    console.log(event);
+    renderRecipe(recipe);
 }
 

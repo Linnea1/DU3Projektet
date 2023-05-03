@@ -1,6 +1,5 @@
-function renderRecipe(recipe, event) {
+function renderRecipe(recipe) {
     console.log(recipe);
-    console.log(event);
     
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe.idMeal}`)
 
