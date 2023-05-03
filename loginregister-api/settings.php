@@ -17,17 +17,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     //     }
 
     // } 
+
     if (isset($post["username"], // change username
             $post["new"], 
             $post["password"])){
         foreach ($users as $index => $user) {
             if($user["username"] == $post["username"] && $user["password"] == $post["password"]){
-
                 //////////////
                 tooShort($post["new"], "username");
 
                 $splitUsername = str_split($post["new"]);
                 incorrectChar($splitUsername, "username");
+
+                $array = $users;
+                $copiedArray = $array;
+                $otherUsernames = array_splice($copiedArray, $index, 1);
+                foreach($otherUsernames as $owned){
+                    if($owned["username"] == $post["new"]){
+                        send_JSON(["message"=>"Username is already taken, please try again"], 400); 
+                    }
+                }
                 //////////////
 
                 $users[$index]["username"] = $post["new"];
@@ -36,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 send_JSON($post["new"]);
             }
         }
-    } 
+    }
     // elseif (isset($post["password"])){
     
     // } else {

@@ -78,11 +78,14 @@ function renderSettings() {
             });
 
             let data = await response.json();
-            console.log(data);
 
-            let storage = JSON.parse(localStorage.getItem("user"));
-            storage.username = data;
-            localStorage.setItem("user", JSON.stringify(storage));
+            if (response.status == 200) {
+                let storage = JSON.parse(localStorage.getItem("user"));
+                storage.username = data;
+                localStorage.setItem("user", JSON.stringify(storage));
+            }
+
+            console.log(data);
 
         }
     }
