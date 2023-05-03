@@ -6,7 +6,7 @@ async function AddRecipesAsFavourite(recipe) {
     console.log(user.username);
 
     try {
-        let response = await fetch("../loginregister-api/add_favourite.php", {
+        let response = await fetch("../loginregister-api/add_and_remove_favourite.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -24,6 +24,32 @@ async function AddRecipesAsFavourite(recipe) {
 
 }
 
+async function RemoveFavourite(recipe) {
+    console.log("hej");
+    let parent = recipe.parentElement
+    console.log(parent.innerText);
+    let nameOfDish = parent.innerText;
+    let user = JSON.parse(localStorage.getItem('user'));
+    console.log(user.username);
+
+    try {
+        let response = await fetch("../loginregister-api/add_and_remove_favourite.php", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                username: user.username,
+                meal: nameOfDish
+            }),
+        })
+        let data = await response.json();
+        console.log(data);
+
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 function like_recipe(event) {
     event.stopPropagation();
     const liker_dom = event.target.parentElement;
@@ -32,6 +58,7 @@ function like_recipe(event) {
     if (liker_dom.classList.contains("liked")) {
         AddRecipesAsFavourite(liker_dom)
     } else {
+        RemoveFavourite(liker_dom)
         console.log("Ej favorit");
     }
 }

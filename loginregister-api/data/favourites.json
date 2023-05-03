@@ -16,7 +16,21 @@
             "Chicken Alfredo Primavera",
             "Chicken Couscous",
             "Jerk chicken with rice & peas",
-            "Kapsalon"
+            "Kapsalon",
+            "Lamb Rogan josh",
+            "Escovitch Fish",
+            "Apple & Blackberry Crumble",
+            "Apple & Blackberry Crumble",
+            "Apple Frangipan Tart",
+            "BeaverTails",
+            "Ayam Percik",
+            "Chick-Fil-A Sandwich",
+            "Beef and Mustard Pie",
+            "Baked salmon with fennel & tomatoes",
+            "Escovitch Fish",
+            "Cajun spiced fish tacos",
+            "Bubble & Squeak",
+            "Beef Banh Mi Bowls with Sriracha Mayo, Carrot & Pickled Cucumber"
         ]
     },
     {
@@ -38,7 +52,20 @@
             "Cevapi Sausages",
             "Mulukhiyah",
             "Steak and Kidney Pie",
-            "Kapsalon"
+            "Kapsalon",
+            "Apam balik",
+            "Bakewell tart"
+        ]
+    },
+    {
+        "username": "erik",
+        "meal": [
+            "Beef and Mustard Pie",
+            "Beef Lo Mein",
+            "Beef Rendang",
+            "Beef Dumpling Stew",
+            "Beef and Mustard Pie",
+            "Mbuzi Choma (Roasted Goat)"
         ]
     }
 ]
