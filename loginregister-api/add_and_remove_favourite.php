@@ -10,14 +10,39 @@ $json = file_get_contents($filename);
 $data = json_decode($json, true);
 $method = $_SERVER["REQUEST_METHOD"];
 
-$requestJSON = file_get_contents("php://input");
-$requestDATA = json_decode($requestJSON,true);
+if ($method == "GET") {
+    
+    $recipe = $_GET["meal"];
+    $username = $_GET["user"];
 
-$username = $requestDATA["username"];
-$meal = $requestDATA["meal"];
+
+
+    foreach($data as $user){
+
+        if ($user['username'] == $_GET["user"]) {
+            
+            if (in_array($recipe, $user['meal'])) {
+                send_JSON(true);
+            }else{
+                send_JSON(false);
+            }
+        }
+    }
+
+}
+
+
+
 
 if ($method == "POST") {
-   
+
+    $requestJSON = file_get_contents("php://input");
+    $requestDATA = json_decode($requestJSON,true);
+    
+    $username = $requestDATA["username"];
+    $meal = $requestDATA["meal"];
+    
+
     $userExists = false;
     
     foreach ($data as $user) {
@@ -54,6 +79,11 @@ if ($method == "POST") {
 
 if ($method == "DELETE") {
     
+    $requestJSON = file_get_contents("php://input");
+    $requestDATA = json_decode($requestJSON,true);
+
+    $username = $requestDATA["username"];
+    $meal = $requestDATA["meal"];
     $userExists = false;
     
     foreach ($data as $user) {
@@ -79,7 +109,8 @@ if ($method == "DELETE") {
 }
     
     
-    
+
+
 // for ($i=0; $i < count($data); $i++) { 
 //     if ($data[$i]["username"] == $username) {
        

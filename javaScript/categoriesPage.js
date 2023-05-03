@@ -63,6 +63,30 @@ function like_recipe(event) {
     }
 }
 
+async function checkClass(recipe) {
+
+    let user = JSON.parse(localStorage.getItem('user'));
+    console.log(user.username);
+
+
+    try {
+        let response = await fetch(`../loginregister-api/add_and_remove_favourite.php?meal=${recipe}&user=${user.username}`);
+        let data = await response.json();
+
+        if (data === true) {
+            let klass = "liked";
+            return klass;
+        } else {
+            let klass = false;
+            return klass;
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
 
 function renderCategoriesPage() {
     let username;
@@ -79,7 +103,7 @@ function renderCategoriesPage() {
                 <button onclick="">Menu</button>
                 <div class=image></div>
             </header>
-            <h2>What kind of recepie are you looking for?</h2>
+            <h2>What kind of recipe are you looking for?</h2>
             <input type="text" name="search" placeholder="search for recipe">
             <p>${username}</p>
         </div>
@@ -127,8 +151,8 @@ function renderCategoriesPage() {
                     recipeDiv.classList.add("recipe");
                     recipeDiv.innerHTML = `
                     <h2>${recipe.strMeal}</h2>
-                    <div class="liker">
-                        <button id="first"></button>
+                    <div id="liker" class="${checkClass(recipe.strMeal)}">
+                        <button  id="first"></button>
                         <button id="second"></button>
                     <div>
                         <img src="${recipe.strMealThumb}"> 
@@ -172,7 +196,7 @@ function searhDish(event) {
                     recipe_div.innerHTML = `
                     <h2>${recipe_name}</h2>
                     <div class="liker">
-                        <button id="first"></button>
+                        <button class="${checkClass(recipe_name)}" id="first"></button>
                         <button id="second"></button>
                     <div>
                     <img src="${recipe_img}"> 
@@ -185,6 +209,7 @@ function searhDish(event) {
             })
     }
 }
+
 
 
 

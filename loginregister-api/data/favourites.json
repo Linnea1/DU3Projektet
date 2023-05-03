@@ -10,32 +10,37 @@
     {
         "username": "ballong",
         "meal": [
-            "Mbuzi Choma (Roasted Goat)",
-            "Ayam Percik",
-            "Chick-Fil-A Sandwich",
-            "Chicken Alfredo Primavera",
-            "Chicken Couscous",
-            "Jerk chicken with rice & peas",
+            "Full English Breakfast",
+            "Home-made Mandazi",
+            "Salmon Eggs Eggs Benedict",
+            "Smoked Haddock Kedgeree",
+            "Breakfast Potatoes",
             "Kapsalon",
-            "Lamb Rogan josh",
-            "Escovitch Fish",
             "Apple & Blackberry Crumble",
+            "Apam balik",
+            "Apam balik",
+            "Kapsalon",
+            "Apam balik",
+            "Mbuzi Choma (Roasted Goat)",
+            "Mbuzi Choma (Roasted Goat)",
+            "Apam balik",
             "Apple & Blackberry Crumble",
-            "Apple Frangipan Tart",
-            "BeaverTails",
-            "Ayam Percik",
+            "Bakewell tart",
             "Chick-Fil-A Sandwich",
+            "Ayam Percik",
+            "Ayam Percik",
             "Beef and Mustard Pie",
-            "Baked salmon with fennel & tomatoes",
-            "Escovitch Fish",
-            "Cajun spiced fish tacos",
-            "Bubble & Squeak",
-            "Beef Banh Mi Bowls with Sriracha Mayo, Carrot & Pickled Cucumber"
+            "Beef and Mustard Pie",
+            "Apam balik",
+            "Apam balik"
         ]
     },
     {
         "username": "erica",
-        "meal": "Beef and Mustard Pie"
+        "meal": [
+            "Beef and Mustard Pie",
+            "Apam balik"
+        ]
     },
     {
         "username": "redbull",
@@ -65,7 +70,8 @@
             "Beef Rendang",
             "Beef Dumpling Stew",
             "Beef and Mustard Pie",
-            "Mbuzi Choma (Roasted Goat)"
+            "Mbuzi Choma (Roasted Goat)",
+            "Apam balik"
         ]
     }
 ]

@@ -25,12 +25,12 @@ img {
 
 }
 
-.liker>button {
+#liker>button {
     height: 30px;
     width: 30px;
 }
 
-.liker #first {
+#liker #first {
     background-image: url(/icons/like_empty.png);
     background-size: contain;
     position: absolute;
@@ -38,7 +38,7 @@ img {
     right: -5px;
 }
 
-.liker #second {
+#liker #second {
     background-image: url(/icons/like_full.png);
     background-size: contain;
     transition: opacity .5s;
@@ -46,7 +46,7 @@ img {
     display: none;
 }
 
-.liker.liked #second {
+#liker.liked #second {
     position: absolute;
     z-index: 10;
     display: block;
