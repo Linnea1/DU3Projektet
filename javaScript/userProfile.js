@@ -43,12 +43,51 @@ function renderSettings() {
     </div>
 `;
 
-    main.querySelector(".red").addEventListener("click", deleteAccount);
+    // let storage = JSON.parse(localStorage.getItem("user"));
+    // storage.username = "hejsan";
+    // localStorage.setItem("user", JSON.stringify(storage));
 
-    console.log(user);
+    let newUsername = main.querySelector('input[name="username"]');
 
-    async function deleteAccount(e) {
+    main.querySelector(".red").addEventListener("click", popUp); // "delete account"
+    newUsername.addEventListener("keydown", changeUsername); // "change username"
 
+    function popUp(prompt) { // pop up
+        document.querySelector("#popUp").classList.remove("hidden");
+        document.querySelector("#prompt").textContent = "Are you sure?"
+
+        document.querySelector("#yes").addEventListener("click", e => {
+            document.querySelector("#popUp").classList.add("hidden");
+            deleteAccount();
+        });
+        document.querySelector("#no").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden"); });
+    }
+
+
+    async function changeUsername(e) { // change username
+        if (e.key === "Enter") {
+
+            let response = await fetch("../loginregister-api/settings.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    username: user.username,
+                    new: newUsername.value,
+                    password: user.password
+                }),
+            });
+
+            let data = await response.json();
+            console.log(data);
+
+            let storage = JSON.parse(localStorage.getItem("user"));
+            storage.username = data;
+            localStorage.setItem("user", JSON.stringify(storage));
+
+        }
+    }
+
+    async function deleteAccount() { // delete
         let response = await fetch("../loginregister-api/settings.php", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
@@ -60,5 +99,6 @@ function renderSettings() {
 
         let data = await response.json();
         console.log(data);
+        renderStartPage();
     }
 }

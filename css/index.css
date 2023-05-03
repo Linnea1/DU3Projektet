@@ -74,3 +74,37 @@ img {
     width: 270px;
     border-radius: 10px;
 }
+
+#popUp {
+    position: absolute;
+    min-height: 640px;
+    width: 340px;
+    margin: -20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#popUpBackground {
+    position: absolute;
+    background-color: white;
+
+    opacity: 50%;
+    height: 100%;
+    width: 100%;
+}
+
+#popUpWindow {
+    position: absolute;
+    background-color: white;
+
+    height: 200px;
+    width: 300px;
+
+    /* display: grid; */
+}
+
+.hidden {
+    display: none !important;
+}

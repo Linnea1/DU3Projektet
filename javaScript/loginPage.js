@@ -36,6 +36,7 @@ function renderLoginPage() {
             });
 
             let data = await response.json();
+            data.password = password.value;
 
             if (!response.ok) {
                 errorMessage.innerHTML = `<span>${data.message}</span>.`; // error message
