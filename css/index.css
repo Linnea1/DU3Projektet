@@ -99,7 +99,7 @@ img {
     position: absolute;
     background-color: white;
 
-    height: 200px;
+    /* height: 200px; */
     width: 300px;
 
     /* display: grid; */

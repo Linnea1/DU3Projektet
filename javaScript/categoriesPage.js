@@ -86,7 +86,7 @@ async function renderCategoriesPage() {
       <div id="sticky"></div>
       <div class="info">
         <header>
-          <button onclick="">Menu</button>
+          <button id="menu" onclick="">Menu</button>
           <div class=image></div>
         </header>
         <h2>What kind of recepie are you looking for?</h2>
@@ -99,6 +99,7 @@ async function renderCategoriesPage() {
     const divCategories = document.querySelector(".categories");
     let searchField = main.querySelector("input");
     searchField.addEventListener("keyup", searhDish);
+    document.querySelector("#menu").addEventListener("click", ShowMenu);
 
 
     // document.querySelector("#user").addEventListener("click", RenderUserPage);
@@ -127,7 +128,7 @@ async function renderRecepiesAfterCategory(event) {
     let category = event.target.innerHTML;
     main.innerHTML = `
             <div class="header">
-            <button onclick="">Menu</button>
+            <button id="menu" onclick="">Menu</button>
             <div class=image></div>
             <h2>${category}</h2>
             <p>${user.username}</p>
@@ -135,6 +136,7 @@ async function renderRecepiesAfterCategory(event) {
             </div>
             <div class="recipes"></div>
         `;
+    document.querySelector("#menu").addEventListener("click", ShowMenu);
     const divRecipes = document.querySelector(".recipes");
     try {
         let resourse = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
@@ -181,7 +183,7 @@ async function renderRecepiesAfterCategory() {
     let category = event.target.innerHTML;
     main.innerHTML = `
         <div class="header">
-        <button onclick="">Menu</button>
+        <button id="menu" onclick="">Menu</button>
         <div class=image></div>
         <h2>${category}</h2>
         <p>${username}</p>
@@ -190,6 +192,7 @@ async function renderRecepiesAfterCategory() {
         <div class="recipes"></div>
     `;
     const divRecipes = document.querySelector(".recipes");
+    document.querySelector("#menu").addEventListener("click", ShowMenu);
     try {
         let resourse = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
         let data = await resourse.json();
