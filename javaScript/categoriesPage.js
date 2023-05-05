@@ -64,6 +64,7 @@ function like_recipe(event) {
     }
 }
 
+
 async function checkClass(recipe) {
 
     let user = JSON.parse(localStorage.getItem('user'));
@@ -93,10 +94,12 @@ async function renderCategoriesPage() {
         <p id="user">${user.username}</p>
       </div>
       <div class="categories"></div>
-    `;
+      `
+
     const divCategories = document.querySelector(".categories");
     let searchField = main.querySelector("input");
     searchField.addEventListener("keyup", searhDish);
+
 
     // document.querySelector("#user").addEventListener("click", RenderUserPage);
 
@@ -128,10 +131,64 @@ async function renderRecepiesAfterCategory(event) {
             <div class=image></div>
             <h2>${category}</h2>
             <p>${user.username}</p>
-            <button onclick="renderCategoriesPage()">Go Back</button>
+            <button onclick="await renderCategoriesPage()">Go Back</button>
             </div>
             <div class="recipes"></div>
         `;
+    const divRecipes = document.querySelector(".recipes");
+    try {
+        let resourse = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+        let data = await resourse.json();
+
+        for (const recipeName in data.meals) {
+            const recipe = data.meals[recipeName];
+            const recipeDiv = document.createElement("div");
+            recipeDiv.classList.add("recipe");
+            recipeDiv.innerHTML = `
+            <h2>${recipe.strMeal}</h2>
+            <div id="liker" class="${await checkClass(recipe.strMeal) ? 'liked' : 'false'}">
+                <button id="first"></button>
+                <button id="second"></button>
+            <div>
+                <img src="${recipe.strMealThumb}"> 
+            </div>
+        `;
+            divRecipes.appendChild(recipeDiv);
+
+            recipeDiv.querySelector("#first").addEventListener("click", like_recipe);
+            recipeDiv.querySelector("#second").addEventListener("click", like_recipe);
+            recipeDiv.addEventListener("click", renderRecipe.bind(this, recipe))
+
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+    document.querySelector("#user").addEventListener("click", RenderUserPage); // to get to user profile
+    // won't be "p" later
+
+
+
+}
+
+function setCategory(event) {
+    category = event.target.innerHTML;
+    renderRecepiesAfterCategory();
+}
+
+async function renderRecepiesAfterCategory() {
+
+    let category = event.target.innerHTML;
+    main.innerHTML = `
+        <div class="header">
+        <button onclick="">Menu</button>
+        <div class=image></div>
+        <h2>${category}</h2>
+        <p>${username}</p>
+        <button onclick="renderCategoriesPage()">Go Back</button>
+        </div>
+        <div class="recipes"></div>
+    `;
     const divRecipes = document.querySelector(".recipes");
     try {
         let resourse = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
@@ -159,6 +216,7 @@ async function renderRecepiesAfterCategory(event) {
     } catch (error) {
         console.log(error);
     }
+
 }
 
 async function searhDish(event) {
@@ -175,7 +233,6 @@ async function searhDish(event) {
 
         let resourse = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchField}`);
         let response = await resourse.json();
-
 
         for (const recipeName in response.meals) {
             let recipe_name = response.meals[recipeName].strMeal;
@@ -194,9 +251,15 @@ async function searhDish(event) {
 
             recipe_div.querySelector("#first").addEventListener("click", like_recipe);
             recipe_div.querySelector("#second").addEventListener("click", like_recipe);
+            recipeDiv.addEventListener("click", renderRecipe.bind(this, recipe))
+
         }
 
     }
+}
+function callForRecipe(recipe, event) {
+    console.log(event);
+    renderRecipe(recipe);
 }
 
 
