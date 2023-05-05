@@ -102,7 +102,7 @@ async function renderCategoriesPage() {
     document.querySelector("#menu").addEventListener("click", ShowMenu);
 
 
-    // document.querySelector("#user").addEventListener("click", RenderUserPage);
+    document.querySelector("#user").addEventListener("click", RenderUserPage);
 
     try {
         const response = await fetch("https://www.themealdb.com/api/json/v1/1/list.php?c=list%22");
@@ -167,9 +167,6 @@ async function renderRecepiesAfterCategory(event) {
         console.log(error);
     }
     document.querySelector("#user").addEventListener("click", RenderUserPage); // to get to user profile
-    // won't be "p" later
-
-
 
 }
 
