@@ -13,6 +13,7 @@ if (!window.localStorage.getItem("user")) {
     username = localStorage.getItem("user");
 }
 
+
 async function fetching(URL, method, body) {
     let response = await fetch(URL, {
         method: method,
