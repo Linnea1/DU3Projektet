@@ -241,7 +241,7 @@ async function searhDish(event) {
             recipe_div.classList.add("recipe");
             recipe_div.innerHTML = `
             <h2>${recipe_name}</h2>
-            <div id="liker" class="${checkClass(recipe.strMeal)}">
+            <div id="liker" class="${checkClass(recipe_name)}">
                 <button id="first"></button>
                 <button id="second"></button>
             <div>
@@ -251,7 +251,7 @@ async function searhDish(event) {
 
             recipe_div.querySelector("#first").addEventListener("click", like_recipe);
             recipe_div.querySelector("#second").addEventListener("click", like_recipe);
-            recipeDiv.addEventListener("click", renderRecipe.bind(this, recipe))
+            recipe_div.addEventListener("click", renderRecipe.bind(this, recipe_name))
 
         }
 
