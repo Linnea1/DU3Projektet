@@ -7,15 +7,22 @@ $post = json_decode(file_get_contents("php://input"), true);
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-    if ((isset($post["username"], 
+    if (isset($post["old"], 
+                $post["new"],
+                $post["password"], 
+                $post["username"])){
+        change($post, $users, $filename, "password", "username"); // change password
+    }
+
+    if (isset($post["username"], 
                 $post["new"], 
-                $post["password"]))){
+                $post["password"])){
         change($post, $users, $filename, "username"); // change username
     }
 
-    if ((isset($post["email"], 
+    if (isset($post["email"], 
                 $post["new"], 
-                $post["password"]))){
+                $post["password"])){
         change($post, $users, $filename, "email"); // change email
     }
 }

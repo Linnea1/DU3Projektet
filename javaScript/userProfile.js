@@ -32,9 +32,9 @@ function renderSettings() {
         <label for="username">Change username</label>
         <input type="text" placeholder="New username" name="username">
         
-        <label for="username">Change password</label>
-        <input type="text" placeholder="Old password" name="passwordold">
-        <input type="text" placeholder="New password" name="passwordnew">
+        <label for="password">Change password</label>
+        <input type="password" placeholder="Old password" name="passwordold">
+        <input type="password" placeholder="New password" name="passwordnew">
         
         <p class="red">Delete account</p>
     </div>
@@ -45,100 +45,84 @@ function renderSettings() {
     let newPassword = main.querySelector('input[name="passwordnew"]');
     let oldPassword = main.querySelector('input[name="passwordold"]');
 
-    main.querySelector(".red").addEventListener("click", popUp); // "delete account"
+    main.querySelector(".red").addEventListener("click", e => { popUp("Are you sure", true) }); // "delete account"
     newUsername.addEventListener("keydown", changeUsername); // "change username"
     newEmail.addEventListener("keydown", changeEmail); // "change username"
     newPassword.addEventListener("keydown", changePassword); // "change username"
     oldPassword.addEventListener("keydown", changePassword);
 
-    function popUp(prompt) { // pop up
+    function popUp(prompt, button) { // pop up
         document.querySelector("#popUp").classList.remove("hidden");
-        document.querySelector("#prompt").textContent = "Are you sure?"
+        document.querySelector("#prompt").textContent = prompt;
 
-        let yes = document.createElement("button");
-        let no = document.createElement("button");
-        yes.textContent = "Yes";
-        no.textContent = "No";
-        yes.classList = "yes";
-        no.classList = "no";
-        document.querySelector("#popUpWindow").append(yes);
-        document.querySelector("#popUpWindow").append(no);
+        if (button) {
+            let yes = document.createElement("button");
+            let no = document.createElement("button");
+            yes.textContent = "Yes";
+            no.textContent = "No";
+            yes.classList = "yes";
+            no.classList = "no";
+            document.querySelector("#popUpWindow").append(yes);
+            document.querySelector("#popUpWindow").append(no);
 
+            document.querySelector(".yes").addEventListener("click", e => {
+                document.querySelector("#popUp").classList.add("hidden");
+                deleteAccount();
+            });
+            document.querySelector(".no").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });
+        }
+        document.querySelector("#popUpBackground").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });
+    }
 
-        document.querySelector(".yes").addEventListener("click", e => {
-            document.querySelector("#popUp").classList.add("hidden");
-            deleteAccount();
-        });
-        document.querySelector(".no").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });
+    async function change(body, URL, method, select) {
+        let response = await fetching(URL, method, body);
+        let data = await response.json();
+
+        if (response.status == 200) {
+            let storage = JSON.parse(localStorage.getItem("user"));
+            storage[select] = data;
+            localStorage.setItem("user", JSON.stringify(storage));
+
+            popUp("Successfully changed!")
+        } else {
+            popUp(data.message);
+        }
     }
 
     async function changeUsername(e) { // change username
         if (e.key === "Enter") {
-
             let body = {
                 username: JSON.parse(localStorage.getItem("user")).username,
                 new: newUsername.value,
                 password: JSON.parse(localStorage.getItem("user")).password
             };
 
-            let response = await fetching("../loginregister-api/settings.php", "POST", body);
-            let data = await response.json();
-
-            if (response.status == 200) {
-                let storage = JSON.parse(localStorage.getItem("user"));
-                storage.username = data;
-                localStorage.setItem("user", JSON.stringify(storage));
-            } else {
-                console.log(data);
-            }
+            await change(body, "../loginregister-api/settings.php", "POST", "username");
         }
     }
 
     async function changeEmail(e) { // change email
         if (e.key === "Enter") {
-
             let body = {
                 email: JSON.parse(localStorage.getItem("user")).email,
                 new: newEmail.value,
                 password: JSON.parse(localStorage.getItem("user")).password
             };
 
-            let response = await fetching("../loginregister-api/settings.php", "POST", body);
-            let data = await response.json();
-
-            if (response.status == 200) {
-                let storage = JSON.parse(localStorage.getItem("user"));
-                storage.email = data;
-                localStorage.setItem("user", JSON.stringify(storage));
-            } else {
-                console.log(data);
-            }
+            await change(body, "../loginregister-api/settings.php", "POST", "email");
         }
     }
 
     async function changePassword(e) { // change password
         if (e.key === "Enter") {
-
-            if (oldPassword.value == "" || newPassword.value == "") {
-                console.log("Don't leave any field empty");
-            }
-
             let body = {
                 old: oldPassword.value,
                 new: newPassword.value,
+                password: JSON.parse(localStorage.getItem("user")).password,
                 username: JSON.parse(localStorage.getItem("user")).username
             };
 
-            let response = await fetching("../loginregister-api/settings.php", "POST", body);
-            let data = await response.json();
-
-            if (response.status == 200) {
-                let storage = JSON.parse(localStorage.getItem("user"));
-                storage.password = data;
-                localStorage.setItem("user", JSON.stringify(storage));
-            } else {
-                console.log(data);
-            }
+            await change(body, "../loginregister-api/settings.php", "POST", "password");
         }
     }
 

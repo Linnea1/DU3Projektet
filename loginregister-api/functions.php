@@ -25,22 +25,32 @@ function incorrectChar ($array, $value){ // characters outside the english alpha
     }
 }
 
-function change ($post, $users, $filename, $field){ // universal for most "change" settings
-    // field decides what will be changed
+ // universal for most "change" settings
+function change ($post, $users, $filename, $field, $secondaryField = "password"){
+        // field decides what will be changed
         if($post[$field] == $post["new"]){ // cant be the same
             send_JSON(["message"=>"New $field cannot be the same as old $field"], 400); 
         }
 
         foreach ($users as $index => $user) {
-            if($user[$field] == $post[$field] && $user["password"] == $post["password"]){
+            if($user[$field] == $post[$field] && $user[$secondaryField] == $post[$secondaryField]){
                 ////////////// time for checks...
                 // first, check its not already taken
-                $array = $users; 
-                $copiedArray = $array; // array needs to be copied so original array isn't damaged
-                array_splice($copiedArray, $index, 1);
-                foreach($copiedArray as $owned){
-                    if($owned[$field] == $post["new"]){
-                        send_JSON(["message"=>"This $field is already taken, please try again"], 400); 
+
+                if ($field !== "password"){ // password does not have to be "taken"
+                    $array = $users; 
+                    $copiedArray = $array; // array needs to be copied so original array isn't damaged
+                    array_splice($copiedArray, $index, 1);
+                    foreach($copiedArray as $owned){
+                        if($owned[$field] == $post["new"]){
+                            send_JSON(["message"=>"This $field is already taken, please try again"], 400); 
+                        }
+                    }
+                }
+
+                if ($field == "password"){ // old password needs to be correct
+                    if ($post[$field] != $post["old"]) {
+                        send_JSON(["message"=>"Incorrect password, please try again"], 400); 
                     }
                 }
 
@@ -62,8 +72,7 @@ function change ($post, $users, $filename, $field){ // universal for most "chang
                 send_JSON($post["new"]);
             }
         }
+        send_JSON($post, 400);
         send_JSON(["message"=>"Problems with finding user"], 400); // if user cant be found / matched
-
-    // send_JSON(["message"=>"Something went wrong"], 400); // unknown error
 }
 ?>
