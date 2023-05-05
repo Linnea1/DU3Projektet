@@ -25,17 +25,16 @@ function renderLoginPage() {
         event.preventDefault();
         let errorMessage = main.querySelector("#message");
 
-        try { // trying to log in...
-            let response = await fetch("../loginregister-api/login.php", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    username: username.value,
-                    password: password.value,
-                }),
-            });
+        let body = {
+            username: username.value,
+            password: password.value,
+        };
 
+        // trying to log in...
+        try {
+            let response = await fetching("../loginregister-api/login.php", "POST", body);
             let data = await response.json();
+
             data.password = password.value;
 
             if (!response.ok) {

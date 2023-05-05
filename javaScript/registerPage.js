@@ -29,17 +29,26 @@ function renderRegisterPage() {
 
         //Try to register
         try {
-            let response = await fetch("../loginregister-api/register.php", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    //The value is from the two inputs
-                    email: emailInput,
-                    username: usernameInput,
-                    password: passwordInput,
+            let body = {
+                //The value is from the two inputs
+                email: emailInput,
+                username: usernameInput,
+                password: passwordInput,
 
-                }),
-            });
+            };
+
+            let response = await fetching("../loginregister-api/register.php", "POST", body);
+            // let response = await fetch("../loginregister-api/register.php", {
+            //     method: "POST",
+            //     headers: { "Content-Type": "application/json" },
+            //     body: JSON.stringify({
+            //         //The value is from the two inputs
+            //         email: emailInput,
+            //         username: usernameInput,
+            //         password: passwordInput,
+
+            //     }),
+            // });
             let data = await response.json();
 
             //if the response is ok and the user is added
