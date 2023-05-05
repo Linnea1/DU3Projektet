@@ -55,11 +55,21 @@ function renderSettings() {
         document.querySelector("#popUp").classList.remove("hidden");
         document.querySelector("#prompt").textContent = "Are you sure?"
 
-        document.querySelector("#yes").addEventListener("click", e => {
+        let yes = document.createElement("button");
+        let no = document.createElement("button");
+        yes.textContent = "Yes";
+        no.textContent = "No";
+        yes.classList = "yes";
+        no.classList = "no";
+        document.querySelector("#popUpWindow").append(yes);
+        document.querySelector("#popUpWindow").append(no);
+
+
+        document.querySelector(".yes").addEventListener("click", e => {
             document.querySelector("#popUp").classList.add("hidden");
             deleteAccount();
         });
-        document.querySelector("#no").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });
+        document.querySelector(".no").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });
     }
 
     async function changeUsername(e) { // change username
