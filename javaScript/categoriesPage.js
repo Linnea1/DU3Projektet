@@ -178,7 +178,9 @@ function setCategory(event) {
     renderRecepiesAfterCategory();
 }
 
-async function renderRecepiesAfterCategory() {
+async function renderRecepiesAfterCategory(event) {
+    let user = JSON.parse(localStorage.getItem('user'));
+
 
     let category = event.target.innerHTML;
     main.innerHTML = `
@@ -186,7 +188,7 @@ async function renderRecepiesAfterCategory() {
         <button id="menu" onclick="">Menu</button>
         <div class=image></div>
         <h2>${category}</h2>
-        <p>${username}</p>
+        <p>${user.username}</p>
         <button onclick="renderCategoriesPage()">Go Back</button>
         </div>
         <div class="recipes"></div>
