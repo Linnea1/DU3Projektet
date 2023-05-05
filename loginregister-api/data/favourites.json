@@ -11,18 +11,7 @@
         "username": "ballong",
         "meal": [
             "Smoked Haddock Kedgeree",
-            "Full English Breakfast",
-            "Beef and Mustard Pie",
-            "Beef Banh Mi Bowls with Sriracha Mayo, Carrot & Pickled Cucumber",
-            "Beef Bourguignon",
-            "Beef and Oyster pie",
-            "Beef and Mustard Pie",
-            "Beef Brisket Pot Roast",
-            "Beef Bourguignon",
-            "Beef Dumpling Stew",
-            "Beef Lo Mein",
-            "Chick-Fil-A Sandwich",
-            "Ayam Percik"
+            "Full English Breakfast"
         ]
     },
     {
@@ -38,18 +27,7 @@
             "Apam balik",
             "Dundee cake",
             "Jam Roly-Poly",
-            "Key Lime Pie",
-            "Key Lime Pie",
-            "Krispy Kreme Donut",
-            "Mince Pies",
-            "Nanaimo Bars",
-            "Beef and Mustard Pie",
-            "Cevapi Sausages",
-            "Mulukhiyah",
-            "Steak and Kidney Pie",
-            "Kapsalon",
-            "Apam balik",
-            "Bakewell tart"
+            "Key Lime Pie"
         ]
     },
     {
@@ -57,11 +35,7 @@
         "meal": [
             "Beef and Mustard Pie",
             "Beef Lo Mein",
-            "Beef Rendang",
-            "Beef Dumpling Stew",
-            "Beef and Mustard Pie",
-            "Mbuzi Choma (Roasted Goat)",
-            "Apam balik"
+            "Beef Rendang"
         ]
     }
 ]

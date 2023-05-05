@@ -1,5 +1,4 @@
 
-
 async function AddRecipesAsFavourite(recipe) {
     let parent = recipe.parentElement
     console.log(parent.innerText);
