@@ -144,7 +144,7 @@ async function renderRecepiesAfterCategory(event) {
             recipeDiv.classList.add("recipe");
             recipeDiv.innerHTML = `
             <h2>${recipe.strMeal}</h2>
-            <div id="liker" class="${checkClass(recipe.strMeal) ? 'liked' : 'false'}">
+            <div id="liker" class="${await checkClass(recipe.strMeal) ? 'liked' : 'false'}">
                 <button id="first"></button>
                 <button id="second"></button>
             <div>
