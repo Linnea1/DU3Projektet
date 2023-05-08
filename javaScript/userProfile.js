@@ -11,9 +11,10 @@ function RenderUserPage() {
     </div>
     <div class="columns">
         <div>Recipes</div>
-        <div>Favorites</div>
+        <div class="favorites">Favorites</div>
     </div>
 `;
+    document.querySelector(".favorites").addEventListener("click", favoriteRecipes(user.username));
 }
 
 function renderSettings() {
@@ -138,4 +139,11 @@ function renderSettings() {
         console.log(data);
         renderStartPage();
     }
+}
+
+
+
+
+function favoriteRecipes(username) {
+    console.log("favvo");
 }

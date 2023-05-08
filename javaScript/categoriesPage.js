@@ -69,7 +69,7 @@ async function checkClass(recipe) {
 
     let user = JSON.parse(localStorage.getItem('user'));
 
-    let response = await fetch(`../loginregister-api/add_and_remove_favourite.php?meal=${recipe}&user=${user.username}`);
+    let response = await fetch(`/loginregister-api/add_and_remove_favourite.php?meal=${recipe}&user=${user.username}`);
     let resourse = await response.json();
 
     return resourse
@@ -105,7 +105,7 @@ async function renderCategoriesPage() {
     document.querySelector("#user").addEventListener("click", RenderUserPage);
 
     try {
-        const response = await fetch("https://www.themealdb.com/api/json/v1/1/list.php?c=list%22");
+        const response = await fetch("https://www.themealdb.com/api/json/v1/1/list.php?c=list");
         const data = await response.json();
 
         for (const categoryName in data.meals) {
@@ -125,7 +125,7 @@ async function renderCategoriesPage() {
 async function renderRecepiesAfterCategory(event) {
     let user = JSON.parse(localStorage.getItem('user'));
 
-    let category = event.target.innerHTML;
+    let category = event.target.textContent;
     main.innerHTML = `
             <div class="header">
             <button id="menu" onclick="">Menu</button>
@@ -253,7 +253,7 @@ async function searhDish(event) {
 
             recipe_div.querySelector("#first").addEventListener("click", like_recipe);
             recipe_div.querySelector("#second").addEventListener("click", like_recipe);
-            recipe_div.addEventListener("click", renderRecipe.bind(this, recipe_name))
+            recipe_div.addEventListener("click", renderRecipe.bind(this, response.meals[recipeName]))
 
         }
 
