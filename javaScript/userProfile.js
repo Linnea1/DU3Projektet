@@ -13,7 +13,9 @@ function RenderUserPage() {
         <div>Recipes</div>
         <div>Favorites</div>
     </div>
+    <div class="create_recipe">Create new recipe</div>
 `;
+    document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)  
 }
 
 function renderSettings() {
