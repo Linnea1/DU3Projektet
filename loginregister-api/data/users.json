@@ -33,5 +33,10 @@
         "email": "hej@hej.se",
         "username": "drfg",
         "password": "lol"
+    },
+    {
+        "email": "theo@hej.se",
+        "username": "theo",
+        "password": "thep"
     }
 ]
