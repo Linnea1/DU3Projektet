@@ -42,3 +42,13 @@
 #sticky {
     display: none;
 }
+
+.create_recipe{
+    background-color: palevioletred;
+    border-radius: 10px;
+    padding: 10px;
+}
+.create_recipe:hover{
+    background-color: rgb(188, 94, 125);
+    cursor: pointer;
+}
