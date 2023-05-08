@@ -15,17 +15,18 @@ if ($method == "GET") {
     $recipe = $_GET["meal"];
     $username = $_GET["user"];
 
-
+    
 
     foreach($data as $user){
-
-        if ($user['username'] == $_GET["user"]) {
+        if ($user['username'] == $username) {
             
             if (in_array($recipe, $user['meal'])) {
                 send_JSON(true);
             }else{
                 send_JSON(false);
             }
+        } else {
+
         }
     }
 
