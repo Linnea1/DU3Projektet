@@ -13,10 +13,14 @@ function RenderUserPage() {
         <div>Recipes</div>
         <div class="favorites">Favorites</div>
     </div>
+    <div class="create_recipe">Create new recipe</div>
 `;
     document.querySelector(".favorites").addEventListener("click", e => {
         favoriteRecipes(e, user.username)
     });
+    document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
+
+
 }
 
 function renderSettings() {
