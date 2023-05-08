@@ -1,10 +1,12 @@
 function RenderUserPage() {
     const user = JSON.parse(localStorage.getItem("user"));
+    state.current_state = "RenderUserPage()";
+    console.log(state);
 
     main.innerHTML = `
     <div id="sticky"></div>
-    <button onclick="history.back()">Go Back</button>
-    <button onclick="renderSettings()" id="settings">Settings</button>
+    <button class="goback">Go Back</button>
+    <button id="settings" id="settings">Settings</button>
     <div class="userInfo">
         <div class="icon"></div>
         <h2><b>${user.username}</b></h2>
@@ -15,15 +17,27 @@ function RenderUserPage() {
     </div>
     <div class="create_recipe">Create new recipe</div>
 `;
-    document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)  
+    document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
     document.querySelector(".favorites").addEventListener("click", favoriteRecipes(user.username));
+
+    document.querySelector(".goback").addEventListener("click", e => {
+        eval(state.old_states.pop());
+        // eval = make string into function
+        // pop = return last element in array + splice it
+    })
+    document.querySelector("#settings").addEventListener("click", e => {
+        state.old_states.push(state.current_state);
+        renderSettings();
+    })
 }
 
 function renderSettings() {
     const user = JSON.parse(localStorage.getItem("user"));
+    state.current_state = "renderSettings()";
+    console.log(state);
 
     main.innerHTML = `
-    <button onclick="RenderUserPage()">Go Back</button>
+    <button class="goback">Go Back</button>
     <div id="settings">
         <label for="pfp">Change profile picture</label>
         <input type="file" name="pfp">
@@ -42,6 +56,12 @@ function renderSettings() {
         <p class="red">Delete account</p>
     </div>
 `;
+
+    document.querySelector(".goback").addEventListener("click", e => {
+        eval(state.old_states.pop());
+        // eval = make string into function
+        // pop = return last element in array + splice it
+    })
 
     let newUsername = main.querySelector('input[name="username"]');
     let newEmail = main.querySelector('input[name="email"]');

@@ -23,3 +23,8 @@ async function fetching(URL, method, body) {
 
     return response;
 }
+
+let state = {
+    current_state: "",
+    old_states: []
+};
