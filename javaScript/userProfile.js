@@ -15,8 +15,12 @@ function RenderUserPage() {
     </div>
     <div class="create_recipe">Create new recipe</div>
 `;
-    document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)  
-    document.querySelector(".favorites").addEventListener("click", favoriteRecipes(user.username));
+    document.querySelector(".favorites").addEventListener("click", e => {
+        favoriteRecipes(e, user.username)
+    });
+    document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
+
+
 }
 
 function renderSettings() {
@@ -146,6 +150,10 @@ function renderSettings() {
 
 
 
-function favoriteRecipes(username) {
-    console.log("favvo");
+function favoriteRecipes(object, user) {
+
+    object.stopPropagation();
+    console.log(user);
+
+
 }
