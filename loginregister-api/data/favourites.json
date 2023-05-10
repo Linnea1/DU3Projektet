@@ -48,5 +48,18 @@
             "Beef Lo Mein",
             "Beef Rendang"
         ]
+    },
+    {
+        "username": "hej",
+        "meal": [
+            "Beef Bourguignon",
+            "Beef stroganoff"
+        ]
+    },
+    {
+        "username": "TheMealDB",
+        "meal": [
+            "Beef and Mustard Pie"
+        ]
     }
 ]

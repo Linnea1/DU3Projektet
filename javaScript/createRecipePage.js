@@ -1,6 +1,7 @@
 function renderCreateRecipe(event) {
     main.innerHTML = `
       <form>
+        <p id=message></p>
         <label for="picture">Picture:</label>
         <input type="file" id="picture" name="picture"><br>
   
@@ -8,7 +9,7 @@ function renderCreateRecipe(event) {
         <input type="text" id="strMeal" name="strMeal"><br><br>
   
         <label for="strCategory">Meal Category:</label>
-        <select id="strCategory" name="strCategory" multiple>
+        <select id="strCategory" name="strCategory">
             <option value="Beef">Beef</option>
             <option value="Breakfast">Breakfast</option>
             <option value="Chicken">Chicken</option>
@@ -68,6 +69,8 @@ function renderCreateRecipe(event) {
     `;
     let RegisterButton = main.querySelector("form");
     RegisterButton.addEventListener("submit", submitRecipe);
+    let message = main.querySelector("#message");
+    let user = JSON.parse(localStorage.getItem('user'));
 }
   
 let ingredientGroupCounter = 3;
@@ -109,7 +112,9 @@ function addIngredientGroup() {
   
     ingredientGroupCounter++;
 }
-
+let theUser=JSON.parse(username);
+console.log(theUser);
+let author=theUser.username;
 async function submitRecipe(event){
     event.preventDefault();
     
@@ -130,7 +135,7 @@ async function submitRecipe(event){
         measurements.push(measurement);
       }
     }
-    let author=user.username;
+    
     const recipeData = {
       author,
       mealName,
@@ -144,7 +149,7 @@ async function submitRecipe(event){
     console.log(recipeData)
     
     try {
-        let response = await fetch("../loginregister-api/createRecipe.php", {
+        let response = await fetch("/loginregister-api/createRecipe.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(recipeData),
