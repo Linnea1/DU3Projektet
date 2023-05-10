@@ -25,6 +25,34 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $post["password"])){
         change($post, $users, $filename, "email"); // change email
     }
+
+    if(isset($post["file"], 
+            $post["username"], 
+            $post["password"])){
+        
+        send_JSON($post["file"]);
+        
+        $source = $_FILES["pfp"]["tmp_name"];
+        $destination = "/loginregister-api/data/pictures/".$_FILES["pfp"]["name"];
+        $size = $_FILES["pfp"]["size"];
+        $type = $_FILES["pfp"]["type"];
+        $time = time();
+
+        // if ($type != "image/jpeg" || $type != "image/png"){
+        //     send_JSON(["message"=>"Wrong filetype"], 400);
+        // }
+        // move_uploaded_file($source, $destination);
+        
+
+        if( move_uploaded_file($source, "data/pictures/" . $time . ".jpg")){
+            $users;
+            send_JSON($_FILES["pfp"]);
+        } else {
+            send_JSON($_FILES["wrong"]);
+        }
+    }
+
+    send_JSON("test");
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "DELETE"){

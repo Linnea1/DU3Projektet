@@ -1,12 +1,11 @@
 function RenderUserPage() {
     const user = JSON.parse(localStorage.getItem("user"));
     state.current_state = "RenderUserPage()";
-    console.log(state);
 
     main.innerHTML = `
     <div id="sticky"></div>
     <button class="goback">Go Back</button>
-    <button id="settings" id="settings">Settings</button>
+    <button id="settings">Settings</button>
     <div class="userInfo">
         <div class="icon"></div>
         <h2><b>${user.username}</b></h2>
@@ -21,11 +20,8 @@ function RenderUserPage() {
     document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
     document.querySelector(".favorites").addEventListener("click", favoriteRecipes(user.username));
 
-    document.querySelector(".goback").addEventListener("click", e => {
-        eval(state.old_states.pop());
-        // eval = make string into function
-        // pop = return last element in array + splice it
-    })
+    goback();
+    // newState("#settings", renderSettings());
     document.querySelector("#settings").addEventListener("click", e => {
         state.old_states.push(state.current_state);
         renderSettings();
@@ -41,14 +37,15 @@ function RenderUserPage() {
 function renderSettings() {
     const user = JSON.parse(localStorage.getItem("user"));
     state.current_state = "renderSettings()";
-    console.log(state);
 
     main.innerHTML = `
     <button class="goback">Go Back</button>
     <div id="settings">
-        <label for="pfp">Change profile picture</label>
-        <input type="file" name="pfp">
-        <button type="submit">Upload</button>
+        <form id="upload">
+            <label for="pfp">Change profile picture</label>
+            <input type="file" name="pfp">
+            <button type="submit">Upload</button>
+        </form>
         
         <label for="email">Change email</label>
         <input type="text" placeholder="New email" name="email">
@@ -64,22 +61,20 @@ function renderSettings() {
     </div>
 `;
 
-    document.querySelector(".goback").addEventListener("click", e => {
-        eval(state.old_states.pop());
-        // eval = make string into function
-        // pop = return last element in array + splice it
-    })
+    goback();
 
     let newUsername = main.querySelector('input[name="username"]');
     let newEmail = main.querySelector('input[name="email"]');
     let newPassword = main.querySelector('input[name="passwordnew"]');
     let oldPassword = main.querySelector('input[name="passwordold"]');
+    let fileForm = main.querySelector("#upload");
 
     main.querySelector(".red").addEventListener("click", e => { popUp("Are you sure", true) }); // "delete account"
     newUsername.addEventListener("keydown", changeUsername); // "change username"
     newEmail.addEventListener("keydown", changeEmail); // "change username"
     newPassword.addEventListener("keydown", changePassword); // "change username"
     oldPassword.addEventListener("keydown", changePassword);
+    fileForm.addEventListener("submit", changePfp);
 
     function popUp(prompt, button) { // pop up
         document.querySelector("#popUp").classList.remove("hidden");
@@ -168,6 +163,38 @@ function renderSettings() {
         console.log(data);
         renderStartPage();
     }
+
+    async function changePfp(e) {
+        e.preventDefault();
+
+        let formData = new FormData(fileForm);
+        console.log(formData);
+        if (main.querySelector('input[name="pfp"]').value === "") {
+            popUp("Please upload a file")
+        } else {
+            const request = new Request("/loginregister-api/settings.php", {
+                method: "POST",
+                body: {
+                    file: formData,
+                    username: user.username,
+                    password: user.password
+                }
+            })
+            fetch(request)
+                .then(response => response.json())
+                .then(data => console.log(data))
+
+            // let response = await fetching("/loginregister-api/settings.php", "POST", formData);
+            // let data = await response.json();
+
+            // console.log(data);
+
+            // let div = document.createElement("div");
+            // div.classList.add("test");
+            // div.style.backgroundImage = main.querySelector('input[name="pfp"]').value;
+            // main.append(div);
+        }
+    }
 }
 
 
@@ -175,7 +202,7 @@ function renderSettings() {
 
 function favoriteRecipes(object, user) {
 
-    object.stopPropagation();
+    // object.stopPropagation();
     console.log(user);
 
 
