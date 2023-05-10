@@ -228,6 +228,7 @@ async function renderRecipesFunction(data){
 
         recipeDiv.querySelector("#first").addEventListener("click", like_recipe);
         recipeDiv.querySelector("#second").addEventListener("click", like_recipe);
+        recipeDiv.addEventListener("click", renderRecipe.bind(this, data.meals[recipeName]));
     }
 }
 

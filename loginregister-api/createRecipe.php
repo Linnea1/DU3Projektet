@@ -28,11 +28,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     ];
 
     foreach ($listOfIngredients as $key => $ingredient) {
-        $newRecipe['strIngredient'. $key] = $ingredient;
+        $index = $key + 1;
+        $newRecipe['strIngredient'. $index] = $ingredient;
     }
 
     foreach ($listOfMeasurements as $key => $Measurement) {
-        $newRecipe['strMeasurement'. $key] = $Measurement;
+        $index = $key + 1;
+        $newRecipe['strMeasure'. $index] = $Measurement;
     }
 
     // Append new recipe to user's profile
