@@ -81,6 +81,8 @@ async function checkClass(recipe) {
 async function renderCategoriesPage() {
 
     let user = JSON.parse(localStorage.getItem('user'));
+    state.current_state = "renderCategoriesPage()";
+    console.log(state);
 
     main.innerHTML = `
       <div id="sticky"></div>
@@ -102,7 +104,10 @@ async function renderCategoriesPage() {
     document.querySelector("#menu").addEventListener("click", ShowMenu);
 
 
-    document.querySelector("#user").addEventListener("click", RenderUserPage);
+    document.querySelector("#user").addEventListener("click", e => {
+        state.old_states.push(state.current_state);
+        RenderUserPage();
+    });
 
     try {
         const response = await fetch("https://www.themealdb.com/api/json/v1/1/list.php?c=list");
