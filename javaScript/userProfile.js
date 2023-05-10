@@ -168,17 +168,16 @@ function renderSettings() {
         e.preventDefault();
 
         let formData = new FormData(fileForm);
+        formData.append("username", user.username);
+        formData.append("password", user.password);
         console.log(formData);
+
         if (main.querySelector('input[name="pfp"]').value === "") {
             popUp("Please upload a file")
         } else {
             const request = new Request("/loginregister-api/settings.php", {
                 method: "POST",
-                body: {
-                    file: formData,
-                    username: user.username,
-                    password: user.password
-                }
+                body: formData
             })
             fetch(request)
                 .then(response => response.json())
