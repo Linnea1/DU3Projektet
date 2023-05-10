@@ -38,5 +38,10 @@
         "email": "theo@hej.se",
         "username": "theo",
         "password": "thep"
+    },
+    {
+        "email": "hej@hopp.com",
+        "username": "TheMealDB",
+        "password": "hej"
     }
 ]

@@ -1,1 +1,34 @@
-[]
+[
+    {
+        "idMeal": "x_645b5926b79f5",
+        "author": "TheMealDB",
+        "strCategory": "Pasta",
+        "strMealThumb": null,
+        "strMeal": "Pasta",
+        "strInstructions": "koka, hacka...",
+        "strIngredient0": "Pasta",
+        "strIngredient1": "gurka",
+        "strIngredient2": "tomats\u00e5s",
+        "strIngredient3": "l\u00f6k",
+        "strIngredient4": "pastavatten",
+        "strMeasurement0": "5 st",
+        "strMeasurement1": "500g",
+        "strMeasurement2": "1 burk",
+        "strMeasurement3": "1",
+        "strMeasurement4": "1 dl"
+    },
+    {
+        "idMeal": "x_645b652e81868",
+        "author": "TheMealDB",
+        "strCategory": "Pasta",
+        "strMealThumb": null,
+        "strMeal": "pasta",
+        "strInstructions": "hacka...",
+        "strIngredient0": "pasta",
+        "strIngredient1": "kyckling",
+        "strIngredient2": "tomat",
+        "strMeasurement0": "1 paket",
+        "strMeasurement1": "300 gram",
+        "strMeasurement2": "5"
+    }
+]
