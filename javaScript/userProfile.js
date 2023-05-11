@@ -1,5 +1,8 @@
 function RenderUserPage() {
     const user = JSON.parse(localStorage.getItem("user"));
+
+    console.log(user);
+
     state.current_state = "RenderUserPage()";
 
     main.innerHTML = `
@@ -63,6 +66,8 @@ function renderSettings() {
 
     goback();
 
+    console.log(localStorage.getItem("user"));
+
     let newUsername = main.querySelector('input[name="username"]');
     let newEmail = main.querySelector('input[name="email"]');
     let newPassword = main.querySelector('input[name="passwordnew"]');
@@ -75,29 +80,6 @@ function renderSettings() {
     newPassword.addEventListener("keydown", changePassword); // "change username"
     oldPassword.addEventListener("keydown", changePassword);
     fileForm.addEventListener("submit", changePfp);
-
-    function popUp(prompt, button) { // pop up
-        document.querySelector("#popUp").classList.remove("hidden");
-        document.querySelector("#prompt").textContent = prompt;
-
-        if (button) {
-            let yes = document.createElement("button");
-            let no = document.createElement("button");
-            yes.textContent = "Yes";
-            no.textContent = "No";
-            yes.classList = "yes";
-            no.classList = "no";
-            document.querySelector("#popUpWindow").append(yes);
-            document.querySelector("#popUpWindow").append(no);
-
-            document.querySelector(".yes").addEventListener("click", e => {
-                document.querySelector("#popUp").classList.add("hidden");
-                deleteAccount();
-            });
-            document.querySelector(".no").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });
-        }
-        document.querySelector("#popUpBackground").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });
-    }
 
     async function change(body, URL, method, select) {
         let response = await fetching(URL, method, body);
@@ -161,6 +143,7 @@ function renderSettings() {
         let data = await response.json();
 
         console.log(data);
+        localStorage.clear;
         renderStartPage();
     }
 
@@ -181,7 +164,15 @@ function renderSettings() {
             })
             fetch(request)
                 .then(response => response.json())
-                .then(data => console.log(data))
+                .then(data => {
+                    let storageBody = {
+                        email: user.email,
+                        username: user.username,
+                        password: user.password,
+                        pfp: data.pfp
+                    };
+                    localStorage.setItem("user", JSON.stringify(storageBody));
+                });
 
             // let response = await fetching("/loginregister-api/settings.php", "POST", formData);
             // let data = await response.json();

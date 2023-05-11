@@ -45,20 +45,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // }
         // move_uploaded_file($source, $destination);
         
-        foreach($users as $user){
+        foreach($users as $index => $user){
             if($user["username"] == $username && $user["password"] == $password){
 
-                $user["pfp"] = "data/pictures/" . $_FILES["pfp"]["name"];
+                $users[$index]["pfp"] = "pictures/" . $_FILES["pfp"]["name"];
+                // send_JSON($users);
 
-                if(move_uploaded_file($source, "data/pictures/" . $_FILES["pfp"]["name"])){
-                    send_JSON($_FILES["pfp"]);
+                if( move_uploaded_file($source, "data/pictures/" . $_FILES["pfp"]["name"])){
+                    $users[$index]["pfp"] = "/loginregister-api/data/pictures/" . $_FILES["pfp"]["name"];
+                    file_put_contents($filename, json_encode($users, JSON_PRETTY_PRINT));
+                    send_JSON("pictures/" . $_FILES["pfp"]["name"]);
                 } else {
-                    send_JSON($_FILES["wrong"]);
+                    send_JSON($_FILES["wrong"], 400);
                 }
-            }
 
-            send_JSON(["message"=>"Problems with finding user"], 400);
+            }
         }
+
     }
 
     send_JSON($post);
