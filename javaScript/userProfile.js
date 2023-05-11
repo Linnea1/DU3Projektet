@@ -1,4 +1,4 @@
-function RenderUserPage() {
+async function RenderUserPage() {
     const user = JSON.parse(localStorage.getItem("user"));
     currentState("RenderUserPage()");
 
@@ -10,11 +10,13 @@ function RenderUserPage() {
         <div class="icon"></div>
         <h2><b>${user.username}</b></h2>
     </div>
-    <div class="columns">
-        <div>Recipes</div>
-        <div class="favorites">Favorites</div>
-    </div>
     <div class="create_recipe">Create new recipe</div>
+    <div class="columns">
+        <div class="disabled" class="profileButton">Recipes</div>
+        <div class="favorites" class="profileButton">Favorites</div>
+    </div>
+    <div class="recipes"></div>
+    
 `;
 
     goback();
@@ -31,6 +33,23 @@ function RenderUserPage() {
 
     document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
     document.querySelector(".favorites").addEventListener("click", favoriteRecipes(user.username));
+
+    try {
+        const response = await fetch(`/loginregister-api/createRecipe.php?author=${user.username}`);
+        const data = await response.json();
+        // Process the retrieved data
+        console.log(data);
+        renderRecipesFunction(data);
+    } catch (error) {
+        // Handle any errors
+        console.error(error);
+    }
+    goback();
+    // newState("#settings", renderSettings());
+    document.querySelector("#settings").addEventListener("click", e => {
+        state.old_states.push(state.current_state);
+        renderSettings();
+    })
 
     document.querySelector(".favorites").addEventListener("click", e => {
         favoriteRecipes(e, user.username)
