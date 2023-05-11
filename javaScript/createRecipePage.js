@@ -155,15 +155,12 @@ async function submitRecipe(event){
             body: JSON.stringify(recipeData),
         });
         let data = await response.json();
-
-        //if the response is ok and the user is added
+        console.log(response);
         if (response.ok) {
-            message.innerHTML = `The user ${data.username} was successfully added!`;
-            //if it's not ok
+            popUp("You have added a new recipe!")
         } else {
-            message.innerHTML = `<span>${data.message}</span>.`;
+            popUp(`${data.message}`);
         }
-        //if something went wrong, we print out the error message we got from the database
     } catch (error) {
         message.textContent = `${error.message}`;
     }

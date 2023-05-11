@@ -62,5 +62,19 @@
             "Beef and Mustard Pie",
             "Pasta"
         ]
+    },
+    {
+        "username": "Linnea",
+        "meal": [
+            "Banana Pancakes",
+            "Blackberry Fool",
+            "Chocolate Raspberry Brownies",
+            "Crock Pot Chicken Baked Tacos",
+            "Kentucky Fried Chicken",
+            "Full English Breakfast",
+            "Baked salmon with fennel & tomatoes",
+            "Cajun spiced fish tacos",
+            "Pancakes"
+        ]
     }
 ]

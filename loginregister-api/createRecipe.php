@@ -1,6 +1,7 @@
 <?php
 require_once("functions.php");
 $filename = "data/recipes.json";
+$uploadFolder = "data/recipePictures/"; // Specify the folder where you want to save the pictures
 
 if(!file_exists($filename)){ // if no file, create it
     file_put_contents($filename, "[]");
@@ -12,7 +13,7 @@ $post = json_decode(file_get_contents("php://input"), true);
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     // Make sure all required fields are provided
     //if (empty($post['strMeal']) || empty($post['strInstructions'])){
-   //     send_JSON(["message" => "Please do not leave any field empty"], 400);
+    //    send_JSON(["message" => "Please do not leave any field empty"], 400);
     //}
 
     $listOfIngredients = $post['ingredients'];
@@ -22,7 +23,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         "idMeal" => "x_" . uniqid(),
         "author" => $post['author'],
         "strCategory" => $post['mealCategory'],
-        "strMealThumb" => $post['picture'],
+       // "strMealThumb" => $post['picture'],
         "strMeal" => $post['mealName'],
         "strInstructions" => $post['instructions'],
     ];
@@ -37,30 +38,32 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $newRecipe['strMeasure'. $index] = $Measurement;
     }
 
-    // Append new recipe to user's profile
     $recipes[] = $newRecipe;
-    file_put_contents($filename, json_encode($recipes, JSON_PRETTY_PRINT)); // add new user to file
-    send_JSON($newRecipe);
+    file_put_contents($filename, json_encode($recipes, JSON_PRETTY_PRINT));
+    send_JSON($newRecipe, 200);
 }elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
-    // Handle GET requests to fetch meals by category
+   if(isset($_GET["category"])){
     $category = $_GET['category'];
 
-    $filteredMeals = filterMealsByCategory($recipes, $category);
+    $filteredMeals = filterMeals($recipes, $category, 'strCategory');
+    send_JSON(["meals" => $filteredMeals]);
+   }
+   if(isset($_GET["author"])){
+    $recipeAuthor = $_GET['author'];
 
-    if (!empty($filteredMeals)) {
-        send_JSON(["meals" => $filteredMeals]);
-    } else {
-        send_JSON(["message" => "No meals found for the specified category"], 404);
-    }
+    $filteredMeals = filterMeals($recipes, $recipeAuthor, 'author');
+    send_JSON(["meals" => $filteredMeals]);
+   }
+   
 } else {
     send_JSON(["message" => "Wrong method"], 405);
 }
 
-function filterMealsByCategory($meals, $category)
+function filterMeals($meals, $category, $key)
 {
     $filteredMeals = [];
     foreach ($meals as $meal) {
-        if ($meal['strCategory'] === $category) {
+        if ($meal[$key] === $category) {
             $filteredMeals[] = $meal;
         }
     }

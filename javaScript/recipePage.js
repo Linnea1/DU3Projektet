@@ -5,21 +5,23 @@ async function renderRecipe(recipe) {
     if(recipe.idMeal.startsWith("x_")){
         console.log("pasta");
         recipe_=recipe;
-        getRecipe(recipe_);
+        let creator=recipe_.author
+        getRecipe(recipe_, creator);
     }else{
         try {
             let resourse = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe.idMeal}`);
             let data = await resourse.json();
             recipe_=data.meals[0];
             console.log(data);
-            getRecipe(recipe_);
+            let creator="TheMealDB"
+            getRecipe(recipe_, creator);
     
         } catch (e) {
             console.log(e);
         }
     }
     
-    function getRecipe(recipe_){
+    function getRecipe(recipe_, author){
         const ingredients = [];
             for (let i = 1; i <= 20; i++) {
                 if (recipe_[`strIngredient${i}`]) {
@@ -38,8 +40,11 @@ async function renderRecipe(recipe) {
             <button onclick = "renderRecepiesAfterCategory()">Go Back</button>
             </div>
             <div class="recipe">
-                <h2><b>${recipe.strMeal}</b></h2>
-                <img src="${recipe.strMealThumb}"> 
+                <h2><b>${recipe_.strMeal}</b></h2>
+                <img src="${recipe_.strMealThumb}"> 
+                <div class="author">
+                <p>${author}</p>
+                </div>
                 <div class="ingredients">
                 <h4>Ingredients</h4>
                 <ul class="ingredientList"></ul>

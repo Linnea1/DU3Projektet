@@ -1,4 +1,4 @@
-function RenderUserPage() {
+async function RenderUserPage() {
     const user = JSON.parse(localStorage.getItem("user"));
     state.current_state = "RenderUserPage()";
 
@@ -10,16 +10,27 @@ function RenderUserPage() {
         <div class="icon"></div>
         <h2><b>${user.username}</b></h2>
     </div>
+    <div class="create_recipe">Create new recipe</div>
     <div class="columns">
         <div>Recipes</div>
         <div class="favorites">Favorites</div>
     </div>
-    <div class="create_recipe">Create new recipe</div>
+    <div class="recipes"></div>
+    
 `;
 
     document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
     document.querySelector(".favorites").addEventListener("click", favoriteRecipes(user.username));
-
+    try {
+        const response = await fetch(`/loginregister-api/createRecipe.php?author=${user.username}`);
+        const data = await response.json();
+        // Process the retrieved data
+        console.log(data);
+        renderRecipesFunction(data);
+    } catch (error) {
+        // Handle any errors
+        console.error(error);
+    }
     goback();
     // newState("#settings", renderSettings());
     document.querySelector("#settings").addEventListener("click", e => {
