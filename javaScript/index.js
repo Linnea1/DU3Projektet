@@ -39,8 +39,8 @@ function popUp(prompt, button) { // pop up
         document.querySelector("#popUpWindow").append(no);
 
         document.querySelector(".yes").addEventListener("click", e => {
-            document.querySelector("#popUp").classList.add("hidden");
-            deleteAccount();
+            // document.querySelector("#popUp").classList.add("hidden");
+            // deleteAccount();
         });
         document.querySelector(".no").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });
     }
@@ -63,9 +63,17 @@ function goback() { // use this to make the go back button work
     })
 }
 
-function newState(element, renderFunction) { // use this when going to a new "state" (not working yet)
+function currentState(renderFunction) {
+    state.current_state = renderFunction;
+    localStorage.setItem("state", JSON.stringify({
+        "function": renderFunction,
+        "state": state
+    }));
+}
+
+function newState(element, renderFunction) { // use this when going to a new "state"
     document.querySelector(element).addEventListener("click", e => {
         state.old_states.push(state.current_state);
-        renderFunction;
+        eval(renderFunction);
     })
 }

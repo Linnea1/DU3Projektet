@@ -1,9 +1,6 @@
 function RenderUserPage() {
     const user = JSON.parse(localStorage.getItem("user"));
-
-    console.log(user);
-
-    state.current_state = "RenderUserPage()";
+    currentState("RenderUserPage()");
 
     main.innerHTML = `
     <div id="sticky"></div>
@@ -20,26 +17,30 @@ function RenderUserPage() {
     <div class="create_recipe">Create new recipe</div>
 `;
 
+    goback();
+    newState("#settings", "renderSettings()");
+
+    // document.querySelector("#settings").addEventListener("click", e => {
+    //     state.old_states.push(state.current_state);
+    //     renderSettings();
+    // })
+
+    if (user.pfp) { // if pfp then add it
+        document.querySelector(".icon").style.backgroundImage = `url(${user.pfp})`;
+    }
+
     document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
     document.querySelector(".favorites").addEventListener("click", favoriteRecipes(user.username));
-
-    goback();
-    // newState("#settings", renderSettings());
-    document.querySelector("#settings").addEventListener("click", e => {
-        state.old_states.push(state.current_state);
-        renderSettings();
-    })
 
     document.querySelector(".favorites").addEventListener("click", e => {
         favoriteRecipes(e, user.username)
     });
     document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
-
 }
 
 function renderSettings() {
     const user = JSON.parse(localStorage.getItem("user"));
-    state.current_state = "renderSettings()";
+    currentState("renderSettings()");
 
     main.innerHTML = `
     <button class="goback">Go Back</button>
@@ -66,15 +67,19 @@ function renderSettings() {
 
     goback();
 
-    console.log(localStorage.getItem("user"));
-
     let newUsername = main.querySelector('input[name="username"]');
     let newEmail = main.querySelector('input[name="email"]');
     let newPassword = main.querySelector('input[name="passwordnew"]');
     let oldPassword = main.querySelector('input[name="passwordold"]');
     let fileForm = main.querySelector("#upload");
 
-    main.querySelector(".red").addEventListener("click", e => { popUp("Are you sure", true) }); // "delete account"
+    main.querySelector(".red").addEventListener("click", e => {
+        popUp("Are you sure", true)
+        document.querySelector(".yes").addEventListener("click", e => {
+            document.querySelector("#popUp").classList.add("hidden");
+            deleteAccount();
+        });
+    }); // "delete account"
     newUsername.addEventListener("keydown", changeUsername); // "change username"
     newEmail.addEventListener("keydown", changeEmail); // "change username"
     newPassword.addEventListener("keydown", changePassword); // "change username"
@@ -153,7 +158,6 @@ function renderSettings() {
         let formData = new FormData(fileForm);
         formData.append("username", user.username);
         formData.append("password", user.password);
-        console.log(formData);
 
         if (main.querySelector('input[name="pfp"]').value === "") {
             popUp("Please upload a file")
@@ -165,13 +169,14 @@ function renderSettings() {
             fetch(request)
                 .then(response => response.json())
                 .then(data => {
-                    let storageBody = {
-                        email: user.email,
-                        username: user.username,
-                        password: user.password,
-                        pfp: data.pfp
-                    };
-                    localStorage.setItem("user", JSON.stringify(storageBody));
+                    if (data.message) {
+                        popUp(data.message);
+                    } else {
+                        user.pfp = data;
+                        localStorage.setItem("user", JSON.stringify(user));
+                    }
+
+                    console.log(data);
                 });
 
             // let response = await fetching("/loginregister-api/settings.php", "POST", formData);

@@ -40,10 +40,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $username = $_POST["username"];
         $password = $_POST["password"];
 
-        // if ($type != "image/jpeg" || $type != "image/png"){
-        //     send_JSON(["message"=>"Wrong filetype"], 400);
-        // }
-        // move_uploaded_file($source, $destination);
+        if ($type != "image/jpeg" || $type != "image/png"){
+            send_JSON(["message"=>$type], 400);
+            send_JSON(["message"=>"Wrong filetype"], 400);
+        }
         
         foreach($users as $index => $user){
             if($user["username"] == $username && $user["password"] == $password){
@@ -54,9 +54,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 if( move_uploaded_file($source, "data/pictures/" . $_FILES["pfp"]["name"])){
                     $users[$index]["pfp"] = "/loginregister-api/data/pictures/" . $_FILES["pfp"]["name"];
                     file_put_contents($filename, json_encode($users, JSON_PRETTY_PRINT));
-                    send_JSON("pictures/" . $_FILES["pfp"]["name"]);
+                    send_JSON("/loginregister-api/data/pictures/" . $_FILES["pfp"]["name"]);
                 } else {
-                    send_JSON($_FILES["wrong"], 400);
+                    send_JSON(["message"=>"wrong"], 400);
                 }
 
             }
