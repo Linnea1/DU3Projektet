@@ -6,7 +6,7 @@
 
     background-image: url(../icons/blank-face-test.webp);
     background-position: center;
-    background-size: 80%;
+    background-size: cover;
     background-repeat: no-repeat;
 }
 
@@ -52,9 +52,4 @@
 .create_recipe:hover {
     background-color: rgb(188, 94, 125);
     cursor: pointer;
-}
-
-.test {
-    height: 100px;
-    width: 100px;
 }

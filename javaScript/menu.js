@@ -54,6 +54,7 @@ function Disguise(object) {
 
 function logout() {
     localStorage.removeItem("user");
+    localStorage.removeItem("state");
     location.reload();
 }
 
