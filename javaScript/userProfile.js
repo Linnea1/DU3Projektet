@@ -12,8 +12,8 @@ async function RenderUserPage() {
     </div>
     <div class="create_recipe">Create new recipe</div>
     <div class="columns">
-        <div>Recipes</div>
-        <div class="favorites">Favorites</div>
+        <div class="disabled" class="profileButton">Recipes</div>
+        <div class="favorites" class="profileButton">Favorites</div>
     </div>
     <div class="recipes"></div>
     

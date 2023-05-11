@@ -3,7 +3,6 @@ async function renderRecipe(recipe) {
     let user = JSON.parse(localStorage.getItem('user'));
     console.log(recipe);
     if(recipe.idMeal.startsWith("x_")){
-        console.log("pasta");
         recipe_=recipe;
         let creator=recipe_.author
         getRecipe(recipe_, creator);
@@ -52,6 +51,14 @@ async function renderRecipe(recipe) {
                 <div class="howTo">
                     <h4>How to make ${recipe.strMeal}</h4>
                     <p>${recipe_.strInstructions}</p>
+                </div>
+                <div>
+                <div  class="comments"></div>
+                <p><b>Share you opinion on ${recipe.strMeal}</b></p>
+                <form>
+                <textarea id="comment" name="comment"></textarea><br><br>
+                    <button type=submit>Comment</button>
+                </form>
                 </div>
             </div>
             

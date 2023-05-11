@@ -14,13 +14,15 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    background-color: rgba(255, 255, 255, 0.5);
-    padding: 10px;
+   gap: 5px;
 }
 
 .columns>* {
     transition: color 0.3s;
     cursor: pointer;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 100%;
 }
 
 .columns>*:hover {
@@ -54,6 +56,13 @@
     cursor: pointer;
 }
 
+.disabled{
+    background-color: rgb(236, 174, 193);
+}
+.disabled:hover{
+    background-color: rgb(236, 174, 193);
+    cursor:auto;
+}
 .test {
     height: 100px;
     width: 100px;
