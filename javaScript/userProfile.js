@@ -1,39 +1,76 @@
-function RenderUserPage() {
+async function RenderUserPage() {
     const user = JSON.parse(localStorage.getItem("user"));
+    currentState("RenderUserPage()");
 
     main.innerHTML = `
     <div id="sticky"></div>
-    <button onclick="history.back()">Go Back</button>
-    <button onclick="renderSettings()" id="settings">Settings</button>
+    <button class="goback">Go Back</button>
+    <button id="settings">Settings</button>
     <div class="userInfo">
         <div class="icon"></div>
         <h2><b>${user.username}</b></h2>
     </div>
-    <div class="columns">
-        <div>Recipes</div>
-        <div class="favorites">Favorites</div>
-    </div>
     <div class="create_recipe">Create new recipe</div>
+    <div class="columns">
+        <div class="disabled" class="profileButton">Recipes</div>
+        <div class="favorites" class="profileButton">Favorites</div>
+    </div>
+    <div class="recipes"></div>
+    
 `;
+
+    goback();
+    newState("#settings", "renderSettings()");
+
+    // document.querySelector("#settings").addEventListener("click", e => {
+    //     state.old_states.push(state.current_state);
+    //     renderSettings();
+    // })
+
+    if (user.pfp) { // if pfp then add it
+        document.querySelector(".icon").style.backgroundImage = `url(${user.pfp})`;
+    }
+
+    document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
+    document.querySelector(".favorites").addEventListener("click", favoriteRecipes(user.username));
+
+    try {
+        const response = await fetch(`/loginregister-api/createRecipe.php?author=${user.username}`);
+        const data = await response.json();
+        // Process the retrieved data
+        console.log(data);
+        renderRecipesFunction(data);
+    } catch (error) {
+        // Handle any errors
+        console.error(error);
+    }
+    goback();
+    // newState("#settings", renderSettings());
+    document.querySelector("#settings").addEventListener("click", e => {
+        state.old_states.push(state.current_state);
+        renderSettings();
+    })
+
     document.querySelector(".favorites").addEventListener("click", e => {
         favoriteRecipes(e, user.username)
         e.stopPropagation();
 
     });
     document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
-
-
 }
 
 function renderSettings() {
     const user = JSON.parse(localStorage.getItem("user"));
+    currentState("renderSettings()");
 
     main.innerHTML = `
-    <button onclick="RenderUserPage()">Go Back</button>
+    <button class="goback">Go Back</button>
     <div id="settings">
-        <label for="pfp">Change profile picture</label>
-        <input type="file" name="pfp">
-        <button type="submit">Upload</button>
+        <form id="upload">
+            <label for="pfp">Change profile picture</label>
+            <input type="file" name="pfp">
+            <button type="submit">Upload</button>
+        </form>
         
         <label for="email">Change email</label>
         <input type="text" placeholder="New email" name="email">
@@ -49,39 +86,26 @@ function renderSettings() {
     </div>
 `;
 
+    goback();
+
     let newUsername = main.querySelector('input[name="username"]');
     let newEmail = main.querySelector('input[name="email"]');
     let newPassword = main.querySelector('input[name="passwordnew"]');
     let oldPassword = main.querySelector('input[name="passwordold"]');
+    let fileForm = main.querySelector("#upload");
 
-    main.querySelector(".red").addEventListener("click", e => { popUp("Are you sure", true) }); // "delete account"
+    main.querySelector(".red").addEventListener("click", e => {
+        popUp("Are you sure", true)
+        document.querySelector(".yes").addEventListener("click", e => {
+            document.querySelector("#popUp").classList.add("hidden");
+            deleteAccount();
+        });
+    }); // "delete account"
     newUsername.addEventListener("keydown", changeUsername); // "change username"
     newEmail.addEventListener("keydown", changeEmail); // "change username"
     newPassword.addEventListener("keydown", changePassword); // "change username"
     oldPassword.addEventListener("keydown", changePassword);
-
-    function popUp(prompt, button) { // pop up
-        document.querySelector("#popUp").classList.remove("hidden");
-        document.querySelector("#prompt").textContent = prompt;
-
-        if (button) {
-            let yes = document.createElement("button");
-            let no = document.createElement("button");
-            yes.textContent = "Yes";
-            no.textContent = "No";
-            yes.classList = "yes";
-            no.classList = "no";
-            document.querySelector("#popUpWindow").append(yes);
-            document.querySelector("#popUpWindow").append(no);
-
-            document.querySelector(".yes").addEventListener("click", e => {
-                document.querySelector("#popUp").classList.add("hidden");
-                deleteAccount();
-            });
-            document.querySelector(".no").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });
-        }
-        document.querySelector("#popUpBackground").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });
-    }
+    fileForm.addEventListener("submit", changePfp);
 
     async function change(body, URL, method, select) {
         let response = await fetching(URL, method, body);
@@ -145,7 +169,47 @@ function renderSettings() {
         let data = await response.json();
 
         console.log(data);
+        localStorage.clear;
         renderStartPage();
+    }
+
+    async function changePfp(e) {
+        e.preventDefault();
+
+        let formData = new FormData(fileForm);
+        formData.append("username", user.username);
+        formData.append("password", user.password);
+
+        if (main.querySelector('input[name="pfp"]').value === "") {
+            popUp("Please upload a file")
+        } else {
+            const request = new Request("/loginregister-api/settings.php", {
+                method: "POST",
+                body: formData
+            })
+            fetch(request)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        popUp(data.message);
+                    } else {
+                        user.pfp = data;
+                        localStorage.setItem("user", JSON.stringify(user));
+                    }
+
+                    console.log(data);
+                });
+
+            // let response = await fetching("/loginregister-api/settings.php", "POST", formData);
+            // let data = await response.json();
+
+            // console.log(data);
+
+            // let div = document.createElement("div");
+            // div.classList.add("test");
+            // div.style.backgroundImage = main.querySelector('input[name="pfp"]').value;
+            // main.append(div);
+        }
     }
 }
 
@@ -153,6 +217,7 @@ function renderSettings() {
 
 
 async function favoriteRecipes(object, user) {
+
 
     let divForAllRecipes = document.querySelector(".favorites");
 
@@ -186,6 +251,7 @@ async function favoriteRecipes(object, user) {
                     recipe_div.addEventListener("click", renderRecipe.bind(this, responsefood.meals[0]))
 
                 }
+
 
 
             } else {

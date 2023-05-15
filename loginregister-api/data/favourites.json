@@ -50,27 +50,28 @@
         ]
     },
     {
-        "username": "hej",
+        "username": "TheMealDB",
         "meal": [
             "Beef and Mustard Pie",
-            "Beef Brisket Pot Roast",
-            "Breakfast Potatoes"
+            "Pasta"
         ]
     },
     {
-        "username": "theoo",
+        "username": "Linnea",
         "meal": [
-            "Beef and Mustard Pie",
-            "Ayam Percik",
-            "Chicken & mushroom Hotpot"
-        ]
-    },
-    {
-        "username": "ericaa",
-        "meal": [
-            "Ayam Percik",
-            "Chicken & mushroom Hotpot",
-            "Kapsalon"
+            "Banana Pancakes",
+            "Blackberry Fool",
+            "Chocolate Raspberry Brownies",
+            "Crock Pot Chicken Baked Tacos",
+            "Kentucky Fried Chicken",
+            "Full English Breakfast",
+            "Baked salmon with fennel & tomatoes",
+            "Cajun spiced fish tacos",
+            "Pancakes",
+            "Leblebi Soup",
+            "Moroccan Carrot Soup",
+            "Stovetop Eggplant With Harissa, Chickpeas, and Cumin Yogurt",
+            "Creamy Tomato Soup"
         ]
     }
 ]

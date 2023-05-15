@@ -81,6 +81,7 @@ async function checkClass(recipe) {
 async function renderCategoriesPage() {
 
     let user = JSON.parse(localStorage.getItem('user'));
+    currentState("renderCategoriesPage()");
 
     main.innerHTML = `
       <div id="sticky"></div>
@@ -101,8 +102,7 @@ async function renderCategoriesPage() {
     searchField.addEventListener("keyup", searhDish);
     document.querySelector("#menu").addEventListener("click", ShowMenu);
 
-
-    document.querySelector("#user").addEventListener("click", RenderUserPage);
+    newState("#user", "RenderUserPage()");
 
     try {
         const response = await fetch("https://www.themealdb.com/api/json/v1/1/list.php?c=list");
@@ -119,55 +119,6 @@ async function renderCategoriesPage() {
     } catch (error) {
         console.error(error);
     }
-}
-
-
-async function renderRecepiesAfterCategory(event) {
-    let user = JSON.parse(localStorage.getItem('user'));
-
-    let category = event.target.textContent;
-    main.innerHTML = `
-            <div class="header">
-            <button id="menu" onclick="">Menu</button>
-            <div class=image></div>
-            <h2>${category}</h2>
-            <p>${user.username}</p>
-            <button onclick="await renderCategoriesPage()">Go Back</button>
-            </div>
-            <div class="recipes"></div>
-        `;
-    document.querySelector("#menu").addEventListener("click", ShowMenu);
-    const divRecipes = document.querySelector(".recipes");
-    try {
-        let resourse = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
-        let data = await resourse.json();
-
-        for (const recipeName in data.meals) {
-            const recipe = data.meals[recipeName];
-            const recipeDiv = document.createElement("div");
-            recipeDiv.classList.add("recipe");
-            recipeDiv.innerHTML = `
-            <h2>${recipe.strMeal}</h2>
-            <div id="liker" class="${await checkClass(recipe.strMeal) ? 'liked' : 'false'}">
-                <button id="first"></button>
-                <button id="second"></button>
-            <div>
-                <img src="${recipe.strMealThumb}"> 
-            </div>
-        `;
-            divRecipes.appendChild(recipeDiv);
-
-            recipeDiv.querySelector("#first").addEventListener("click", like_recipe);
-            recipeDiv.querySelector("#second").addEventListener("click", like_recipe);
-            recipeDiv.addEventListener("click", renderRecipe.bind(this, recipe))
-
-        }
-
-    } catch (error) {
-        console.log(error);
-    }
-    document.querySelector("#user").addEventListener("click", RenderUserPage); // to get to user profile
-
 }
 
 function setCategory(event) {
@@ -196,27 +147,20 @@ async function renderRecepiesAfterCategory(event) {
         let resourse = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
         let data = await resourse.json();
 
-        for (const recipeName in data.meals) {
-            const recipe = data.meals[recipeName];
-            const recipeDiv = document.createElement("div");
-            recipeDiv.classList.add("recipe");
-            recipeDiv.innerHTML = `
-            <h2>${recipe.strMeal}</h2>
-            <div id="liker" class="${await checkClass(recipe.strMeal) ? 'liked' : 'false'}">
-                <button id="first"></button>
-                <button id="second"></button>
-            <div>
-                <img src="${recipe.strMealThumb}"> 
-            </div>
-        `;
-            divRecipes.appendChild(recipeDiv);
-
-            recipeDiv.querySelector("#first").addEventListener("click", like_recipe);
-            recipeDiv.querySelector("#second").addEventListener("click", like_recipe);
-        }
-
+        renderRecipesFunction(data);
     } catch (error) {
         console.log(error);
+    }
+    try {
+        const response = await fetch(`/loginregister-api/createRecipe.php?category=${category}`);
+        const data = await response.json();
+        // Process the retrieved data
+        console.log(data);
+
+        renderRecipesFunction(data);
+    } catch (error) {
+        // Handle any errors
+        console.error(error);
     }
 
 }
@@ -255,6 +199,7 @@ async function searhDish(event) {
             recipe_div.querySelector("#second").addEventListener("click", like_recipe);
             recipe_div.addEventListener("click", renderRecipe.bind(this, response.meals[recipeName]))
 
+
         }
 
     }
@@ -264,6 +209,28 @@ function callForRecipe(recipe, event) {
     renderRecipe(recipe);
 }
 
+async function renderRecipesFunction(data) {
+    const divRecipes = document.querySelector(".recipes");
+    for (const recipeName in data.meals) {
+        const recipe = data.meals[recipeName];
+        const recipeDiv = document.createElement("div");
+        recipeDiv.classList.add("recipe");
+        recipeDiv.innerHTML = `
+        <h2>${recipe.strMeal}</h2>
+        <div id="liker" class="${await checkClass(recipe.strMeal) ? 'liked' : 'false'}">
+            <button id="first"></button>
+            <button id="second"></button>
+        <div>
+            <img src="${recipe.strMealThumb}"> 
+        </div>
+    `;
+        divRecipes.appendChild(recipeDiv);
+
+        recipeDiv.querySelector("#first").addEventListener("click", like_recipe);
+        recipeDiv.querySelector("#second").addEventListener("click", like_recipe);
+        recipeDiv.addEventListener("click", renderRecipe.bind(this, data.meals[recipeName]));
+    }
+}
 
 
 
