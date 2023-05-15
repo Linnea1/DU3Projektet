@@ -14,14 +14,14 @@
             "Salmon Eggs Eggs Benedict",
             "Home-made Mandazi",
             "Beef and Mustard Pie",
-            "Breakfast Potatoes",
             "Ayam Percik",
             "Beef Sunday Roast",
             "Beef stroganoff",
             "Beef Rendang",
             "Smoked Haddock Kedgeree",
             "Stovetop Eggplant With Harissa, Chickpeas, and Cumin Yogurt",
-            "Egg Drop Soup"
+            "Egg Drop Soup",
+            "Apam balik"
         ]
     },
     {
@@ -47,6 +47,30 @@
             "Beef and Mustard Pie",
             "Beef Lo Mein",
             "Beef Rendang"
+        ]
+    },
+    {
+        "username": "hej",
+        "meal": [
+            "Beef and Mustard Pie",
+            "Beef Brisket Pot Roast",
+            "Breakfast Potatoes"
+        ]
+    },
+    {
+        "username": "theoo",
+        "meal": [
+            "Beef and Mustard Pie",
+            "Ayam Percik",
+            "Chicken & mushroom Hotpot"
+        ]
+    },
+    {
+        "username": "ericaa",
+        "meal": [
+            "Ayam Percik",
+            "Chicken & mushroom Hotpot",
+            "Kapsalon"
         ]
     }
 ]

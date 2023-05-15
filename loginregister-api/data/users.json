@@ -38,5 +38,20 @@
         "email": "theo@hej.se",
         "username": "theo",
         "password": "thep"
+    },
+    {
+        "email": "hejsan@hej",
+        "username": "hej",
+        "password": "hej"
+    },
+    {
+        "email": "theo@theo",
+        "username": "theoo",
+        "password": "theo"
+    },
+    {
+        "email": "erica@erica",
+        "username": "ericaa",
+        "password": "ericaa"
     }
 ]

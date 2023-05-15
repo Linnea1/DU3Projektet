@@ -17,6 +17,8 @@ function RenderUserPage() {
 `;
     document.querySelector(".favorites").addEventListener("click", e => {
         favoriteRecipes(e, user.username)
+        e.stopPropagation();
+
     });
     document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
 
@@ -150,10 +152,66 @@ function renderSettings() {
 
 
 
-function favoriteRecipes(object, user) {
+async function favoriteRecipes(object, user) {
 
-    object.stopPropagation();
-    console.log(user);
+    let divForAllRecipes = document.querySelector(".favorites");
+
+    if (divForAllRecipes.childElementCount === 0) {
+
+        object.stopPropagation();
+
+        try {
+            let resourse = await fetch(`/loginregister-api/add_and_remove_favourite.php?favourites=${user}`);
+            let response = await resourse.json();
+
+            if (!response.length == 0) {
+
+                for (let recipe of response) {
+
+                    let resoursefood = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${recipe}`);
+                    let responsefood = await resoursefood.json();
+
+                    console.log(responsefood);
+
+                    let recipe_name = await responsefood.meals[0].strMeal;
+                    let recipe_img = responsefood.meals[0].strMealThumb;
+                    let recipe_div = document.createElement("div");
+                    recipe_div.classList.add("recipe");
+                    recipe_div.innerHTML = `
+                        <h2>${recipe_name}</h2>
+                        <img src="${recipe_img}"> 
+                        </div>`;
+                    divForAllRecipes.appendChild(recipe_div);
+
+                    recipe_div.addEventListener("click", renderRecipe.bind(this, responsefood.meals[0]))
+
+                }
 
 
+            } else {
+
+                console.log(response);
+
+                let PopupMenu = document.querySelector("#popUp");
+                PopupMenu.classList.remove("hidden");
+                let PopUpWindow = document.querySelector("#popUpWindow");
+
+                let info = document.createElement("div");
+                let OkButton = document.createElement("button");
+
+                PopUpWindow.append(info);
+                PopUpWindow.append(OkButton);
+
+                info.textContent = "There is no favourites yet";
+                OkButton.textContent = "Ok";
+
+                OkButton.addEventListener("click", e => {
+                    Disguise(e)
+                });
+            }
+        } catch (e) {
+            console.log(e);
+
+        }
+    }
 }

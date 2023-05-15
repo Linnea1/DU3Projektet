@@ -11,25 +11,39 @@ $data = json_decode($json, true);
 $method = $_SERVER["REQUEST_METHOD"];
 
 if ($method == "GET") {
-    
-    $recipe = $_GET["meal"];
-    $username = $_GET["user"];
-    
 
-    foreach($data as $user){
-        if ($user['username'] == $username) {
-            
-            if (in_array($recipe, $user['meal'])) {
-                send_JSON(true);
-            }else{
-                send_JSON(false);
+    if (isset($_GET["meal"],$_GET["user"])) {
+     
+        $recipe = $_GET["meal"];
+        $username = $_GET["user"];
+        
+        foreach($data as $user){
+            if ($user['username'] == $username) {
+                
+                if (in_array($recipe, $user['meal'])) {
+                    send_JSON(true);
+                }else{
+                    send_JSON(false);
+                }
+    
             }
+        }
+        send_JSON(false);
+    }
+    
 
-        }else{
-            // $error = ["error" => "There are no liked recipes"];
-            // send_JSON($error, 400);
-            send_JSON(false);
-        } 
+    if (isset($_GET["favourites"])) {
+        $username = $_GET["favourites"];
+        // echo $newData;
+        
+        foreach($data as $user){    
+            if ($user['username'] === $username) {
+                send_JSON($user["meal"]);
+            }
+        }
+        $error = ["error" => "There are no liked recipes"];
+        send_JSON($error, 400);
+    
     }
 
 }
