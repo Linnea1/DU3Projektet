@@ -18,14 +18,8 @@ async function RenderUserPage() {
     <div class="recipes"></div>
     
 `;
-
     goback();
     newState("#settings", "renderSettings()");
-
-    // document.querySelector("#settings").addEventListener("click", e => {
-    //     state.old_states.push(state.current_state);
-    //     renderSettings();
-    // })
 
     if (user.pfp) { // if pfp then add it
         document.querySelector(".icon").style.backgroundImage = `url(${user.pfp})`;
@@ -132,7 +126,7 @@ function renderSettings() {
                 password: JSON.parse(localStorage.getItem("user")).password
             };
 
-            await change(body, "../loginregister-api/settings.php", "POST", "username");
+            await change(body, "../loginregister-api/settings.php", "PATCH", "username");
         }
     }
 
@@ -144,7 +138,7 @@ function renderSettings() {
                 password: JSON.parse(localStorage.getItem("user")).password
             };
 
-            await change(body, "../loginregister-api/settings.php", "POST", "email");
+            await change(body, "../loginregister-api/settings.php", "PATCH", "email");
         }
     }
 
@@ -157,7 +151,7 @@ function renderSettings() {
                 username: JSON.parse(localStorage.getItem("user")).username
             };
 
-            await change(body, "../loginregister-api/settings.php", "POST", "password");
+            await change(body, "../loginregister-api/settings.php", "PATCH", "password");
         }
     }
 
@@ -181,6 +175,9 @@ function renderSettings() {
         let formData = new FormData(fileForm);
         formData.append("username", user.username);
         formData.append("password", user.password);
+        if (user.pfp) {
+            formData.append("old", user.pfp);
+        }
 
         if (main.querySelector('input[name="pfp"]').value === "") {
             popUp("Please upload a file")

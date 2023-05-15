@@ -5,7 +5,7 @@ $filename = "data/users.json";
 $users = json_decode(file_get_contents($filename), true);
 $post = json_decode(file_get_contents("php://input"), true);
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if($_SERVER["REQUEST_METHOD"] == "PATCH"){
 
     if (isset($post["old"], 
                 $post["new"],
@@ -30,31 +30,48 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // $post["username"], 
     // $post["password"]))
 
-    if($_FILES){
+    send_JSON(["message"=>"Wrong parameters"], 405);
+}
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    if($_FILES){ // change profile picture
         $source = $_FILES["pfp"]["tmp_name"];
         $destination = "/loginregister-api/data/pictures/".$_FILES["pfp"]["name"];
         $size = $_FILES["pfp"]["size"];
         $type = $_FILES["pfp"]["type"];
         $time = time();
 
+        // these are needed for giving the right person the pfp
         $username = $_POST["username"];
         $password = $_POST["password"];
 
-        if ($type != "image/jpeg" || $type != "image/png"){
-            send_JSON(["message"=>$type], 400);
+        // send_JSON(["message"=>$_POST], 400);
+
+        $allowedFiles = ["image/jpeg", "image/png", "image/gif"]; // checking so that the filetype is allowed
+        if (!in_array($type, $allowedFiles)){
             send_JSON(["message"=>"Wrong filetype"], 400);
         }
+        // (lägg till storleksgräns senare)
+
+        $ending = str_replace("image/", ".", $type);
+        $filePath = "/loginregister-api/data/pictures/";
+        $name = $time . $ending;
         
         foreach($users as $index => $user){
             if($user["username"] == $username && $user["password"] == $password){
 
-                $users[$index]["pfp"] = "pictures/" . $_FILES["pfp"]["name"];
-                // send_JSON($users);
+                $users[$index]["pfp"] = $filePath . $name;
 
-                if( move_uploaded_file($source, "data/pictures/" . $_FILES["pfp"]["name"])){
-                    $users[$index]["pfp"] = "/loginregister-api/data/pictures/" . $_FILES["pfp"]["name"];
+                if($_POST["old"]){
+                    $test = str_replace("/loginregister-api/data/pictures/", "data/pictures/", $_POST["old"]);
+                    unlink($test);
+                }
+                // problemet är här ******
+
+                if( move_uploaded_file($source, "data/pictures/" . $name)){
+                    $users[$index]["pfp"] = $filePath . $name;
                     file_put_contents($filename, json_encode($users, JSON_PRETTY_PRINT));
-                    send_JSON("/loginregister-api/data/pictures/" . $_FILES["pfp"]["name"]);
+                    send_JSON($filePath . $name);
                 } else {
                     send_JSON(["message"=>"wrong"], 400);
                 }
@@ -63,8 +80,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
 
     }
-
-    send_JSON($post);
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "DELETE"){
