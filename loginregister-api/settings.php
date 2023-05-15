@@ -5,7 +5,7 @@ $filename = "data/users.json";
 $users = json_decode(file_get_contents($filename), true);
 $post = json_decode(file_get_contents("php://input"), true);
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if($_SERVER["REQUEST_METHOD"] == "PATCH"){
 
     if (isset($post["old"], 
                 $post["new"],
@@ -30,6 +30,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // $post["username"], 
     // $post["password"]))
 
+    send_JSON(["message"=>"Wrong parameters"], 405);
+}
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
     if($_FILES){ // change profile picture
         $source = $_FILES["pfp"]["tmp_name"];
         $destination = "/loginregister-api/data/pictures/".$_FILES["pfp"]["name"];
@@ -76,8 +80,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
 
     }
-
-    send_JSON(["message"=>"Wrong parameters"], 405);
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "DELETE"){

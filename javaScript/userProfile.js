@@ -103,7 +103,7 @@ function renderSettings() {
                 password: JSON.parse(localStorage.getItem("user")).password
             };
 
-            await change(body, "../loginregister-api/settings.php", "POST", "username");
+            await change(body, "../loginregister-api/settings.php", "PATCH", "username");
         }
     }
 
@@ -115,7 +115,7 @@ function renderSettings() {
                 password: JSON.parse(localStorage.getItem("user")).password
             };
 
-            await change(body, "../loginregister-api/settings.php", "POST", "email");
+            await change(body, "../loginregister-api/settings.php", "PATCH", "email");
         }
     }
 
@@ -128,7 +128,7 @@ function renderSettings() {
                 username: JSON.parse(localStorage.getItem("user")).username
             };
 
-            await change(body, "../loginregister-api/settings.php", "POST", "password");
+            await change(body, "../loginregister-api/settings.php", "PATCH", "password");
         }
     }
 
