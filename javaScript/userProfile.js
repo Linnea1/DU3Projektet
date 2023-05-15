@@ -12,7 +12,7 @@ async function RenderUserPage() {
     </div>
     <div class="create_recipe">Create new recipe</div>
     <div class="columns">
-        <div class="disabled" class="profileButton">Recipes</div>
+        <div id="own_recipe" class="profileButton">Recipes</div>
         <div class="favorites" class="profileButton">Favorites</div>
     </div>
     <div class="recipes"></div>
@@ -40,11 +40,13 @@ async function RenderUserPage() {
         // Process the retrieved data
         console.log(data);
         renderRecipesFunction(data);
+        document.querySelector("#own_recipe").addEventListener("click", e => { renderRecipesFunction(data) });
     } catch (error) {
         // Handle any errors
         console.error(error);
     }
     goback();
+
     // newState("#settings", renderSettings());
     document.querySelector("#settings").addEventListener("click", e => {
         state.old_states.push(state.current_state);
@@ -220,10 +222,13 @@ async function favoriteRecipes(object, user) {
 
 
     let divForAllRecipes = document.querySelector(".favorites");
+    let recipesDiv = document.querySelector(".recipes");
+    recipesDiv.innerHTML = "";
 
+    object.stopPropagation();
+    // object.orginalEvent.stopPropagation();
     if (divForAllRecipes.childElementCount === 0) {
 
-        object.stopPropagation();
 
         try {
             let resourse = await fetch(`/loginregister-api/add_and_remove_favourite.php?favourites=${user}`);
@@ -246,7 +251,7 @@ async function favoriteRecipes(object, user) {
                         <h2>${recipe_name}</h2>
                         <img src="${recipe_img}"> 
                         </div>`;
-                    divForAllRecipes.appendChild(recipe_div);
+                    recipesDiv.appendChild(recipe_div);
 
                     recipe_div.addEventListener("click", renderRecipe.bind(this, responsefood.meals[0]))
 
