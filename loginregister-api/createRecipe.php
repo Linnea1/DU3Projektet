@@ -40,7 +40,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $recipes[] = $newRecipe;
     file_put_contents($filename, json_encode($recipes, JSON_PRETTY_PRINT));
-    send_JSON($newRecipe, 200);
+    send_JSON($newRecipe);
 }elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
    if(isset($_GET["category"])){
     $category = $_GET['category'];
