@@ -20,16 +20,6 @@
         "password": "redbull"
     },
     {
-        "email": "lo@hej",
-        "username": "lolo",
-        "password": "lolo"
-    },
-    {
-        "email": "hfwihw@jopjew.se",
-        "username": "halloj",
-        "password": "hej"
-    },
-    {
         "email": "hej@hej.se",
         "username": "drfg",
         "password": "lol"
@@ -48,6 +38,30 @@
         "email": "linnea@gmail.com",
         "username": "Linnea",
         "password": "hej"
+    },
+    {
+        "email": "hej@hpp.com",
+        "username": "kaj",
+        "password": "haha",
+        "pfp": "\/loginregister-api\/data\/pictures\/zaebucca1.png"
+    },
+    {
+        "email": "duehdueldhw@hdedh.se",
+        "username": "euo",
+        "password": "ojoj",
+        "pfp": "\/loginregister-api\/data\/pictures\/zaebucca1.png"
+    },
+    {
+        "email": "drftyguyhi@drfytguh.se",
+        "username": "lol",
+        "password": "lol",
+        "pfp": "\/loginregister-api\/data\/pictures\/336086_1674152508.jpeg"
+    },
+    {
+        "email": "edertftyguyhij@guhbjnklk.se",
+        "username": "test",
+        "password": "test",
+        "pfp": "\/loginregister-api\/data\/pictures\/af53adb2c4eb0c5af0ea5d46342f9994fa61cd2c_hq.gif"
     },
     {
         "email": "hej@mail.com",

@@ -81,8 +81,7 @@ async function checkClass(recipe) {
 async function renderCategoriesPage() {
 
     let user = JSON.parse(localStorage.getItem('user'));
-    state.current_state = "renderCategoriesPage()";
-    console.log(state);
+    currentState("renderCategoriesPage()");
 
     main.innerHTML = `
       <div id="sticky"></div>
@@ -103,11 +102,7 @@ async function renderCategoriesPage() {
     searchField.addEventListener("keyup", searhDish);
     document.querySelector("#menu").addEventListener("click", ShowMenu);
 
-
-    document.querySelector("#user").addEventListener("click", e => {
-        state.old_states.push(state.current_state);
-        RenderUserPage();
-    });
+    newState("#user", "RenderUserPage()");
 
     try {
         const response = await fetch("https://www.themealdb.com/api/json/v1/1/list.php?c=list");
@@ -133,7 +128,7 @@ function setCategory(event) {
 
 async function renderRecepiesAfterCategory(event) {
     let user = JSON.parse(localStorage.getItem('user'));
-  
+
 
     let category = event.target.innerHTML;
     main.innerHTML = `
@@ -203,7 +198,7 @@ async function searhDish(event) {
             recipe_div.querySelector("#first").addEventListener("click", like_recipe);
             recipe_div.querySelector("#second").addEventListener("click", like_recipe);
             recipe_div.addEventListener("click", renderRecipe.bind(this, response.meals[recipeName]))
-            
+
 
         }
 
@@ -214,7 +209,7 @@ function callForRecipe(recipe, event) {
     renderRecipe(recipe);
 }
 
-async function renderRecipesFunction(data){
+async function renderRecipesFunction(data) {
     const divRecipes = document.querySelector(".recipes");
     for (const recipeName in data.meals) {
         const recipe = data.meals[recipeName];
