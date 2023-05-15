@@ -38,12 +38,6 @@ async function RenderUserPage() {
         // Handle any errors
         console.error(error);
     }
-    goback();
-    // newState("#settings", renderSettings());
-    document.querySelector("#settings").addEventListener("click", e => {
-        state.old_states.push(state.current_state);
-        renderSettings();
-    })
 
     document.querySelector(".favorites").addEventListener("click", e => {
         favoriteRecipes(e, user.username)
