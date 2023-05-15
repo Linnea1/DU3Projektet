@@ -58,10 +58,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                 $users[$index]["pfp"] = $filePath . $name;
 
-                // if($_POST["old"]){
-                //     $test = str_replace("/loginregister-api/data/pictures/", getcwd(), $_POST["old"]);
-                //     unlink($test);
-                // }
+                if($_POST["old"]){
+                    $test = str_replace("/loginregister-api/data/pictures/", "data/pictures/", $_POST["old"]);
+                    unlink($test);
+                }
                 // problemet är här ******
 
                 if( move_uploaded_file($source, "data/pictures/" . $name)){
