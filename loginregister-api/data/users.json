@@ -53,7 +53,7 @@
         "pfp": "\/loginregister-api\/data\/pictures\/336086_1674152508.jpeg"
     },
     {
-        "email": "sedfgh@fghjlk.se",
+        "email": "esrdtfgyhuj@tdrftyghuji.se",
         "username": "test",
         "password": "test",
         "pfp": "\/loginregister-api\/data\/pictures\/1684146603.gif"
@@ -63,5 +63,10 @@
         "username": "hej",
         "password": "hej",
         "pfp": "\/loginregister-api\/data\/pictures\/1684142552.gif"
+    },
+    {
+        "email": "dxgfchgvjhb@dtyfjyg.se",
+        "username": "hejhej",
+        "password": "yay"
     }
 ]

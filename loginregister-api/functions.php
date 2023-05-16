@@ -69,10 +69,21 @@ function change ($post, $users, $filename, $field, $secondaryField = "password")
                 $users[$index][$field] = $post["new"];
                 file_put_contents($filename, json_encode($users, JSON_PRETTY_PRINT));
 
+                if($field == "username"){
+                    $favorites = json_decode(file_get_contents("data/favourites.json"), true);
+
+                    foreach($favorites as $index => $favorite){
+                        if($favorite["username"] == $post["username"]){
+                            $favorites[$index]["username"] = $post["new"];
+
+                            file_put_contents("data/favourites.json", json_encode($favorites, JSON_PRETTY_PRINT));
+                        }
+                    }
+                }
+
                 send_JSON($post["new"]);
             }
         }
-        send_JSON($post, 400);
         send_JSON(["message"=>"Problems with finding user"], 400); // if user cant be found / matched
 }
 ?>
