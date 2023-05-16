@@ -1,17 +1,19 @@
 // The user starts out as `null` until we've logged in
-let user = null;
+let user = JSON.parse(localStorage.getItem("user"));
+
+console.log(user);
 // This is where we render all of our pages
 let main = document.querySelector("main");
 
 let wrapper = document.querySelector("#wrapper");
 
 
-let username;
-if (!window.localStorage.getItem("user")) {
-    username = "Guest";
-} else {
-    username = localStorage.getItem("user");
-}
+
+// if (window.localStorage.getItem("user")) {
+//     let user = JSON.parse(localStorage.getItem("user"));
+// } else {
+//     let user = JSON.parse(localStorage.setItem("user"));
+// }
 
 
 async function fetching(URL, method, body) {
@@ -94,9 +96,45 @@ function currentState(renderFunction) {
     }));
 }
 
-function newState(element, renderFunction) { // use this when going to a new "state"
+function newState(element, renderFunction, Guest) { // use this when going to a new "state"
     document.querySelector(element).addEventListener("click", e => {
-        state.old_states.push(state.current_state);
-        eval(renderFunction);
+        if (Guest) {
+            if (user.guest) {
+                let PopupMenu = document.querySelector("#popUp");
+                PopupMenu.classList.remove("hidden");
+                let PopUpWindow = document.querySelector("#popUpWindow");
+
+                let info = document.createElement("div");
+                let OkButton = document.createElement("button");
+                let registerButton = document.createElement("button");
+
+
+
+                PopUpWindow.append(info);
+                PopUpWindow.append(OkButton);
+                PopUpWindow.append(registerButton);
+
+
+                info.textContent = "Only registered users can use this feature";
+                OkButton.textContent = "Ok";
+                registerButton.textContent = "Register or login";
+
+                OkButton.addEventListener("click", e => {
+                    Disguise(e)
+                });
+
+                registerButton.addEventListener("click", e => {
+                    logout();
+                    Disguise(e)
+                });
+
+            } else {
+                state.old_states.push(state.current_state);
+                eval(renderFunction);
+            }
+        } else {
+            state.old_states.push(state.current_state);
+            eval(renderFunction);
+        }
     })
 }

@@ -72,7 +72,7 @@ function change ($post, $users, $filename, $field, $secondaryField = "password")
                 send_JSON($post["new"]);
             }
         }
-        send_JSON($post, 400);
+    
         send_JSON(["message"=>"Problems with finding user"], 400); // if user cant be found / matched
 }
 ?>

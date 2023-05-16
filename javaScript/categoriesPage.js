@@ -1,9 +1,12 @@
 
 async function AddRecipesAsFavourite(recipe) {
+
+    console.log(user);
+
     let parent = recipe.parentElement
     console.log(parent.innerText);
     let nameOfDish = parent.innerText;
-    let user = JSON.parse(localStorage.getItem('user'));
+    // let user = JSON.parse(localStorage.getItem('user'));
     console.log(user.username);
 
     try {
@@ -23,6 +26,7 @@ async function AddRecipesAsFavourite(recipe) {
         console.log(error);
     }
 
+
 }
 
 async function RemoveFavourite(recipe) {
@@ -30,7 +34,7 @@ async function RemoveFavourite(recipe) {
     let parent = recipe.parentElement
     console.log(parent.innerText);
     let nameOfDish = parent.innerText;
-    let user = JSON.parse(localStorage.getItem('user'));
+    // let user = JSON.parse(localStorage.getItem('user'));
     console.log(user.username);
 
     try {
@@ -53,21 +57,54 @@ async function RemoveFavourite(recipe) {
 
 function like_recipe(event) {
     event.stopPropagation();
-    const liker_dom = event.target.parentElement;
-    liker_dom.classList.toggle("liked");
 
-    if (liker_dom.classList.contains("liked")) {
-        AddRecipesAsFavourite(liker_dom)
+    if (user.guest) {
+
+        let PopupMenu = document.querySelector("#popUp");
+        PopupMenu.classList.remove("hidden");
+        let PopUpWindow = document.querySelector("#popUpWindow");
+
+        let info = document.createElement("div");
+        let OkButton = document.createElement("button");
+        let registerButton = document.createElement("button");
+
+
+
+        PopUpWindow.append(info);
+        PopUpWindow.append(OkButton);
+        PopUpWindow.append(registerButton);
+
+
+        info.textContent = "Only registered users can use this feature";
+        OkButton.textContent = "Ok";
+        registerButton.textContent = "Register or login";
+
+        OkButton.addEventListener("click", e => {
+            Disguise(e)
+        });
+
+        registerButton.addEventListener("click", e => {
+            logout();
+            Disguise(e)
+        });
     } else {
-        RemoveFavourite(liker_dom)
-        console.log("Ej favorit");
+
+        const liker_dom = event.target.parentElement;
+        liker_dom.classList.toggle("liked");
+
+        if (liker_dom.classList.contains("liked")) {
+            AddRecipesAsFavourite(liker_dom)
+        } else {
+            RemoveFavourite(liker_dom)
+            console.log("Ej favorit");
+        }
     }
 }
 
 
 async function checkClass(recipe) {
 
-    let user = JSON.parse(localStorage.getItem('user'));
+    // let user = JSON.parse(localStorage.getItem('user'));
 
     let response = await fetch(`/loginregister-api/add_and_remove_favourite.php?meal=${recipe}&user=${user.username}`);
     let resourse = await response.json();
@@ -80,7 +117,14 @@ async function checkClass(recipe) {
 
 async function renderCategoriesPage() {
 
-    let user = JSON.parse(localStorage.getItem('user'));
+    // if (Guest) {
+    //     localStorage.setItem("user", JSON.stringify({
+    //         "username": "Guest",
+    //         "guest": true
+    //     }))
+    // }
+
+    console.log(user);
     currentState("renderCategoriesPage()");
 
     main.innerHTML = `
@@ -102,7 +146,7 @@ async function renderCategoriesPage() {
     searchField.addEventListener("keyup", searhDish);
     document.querySelector("#menu").addEventListener("click", ShowMenu);
 
-    newState("#user", "RenderUserPage()");
+    newState("#user", "RenderUserPage()", true);
 
     try {
         const response = await fetch("https://www.themealdb.com/api/json/v1/1/list.php?c=list");
@@ -127,7 +171,7 @@ function setCategory(event) {
 }
 
 async function renderRecepiesAfterCategory(event) {
-    let user = JSON.parse(localStorage.getItem('user'));
+    // let user = JSON.parse(localStorage.getItem('user'));
 
 
     let category = event.target.innerHTML;

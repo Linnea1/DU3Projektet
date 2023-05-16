@@ -1,7 +1,13 @@
-// if (!window.localStorage.getItem("user")) {
+
 renderStartPage();
-// }
+
 function renderStartPage() {
+    localStorage.setItem("user", JSON.stringify({
+        "username": "Guest",
+        "guest": true
+    }))
+    console.log(user);
+
     main.innerHTML = `
     <header>
         <div class=image></div>

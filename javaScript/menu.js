@@ -4,19 +4,19 @@ function ShowMenu() {
     PopupMenu.classList.remove("hidden");
     let PopUpWindow = document.querySelector("#popUpWindow");
 
-    let Home = document.createElement("button");
+    let Startpage = document.createElement("button");
     let Profile = document.createElement("button");
     let ManageAccount = document.createElement("button");
     let Nightmode = document.createElement("button");
     let LogOut = document.createElement("button");
 
-    PopUpWindow.append(Home);
+    PopUpWindow.append(Startpage);
     PopUpWindow.append(Profile);
     PopUpWindow.append(ManageAccount);
     PopUpWindow.append(Nightmode);
     PopUpWindow.append(LogOut);
 
-    Home.textContent = "Home";
+    Startpage.textContent = "Startpage";
     Profile.textContent = "My Profile";
     ManageAccount.textContent = "Manage My Account";
     Nightmode.textContent = "Nightmode";
@@ -27,13 +27,14 @@ function ShowMenu() {
         Disguise(e)
     });
 
-    Home.addEventListener("click", e => {
+    Startpage.addEventListener("click", e => {
         Disguise(e)
         renderCategoriesPage()
     });
 
     Profile.addEventListener("click", e => {
         Disguise(e)
+        // if-sats om du är inloggad eller ej 
         RenderUserPage();
     })
 
@@ -58,8 +59,7 @@ function Disguise(object) {
 }
 
 function logout() {
-    localStorage.removeItem("user");
-    localStorage.removeItem("state");
-    location.reload();
+    localStorage.clear();
+    renderStartPage();
 }
 

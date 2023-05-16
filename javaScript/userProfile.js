@@ -34,7 +34,10 @@ async function RenderUserPage() {
         // Process the retrieved data
         console.log(data);
         renderRecipesFunction(data);
+        //if-sats om du är inloggad eller ej 
+
         document.querySelector("#own_recipe").addEventListener("click", e => { renderRecipesFunction(data) });
+
     } catch (error) {
         // Handle any errors
         console.error(error);
@@ -217,15 +220,14 @@ function renderSettings() {
 
 async function favoriteRecipes(object, user) {
 
+    //if-sats om du är inloggad eller ej
 
     let divForAllRecipes = document.querySelector(".favorites");
     let recipesDiv = document.querySelector(".recipes");
     recipesDiv.innerHTML = "";
 
     object.stopPropagation();
-    // object.orginalEvent.stopPropagation();
     if (divForAllRecipes.childElementCount === 0) {
-
 
         try {
             let resourse = await fetch(`/loginregister-api/add_and_remove_favourite.php?favourites=${user}`);

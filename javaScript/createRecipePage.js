@@ -1,5 +1,5 @@
 function renderCreateRecipe(event) {
-    main.innerHTML = `
+  main.innerHTML = `
       <form>
         <p id=message></p>
         <label for="picture">Picture:</label>
@@ -67,103 +67,102 @@ function renderCreateRecipe(event) {
         <input type="submit" value="Submit">
       </form>
     `;
-    let RegisterButton = main.querySelector("form");
-    RegisterButton.addEventListener("submit", submitRecipe);
-    let message = main.querySelector("#message");
-    let user = JSON.parse(localStorage.getItem('user'));
+  let RegisterButton = main.querySelector("form");
+  RegisterButton.addEventListener("submit", submitRecipe);
+  // let message = main.querySelector("#message");
+
 }
-  
+
 let ingredientGroupCounter = 3;
-  
+
 function addIngredientGroup() {
-    const ingredients = document.getElementById("ingredients");
-  
-    const ingredientGroup = document.createElement("div");
-    ingredientGroup.classList.add("ingredientGroup");
-    const ingredientDiv1 = document.createElement("div");
-    const ingredientDiv2 = document.createElement("div");
-  
-    const ingredientLabel = document.createElement("label");
-    ingredientLabel.setAttribute("for", `strIngredient${ingredientGroupCounter + 1}`);
-    ingredientLabel.textContent = `Ingredient ${ingredientGroupCounter + 1}:`;
-    ingredientDiv1.appendChild(ingredientLabel);
-  
-    const ingredientInput = document.createElement("input");
-    ingredientInput.setAttribute("type", "text");
-    ingredientInput.setAttribute("id", `strIngredient${ingredientGroupCounter + 1}`);
-    ingredientInput.setAttribute("name", `strIngredient${ingredientGroupCounter + 1}`);
-    ingredientDiv1.appendChild(ingredientInput);
-  
-    const measureLabel = document.createElement("label");
-    measureLabel.setAttribute("for", `strMeasure${ingredientGroupCounter + 1}`);
-    measureLabel.textContent = `Measurement ${ingredientGroupCounter + 1}:`;
-    ingredientDiv2.appendChild(measureLabel);
-  
-    const measureInput = document.createElement("input");
-    measureInput.setAttribute("type", "text");
-    measureInput.setAttribute("id", `strMeasure${ingredientGroupCounter + 1}`);
-    measureInput.setAttribute("name", `strMeasure${ingredientGroupCounter + 1}`);
-    ingredientDiv2.appendChild(measureInput);
-  
-    ingredients.appendChild(ingredientGroup);
-    ingredientGroup.appendChild(ingredientDiv1);
-    ingredientGroup.appendChild(ingredientDiv2);
+  const ingredients = document.getElementById("ingredients");
 
-  
-    ingredientGroupCounter++;
+  const ingredientGroup = document.createElement("div");
+  ingredientGroup.classList.add("ingredientGroup");
+  const ingredientDiv1 = document.createElement("div");
+  const ingredientDiv2 = document.createElement("div");
+
+  const ingredientLabel = document.createElement("label");
+  ingredientLabel.setAttribute("for", `strIngredient${ingredientGroupCounter + 1}`);
+  ingredientLabel.textContent = `Ingredient ${ingredientGroupCounter + 1}:`;
+  ingredientDiv1.appendChild(ingredientLabel);
+
+  const ingredientInput = document.createElement("input");
+  ingredientInput.setAttribute("type", "text");
+  ingredientInput.setAttribute("id", `strIngredient${ingredientGroupCounter + 1}`);
+  ingredientInput.setAttribute("name", `strIngredient${ingredientGroupCounter + 1}`);
+  ingredientDiv1.appendChild(ingredientInput);
+
+  const measureLabel = document.createElement("label");
+  measureLabel.setAttribute("for", `strMeasure${ingredientGroupCounter + 1}`);
+  measureLabel.textContent = `Measurement ${ingredientGroupCounter + 1}:`;
+  ingredientDiv2.appendChild(measureLabel);
+
+  const measureInput = document.createElement("input");
+  measureInput.setAttribute("type", "text");
+  measureInput.setAttribute("id", `strMeasure${ingredientGroupCounter + 1}`);
+  measureInput.setAttribute("name", `strMeasure${ingredientGroupCounter + 1}`);
+  ingredientDiv2.appendChild(measureInput);
+
+  ingredients.appendChild(ingredientGroup);
+  ingredientGroup.appendChild(ingredientDiv1);
+  ingredientGroup.appendChild(ingredientDiv2);
+
+
+  ingredientGroupCounter++;
 }
-let theUser=JSON.parse(username);
-console.log(theUser);
-let author=theUser.username;
-async function submitRecipe(event){
-    event.preventDefault();
-    
-    const recipeImage = main.querySelector("#picture").value;
-    const mealName = main.querySelector("#strMeal").value;
-    const mealCategory = main.querySelector("#strCategory").value;
-    const instructions = main.querySelector("#strInstructions").value;
-    
-    const ingredients = [];
-    const measurements = [];
-    
-    for (let i = 1; i <= ingredientGroupCounter; i++) {
-      const ingredient = main.querySelector(`#strIngredient${i}`).value.trim();
-      const measurement = main.querySelector(`#strMeasure${i}`).value.trim();
-      
-      if (ingredient !== "" && measurement !== "") {
-        ingredients.push(ingredient);
-        measurements.push(measurement);
-      }
-    }
-    
-    const recipeData = {
-      author,
-      mealName,
-      mealCategory,
-      instructions,
-      ingredients,
-      measurements,
-      recipeImage
-    };
 
-    console.log(recipeData)
-    
-    try {
-        let response = await fetch("/loginregister-api/createRecipe.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(recipeData),
-        });
-        let data = await response.json();
-        console.log(response);
-        if (response.ok) {
-            popUp("You have added a new recipe!")
-        } else {
-            popUp(`${data.message}`);
-        }
-    } catch (error) {
-        message.textContent = `${error.message}`;
+
+async function submitRecipe(event) {
+  event.preventDefault();
+  let author = user.username;
+
+  const recipeImage = main.querySelector("#picture").value;
+  const mealName = main.querySelector("#strMeal").value;
+  const mealCategory = main.querySelector("#strCategory").value;
+  const instructions = main.querySelector("#strInstructions").value;
+
+  const ingredients = [];
+  const measurements = [];
+
+  for (let i = 1; i <= ingredientGroupCounter; i++) {
+    const ingredient = main.querySelector(`#strIngredient${i}`).value.trim();
+    const measurement = main.querySelector(`#strMeasure${i}`).value.trim();
+
+    if (ingredient !== "" && measurement !== "") {
+      ingredients.push(ingredient);
+      measurements.push(measurement);
     }
   }
-  
-  
+
+  const recipeData = {
+    author,
+    mealName,
+    mealCategory,
+    instructions,
+    ingredients,
+    measurements,
+    recipeImage
+  };
+
+  console.log(recipeData)
+
+  try {
+    let response = await fetch("/loginregister-api/createRecipe.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(recipeData),
+    });
+    let data = await response.json();
+    console.log(response);
+    if (response.ok) {
+      popUp("You have added a new recipe!")
+    } else {
+      popUp(`${data.message}`);
+    }
+  } catch (error) {
+    message.textContent = `${error.message}`;
+  }
+}
+

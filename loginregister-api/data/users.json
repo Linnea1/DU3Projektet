@@ -10,9 +10,10 @@
         "password": "hej"
     },
     {
-        "email": "ballong@hej",
-        "username": "ballong",
-        "password": "ballong"
+        "email": "ballongone@ballong.se",
+        "username": "WDU",
+        "password": "ballong",
+        "pfp": "\/loginregister-api\/data\/pictures\/1684147264.jpeg"
     },
     {
         "email": "hej@hej",
@@ -62,5 +63,11 @@
         "email": "hej@mail.com",
         "username": "hej",
         "password": "hej"
+    },
+    {
+        "email": "elliot@elliot",
+        "username": "elliot",
+        "password": "elliot",
+        "pfp": "\/loginregister-api\/data\/pictures\/1684229616.png"
     }
 ]
