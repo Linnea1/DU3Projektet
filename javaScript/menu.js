@@ -5,19 +5,19 @@ function ShowMenu() {
     let PopUpWindow = document.querySelector("#popUpWindow");
 
     let Home = document.createElement("button");
-    let Favourites = document.createElement("button");
+    let Profile = document.createElement("button");
     let ManageAccount = document.createElement("button");
     let Nightmode = document.createElement("button");
     let LogOut = document.createElement("button");
 
     PopUpWindow.append(Home);
-    PopUpWindow.append(Favourites);
+    PopUpWindow.append(Profile);
     PopUpWindow.append(ManageAccount);
     PopUpWindow.append(Nightmode);
     PopUpWindow.append(LogOut);
 
     Home.textContent = "Home";
-    Favourites.textContent = "Favourites";
+    Profile.textContent = "My Profile";
     ManageAccount.textContent = "Manage My Account";
     Nightmode.textContent = "Nightmode";
     LogOut.textContent = "Log out";
@@ -31,6 +31,11 @@ function ShowMenu() {
         Disguise(e)
         renderCategoriesPage()
     });
+
+    Profile.addEventListener("click", e => {
+        Disguise(e)
+        RenderUserPage();
+    })
 
     ManageAccount.addEventListener("click", e => {
         Disguise(e)

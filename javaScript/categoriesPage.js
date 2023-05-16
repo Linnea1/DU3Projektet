@@ -210,6 +210,10 @@ function callForRecipe(recipe, event) {
 }
 
 async function renderRecipesFunction(data) {
+
+    let recipesDiv = document.querySelector(".recipes");
+    recipesDiv.innerHTML = "";
+
     const divRecipes = document.querySelector(".recipes");
     for (const recipeName in data.meals) {
         const recipe = data.meals[recipeName];
