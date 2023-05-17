@@ -1,101 +1,18 @@
 [
     {
-        "username": "lolo",
-        "meal": [
-            "Breakfast Potatoes",
-            "English Breakfast",
-            "Smoked Haddock Kedgeree"
-        ]
-    },
-    {
-        "username": "ballong",
-        "meal": [
-            "Full English Breakfast",
-            "Salmon Eggs Eggs Benedict",
-            "Home-made Mandazi",
-            "Beef and Mustard Pie",
-            "Ayam Percik",
-            "Beef Sunday Roast",
-            "Beef stroganoff",
-            "Beef Rendang",
-            "Smoked Haddock Kedgeree",
-            "Stovetop Eggplant With Harissa, Chickpeas, and Cumin Yogurt",
-            "Egg Drop Soup",
-            "Apam balik"
+        "username": "elliot",
+        "mealId": [
+            "52878",
+            "53071",
+            "x_645b7beb722c2"
         ]
     },
     {
         "username": "erica",
-        "meal": [
-            "Apam balik",
-            "Beef and Mustard Pie",
-            "BeaverTails"
-        ]
-    },
-    {
-        "username": "redbull",
-        "meal": [
-            "Apam balik",
-            "Dundee cake",
-            "Jam Roly-Poly",
-            "Key Lime Pie"
-        ]
-    },
-    {
-        "username": "erik",
-        "meal": [
-            "Beef and Mustard Pie",
-            "Beef Lo Mein",
-            "Beef Rendang"
-        ]
-    },
-    {
-        "username": "TheMealDB",
-        "meal": [
-            "Beef and Mustard Pie",
-            "Pasta"
-        ]
-    },
-    {
-        "username": "Linnea",
-        "meal": [
-            "Banana Pancakes",
-            "Blackberry Fool",
-            "Chocolate Raspberry Brownies",
-            "Crock Pot Chicken Baked Tacos",
-            "Kentucky Fried Chicken",
-            "Full English Breakfast",
-            "Baked salmon with fennel & tomatoes",
-            "Cajun spiced fish tacos",
-            "Pancakes",
-            "Leblebi Soup",
-            "Moroccan Carrot Soup",
-            "Stovetop Eggplant With Harissa, Chickpeas, and Cumin Yogurt",
-            "Creamy Tomato Soup"
-        ]
-    },
-    {
-        "username": "test",
-        "meal": [
-            "Breakfast Potatoes",
-            "English Breakfast",
-            "Pancakes"
-        ]
-    },
-    {
-        "username": "theoo",
-        "meal": [
-            "Breakfast Potatoes"
-        ]
-    },
-    {
-        "username": "elliot",
-        "meal": []
-    },
-    {
-        "username": "WDU",
-        "meal": [
-            "Beef and Oyster pie"
+        "mealId": [
+            "52878",
+            "52873",
+            "52895"
         ]
     }
 ]

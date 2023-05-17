@@ -12,15 +12,15 @@ $method = $_SERVER["REQUEST_METHOD"];
 
 if ($method == "GET") {
 
-    if (isset($_GET["meal"],$_GET["user"])) {
+    if (isset($_GET["mealId"],$_GET["user"])) {
      
-        $recipe = $_GET["meal"];
+        $recipe = $_GET["mealId"];
         $username = $_GET["user"];
         
         foreach($data as $user){
             if ($user['username'] == $username) {
                 
-                if (in_array($recipe, $user['meal'])) {
+                if (in_array($recipe, $user['mealId'])) {
                     send_JSON(true);
                 }else{
                     send_JSON(false);
@@ -38,7 +38,7 @@ if ($method == "GET") {
         
         foreach($data as $user){    
             if ($user['username'] === $username) {
-                send_JSON($user["meal"]);
+                send_JSON($user["mealId"]);
             }
         }
         $error = ["error" => "There are no liked recipes"];
@@ -57,7 +57,7 @@ if ($method == "POST") {
     $requestDATA = json_decode($requestJSON,true);
     
     $username = $requestDATA["username"];
-    $meal = $requestDATA["meal"];
+    $mealId = $requestDATA["mealId"];
     
 
     $userExists = false;
@@ -75,12 +75,12 @@ if ($method == "POST") {
         foreach($data as &$userData){
             if ($userData["username"] == $username) {
 
-                if (in_array($meal, $userData["meal"])) {
+                if (in_array($mealId, $userData["mealId"])) {
                     $message = ["message" => "is already added to your favourites"];
                     send_JSON($message, 400);
                 }
 
-                $userData["meal"][] = $meal;
+                $userData["mealId"][] = $mealId;
                 $json = json_encode($data, JSON_PRETTY_PRINT);
                 file_put_contents($filename, $json);
                 send_JSON($userData);
@@ -90,7 +90,7 @@ if ($method == "POST") {
         // add the new user to the data array
         $newUser = [
             "username" => $username,
-            "meal" => [$meal],
+            "mealId" => [$mealId],
         ];
         $data[] = $newUser;
         $json = json_encode($data, JSON_PRETTY_PRINT);
@@ -106,7 +106,7 @@ if ($method == "DELETE") {
     $requestDATA = json_decode($requestJSON,true);
 
     $username = $requestDATA["username"];
-    $meal = $requestDATA["meal"];
+    $mealId = $requestDATA["mealId"];
     $userExists = false;
     
     foreach ($data as $user) {
@@ -118,9 +118,9 @@ if ($method == "DELETE") {
     foreach($data as &$userData){
         if ($userData["username"] == $username) {
 
-            foreach($userData["meal"] as $index => $value){
-                if ($value == $meal) {
-                    array_splice($userData["meal"], $index, 1);
+            foreach($userData["mealId"] as $index => $value){
+                if ($value == $mealId) {
+                    array_splice($userData["mealId"], $index, 1);
                     $json = json_encode($data, JSON_PRETTY_PRINT);
                     file_put_contents($filename, $json);
                     send_JSON($userData);
