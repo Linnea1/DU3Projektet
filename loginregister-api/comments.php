@@ -44,4 +44,5 @@ function filterComments($comments, $id, $key) {
     }
     return $filteredComments;
 }
+//Test
 ?>
