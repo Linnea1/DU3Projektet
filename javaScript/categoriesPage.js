@@ -6,6 +6,8 @@ async function AddRecipesAsFavourite(recipe) {
     let parent = recipe.parentElement
     console.log(parent.innerText);
     let nameOfDish = parent.innerText;
+    let idOfMeal = parent.dataset.id;
+    console.log(idOfMeal);
     // let user = JSON.parse(localStorage.getItem('user'));
     console.log(user.username);
 
@@ -15,7 +17,7 @@ async function AddRecipesAsFavourite(recipe) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 username: user.username,
-                meal: nameOfDish
+                mealId: idOfMeal
             }),
         })
         let data = await response.json();
@@ -106,7 +108,7 @@ async function checkClass(recipe) {
 
     // let user = JSON.parse(localStorage.getItem('user'));
 
-    let response = await fetch(`/loginregister-api/add_and_remove_favourite.php?meal=${recipe}&user=${user.username}`);
+    let response = await fetch(`/loginregister-api/add_and_remove_favourite.php?mealId=${recipe}&user=${user.username}`);
     let resourse = await response.json();
 
     return resourse
@@ -255,6 +257,7 @@ function callForRecipe(recipe, event) {
 
 async function renderRecipesFunction(data) {
 
+
     let recipesDiv = document.querySelector(".recipes");
     recipesDiv.innerHTML = "";
 
@@ -265,7 +268,7 @@ async function renderRecipesFunction(data) {
         recipeDiv.classList.add("recipe");
         recipeDiv.innerHTML = `
         <h2>${recipe.strMeal}</h2>
-        <div id="liker" class="${await checkClass(recipe.strMeal) ? 'liked' : 'false'}">
+        <div id="liker" class="${await checkClass(recipe.idMeal) ? 'liked' : 'false'}">
             <button id="first"></button>
             <button id="second"></button>
         <div>
@@ -273,6 +276,7 @@ async function renderRecipesFunction(data) {
         </div>
     `;
         divRecipes.appendChild(recipeDiv);
+        recipeDiv.dataset.id = recipe.idMeal;
 
         recipeDiv.querySelector("#first").addEventListener("click", like_recipe);
         recipeDiv.querySelector("#second").addEventListener("click", like_recipe);
