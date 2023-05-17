@@ -58,23 +58,9 @@ async function renderRecipe(recipe) {
             <div  class="commentBox"></div>
                 <div class="comments">
                 </div>
-                <p><b>Share your opinion on ${recipe.strMeal}</b></p>
-                <form>
-                <div class="rating">
-                    <input type="radio" id="star5" name="rating" value="5" />
-                    <label for="star5"></label>
-                    <input type="radio" id="star4" name="rating" value="4" />
-                    <label for="star4"></label>
-                    <input type="radio" id="star3" name="rating" value="3" />
-                    <label for="star3"></label>
-                    <input type="radio" id="star2" name="rating" value="2" />
-                    <label for="star2"></label>
-                    <input type="radio" id="star1" name="rating" value="1" />
-                    <label for="star1"></label>
+                <div class="ratingBox">
                 </div>
-                <textarea id="comment" name="comment"></textarea><br><br>
-                <button type="submit">Comment</button>
-                </form>
+               
             </div>
             `;
         const list = document.querySelector(".ingredientList");
@@ -85,12 +71,11 @@ async function renderRecipe(recipe) {
         }
 
         document.querySelector("#menu").addEventListener("click", ShowMenu);
-        let RegisterButton = main.querySelector("form");
-        RegisterButton.addEventListener("submit", sendComment);
-        console.log(recipe_.idMeal);
+        let usersComment=false;
         try {
             const response = await fetch(`/loginregister-api/comments.php?id=${recipe_.idMeal}`);
             const data = await response.json();
+            
             for (const comment_ of data.comments) {
                 let commentContainer = document.createElement("div");
                 commentContainer.classList.add("comment");
@@ -137,8 +122,9 @@ async function renderRecipe(recipe) {
                     dropdownMenu.addEventListener('mouseleave', () => {
                         dropdownMenu.style.display = 'none';
                     });
-
+                    usersComment=true;
                 }
+                
             }
 
             console.log(data);
@@ -147,7 +133,30 @@ async function renderRecipe(recipe) {
             // Handle any errors
             console.error(error);
         }
-
+        console.log(usersComment);
+        if(usersComment===false){
+            document.querySelector(".ratingBox").innerHTML= `
+            <p><b>Share your opinion on ${recipe.strMeal}</b></p>
+            <form>
+            <div class="rating">
+                <input type="radio" id="star5" name="rating" value="5" />
+                <label for="star5"></label>
+                <input type="radio" id="star4" name="rating" value="4" />
+                <label for="star4"></label>
+                <input type="radio" id="star3" name="rating" value="3" />
+                <label for="star3"></label>
+                <input type="radio" id="star2" name="rating" value="2" />
+                <label for="star2"></label>
+                <input type="radio" id="star1" name="rating" value="1" />
+                <label for="star1"></label>
+            </div>
+            <textarea id="comment" name="comment"></textarea><br><br>
+            <button type="submit">Comment</button>
+            </form>
+            `
+            let submitButton = main.querySelector("form");
+            submitButton.addEventListener("submit", sendComment);
+        }
     }
     async function sendComment(event) {
         event.preventDefault();
