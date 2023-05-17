@@ -54,6 +54,29 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $filteredMeals = filterMeals($recipes, $recipeAuthor, 'author');
     send_JSON(["meals" => $filteredMeals]);
    }
+
+
+   ////// 
+   if($_FILES){
+    $source = $_FILES["picture"]["tmp_name"];
+    $destination = "loginregister-api/data/pictures/".$_FILES["picture"]["name"];
+    $size = $_FILES["picture"]["size"];
+    $type = $_FILES["picture"]["type"];
+    $time = time();
+
+    $allowedFiles = ["image/jpeg", "image/png"]; // checking so that the filetype is allowed
+        if (!in_array($type, $allowedFiles)){
+            send_JSON(["message"=>"Wrong filetype"], 400);
+        }
+
+        $ending = str_replace("image/", ".", $type);
+        $filePath = "loginregister-api/data/pictures/";
+        $name = $time . $ending;
+
+        if(move_uploaded_file($source, "data/pictures/recipe/" . $name)){
+
+        }
+   }
    
 } else {
     send_JSON(["message" => "Wrong method"], 405);

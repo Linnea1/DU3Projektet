@@ -36,7 +36,7 @@ if($_SERVER["REQUEST_METHOD"] == "PATCH"){
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     if($_FILES){ // change profile picture
         $source = $_FILES["pfp"]["tmp_name"];
-        $destination = "/loginregister-api/data/pictures/".$_FILES["pfp"]["name"];
+        $destination = "loginregister-api/data/pictures/pfp/".$_FILES["pfp"]["name"];
         $size = $_FILES["pfp"]["size"];
         $type = $_FILES["pfp"]["type"];
         $time = time();
@@ -51,10 +51,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if (!in_array($type, $allowedFiles)){
             send_JSON(["message"=>"Wrong filetype"], 400);
         }
-        // (lägg till storleksgräns senare)
+        
+        if($size > 50000){
+            send_JSON(["message"=>"Filesize is too big"], 400);
+        }
 
         $ending = str_replace("image/", ".", $type);
-        $filePath = "/loginregister-api/data/pictures/";
+        $filePath = "loginregister-api/data/pictures/pfp/";
         $name = $time . $ending;
         
         foreach($users as $index => $user){
@@ -62,13 +65,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                 $users[$index]["pfp"] = $filePath . $name;
 
-                if($_POST["old"]){
-                    $test = str_replace("/loginregister-api/data/pictures/", "data/pictures/", $_POST["old"]);
+                if(isset($_POST["old"])){
+                    $test = str_replace("loginregister-api/data/pictures/pfp/", "data/pictures/pfp/", $_POST["old"]);
                     unlink($test);
                 }
-                // problemet är här ******
 
-                if( move_uploaded_file($source, "data/pictures/" . $name)){
+                if( move_uploaded_file($source, "data/pictures/pfp/" . $name)){
                     $users[$index]["pfp"] = $filePath . $name;
                     file_put_contents($filename, json_encode($users, JSON_PRETTY_PRINT));
                     send_JSON($filePath . $name);
@@ -90,9 +92,11 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE"){
 
             send_JSON(["message"=>"User has been deleted"]);
         }
+        send_JSON(["message"=>"User could not be deleted"], 400);
     }
 }
 
+send_JSON($post, 400);
 send_JSON(["message"=>"Wrong method"], 405);
 
 ?>

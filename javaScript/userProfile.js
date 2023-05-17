@@ -42,13 +42,6 @@ async function RenderUserPage() {
         // Handle any errors
         console.error(error);
     }
-    goback();
-
-    // newState("#settings", renderSettings());
-    document.querySelector("#settings").addEventListener("click", e => {
-        state.old_states.push(state.current_state);
-        renderSettings();
-    })
 
     document.querySelector(".favorites").addEventListener("click", e => {
         favoriteRecipes(e, user.username)
@@ -71,15 +64,21 @@ function renderSettings() {
             <button type="submit">Upload</button>
         </form>
         
-        <label for="email">Change email</label>
-        <input type="text" placeholder="New email" name="email">
+        <form>
+            <label for="email">Change email</label>
+            <input type="text" placeholder="New email" name="email">
+        </form>
 
-        <label for="username">Change username</label>
-        <input type="text" placeholder="New username" name="username">
+        <form>
+            <label for="username">Change username</label>
+            <input type="text" placeholder="New username" name="username" autocomplete="off">
+        </form>
         
-        <label for="password">Change password</label>
-        <input type="password" placeholder="Old password" name="passwordold">
-        <input type="password" placeholder="New password" name="passwordnew">
+        <form>
+            <label for="password">Change password</label>
+            <input type="password" placeholder="Old password" name="passwordold" autocomplete="off">
+            <input type="password" placeholder="New password" name="passwordnew">
+        </form>
         
         <p class="red">Delete account</p>
     </div>
@@ -185,22 +184,22 @@ function renderSettings() {
         if (main.querySelector('input[name="pfp"]').value === "") {
             popUp("Please upload a file")
         } else {
-            const request = new Request("/loginregister-api/settings.php", {
+            const request = new Request("loginregister-api/settings.php", {
                 method: "POST",
                 body: formData
-            })
-            fetch(request)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        popUp(data.message);
-                    } else {
-                        user.pfp = data;
-                        localStorage.setItem("user", JSON.stringify(user));
-                    }
+            });
 
-                    console.log(data);
-                });
+            const response = await fetch(request);
+            const data = await response.json();
+
+            if (data.message) {
+                popUp(data.message);
+            } else {
+                user.pfp = data;
+                localStorage.setItem("user", JSON.stringify(user));
+            }
+
+            console.log(data);
 
             // let response = await fetching("/loginregister-api/settings.php", "POST", formData);
             // let data = await response.json();
