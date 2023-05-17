@@ -1,27 +1,10 @@
 [
     {
-        "username": "lolo",
-        "meal": [
-            "Breakfast Potatoes",
-            "English Breakfast",
-            "Smoked Haddock Kedgeree"
-        ]
-    },
-    {
-        "username": "ballong",
-        "meal": [
-            "Full English Breakfast",
-            "Salmon Eggs Eggs Benedict",
-            "Home-made Mandazi",
-            "Beef and Mustard Pie",
-            "Ayam Percik",
-            "Beef Sunday Roast",
-            "Beef stroganoff",
-            "Beef Rendang",
-            "Smoked Haddock Kedgeree",
-            "Stovetop Eggplant With Harissa, Chickpeas, and Cumin Yogurt",
-            "Egg Drop Soup",
-            "Apam balik"
+        "username": "elliot",
+        "mealId": [
+            "52878",
+            "53071",
+            "x_645b7beb722c2"
         ]
     },
     {
@@ -96,9 +79,10 @@
         "meal": []
     },
     {
-        "username": "WDU",
-        "meal": [
-            "Beef and Oyster pie"
+        "mealId": [
+            "52878",
+            "52873",
+            "52895"
         ]
     }
 ]

@@ -33,6 +33,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else {
         send_JSON(["message" => "No ID provided for retrieving comments"], 400);
     }
+}elseif($_SERVER["REQUEST_METHOD"] == "DELETE"){
+
+    if (isset($_GET["author"])) {
+        $commentId = $_GET["author"];
+
+        $index = findCommentIndex($comments, $commentId, "recipeId");
+        if ($index !== -1) {
+            array_splice($comments, $index, 1); // remove from list
+            file_put_contents($filename, json_encode($comments, JSON_PRETTY_PRINT));
+            send_JSON(["message" => "Comment deleted successfully"]);
+        } else {
+            send_JSON(["message" => "Comment not found"], 404);
+        }
+
+    }
 }
 
 function filterComments($comments, $id, $key) {
@@ -44,4 +59,5 @@ function filterComments($comments, $id, $key) {
     }
     return $filteredComments;
 }
+//Test
 ?>

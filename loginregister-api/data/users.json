@@ -2,7 +2,8 @@
     {
         "email": "erica@hej",
         "username": "erica",
-        "password": "hej"
+        "password": "hej",
+        "pfp": "\/loginregister-api\/data\/pictures\/1684317341.png"
     },
     {
         "email": "erik@hej",

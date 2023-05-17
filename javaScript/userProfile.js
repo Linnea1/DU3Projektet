@@ -1,28 +1,93 @@
 async function RenderUserPage() {
-    const user = JSON.parse(localStorage.getItem("user"));
-    currentState("RenderUserPage()");
 
-    main.innerHTML = `
-    <div id="sticky"></div>
-    <button class="goback">Go Back</button>
-    <button id="settings">Settings</button>
-    <div class="userInfo">
-        <div class="icon"></div>
-        <h2><b>${user.username}</b></h2>
-    </div>
-    <div class="create_recipe">Create new recipe</div>
-    <div class="columns">
-        <div id="own_recipe" class="profileButton">Recipes</div>
-        <div class="favorites" class="profileButton">Favorites</div>
-    </div>
-    <div class="recipes"></div>
+    if (user.guest) {
+
+        let PopupMenu = document.querySelector("#popUp");
+        PopupMenu.classList.remove("hidden");
+        let PopUpWindow = document.querySelector("#popUpWindow");
+
+        let info = document.createElement("div");
+        let OkButton = document.createElement("button");
+        let registerButton = document.createElement("button");
+
+
+
+        PopUpWindow.append(info);
+        PopUpWindow.append(OkButton);
+        PopUpWindow.append(registerButton);
+
+
+        info.textContent = "Only registered users can use this feature";
+        OkButton.textContent = "Ok";
+        registerButton.textContent = "Register or login";
+
+        OkButton.addEventListener("click", e => {
+            Disguise(e)
+        });
+
+        registerButton.addEventListener("click", e => {
+            logout();
+            Disguise(e)
+        });
+    } else {
+
+        const user = JSON.parse(localStorage.getItem("user"));
+        currentState("RenderUserPage()");
+
+        main.innerHTML = `
+            <div id="sticky"></div>
+            <button class="goback">Go Back</button>
+            <button id="settings">Settings</button>
+            <div class="userInfo">
+                <div class="icon"></div>
+                <h2><b>${user.username}</b></h2>
+            </div>
+            <div class="create_recipe">Create new recipe</div>
+            <div class="columns">
+                <div id="own_recipe" class="profileButton">Recipes</div>
+                <div class="favorites" class="profileButton">Favorites</div>
+            </div>
+            <div class="recipes"></div>
     
 `;
-    goback();
-    newState("#settings", "renderSettings()");
+        goback();
+        newState("#settings", "renderSettings()");
 
-    if (user.pfp) { // if pfp then add it
-        document.querySelector(".icon").style.backgroundImage = `url(${user.pfp})`;
+        if (user.pfp) { // if pfp then add it
+            document.querySelector(".icon").style.backgroundImage = `url(${user.pfp})`;
+        }
+
+        document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
+        // document.querySelector(".favorites").addEventListener("click", e => { favoriteRecipes(e, user.username) });
+
+        try {
+            const response = await fetch(`/loginregister-api/createRecipe.php?author=${user.username}`);
+            const data = await response.json();
+            // Process the retrieved data
+            console.log(data);
+            renderRecipesFunction(data);
+            //if-sats om du är inloggad eller ej 
+
+            document.querySelector("#own_recipe").addEventListener("click", e => { renderRecipesFunction(data) });
+
+        } catch (error) {
+            // Handle any errors
+            console.error(error);
+        }
+        goback();
+
+        // newState("#settings", renderSettings());
+        document.querySelector("#settings").addEventListener("click", e => {
+            state.old_states.push(state.current_state);
+            renderSettings();
+        })
+
+        document.querySelector(".favorites").addEventListener("click", e => {
+            favoriteRecipes(e, user.username)
+            e.stopPropagation();
+
+        });
+        document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
     }
 
     document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
@@ -219,6 +284,7 @@ function renderSettings() {
 
 async function favoriteRecipes(object, user) {
 
+    console.log(object);
     //if-sats om du är inloggad eller ej
 
     let divForAllRecipes = document.querySelector(".favorites");
@@ -236,13 +302,23 @@ async function favoriteRecipes(object, user) {
 
                 for (let recipe of response) {
 
-                    let resoursefood = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${recipe}`);
-                    let responsefood = await resoursefood.json();
+                    // if (recipe.idMeal.startsWith("x_")) {
+                    //     recipe_ = recipe;
+                    //     let creator = recipe_.author
+                    //     getRecipe(recipe_, creator);
 
+                    // }else{
+
+
+                    console.log(recipe);
+                    let resoursefood = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe}`);
+                    let responsefood = await resoursefood.json();
                     console.log(responsefood);
 
+
+
                     let recipe_name = await responsefood.meals[0].strMeal;
-                    let recipe_img = responsefood.meals[0].strMealThumb;
+                    let recipe_img = await responsefood.meals[0].strMealThumb;
                     let recipe_div = document.createElement("div");
                     recipe_div.classList.add("recipe");
                     recipe_div.innerHTML = `
