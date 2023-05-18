@@ -56,8 +56,8 @@ if ($method == "POST") {
     $requestJSON = file_get_contents("php://input");
     $requestDATA = json_decode($requestJSON,true);
     
-    $username = $requestDATA["username"];
-    $mealId = $requestDATA["mealId"];
+    $username = $requestDATA['username'];
+    $mealId = $requestDATA['mealId'];
     
 
     $userExists = false;

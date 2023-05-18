@@ -1,15 +1,12 @@
 
 async function AddRecipesAsFavourite(recipe) {
 
-    console.log(user);
 
     let parent = recipe.parentElement
     console.log(parent.innerText);
     let nameOfDish = parent.innerText;
     let idOfMeal = parent.dataset.id;
     console.log(idOfMeal);
-    // let user = JSON.parse(localStorage.getItem('user'));
-    console.log(user.username);
 
     try {
         let response = await fetch("../loginregister-api/add_and_remove_favourite.php", {
@@ -35,7 +32,7 @@ async function RemoveFavourite(recipe) {
     console.log("hej");
     let parent = recipe.parentElement
     console.log(parent.innerText);
-    let nameOfDish = parent.innerText;
+    let idOfMeal = parent.dataset.id;
     // let user = JSON.parse(localStorage.getItem('user'));
     console.log(user.username);
 
@@ -45,7 +42,7 @@ async function RemoveFavourite(recipe) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 username: user.username,
-                meal: nameOfDish
+                mealId: idOfMeal
             }),
         })
         let data = await response.json();
@@ -57,8 +54,10 @@ async function RemoveFavourite(recipe) {
     }
 }
 
-function like_recipe(event) {
+async function like_recipe(event, recipe) {
     event.stopPropagation();
+    // let parent = recipe.parentElement
+    // console.log(parent);
 
     if (user.guest) {
 
@@ -92,10 +91,40 @@ function like_recipe(event) {
     } else {
 
         const liker_dom = event.target.parentElement;
+        console.log(liker_dom);
         liker_dom.classList.toggle("liked");
 
+
+        let parent = liker_dom.parentElement
+        console.log(parent.innerText);
+        let idOfMeal = parent.dataset.id;
+        console.log(idOfMeal);
+        // let user = JSON.parse(localStorage.getItem('user'));
+        console.log(user.username);
+
         if (liker_dom.classList.contains("liked")) {
-            AddRecipesAsFavourite(liker_dom)
+
+            // let parent = event.target.parentElement
+
+            // let idOfMeal = parent.dataset.id;
+
+            try {
+                console.log(user.username, idOfMeal);
+
+                let body = {
+                    username: user.username,
+                    mealId: idOfMeal,
+                }
+
+                let response = await fetching("loginregister-api/add_and_remove_favourite.php", "POST", body)
+                let data = await response.json();
+                console.log(data);
+
+
+            } catch (error) {
+                console.log(error);
+            }
+
         } else {
             RemoveFavourite(liker_dom)
             console.log("Ej favorit");
@@ -223,12 +252,14 @@ async function searhDish(event) {
         `;
         let divForAllaRecipes = document.querySelector(".recipes");
 
-        let resourse = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchField}`);
+        let resourse = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?=${searchField}`);
         let response = await resourse.json();
 
         for (const recipeName in response.meals) {
             let recipe_name = response.meals[recipeName].strMeal;
             let recipe_img = response.meals[recipeName].strMealThumb;
+            let recipe_id = response.meals[recipeName].mealId;
+            console.log(recipe_id);
             let recipe_div = document.createElement("div");
             recipe_div.classList.add("recipe");
             recipe_div.innerHTML = `
@@ -241,8 +272,12 @@ async function searhDish(event) {
             </div>`;
             divForAllaRecipes.appendChild(recipe_div);
 
-            recipe_div.querySelector("#first").addEventListener("click", like_recipe);
-            recipe_div.querySelector("#second").addEventListener("click", like_recipe);
+            recipe_div.querySelector("#first").addEventListener("click", e => {
+                like_recipe()
+            });
+            recipe_div.querySelector("#second").addEventListener("click", e => {
+                like_recipe()
+            });
             recipe_div.addEventListener("click", renderRecipe.bind(this, response.meals[recipeName]))
 
 
@@ -265,6 +300,7 @@ async function renderRecipesFunction(data) {
     for (const recipeName in data.meals) {
         const recipe = data.meals[recipeName];
         const recipeDiv = document.createElement("div");
+        recipeDiv.dataset.id = data.id;
         recipeDiv.classList.add("recipe");
         recipeDiv.innerHTML = `
         <h2>${recipe.strMeal}</h2>
@@ -278,8 +314,12 @@ async function renderRecipesFunction(data) {
         divRecipes.appendChild(recipeDiv);
         recipeDiv.dataset.id = recipe.idMeal;
 
-        recipeDiv.querySelector("#first").addEventListener("click", like_recipe);
-        recipeDiv.querySelector("#second").addEventListener("click", like_recipe);
+        recipeDiv.querySelector("#first").addEventListener("click", e => {
+            like_recipe(e, recipeDiv)
+        });
+        recipeDiv.querySelector("#second").addEventListener("click", e => {
+            like_recipe(e, recipeDiv)
+        });
         recipeDiv.addEventListener("click", renderRecipe.bind(this, data.meals[recipeName]));
     }
 }
