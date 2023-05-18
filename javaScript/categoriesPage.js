@@ -195,7 +195,7 @@ async function renderRecepiesAfterCategory(event) {
         const response = await fetch(`/loginregister-api/createRecipe.php?category=${category}`);
         const data = await response.json();
         // Process the retrieved data
-        console.log(data);
+        
 
         renderRecipesFunction(data);
     } catch (error) {
