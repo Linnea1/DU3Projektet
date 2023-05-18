@@ -1,9 +1,9 @@
 <?php
 require_once("functions.php");
 $filename = "data/recipes.json";
-$uploadFolder = "data/recipePictures/"; // Specify the folder where you want to save the pictures
+$uploadFolder = "data/recipePictures/";
 
-if(!file_exists($filename)){ // if no file, create it
+if(!file_exists($filename)){
     file_put_contents($filename, "[]");
 }
 
@@ -11,9 +11,9 @@ $recipes = json_decode(file_get_contents($filename), true);
 $post = json_decode(file_get_contents("php://input"), true);
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Make sure all required fields are provided
+ 
     //if (empty($post['strMeal']) || empty($post['strInstructions'])){
-    //    send_JSON(["message" => "Please do not leave any field empty"], 400);
+    //    send_JSON(["message" => "Do not leave any field empty"], 400);
     //}
 
     $listOfIngredients = $post['ingredients'];
@@ -53,6 +53,29 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $filteredMeals = filterMeals($recipes, $recipeAuthor, 'author');
     send_JSON(["meals" => $filteredMeals]);
+   }
+
+
+   ////// 
+   if($_FILES){
+    $source = $_FILES["picture"]["tmp_name"];
+    $destination = "loginregister-api/data/pictures/".$_FILES["picture"]["name"];
+    $size = $_FILES["picture"]["size"];
+    $type = $_FILES["picture"]["type"];
+    $time = time();
+
+    $allowedFiles = ["image/jpeg", "image/png"]; // checking so that the filetype is allowed
+        if (!in_array($type, $allowedFiles)){
+            send_JSON(["message"=>"Wrong filetype"], 400);
+        }
+
+        $ending = str_replace("image/", ".", $type);
+        $filePath = "loginregister-api/data/pictures/";
+        $name = $time . $ending;
+
+        if(move_uploaded_file($source, "data/pictures/recipe/" . $name)){
+
+        }
    }
    
 } else {

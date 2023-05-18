@@ -89,6 +89,31 @@ async function RenderUserPage() {
         });
         document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
     }
+
+    document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
+    document.querySelector(".favorites").addEventListener("click", favoriteRecipes(user.username));
+
+    try {
+        const response = await fetch(`/loginregister-api/createRecipe.php?author=${user.username}`);
+        const data = await response.json();
+        // Process the retrieved data
+        console.log(data);
+        renderRecipesFunction(data);
+        //if-sats om du är inloggad eller ej 
+
+        document.querySelector("#own_recipe").addEventListener("click", e => { renderRecipesFunction(data) });
+
+    } catch (error) {
+        // Handle any errors
+        console.error(error);
+    }
+
+    document.querySelector(".favorites").addEventListener("click", e => {
+        favoriteRecipes(e, user.username)
+        e.stopPropagation();
+
+    });
+    document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
 }
 
 function renderSettings() {
@@ -104,15 +129,21 @@ function renderSettings() {
             <button type="submit">Upload</button>
         </form>
         
-        <label for="email">Change email</label>
-        <input type="text" placeholder="New email" name="email">
+        <form>
+            <label for="email">Change email</label>
+            <input type="text" placeholder="New email" name="email">
+        </form>
 
-        <label for="username">Change username</label>
-        <input type="text" placeholder="New username" name="username">
+        <form>
+            <label for="username">Change username</label>
+            <input type="text" placeholder="New username" name="username" autocomplete="off">
+        </form>
         
-        <label for="password">Change password</label>
-        <input type="password" placeholder="Old password" name="passwordold">
-        <input type="password" placeholder="New password" name="passwordnew">
+        <form>
+            <label for="password">Change password</label>
+            <input type="password" placeholder="Old password" name="passwordold" autocomplete="off">
+            <input type="password" placeholder="New password" name="passwordnew">
+        </form>
         
         <p class="red">Delete account</p>
     </div>
@@ -218,22 +249,22 @@ function renderSettings() {
         if (main.querySelector('input[name="pfp"]').value === "") {
             popUp("Please upload a file")
         } else {
-            const request = new Request("/loginregister-api/settings.php", {
+            const request = new Request("loginregister-api/settings.php", {
                 method: "POST",
                 body: formData
-            })
-            fetch(request)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        popUp(data.message);
-                    } else {
-                        user.pfp = data;
-                        localStorage.setItem("user", JSON.stringify(user));
-                    }
+            });
 
-                    console.log(data);
-                });
+            const response = await fetch(request);
+            const data = await response.json();
+
+            if (data.message) {
+                popUp(data.message);
+            } else {
+                user.pfp = data;
+                localStorage.setItem("user", JSON.stringify(user));
+            }
+
+            console.log(data);
 
             // let response = await fetching("/loginregister-api/settings.php", "POST", formData);
             // let data = await response.json();

@@ -147,14 +147,7 @@ async function checkClass(recipe) {
 
 
 async function renderCategoriesPage() {
-
-    // if (Guest) {
-    //     localStorage.setItem("user", JSON.stringify({
-    //         "username": "Guest",
-    //         "guest": true
-    //     }))
-    // }
-
+    user = JSON.parse(localStorage.getItem("user"));
     console.log(user);
     currentState("renderCategoriesPage()");
 
@@ -218,6 +211,7 @@ async function renderRecepiesAfterCategory(event) {
     `;
     const divRecipes = document.querySelector(".recipes");
     document.querySelector("#menu").addEventListener("click", ShowMenu);
+    let all_recipes = [];
     try {
         let resourse = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
         let data = await resourse.json();
@@ -230,7 +224,7 @@ async function renderRecepiesAfterCategory(event) {
         const response = await fetch(`/loginregister-api/createRecipe.php?category=${category}`);
         const data = await response.json();
         // Process the retrieved data
-        console.log(data);
+        
 
         renderRecipesFunction(data);
     } catch (error) {

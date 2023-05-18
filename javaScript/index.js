@@ -8,14 +8,6 @@ let main = document.querySelector("main");
 let wrapper = document.querySelector("#wrapper");
 
 
-
-// if (window.localStorage.getItem("user")) {
-//     let user = JSON.parse(localStorage.getItem("user"));
-// } else {
-//     let user = JSON.parse(localStorage.setItem("user"));
-// }
-
-
 async function fetching(URL, method, body) {
     let response = await fetch(URL, {
         method: method,
@@ -94,6 +86,8 @@ function currentState(renderFunction) {
         "function": renderFunction,
         "state": state
     }));
+
+    console.log(state);
 }
 
 function newState(element, renderFunction, Guest) { // use this when going to a new "state"
