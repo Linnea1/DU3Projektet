@@ -71,14 +71,22 @@ function change ($post, $users, $filename, $field, $secondaryField = "password")
 
                 if($field == "username"){
                     $favorites = json_decode(file_get_contents("data/favourites.json"), true);
+                    $comments = json_decode(file_get_contents("data/comments.json"), true);
+                    $recipes = json_decode(file_get_contents("data/recipes.json"), true);
 
-                    foreach($favorites as $index => $favorite){
-                        if($favorite["username"] == $post["username"]){
-                            $favorites[$index]["username"] = $post["new"];
-
-                            file_put_contents("data/favourites.json", json_encode($favorites, JSON_PRETTY_PRINT));
+                    function changeUsername ($dataBase, $key, $filePath, $post){
+                        foreach($dataBase as $index => $data){
+                            if($data[$key] == $post["username"]){
+                                $dataBase[$index][$key] = $post["new"];
+    
+                                file_put_contents($filePath, json_encode($dataBase, JSON_PRETTY_PRINT));
+                            }
                         }
                     }
+
+                    changeUsername($favorites, "username", "data/favourites.json", $post);
+                    changeUsername($comments, "author", "data/comments.json", $post);
+                    changeUsername($favorites, "author", "data/favourites.json", $post);
                 }
 
                 send_JSON($post["new"]);
