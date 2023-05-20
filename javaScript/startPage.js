@@ -2,11 +2,12 @@
 renderStartPage();
 
 function renderStartPage() {
-    localStorage.setItem("user", JSON.stringify({
-        "username": "Guest",
-        "guest": true
-    }))
-    console.log(user);
+    if (!localStorage.getItem("user")) {
+        localStorage.setItem("user", JSON.stringify({
+            "username": "Guest",
+            "guest": true
+        }))
+    }
 
     main.innerHTML = `
     <header>

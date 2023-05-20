@@ -45,7 +45,7 @@ function renderLoginPage() {
 
                 user = data;
 
-                // logged in! (adding function later)
+                // logged in!
                 renderCategoriesPage()
             }
         } catch (err) { // if something went wrong

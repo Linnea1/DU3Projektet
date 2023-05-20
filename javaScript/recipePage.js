@@ -197,7 +197,7 @@ async function renderRecipe(recipe) {
             let comment;
             let output = [];
             for (const entry of dataform) {
-                output = `${output}${entry[0]}=${entry[1]}\r`;
+                output = `${output}${entry[0]}=${entry[1]}`;
                 if (`${entry[0]}` === "rating") {
                     rating = `${entry[1]}`;
                 } else {

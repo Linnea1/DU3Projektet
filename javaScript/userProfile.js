@@ -121,21 +121,15 @@ function renderSettings() {
             <button type="submit">Upload</button>
         </form>
         
-        <form>
-            <label for="email">Change email</label>
-            <input type="text" placeholder="New email" name="email">
-        </form>
+        <label for="email">Change email</label>
+        <input type="text" placeholder="New email" name="email">
 
-        <form>
-            <label for="username">Change username</label>
-            <input type="text" placeholder="New username" name="username" autocomplete="off">
-        </form>
+        <label for="username">Change username</label>
+        <input type="text" placeholder="New username" name="username">
         
-        <form>
-            <label for="password">Change password</label>
-            <input type="password" placeholder="Old password" name="passwordold" autocomplete="off">
-            <input type="password" placeholder="New password" name="passwordnew">
-        </form>
+        <label for="password">Change password</label>
+        <input type="password" placeholder="Old password" name="passwordold">
+        <input type="password" placeholder="New password" name="passwordnew">
         
         <p class="red">Delete account</p>
     </div>
