@@ -14,7 +14,7 @@ async function AddRecipesAsFavourite(recipe) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 username: user.username,
-                mealId: idOfMeal
+                idMeal: idOfMeal
             }),
         })
         let data = await response.json();
@@ -42,7 +42,7 @@ async function RemoveFavourite(recipe) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 username: user.username,
-                mealId: idOfMeal
+                idMeal: idOfMeal
             }),
         })
         let data = await response.json();
@@ -113,7 +113,7 @@ async function like_recipe(event, recipe) {
 
                 let body = {
                     username: user.username,
-                    mealId: idOfMeal,
+                    idMeal: idOfMeal,
                 }
 
                 let response = await fetching("loginregister-api/add_and_remove_favourite.php", "POST", body)
@@ -137,7 +137,7 @@ async function checkClass(recipe) {
 
     // let user = JSON.parse(localStorage.getItem('user'));
 
-    let response = await fetch(`/loginregister-api/add_and_remove_favourite.php?mealId=${recipe}&user=${user.username}`);
+    let response = await fetch(`/loginregister-api/add_and_remove_favourite.php?idMeal=${recipe}&user=${user.username}`);
     let resourse = await response.json();
 
     return resourse
@@ -224,7 +224,7 @@ async function renderRecepiesAfterCategory(event) {
         const response = await fetch(`/loginregister-api/createRecipe.php?category=${category}`);
         const data = await response.json();
         // Process the retrieved data
-        
+
 
         renderRecipesFunction(data);
     } catch (error) {
@@ -252,7 +252,7 @@ async function searhDish(event) {
         for (const recipeName in response.meals) {
             let recipe_name = response.meals[recipeName].strMeal;
             let recipe_img = response.meals[recipeName].strMealThumb;
-            let recipe_id = response.meals[recipeName].mealId;
+            let recipe_id = response.meals[recipeName].idMeal;
             console.log(recipe_id);
             let recipe_div = document.createElement("div");
             recipe_div.classList.add("recipe");

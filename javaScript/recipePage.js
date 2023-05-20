@@ -71,11 +71,11 @@ async function renderRecipe(recipe) {
         }
 
         document.querySelector("#menu").addEventListener("click", ShowMenu);
-        let usersComment=false;
+        let usersComment = false;
         try {
             const response = await fetch(`/loginregister-api/comments.php?id=${recipe_.idMeal}`);
             const data = await response.json();
-            
+
             for (const comment_ of data.comments) {
                 let commentContainer = document.createElement("div");
                 commentContainer.classList.add("comment");
@@ -122,9 +122,9 @@ async function renderRecipe(recipe) {
                     dropdownMenu.addEventListener('mouseleave', () => {
                         dropdownMenu.style.display = 'none';
                     });
-                    usersComment=true;
+                    usersComment = true;
                 }
-                
+
             }
 
             console.log(data);
@@ -134,8 +134,8 @@ async function renderRecipe(recipe) {
             console.error(error);
         }
         console.log(usersComment);
-        if(usersComment===false){
-            document.querySelector(".ratingBox").innerHTML= `
+        if (usersComment === false) {
+            document.querySelector(".ratingBox").innerHTML = `
             <p><b>Share your opinion on ${recipe.strMeal}</b></p>
             <form>
             <div class="rating">

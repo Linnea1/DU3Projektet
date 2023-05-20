@@ -12,43 +12,57 @@ $method = $_SERVER["REQUEST_METHOD"];
 
 if ($method == "GET") {
 
-    if (isset($_GET["mealId"],$_GET["user"])) {
+    if (isset($_GET["idMeal"],$_GET["user"])) {  // if the keys exists
      
-        $recipe = $_GET["mealId"];
+        $recipe = $_GET["idMeal"];
         $username = $_GET["user"];
         
         foreach($data as $user){
             if ($user['username'] == $username) {
                 
-                if (in_array($recipe, $user['mealId'])) {
-                    send_JSON(true);
+                if (in_array($recipe, $user['idMeal'])) { // if the recipe is a favourite
+                    send_JSON(true); // if it is, send back true
                 }else{
-                    send_JSON(false);
+                    send_JSON(false); // if it is not, send back false
                 }
     
             }
         }
-        send_JSON(false);
+        send_JSON(false); // if the user don't have any favourites, send back false
     }
     
 
-    if (isset($_GET["favourites"])) {
+    if (isset($_GET["favourites"])) {  // checks after the key favourites
         $username = $_GET["favourites"];
-        // echo $newData;
         
         foreach($data as $user){    
-            if ($user['username'] === $username) {
-                send_JSON($user["mealId"]);
+            if ($user['username'] === $username) { 
+                send_JSON($user["idMeal"]); // if the user exists in the database, send back users list of favourites (meal)
             }
         }
-        $error = ["error" => "There are no liked recipes"];
-        send_JSON($error, 400);
+        $error = ["error" => "There are no liked recipes"]; // if the user doesn't exist in the database (favourites.json), send back error and statuscode 404
+        send_JSON($error, 404); // not found
     
+    }
+
+    if (isset($_GET["ownRecipe"])) { // checks after key
+
+        $ownRecipe = $_GET["ownRecipe"];
+        $filename = "data/recipes.json";
+        $json = file_get_contents($filename);
+        $data = json_decode($json, true);
+
+        foreach($data as $recipe){
+            if($recipe["idMeal"] === $ownRecipe){ // if there is a matching id in the database
+                send_JSON($recipe); // send it as a response
+            }
+        }
+        $error = ["error" => "Could not find matching idMeal"];
+        send_JSON($error, 404);
+
     }
 
 }
-
-
 
 
 if ($method == "POST") {
@@ -56,45 +70,45 @@ if ($method == "POST") {
     $requestJSON = file_get_contents("php://input");
     $requestDATA = json_decode($requestJSON,true);
     
-    $username = $requestDATA['username'];
-    $mealId = $requestDATA['mealId'];
+    $username = $requestDATA['username']; // take out the two keys that are sent in the request
+    $idMeal = $requestDATA['idMeal'];
     
 
-    $userExists = false;
+    $userExists = false; // start of with giving this vairable the value of false
     
     foreach ($data as $user) {
-        if ($user['username'] == $username) {
-            $userExists = true;
+        if ($user['username'] == $username) { // if the user does exist in the database (favourites.json)
+            $userExists = true; // change the value to true
             break; // exit the loop once the user is found
         }
     }
     
     
-    if ($userExists) {
+    if ($userExists) { // if $userExists has the value of true
         // add the new meal to the existing user's array of meals
         foreach($data as &$userData){
-            if ($userData["username"] == $username) {
+            if ($userData["username"] == $username) { // find the correct user
 
-                if (in_array($mealId, $userData["mealId"])) {
-                    $message = ["message" => "is already added to your favourites"];
-                    send_JSON($message, 400);
+                if (in_array($idMeal, $userData["idMeal"])) { // if the user is trying to add a recipe that already exists in the array
+                    $error = ["error" => "This recipe is already added to your favourites"];
+                    send_JSON($error, 400); // eller 406?
                 }
 
-                $userData["mealId"][] = $mealId;
+                $userData["idMeal"][] = $idMeal; //update the array of favourites 
                 $json = json_encode($data, JSON_PRETTY_PRINT);
-                file_put_contents($filename, $json);
+                file_put_contents($filename, $json); // update the database
                 send_JSON($userData);
             }
         }
-    } else {
+    } else { // if the user doesn't exist in the dataabse and are adding their first favourite
         // add the new user to the data array
-        $newUser = [
+        $newUser = [ // make a new assosiativ array
             "username" => $username,
-            "mealId" => [$mealId],
+            "idMeal" => [$idMeal],
         ];
         $data[] = $newUser;
         $json = json_encode($data, JSON_PRETTY_PRINT);
-        file_put_contents($filename, $json);
+        file_put_contents($filename, $json); //update the databse and send back the user as response
         send_JSON($newUser);
     }
     
@@ -105,29 +119,46 @@ if ($method == "DELETE") {
     $requestJSON = file_get_contents("php://input");
     $requestDATA = json_decode($requestJSON,true);
 
-    $username = $requestDATA["username"];
-    $mealId = $requestDATA["mealId"];
-    $userExists = false;
+    $username = $requestDATA["username"];  // take out the two keys and their value
+    $idMeal = $requestDATA["idMeal"];
+    // $userExists = false;
     
-    foreach ($data as $user) {
-        if ($user['username'] == $username) {
-            $userExists = true;
-            break; // exit the loop once the user is found
-        }
-    }
-    foreach($data as &$userData){
-        if ($userData["username"] == $username) {
+    foreach ($data as &$user) {
+        if ($user['username'] == $username) { // if the user does exist in favourites.json
 
-            foreach($userData["mealId"] as $index => $value){
-                if ($value == $mealId) {
-                    array_splice($userData["mealId"], $index, 1);
+            foreach($user["idMeal"] as $index => $value){
+                if ($value == $idMeal) { // find the matching recipe 
+                    array_splice($user["idMeal"], $index, 1); // delete it
                     $json = json_encode($data, JSON_PRETTY_PRINT);
-                    file_put_contents($filename, $json);
-                    send_JSON($userData);
+                    file_put_contents($filename, $json); // update the code and send back the whole user
+                    send_JSON($user);
                 }
             }
+            
         }
     }
+
+    // foreach ($data as $user) {
+    //     if ($user['username'] == $username) {
+    //         $userExists = true;
+    //         break; // exit the loop once the user is found
+    //     }
+    // }
+    
+    // foreach($data as &$userData){
+    //     if ($userData["username"] == $username) {
+
+    //         foreach($userData["idMeal"] as $index => $value){
+    //             if ($value == $idMeal) {
+    //                 array_splice($userData["idMeal"], $index, 1);
+    //                 $json = json_encode($data, JSON_PRETTY_PRINT);
+    //                 file_put_contents($filename, $json);
+    //                 send_JSON($userData);
+    //             }
+    //         }
+    //     }
+    // }
+
 
 }
 

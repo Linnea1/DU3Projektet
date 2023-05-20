@@ -69,7 +69,7 @@
         "email": "elliot@elliot",
         "username": "elliot",
         "password": "elliot",
-        "pfp": "\/loginregister-api\/data\/pictures\/1684229616.png"
+        "pfp": "loginregister-api\/data\/pictures\/pfp\/1684487783.png"
     },
     {
         "email": "dxgfchgvjhb@dtyfjyg.se",
@@ -81,5 +81,10 @@
         "username": "fog",
         "password": "test",
         "pfp": "\/loginregister-api\/data\/pictures\/1684309955.jpeg"
+    },
+    {
+        "email": "greger@hej",
+        "username": "gerger",
+        "password": "grgrereg"
     }
 ]

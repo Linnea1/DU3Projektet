@@ -58,7 +58,6 @@ async function RenderUserPage() {
         }
 
         document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
-        // document.querySelector(".favorites").addEventListener("click", e => { favoriteRecipes(e, user.username) });
 
         try {
             const response = await fetch(`/loginregister-api/createRecipe.php?author=${user.username}`);
@@ -76,22 +75,17 @@ async function RenderUserPage() {
         }
         goback();
 
-        // newState("#settings", renderSettings());
+
         document.querySelector("#settings").addEventListener("click", e => {
             state.old_states.push(state.current_state);
             renderSettings();
         })
 
-        document.querySelector(".favorites").addEventListener("click", e => {
-            favoriteRecipes(e, user.username)
-            e.stopPropagation();
 
-        });
         document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
     }
 
     document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
-    document.querySelector(".favorites").addEventListener("click", favoriteRecipes(user.username));
 
     try {
         const response = await fetch(`/loginregister-api/createRecipe.php?author=${user.username}`);
@@ -110,8 +104,6 @@ async function RenderUserPage() {
 
     document.querySelector(".favorites").addEventListener("click", e => {
         favoriteRecipes(e, user.username)
-        e.stopPropagation();
-
     });
     document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
 }
@@ -266,15 +258,6 @@ function renderSettings() {
 
             console.log(data);
 
-            // let response = await fetching("/loginregister-api/settings.php", "POST", formData);
-            // let data = await response.json();
-
-            // console.log(data);
-
-            // let div = document.createElement("div");
-            // div.classList.add("test");
-            // div.style.backgroundImage = main.querySelector('input[name="pfp"]').value;
-            // main.append(div);
         }
     }
 }
@@ -300,35 +283,58 @@ async function favoriteRecipes(object, user) {
 
             if (!response.length == 0) {
 
+                console.log(response);
                 for (let recipe of response) {
 
-                    // if (recipe.idMeal.startsWith("x_")) {
-                    //     recipe_ = recipe;
-                    //     let creator = recipe_.author
-                    //     getRecipe(recipe_, creator);
-
-                    // }else{
-
-
+                    // console.log(recipe.idMeal);
                     console.log(recipe);
-                    let resoursefood = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe}`);
-                    let responsefood = await resoursefood.json();
-                    console.log(responsefood);
+                    if (recipe.startsWith("x_")) {
 
+                        let resourse = await fetch(`/loginregister-api/add_and_remove_favourite.php?ownRecipe=${recipe}`);
+                        let response = await resourse.json();
 
+                        console.log(response);
 
-                    let recipe_name = await responsefood.meals[0].strMeal;
-                    let recipe_img = await responsefood.meals[0].strMealThumb;
-                    let recipe_div = document.createElement("div");
-                    recipe_div.classList.add("recipe");
-                    recipe_div.innerHTML = `
+                        let recipe_name = await response.strMeal;
+                        let recipe_img = await response.strMealThumb;
+                        let recipe_div = document.createElement("div");
+                        recipe_div.classList.add("recipe");
+                        recipe_div.innerHTML = `
                         <h2>${recipe_name}</h2>
                         <img src="${recipe_img}"> 
                         </div>`;
-                    recipesDiv.appendChild(recipe_div);
+                        recipesDiv.appendChild(recipe_div);
 
-                    recipe_div.addEventListener("click", renderRecipe.bind(this, responsefood.meals[0]))
+                        recipe_div.addEventListener("click", e => { renderRecipe(response) });
 
+                        // OwnRecipe = recipe;
+                        // let creator = OwnRecipe.author
+                        // console.log(creator);
+                        // getRecipe(OwnRecipe, creator);
+
+                    } else {
+
+
+                        // console.log(recipe);
+                        let resoursefood = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe}`);
+                        let responsefood = await resoursefood.json();
+                        console.log(responsefood);
+
+
+
+                        let recipe_name = await responsefood.meals[0].strMeal;
+                        let recipe_img = await responsefood.meals[0].strMealThumb;
+                        let recipe_div = document.createElement("div");
+                        recipe_div.classList.add("recipe");
+                        recipe_div.innerHTML = `
+                        <h2>${recipe_name}</h2>
+                        <img src="${recipe_img}"> 
+                        </div>`;
+                        recipesDiv.appendChild(recipe_div);
+
+                        // recipe_div.addEventListener("click", e => { renderRecipe.bind(e, responsefood.meals[0]) });
+                        recipe_div.addEventListener("click", e => { renderRecipe(responsefood.meals[0]) });
+                    }
                 }
 
 
