@@ -67,7 +67,7 @@ async function RenderUserPage() {
             renderRecipesFunction(data);
             //if-sats om du är inloggad eller ej 
 
-            document.querySelector("#own_recipe").addEventListener("click", e => { renderRecipesFunction(data) });
+            // document.querySelector("#own_recipe").addEventListener("click", e => { renderRecipesFunction(data) });
 
         } catch (error) {
             // Handle any errors
@@ -261,9 +261,6 @@ function renderSettings() {
 
 async function favoriteRecipes(object, user) {
 
-    console.log(object);
-    //if-sats om du är inloggad eller ej
-
     let divForAllRecipes = document.querySelector(".favorites");
     let recipesDiv = document.querySelector(".recipes");
     recipesDiv.innerHTML = "";
@@ -301,20 +298,10 @@ async function favoriteRecipes(object, user) {
 
                         recipe_div.addEventListener("click", e => { renderRecipe(response) });
 
-                        // OwnRecipe = recipe;
-                        // let creator = OwnRecipe.author
-                        // console.log(creator);
-                        // getRecipe(OwnRecipe, creator);
-
                     } else {
 
-
-                        // console.log(recipe);
                         let resoursefood = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe}`);
                         let responsefood = await resoursefood.json();
-                        console.log(responsefood);
-
-
 
                         let recipe_name = await responsefood.meals[0].strMeal;
                         let recipe_img = await responsefood.meals[0].strMealThumb;
@@ -326,7 +313,6 @@ async function favoriteRecipes(object, user) {
                         </div>`;
                         recipesDiv.appendChild(recipe_div);
 
-                        // recipe_div.addEventListener("click", e => { renderRecipe.bind(e, responsefood.meals[0]) });
                         recipe_div.addEventListener("click", e => { renderRecipe(responsefood.meals[0]) });
                     }
                 }

@@ -31,5 +31,15 @@
         "email": "greger@hej",
         "username": "gerger",
         "password": "grgrereg"
+    },
+    {
+        "email": "theo@theo",
+        "username": "theo",
+        "password": "thep"
+    },
+    {
+        "email": "hejsan@hej",
+        "username": "hejhopp",
+        "password": "hejsan"
     }
 ]

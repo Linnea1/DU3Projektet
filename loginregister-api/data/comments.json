@@ -96,5 +96,26 @@
         "timestamp": "20-05-2023 08:55",
         "rating": "4",
         "comment": "Wow!"
+    },
+    {
+        "recipeId": "52829",
+        "author": "hejhopp",
+        "timestamp": "21-05-2023 19:32",
+        "rating": null,
+        "comment": "Amazing!!"
+    },
+    {
+        "recipeId": "52829",
+        "author": "hejhopp",
+        "timestamp": "21-05-2023 19:32",
+        "rating": "3",
+        "comment": "Amazing!!"
+    },
+    {
+        "recipeId": "52974",
+        "author": "hejhopp",
+        "timestamp": "21-05-2023 19:33",
+        "rating": "3",
+        "comment": "Needs more salt"
     }
 ]

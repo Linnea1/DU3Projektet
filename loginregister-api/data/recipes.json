@@ -190,5 +190,24 @@
         "strMeasure2": "2",
         "strMeasure3": "3",
         "strMeasure4": "4"
+    },
+    {
+        "idMeal": "x_646a738eb4e91",
+        "author": "hejhopp",
+        "strCategory": "Vegetarian",
+        "strMeal": "Potatiskroketter",
+        "strInstructions": "1. Koka potatis tills de \u00e4r mjuka. 2. Mosa med en potatisstamp. 3. Ha i resten av ingredienserna. 4. Rulla till sm\u00e5 bollar och fritera tills gyllenbruna. Klar! ",
+        "strIngredient1": "potatis",
+        "strIngredient2": "\u00e4ggula",
+        "strIngredient3": "vetemj\u00f6l",
+        "strIngredient4": "salt",
+        "strIngredient5": "peppar",
+        "strIngredient6": "frityrolja",
+        "strMeasure1": "1 kg",
+        "strMeasure2": "2 st",
+        "strMeasure3": "4 msk",
+        "strMeasure4": "en nypa",
+        "strMeasure5": "tre varv med kvarnen",
+        "strMeasure6": "1 liter"
     }
 ]
