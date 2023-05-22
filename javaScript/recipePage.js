@@ -33,14 +33,19 @@ async function renderRecipe(recipe) {
                 });
             }
         }
+        document.querySelector("header").innerHTML = `
+        <div id="menu" onclick="">
+            <div class="menuPart"></div>
+            <div class="menuPart"></div>
+            <div class="menuPart"></div>
+        </div>  
+        <div class="nameOfApplication"> The YumYumClub </div>
+        <div id="profilePicture" class="icon"></div>
+        `;
 
         main.innerHTML = `
-            <div class="header">
-            <button id="menu">Menu</button>
-            <p>${username}</p>
-            <div class=image></div>
+            
             <button onclick = "renderRecepiesAfterCategory()">Go Back</button>
-            </div>
                 <div class="recipe">
                     <h2><b>${currentRecipe.strMeal}</b></h2>
                     <img src="${currentRecipe.strMealThumb}"> 
