@@ -10,21 +10,15 @@ function renderSettings() {
                 <button type="submit">Upload</button>
             </form>
             
-            <form>
-                <label for="email">Change email</label>
-                <input type="text" placeholder="New email" name="email">
-            </form>
+            <label for="email">Change email</label>
+            <input type="text" placeholder="New email" name="email">
 
-            <form>
-                <label for="username">Change username</label>
-                <input type="text" placeholder="New username" name="username" autocomplete="off">
-            </form>
-            
-            <form>
-                <label for="password">Change password</label>
-                <input type="password" placeholder="Old password" name="passwordold" autocomplete="off">
-                <input type="password" placeholder="New password" name="passwordnew">
-            </form>
+            <label for="username">Change username</label>
+            <input type="text" placeholder="New username" name="username" autocomplete="off">
+        
+            <label for="password">Change password</label>
+            <input type="password" placeholder="Old password" name="passwordold" autocomplete="off">
+            <input type="password" placeholder="New password" name="passwordnew">
             
             <p class="red">Delete account</p>
         </div>
@@ -49,20 +43,20 @@ function renderSettings() {
     fileForm.addEventListener("submit", changePfp);
 
     async function change(body, URL, method, select) {
-        try{
+        try {
             let response = await fetching(URL, method, body);
             let data = await response.json();
-    
+
             if (response.status == 200) {
                 let storage = JSON.parse(localStorage.getItem("user"));
                 storage[select] = data;
                 localStorage.setItem("user", JSON.stringify(storage));
-    
+
                 popUp("Successfully changed!")
-            }else {
+            } else {
                 popUp(data.message);
             }
-        }catch(error){
+        } catch (error) {
             popUp(error);
         }
     }
@@ -136,7 +130,7 @@ function renderSettings() {
                 body: formData
             });
 
-            try{
+            try {
                 const response = await fetch(request);
                 const data = await response.json();
 
@@ -146,7 +140,7 @@ function renderSettings() {
                     user.pfp = data;
                     localStorage.setItem("user", JSON.stringify(user));
                 }
-            }catch(error){
+            } catch (error) {
                 popUp(error);
             }
         }

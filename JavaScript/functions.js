@@ -1,6 +1,5 @@
 // Get user from local storage
 let user = JSON.parse(localStorage.getItem("user"));
-console.log(user)
 
 // This is where we render all of our pages
 let main = document.querySelector("main");
@@ -21,7 +20,7 @@ async function fetching(URL, method, body) {
 function popUp(prompt) { // pop up
 
     document.querySelector("#popUpWindow").innerHTML = `
-    <p id="prompt"></p>
+         <p id="prompt"></p>
     `;
 
     document.querySelector("#popUp").classList.remove("hidden");
@@ -70,6 +69,8 @@ function goBack() { // use this to make the go back button work
 }
 
 function currentState(renderFunction) {
+    console.log(state);
+
     state.current_state = renderFunction;
     localStorage.setItem("state", JSON.stringify({
         "function": renderFunction,

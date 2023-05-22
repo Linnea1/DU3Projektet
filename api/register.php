@@ -12,33 +12,33 @@ if(!file_exists($filename)){ // if no file, create it
 }
 
 $users = json_decode(file_get_contents($filename), true);
-$post = json_decode(file_get_contents("php://input"), true);
+$input = json_decode(file_get_contents("php://input"), true);
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){ // make sure its the right method
 
-    if($post["username"] == "" or $post["password"] == ""){  // if field(s) empty
+    if($input["username"] == "" or $input["password"] == ""){  // if field(s) empty
         send_JSON(["message"=>"Please do not leave any field empty"], 400);
     }
 
-    if(!isset($post["email"], // check that it's the right data
-            $post["username"],
-            $post["password"])){
+    if(!isset($input["email"], // check that it's the right data
+            $input["username"],
+            $input["password"])){
         send_JSON(["message"=>"Wrong data"], 401);
     }
 
-    if(!preg_match("/(@)(.)/", $post["email"])){ // checking that the email has @ and .
+    if(!preg_match("/(@)(.)/", $input["email"])){ // checking that the email has @ and .
         send_JSON(["message"=>"Please enter a valid email"], 401);
     }
 
     //////////////
 
     // different requirments
-    tooShort($post["username"], "username");
-    tooShort($post["password"], "password");
+    tooShort($input["username"], "username");
+    tooShort($input["password"], "password");
 
-    $splitUsername = str_split($post["username"]);
-    $splitPassword = str_split($post["password"]);
-    $splitEmail = str_split($post["email"]);
+    $splitUsername = str_split($input["username"]);
+    $splitPassword = str_split($input["password"]);
+    $splitEmail = str_split($input["email"]);
 
     incorrectChar($splitUsername, "username");
     incorrectChar($splitPassword, "password");
@@ -48,19 +48,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){ // make sure its the right method
 
     if($users != []){ // dont do this if no users yet
         foreach($users as $user){
-            if($user["username"] == $post["username"]){ // check if username already exists
+            if($user["username"] == $input["username"]){ // check if username already exists
                 send_JSON(["message"=>"Username already taken"], 409); 
             }
-            if($user["email"] == $post["email"]){ // check if email already exists
+            if($user["email"] == $input["email"]){ // check if email already exists
                 send_JSON(["message"=>"Email already taken"], 409); 
             }
         }
     }
 
     $newUser = [ // create new user
-        "email" => $post["email"],
-        "username" => $post["username"],
-        "password" => $post["password"]
+        "email" => $input["email"],
+        "username" => $input["username"],
+        "password" => $input["password"]
     ];
     $users[] = $newUser; 
     file_put_contents($filename, json_encode($users, JSON_PRETTY_PRINT)); // add new user to file
