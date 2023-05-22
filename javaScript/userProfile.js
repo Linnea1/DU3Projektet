@@ -48,21 +48,43 @@ async function RenderUserPage(userInfo) {
         document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe);
 
         try {
-            const response = await fetch(`api/createRecipe.php?author=${user.username}`);
-            const data = await response.json();
-            renderRecipeBoxes(data);
+            if (userInfo === user.username) {
 
-            document.querySelector("#own_recipe").addEventListener("click", e => { renderRecipeBoxes(data) });
+                const response = await fetch(`api/createRecipe.php?author=${user.username}`);
+                const data = await response.json();
+                renderRecipeBoxes(data);
+                document.querySelector("#own_recipe").addEventListener("click", e => { renderRecipeBoxes(data) });
+
+                document.querySelector(".favorites").addEventListener("click", e => {
+                    favoriteRecipes(e, user.username)
+                    e.stopPropagation();
+
+                });
+
+            } else {
+                let response = await fetch(`api/createRecipe.php?author=${userInfo.username}`);
+                const data = await response.json();
+                renderRecipeBoxes(data);
+
+                document.querySelector("#own_recipe").addEventListener("click", e => { renderRecipeBoxes(data) });
+
+                document.querySelector(".favorites").addEventListener("click", e => {
+                    favoriteRecipes(e, userInfo.username)
+                    e.stopPropagation();
+
+                });
+            }
+
         } catch (error) {
             // Handle any errors
             popUp(error);
         }
 
-        document.querySelector(".favorites").addEventListener("click", e => {
-            favoriteRecipes(e, user.username)
-            e.stopPropagation();
+        // document.querySelector(".favorites").addEventListener("click", e => {
+        //     favoriteRecipes(e, user.username)
+        //     e.stopPropagation();
 
-        });
+        // });
     }
 }
 
