@@ -24,7 +24,7 @@ async function AddRecipesAsFavourite(event) {
                 popUp(error);
             }
         } else {
-            RemoveFavourite(likedElement);
+            RemoveFavourite(recipe);
         }
     }
 }
@@ -34,12 +34,12 @@ async function RemoveFavourite(recipe) {
     let idOfMeal = parent.dataset.id;
 
     try {
-        let body= JSON.stringify({
+        let body = {
             username: user.username,
             mealId: idOfMeal
-        });
+        };
 
-       await fetching("api/add_and_remove_favourite.php", "DELETE", body);
+        await fetching("api/add_and_remove_favourite.php", "DELETE", body);
 
     } catch (error) {
         popUp(error);
