@@ -1,4 +1,3 @@
-
 <?php
 
 ini_set("display_errors", 1);
@@ -13,7 +12,7 @@ $method = $_SERVER["REQUEST_METHOD"];
 
 if ($method == "GET") {
 
-    if (isset($_GET["idMeal"],$_GET["user"])) {  // if the keys exists
+    if (isset($_GET["idMeal"],$_GET["user"])) { // checks if the keys exists
      
         $recipe = $_GET["idMeal"];
         $username = $_GET["user"];
@@ -21,28 +20,29 @@ if ($method == "GET") {
         foreach($data as $user){
             if ($user['username'] == $username) {
                 
-                if (in_array($recipe, $user['idMeal'])) { // if the recipe is a favourite
-                    send_JSON(true); // if it is, send back true
+                if (in_array($recipe, $user['idMeal'])) {  // if the recipe exist in the users favourites
+                    send_JSON(true);
                 }else{
-                    send_JSON(false); // if it is not, send back false
+                    send_JSON(false); // if it doesn't
                 }
     
             }
         }
-        send_JSON(false); // if the user don't have any favourites, send back false
+        send_JSON(false); // if the user don't have any favourites
     }
     
 
-    if (isset($_GET["favourites"])) {  // checks after the key favourites
+    if (isset($_GET["favourites"])) {
         $username = $_GET["favourites"];
+        // echo $newData;
         
         foreach($data as $user){    
-            if ($user['username'] === $username) { 
-                send_JSON($user["idMeal"]); // if the user exists in the database, send back users list of favourites (meal)
+            if ($user['username'] === $username) {
+                send_JSON($user["idMeal"]);
             }
         }
-        $error = ["error" => "There are no liked recipes"]; // if the user doesn't exist in the database (favourites.json), send back error and statuscode 404
-        send_JSON($error, 404); // not found
+        $error = ["error" => "There are no liked recipes"];
+        send_JSON($error, 400);
     
     }
 
@@ -64,7 +64,6 @@ if ($method == "GET") {
     }
 
 }
-
 
 if ($method == "POST") {
 

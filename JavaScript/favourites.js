@@ -15,7 +15,7 @@ async function AddRecipesAsFavourite(event) {
             try {
                 let body = {
                     username: user.username,
-                    mealId: idOfMeal,
+                    idMeal: idOfMeal,
                 }
 
                 await fetching("api/add_and_remove_favourite.php", "POST", body);
@@ -36,7 +36,7 @@ async function RemoveFavourite(recipe) {
     try {
         let body = {
             username: user.username,
-            mealId: idOfMeal
+            idMeal: idOfMeal
         };
 
         await fetching("api/add_and_remove_favourite.php", "DELETE", body);
@@ -49,7 +49,7 @@ async function RemoveFavourite(recipe) {
 //Checking if recipe is liked
 async function checkLiked(recipe) {
 
-    let response = await fetch(`api/add_and_remove_favourite.php?mealId=${recipe}&user=${user.username}`);
+    let response = await fetch(`api/add_and_remove_favourite.php?idMeal=${recipe}&user=${user.username}`);
     let resourse = await response.json();
 
     return resourse
