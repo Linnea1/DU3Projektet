@@ -3,38 +3,39 @@ require_once("functions.php");
 
 $filename = "data/users.json";
 $users = json_decode(file_get_contents($filename), true);
-$post = json_decode(file_get_contents("php://input"), true);
+$input = json_decode(file_get_contents("php://input"), true);
 
 if($_SERVER["REQUEST_METHOD"] == "PATCH"){
 
-    if (isset($post["old"], 
-                $post["new"],
-                $post["password"], 
-                $post["username"])){
-        change($post, $users, $filename, "password", "username"); // change password
+    if (isset($input["old"], 
+                $input["new"],
+                $input["password"], 
+                $input["username"])){
+        change($input, $users, $filename, "password", "username"); // change password
     }
 
-    if (isset($post["username"], 
-                $post["new"], 
-                $post["password"])){
-        change($post, $users, $filename, "username"); // change username
+    if (isset($input["username"], 
+                $input["new"], 
+                $input["password"])){
+        change($input, $users, $filename, "username"); // change username
     }
 
-    if (isset($post["email"], 
-                $post["new"], 
-                $post["password"])){
-        change($post, $users, $filename, "email"); // change email
+    if (isset($input["email"], 
+                $input["new"], 
+                $input["password"])){
+        change($input, $users, $filename, "email"); // change email
     }
 
-    // if(isset($post["file"], 
-    // $post["username"], 
-    // $post["password"]))
+    // if(isset($input["file"], 
+    // $input["username"], 
+    // $input["password"]))
 
     send_JSON(["message"=>"Wrong parameters"], 405);
 }
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     if($_FILES){ // change profile picture
+        send_JSON($_FILES, 404);
         $source = $_FILES["pfp"]["tmp_name"];
         $destination = "loginregister-api/data/pictures/pfp/".$_FILES["pfp"]["name"];
         $size = $_FILES["pfp"]["size"];
@@ -66,11 +67,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $users[$index]["pfp"] = $filePath . $name;
 
                 if(isset($_POST["old"])){
-                    $test = str_replace("loginregister-api/data/pictures/pfp/", "data/pictures/pfp/", $_POST["old"]);
-                    unlink($test);
+                    $correctPath = str_replace("loginregister-api/data/pictures/pfp/", "data/pictures/pfp/", $_POST["old"]);
+                    unlink($correctPath);
                 }
 
-                if( move_uploaded_file($source, "data/pictures/pfp/" . $name)){
+                if(move_uploaded_file($source, "data/pictures/pfp/" . $name)){
                     $users[$index]["pfp"] = $filePath . $name;
                     file_put_contents($filename, json_encode($users, JSON_PRETTY_PRINT));
                     send_JSON($filePath . $name);
@@ -86,7 +87,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 if ($_SERVER["REQUEST_METHOD"] == "DELETE"){
     foreach ($users as $index => $user) {
-        if($user["username"] == $post["username"] && $user["password"] == $post["password"]){
+        if($user["username"] == $input["username"] && $user["password"] == $input["password"]){
             array_splice($users, $index, 1); // remove from list
             file_put_contents($filename, json_encode($users, JSON_PRETTY_PRINT));
 
@@ -96,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE"){
     }
 }
 
-send_JSON($post, 400);
+send_JSON($input, 400);
 send_JSON(["message"=>"Wrong method"], 405);
 
 ?>

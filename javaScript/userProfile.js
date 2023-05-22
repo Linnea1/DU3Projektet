@@ -1,19 +1,18 @@
-async function RenderUserPage() {
-
+async function RenderUserPage(userInfo) {
     if (user.guest) {
         complexPopUp("Only registered users can use this feature", "Register or login", "OK", "logout()");
     } else {
-        currentState("RenderUserPage()");
+        currentState(`RenderUserPage(${JSON.stringify(userInfo)})`);
 
         main.innerHTML = `
             <div id="sticky"></div>
             <button class="goBack">Go Back</button>
-            <button id="settings">Settings</button>
+            <button class="hidden" id="settings">Settings</button>
             <div class="userInfo">
                 <div class="icon"></div>
-                <h2><b>${user.username}</b></h2>
+                <h2><b>${userInfo.username}</b></h2>
             </div>
-            <div class="create_recipe">Create new recipe</div>
+            <div class="create_recipe hidden">Create new recipe</div>
             <div class="columns">
                 <div id="own_recipe" class="profileButton">Recipes</div>
                 <div class="favorites" class="profileButton">Favorites</div>
@@ -23,11 +22,16 @@ async function RenderUserPage() {
         goBack();
         newState("#settings", "renderSettings()");
 
-        if (user.pfp) { // if pfp then add it
+        if (userInfo.pfp) { // if pfp then add it
             document.querySelector(".icon").style.backgroundImage = `url(${user.pfp})`;
         }
 
-        document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe)
+        if (userInfo.username == user.username) {
+            document.querySelector(".create_recipe").classList.remove("hidden");
+            document.querySelector("#settings").classList.remove("hidden");
+        }
+
+        document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe);
 
         try {
             const response = await fetch(`api/createRecipe.php?author=${user.username}`);
@@ -41,8 +45,8 @@ async function RenderUserPage() {
         }
 
         document.querySelector(".favorites").addEventListener("click", e => {
-        favoriteRecipes(e, user.username)
-        e.stopPropagation();
+            favoriteRecipes(e, user.username)
+            e.stopPropagation();
 
         });
     }
@@ -75,7 +79,7 @@ async function favoriteRecipes(object, user) {
                     let data = await response.json();
 
                     let recipe_name = data.meals[0].strMeal;
-                    let recipe_img =  data.meals[0].strMealThumb;
+                    let recipe_img = data.meals[0].strMealThumb;
                     let recipe_div = document.createElement("div");
                     recipe_div.classList.add("recipe");
                     recipe_div.innerHTML = `

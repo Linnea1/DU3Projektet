@@ -1,6 +1,5 @@
 // Get user from local storage
 let user = JSON.parse(localStorage.getItem("user"));
-console.log(user)
 
 // This is where we render all of our pages
 let main = document.querySelector("main");
@@ -19,18 +18,22 @@ async function fetching(URL, method, body) {
 
 //Function to display popup
 function popUp(prompt) { // pop up
+    document.querySelector("#popUpWindow").innerHTML = `
+        <p id="prompt"></p>
+    `;
+
     document.querySelector("#popUp").classList.remove("hidden");
     document.querySelector("#prompt").textContent = prompt;
 
     let button = document.createElement("button");
     button.textContent = "OK";
-    button.classList="OK";
+    button.classList = "OK";
     document.querySelector("#popUpWindow").append(button);
     document.querySelector(".OK").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });
     document.querySelector("#popUpBackground").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });
 }
 
-function complexPopUp(prompt, button1, button2, func){
+function complexPopUp(prompt, button1, button2, func) {
     document.querySelector("#popUp").classList.remove("hidden");
     document.querySelector("#prompt").textContent = prompt;
 
@@ -40,12 +43,12 @@ function complexPopUp(prompt, button1, button2, func){
     firstButton.textContent = button1;
     secondButton.textContent = button2;
 
-    firstButton.classList="firstButton";
-    secondButton.classList="secondButton";
+    firstButton.classList = "firstButton";
+    secondButton.classList = "secondButton";
 
     document.querySelector("#popUpWindow").append(firstButton);
     document.querySelector("#popUpWindow").append(secondButton);
-    document.querySelector(".firstButton").addEventListener("click", e => {eval(func)});
+    document.querySelector(".firstButton").addEventListener("click", e => { eval(func) });
     document.querySelector(".secondButton").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });
     document.querySelector("#popUpBackground").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });
 }
@@ -65,6 +68,8 @@ function goBack() { // use this to make the go back button work
 }
 
 function currentState(renderFunction) {
+    console.log(state);
+
     state.current_state = renderFunction;
     localStorage.setItem("state", JSON.stringify({
         "function": renderFunction,
@@ -77,7 +82,7 @@ function newState(element, renderFunction, Guest) { // use this when going to a 
         if (Guest) {//This checks if restricted page
             if (user.guest) {// If the user is a guest
                 complexPopUp("Only registered users can use this feature", "Register or login", "OK", "logout()")
-                
+
             } else {//if user is not a guest
                 state.old_states.push(state.current_state);
                 eval(renderFunction);
@@ -89,8 +94,8 @@ function newState(element, renderFunction, Guest) { // use this when going to a 
     })
 }
 
-function swapStyleSheet(styleSheet){
-    document.getElementById("styles").setAttribute("href", styleSheet);  
+function swapStyleSheet(styleSheet) {
+    document.getElementById("styles").setAttribute("href", styleSheet);
 }
 
 function logout() {

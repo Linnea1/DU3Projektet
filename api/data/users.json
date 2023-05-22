@@ -57,7 +57,7 @@
     },
     {
         "email": "esrdtfgyhuj@tdrftyghuji.se",
-        "username": "test",
+        "username": "cfgh",
         "password": "test",
         "pfp": "loginregister-api\/data\/pictures\/pfp\/1684317297.gif"
     },
@@ -88,5 +88,20 @@
         "username": "Molly",
         "password": "hej",
         "pfp": "api\/data\/pictures\/pfp\/1684616486.jpeg"
+    },
+    {
+        "email": "drtfygjhkj@detrfyguh.se",
+        "username": "tes",
+        "password": "test"
+    },
+    {
+        "email": "fgjhk@dxcgfhj.fytgyh",
+        "username": "yolo",
+        "password": "test"
+    },
+    {
+        "email": "fgh@fhgjh.se",
+        "username": "test",
+        "password": "test"
     }
 ]

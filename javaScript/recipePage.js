@@ -1,4 +1,7 @@
 async function renderRecipe(recipe) {
+    console.log("hej");
+    currentState(`renderRecipe(${JSON.stringify(recipe)})`);
+
     let currentRecipe;
     let username = user.username;
 
@@ -67,12 +70,12 @@ async function renderRecipe(recipe) {
         }
 
         document.querySelector("#menu").addEventListener("click", ShowMenu);
-        let usersComment=false;
+        let usersComment = false;
 
         try {
             const response = await fetch(`api/commentsAndRatings.php?id=${currentRecipe.idMeal}`);
             const data = await response.json();
-            
+
             for (const Comment of data.comments) {
                 let commentContainer = document.createElement("div");
                 commentContainer.classList.add("comment");
@@ -88,8 +91,8 @@ async function renderRecipe(recipe) {
                 main.querySelector(".commentBox").append(commentContainer);
                 console.log(Comment.pfp)
 
-                const profilePicture=commentContainer.querySelector(".commentPfp");
-                if (Comment.pfp!==undefined) { // if pfp then add it
+                const profilePicture = commentContainer.querySelector(".commentPfp");
+                if (Comment.pfp !== undefined) { // if pfp then add it
                     profilePicture.style.backgroundImage = `url(${Comment.pfp})`;
                 }
 
@@ -127,18 +130,18 @@ async function renderRecipe(recipe) {
                         dropdownMenu.style.display = 'none';
                     });
 
-                    document.querySelector(".bin").addEventListener("click", e => {deleteComment(username, recipe)});
+                    document.querySelector(".bin").addEventListener("click", e => { deleteComment(username, recipe) });
 
-                    usersComment=true;
+                    usersComment = true;
                 }
-                
+
             }
 
         } catch (error) {
             console.error(error);
         }
-        if(usersComment===false){
-            document.querySelector(".ratingBox").innerHTML= `
+        if (usersComment === false) {
+            document.querySelector(".ratingBox").innerHTML = `
             <p><b>Share your opinion on ${recipe.strMeal}</b></p>
             <form>
             <div class="rating">
@@ -171,12 +174,12 @@ async function renderRecipe(recipe) {
             const recipeId = currentRecipe.idMeal;
             let rating;
             let comment;
-            let pfp=user.pfp
+            let pfp = user.pfp
             let output = [];
-            
+
             //Kanske ta bort /r
             for (const entry of dataform) {
-               // output = `${output}${entry[0]}=${entry[1]}\r`;
+                // output = `${output}${entry[0]}=${entry[1]}\r`;
                 if (`${entry[0]}` === "rating") {
                     rating = `${entry[1]}`;
                 } else {
@@ -195,7 +198,7 @@ async function renderRecipe(recipe) {
             try {
                 let response = await fetching("api/commentsAndRatings.php", "POST", commentData);
                 let data = await response.json();
-       
+
                 if (response.ok) {
                     renderRecipe(recipe);
                 } else {
@@ -208,18 +211,18 @@ async function renderRecipe(recipe) {
     }
 }
 
-async function deleteComment(username, recipe){
+async function deleteComment(username, recipe) {
     console.log(recipe.idMeal)
-    try{
-    const response = await fetch(`api/commentsAndRatings.php?author=${username}&recipeId=${recipe.idMeal}`, {
-        method: "DELETE"
-    });
-    if (response.ok) {
-        renderRecipe(recipe);
-      } else {
-        console.log('Failed to delete comment');
-      }
-    }catch(error){
+    try {
+        const response = await fetch(`api/commentsAndRatings.php?author=${username}&recipeId=${recipe.idMeal}`, {
+            method: "DELETE"
+        });
+        if (response.ok) {
+            renderRecipe(recipe);
+        } else {
+            console.log('Failed to delete comment');
+        }
+    } catch (error) {
         popUp(error);
     }
 }
