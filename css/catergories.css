@@ -13,10 +13,10 @@
     display: flex;
 }
 
-header {
+/* header {
     flex-direction: column;
     align-items: center;
-}
+} */
 
 .categories {
     display: grid;

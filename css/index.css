@@ -19,14 +19,48 @@ body {
     text-align: center;
     padding: 20px;
     border-radius: 10px;
+}
+
+main {
     overflow: scroll;
 }
 
-main {}
-
 header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%
+}
+
+.nameOfApplication {
+    font-size: 20px;
+    padding: 10px 6px 0px 5px;
+    border: 1px solid black;
+    /* height: auto; */
+    margin: 0px 5px;
+}
+
+#user {
+    height: 40px;
+    width: 40px;
+    border: 2px solid black;
+    border-radius: 50px;
+}
+
+#menu {
+    /* border: 1px solid black; */
+}
+
+.menuPart {
+    height: 4px;
+    width: 40px;
+    margin: 8px 0px;
+    background-color: black;
 }
 
 .image {

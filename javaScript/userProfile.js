@@ -4,6 +4,16 @@ async function RenderUserPage(userInfo) {
     } else {
         currentState(`RenderUserPage(${JSON.stringify(userInfo)})`);
 
+        document.querySelector("header").innerHTML = `
+            <div id="menu" onclick="">
+                <div class="menuPart"></div>
+                <div class="menuPart"></div>
+                <div class="menuPart"></div>
+            </div>  
+            <div class="nameOfApplication"> The YumYumClub </div>
+            `;
+
+
         main.innerHTML = `
             <div id="sticky"></div>
             <button class="goBack">Go Back</button>
@@ -21,6 +31,9 @@ async function RenderUserPage(userInfo) {
         `;
         goBack();
         newState("#settings", "renderSettings()");
+
+        document.querySelector("#menu").addEventListener("click", ShowMenu);
+
 
         if (userInfo.pfp) { // if pfp then add it
             document.querySelector(".icon").style.backgroundImage = `url(${user.pfp})`;
@@ -125,14 +138,6 @@ async function favoriteRecipes(object, user) {
                         let resourse = await fetch(`api/add_and_remove_favourite.php?ownRecipe=${recipe}`);
                         let response = await resourse.json();
 
-
-
-                        // let recipe_name = data.meals[0].strMeal;
-                        // let recipe_img = data.meals[0].strMealThumb;
-                        // let recipe_div = document.createElement("div");
-                        // recipe_div.classList.add("recipe");
-                        // recipe_div.innerHTML = `
-
                         let recipe_name = response.strMeal;
                         let recipe_img = response.strMealThumb;
                         let recipe_div = document.createElement("div");
@@ -151,8 +156,8 @@ async function favoriteRecipes(object, user) {
                         let resoursefood = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe}`);
                         let responsefood = await resoursefood.json();
 
-                        let recipe_name = await responsefood.meals[0].strMeal;
-                        let recipe_img = await responsefood.meals[0].strMealThumb;
+                        let recipe_name = responsefood.meals[0].strMeal;
+                        let recipe_img = responsefood.meals[0].strMealThumb;
                         let recipe_div = document.createElement("div");
                         recipe_div.classList.add("recipe");
                         recipe_div.innerHTML = `
@@ -169,7 +174,7 @@ async function favoriteRecipes(object, user) {
 
             } else {
 
-                PopUp("There is no favourites yes");
+                popUp("There is no favourites yet");
 
                 // console.log(response);
 

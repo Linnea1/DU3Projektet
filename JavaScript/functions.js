@@ -18,8 +18,9 @@ async function fetching(URL, method, body) {
 
 //Function to display popup
 function popUp(prompt) { // pop up
+
     document.querySelector("#popUpWindow").innerHTML = `
-        <p id="prompt"></p>
+         <p id="prompt"></p>
     `;
 
     document.querySelector("#popUp").classList.remove("hidden");

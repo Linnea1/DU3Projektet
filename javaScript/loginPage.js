@@ -1,9 +1,6 @@
 
 function renderLoginPage() {
     main.innerHTML = `
-        <header>
-            <div class=image></div>
-        </header>
         <h2>Login</h2>
         <p id=message></p>
         <form>
