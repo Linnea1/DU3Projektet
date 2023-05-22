@@ -10,7 +10,7 @@ async function renderCategoriesPage() {
         <div class="menuPart"></div>
     </div>  
     <div class="nameOfApplication"> The YumYumClub </div>
-    <div id="user" class="icon"></div>
+    <div id="profilePicture" class="icon"></div>
     `;
 
     main.innerHTML = `
@@ -21,6 +21,7 @@ async function renderCategoriesPage() {
         <div class="categories"></div>
     `;
 
+    document.querySelector(".icon").style.backgroundImage = `url(${user.pfp})`
     // When the user scrolls the page, execute myFunction
     window.onscroll = function () { headerSticky() };
 
@@ -44,7 +45,7 @@ async function renderCategoriesPage() {
     searchField.addEventListener("keyup", searchDish);
     document.querySelector("#menu").addEventListener("click", ShowMenu);
 
-    newState("#user", `RenderUserPage(${localStorage.user})`, true);
+    newState("#profilePicture", `RenderUserPage(${localStorage.user})`, true);
 
     try {
         const response = await fetch("https://www.themealdb.com/api/json/v1/1/list.php?c=list");

@@ -45,7 +45,7 @@ header {
     margin: 0px 5px;
 }
 
-#user {
+#profilePicture {
     height: 40px;
     width: 40px;
     border: 2px solid black;
@@ -133,12 +133,7 @@ img {
 #popUpWindow {
     position: absolute;
     background-color: white;
-
-    /* height: 200px; */
     width: 300px;
-
-    /* display: grid; */
-
 }
 
 .hidden {
