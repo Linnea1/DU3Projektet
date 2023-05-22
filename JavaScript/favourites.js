@@ -15,7 +15,7 @@ async function AddRecipesAsFavourite(event) {
             try {
                 let body = {
                     username: user.username,
-                    mealId: idOfMeal,
+                    idMeal: idOfMeal,
                 }
 
                 await fetching("api/add_and_remove_favourite.php", "POST", body);
@@ -24,7 +24,7 @@ async function AddRecipesAsFavourite(event) {
                 popUp(error);
             }
         } else {
-            RemoveFavourite(likedElement);
+            RemoveFavourite(recipe);
         }
     }
 }
@@ -34,12 +34,12 @@ async function RemoveFavourite(recipe) {
     let idOfMeal = parent.dataset.id;
 
     try {
-        let body= JSON.stringify({
+        let body = {
             username: user.username,
-            mealId: idOfMeal
-        });
+            idMeal: idOfMeal
+        };
 
-       await fetching("api/add_and_remove_favourite.php", "DELETE", body);
+        await fetching("api/add_and_remove_favourite.php", "DELETE", body);
 
     } catch (error) {
         popUp(error);
@@ -49,7 +49,7 @@ async function RemoveFavourite(recipe) {
 //Checking if recipe is liked
 async function checkLiked(recipe) {
 
-    let response = await fetch(`api/add_and_remove_favourite.php?mealId=${recipe}&user=${user.username}`);
+    let response = await fetch(`api/add_and_remove_favourite.php?idMeal=${recipe}&user=${user.username}`);
     let resourse = await response.json();
 
     return resourse

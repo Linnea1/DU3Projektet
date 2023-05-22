@@ -52,7 +52,59 @@ async function RenderUserPage(userInfo) {
     }
 }
 
+// async function favoriteRecipes(object, user) {
+//     let divForAllRecipes = document.querySelector(".favorites");
+//     let recipesDiv = document.querySelector(".recipes");
+//     recipesDiv.innerHTML = "";
+
+//     object.stopPropagation();
+//     if (divForAllRecipes.childElementCount === 0) {
+
+//         try {
+//             let resourse = await fetch(`api/add_and_remove_favourite.php?favourites=${user}`);
+//             let response = await resourse.json();
+
+//             if (!response.length == 0) {
+
+//                 for (let recipe of response) {
+
+//                     // if (recipe.idMeal.startsWith("x_")) {
+//                     //     recipe_ = recipe;
+//                     //     let creator = recipe_.author
+//                     //     getRecipe(recipe_, creator);
+
+//                     // }else{
+
+//                     let response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe}`);
+//                     let data = await response.json();
+
+//                     let recipe_name = data.meals[0].strMeal;
+//                     let recipe_img =  data.meals[0].strMealThumb;
+//                     let recipe_div = document.createElement("div");
+//                     recipe_div.classList.add("recipe");
+//                     recipe_div.innerHTML = `
+//                         <h2>${recipe_name}</h2>
+//                         <img src="${recipe_img}"> 
+//                         </div>`;
+//                     recipesDiv.appendChild(recipe_div);
+
+//                     recipe_div.addEventListener("click", renderRecipe.bind(this, data.meals[0]));
+
+//                 }
+
+
+
+//             } else {
+//                 popUp("There is no favourites yet");
+//             }
+//         } catch (e) {
+//             popUp(e);
+//         }
+//     }
+// }
+
 async function favoriteRecipes(object, user) {
+
     let divForAllRecipes = document.querySelector(".favorites");
     let recipesDiv = document.querySelector(".recipes");
     recipesDiv.innerHTML = "";
@@ -68,37 +120,79 @@ async function favoriteRecipes(object, user) {
 
                 for (let recipe of response) {
 
-                    // if (recipe.idMeal.startsWith("x_")) {
-                    //     recipe_ = recipe;
-                    //     let creator = recipe_.author
-                    //     getRecipe(recipe_, creator);
+                    if (recipe.startsWith("x_")) {
 
-                    // }else{
+                        let resourse = await fetch(`api/add_and_remove_favourite.php?ownRecipe=${recipe}`);
+                        let response = await resourse.json();
 
-                    let response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe}`);
-                    let data = await response.json();
 
-                    let recipe_name = data.meals[0].strMeal;
-                    let recipe_img = data.meals[0].strMealThumb;
-                    let recipe_div = document.createElement("div");
-                    recipe_div.classList.add("recipe");
-                    recipe_div.innerHTML = `
+
+                        // let recipe_name = data.meals[0].strMeal;
+                        // let recipe_img = data.meals[0].strMealThumb;
+                        // let recipe_div = document.createElement("div");
+                        // recipe_div.classList.add("recipe");
+                        // recipe_div.innerHTML = `
+
+                        let recipe_name = response.strMeal;
+                        let recipe_img = response.strMealThumb;
+                        let recipe_div = document.createElement("div");
+                        recipe_div.classList.add("recipe");
+                        recipe_div.innerHTML = `
+                        <h2>${recipe_name}</h2>
+                        <img src="${recipe_img}"> 
+                        </div>
+                        `;
+                        recipesDiv.appendChild(recipe_div);
+
+                        recipe_div.addEventListener("click", e => { renderRecipe(response) });
+
+                    } else {
+
+                        let resoursefood = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe}`);
+                        let responsefood = await resoursefood.json();
+
+                        let recipe_name = await responsefood.meals[0].strMeal;
+                        let recipe_img = await responsefood.meals[0].strMealThumb;
+                        let recipe_div = document.createElement("div");
+                        recipe_div.classList.add("recipe");
+                        recipe_div.innerHTML = `
                         <h2>${recipe_name}</h2>
                         <img src="${recipe_img}"> 
                         </div>`;
-                    recipesDiv.appendChild(recipe_div);
+                        recipesDiv.appendChild(recipe_div);
 
-                    recipe_div.addEventListener("click", renderRecipe.bind(this, data.meals[0]));
-
+                        recipe_div.addEventListener("click", e => { renderRecipe(responsefood.meals[0]) });
+                    }
                 }
 
 
 
             } else {
-                popUp("There is no favourites yet");
+
+                PopUp("There is no favourites yes");
+
+                // console.log(response);
+
+                // let PopupMenu = document.querySelector("#popUp");
+                // PopupMenu.classList.remove("hidden");
+                // let PopUpWindow = document.querySelector("#popUpWindow");
+
+                // let info = document.createElement("div");
+                // let OkButton = document.createElement("button");
+
+                // PopUpWindow.append(info);
+                // PopUpWindow.append(OkButton);
+
+                // info.textContent = "There is no favourites yet";
+                // OkButton.textContent = "Ok";
+
+                // OkButton.addEventListener("click", e => {
+                //     Disguise(e)
+                // });
             }
         } catch (e) {
-            popUp(e);
+            console.log(e);
+
         }
     }
 }

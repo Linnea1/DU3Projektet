@@ -1,7 +1,7 @@
 [
     {
         "username": "elliot",
-        "mealId": [
+        "idMeal": [
             "52878",
             "53071",
             "x_645b7beb722c2"
@@ -9,18 +9,11 @@
     },
     {
         "username": "Linnea",
-        "mealId": [
+        "idMeal": [
             "52959",
             "52885",
             "53018",
             "53036",
-            "52874"
-        ]
-    },
-    {
-        "username": "tes",
-        "mealId": [
-            "x_645b7beb722c2",
             "52874"
         ]
     }

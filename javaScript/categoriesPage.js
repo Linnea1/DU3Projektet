@@ -99,6 +99,7 @@ async function searchDish(event) {
 //Creating the recipes
 async function renderRecipeBoxes(data) {
     const divRecipes = document.querySelector(".recipes");
+    divRecipes.innerHTML = "";
 
     for (const recipeName in data.meals) {
         const recipe = data.meals[recipeName];
@@ -122,7 +123,7 @@ async function renderRecipeBoxes(data) {
         recipeDiv.querySelector("#second").addEventListener("click", AddRecipesAsFavourite);
         recipeDiv.addEventListener("click", e => { renderRecipe(data.meals[recipeName]) });
 
-        newState(recipeDiv, `renderRecipe(${JSON.stringify(data.meals[recipeName])})`);
+        // newState(recipeDiv, `renderRecipe(${JSON.stringify(data.meals[recipeName])})`);
     }
 
     // let testing = document.querySelectorAll(".recipe");
