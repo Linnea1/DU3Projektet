@@ -35,7 +35,6 @@ if($_SERVER["REQUEST_METHOD"] == "PATCH"){
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     if($_FILES){ // change profile picture
-        send_JSON($_FILES, 404);
         $source = $_FILES["pfp"]["tmp_name"];
         $destination = "loginregister-api/data/pictures/pfp/".$_FILES["pfp"]["name"];
         $size = $_FILES["pfp"]["size"];
@@ -52,13 +51,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if (!in_array($type, $allowedFiles)){
             send_JSON(["message"=>"Wrong filetype"], 400);
         }
-        
-        if($size > 50000){
-            send_JSON(["message"=>"Filesize is too big"], 400);
-        }
 
         $ending = str_replace("image/", ".", $type);
-        $filePath = "loginregister-api/data/pictures/pfp/";
+        $filePath = "api/data/pictures/pfp/";
         $name = $time . $ending;
         
         foreach($users as $index => $user){
@@ -66,10 +61,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                 $users[$index]["pfp"] = $filePath . $name;
 
-                if(isset($_POST["old"])){
-                    $correctPath = str_replace("loginregister-api/data/pictures/pfp/", "data/pictures/pfp/", $_POST["old"]);
-                    unlink($correctPath);
-                }
+                // if(isset($_POST["old"])){
+                //     $correctPath = str_replace("loginregister-api/data/pictures/pfp/", "data/pictures/pfp/", $_POST["old"]);
+                //     unlink($correctPath);
+                // }
 
                 if(move_uploaded_file($source, "data/pictures/pfp/" . $name)){
                     $users[$index]["pfp"] = $filePath . $name;
