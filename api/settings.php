@@ -36,7 +36,7 @@ if($_SERVER["REQUEST_METHOD"] == "PATCH"){
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     if($_FILES){ // change profile picture
         $source = $_FILES["pfp"]["tmp_name"];
-        $destination = "loginregister-api/data/pictures/pfp/".$_FILES["pfp"]["name"];
+        $destination = "api/data/pictures/pfp/".$_FILES["pfp"]["name"];
         $size = $_FILES["pfp"]["size"];
         $type = $_FILES["pfp"]["type"];
         $time = time();
@@ -62,7 +62,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $users[$index]["pfp"] = $filePath . $name;
 
                 // if(isset($_POST["old"])){
-                //     $correctPath = str_replace("loginregister-api/data/pictures/pfp/", "data/pictures/pfp/", $_POST["old"]);
+                //     $correctPath = str_replace("api/data/pictures/pfp/", "data/pictures/pfp/", $_POST["old"]);
                 //     unlink($correctPath);
                 // }
 
