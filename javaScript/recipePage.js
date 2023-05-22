@@ -41,6 +41,9 @@ async function renderRecipe(recipe) {
         <div id="profilePicture" class="icon"></div>
         `;
 
+        document.querySelector(".icon").style.backgroundImage = `url(${user.pfp})`
+        newState("#profilePicture", `RenderUserPage(${localStorage.user})`, true);
+
         main.innerHTML = `
             
             <button onclick = "renderRecepiesAfterCategory()">Go Back</button>
@@ -82,10 +85,19 @@ async function renderRecipe(recipe) {
             for (const Comment of data.comments) {
                 let commentContainer = document.createElement("div");
                 commentContainer.classList.add("comment");
+                let CurrentUser = {
+                    "username": Comment.author
+                };
+                if (Comment.pfp !== undefined) {
+                    // let CurrentUserPfpf = {"pfp": Comment.pfp};
+                    console.log(JSON.stringify(Comment.pfp));
+                    CurrentUser.pfp = JSON.stringify(Comment.pfp);
+                }
+
                 commentContainer.innerHTML = `
                     <div class="nameStarContainer">
                         <div class="commentPfp"></div>
-                        <p><b>${Comment.author}</b></p>
+                        <p onclick='RenderUserPage(${JSON.stringify(CurrentUser)})'><b>${Comment.author}</b></p>
                         <div class="starContainer"></div>
                     </div>
                     <p>${Comment.comment}</p>

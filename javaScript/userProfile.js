@@ -1,4 +1,5 @@
 async function RenderUserPage(userInfo) {
+    console.log(userInfo);
     if (user.guest) {
         complexPopUp("Only registered users can use this feature", "Register or login", "OK", "logout()");
     } else {
@@ -36,7 +37,7 @@ async function RenderUserPage(userInfo) {
 
 
         if (userInfo.pfp) { // if pfp then add it
-            document.querySelector(".icon").style.backgroundImage = `url(${user.pfp})`;
+            document.querySelector(".icon").style.backgroundImage = `url(${userInfo.pfp})`;
         }
 
         if (userInfo.username == user.username) {
