@@ -34,6 +34,7 @@
 .nameStarContainer{
     display: flex;
     margin-bottom: 0px;
+    align-items: center;
 }
 
 .comment{
@@ -46,6 +47,18 @@
 }
 .comment>p{
     margin-top: -10px;
+}
+.commentPfp {
+    margin-right: 7px;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    background-color: rgba(228, 230, 231, 255);
+
+    background-image: url(../icons/blank-face-test.webp);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 .timestamp{
     font-size: 10px;

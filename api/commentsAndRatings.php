@@ -15,10 +15,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $newComment = [
         "recipeId" => $post['recipeId'],
-        "author" => $post['usersname'],
+        "author" => $post['username'],
         "timestamp" =>$timestamp,
         "rating" => $post['rating'],
         "comment" => $post['comment'],
+        "pfp" => $post['pfp']
     ];
 
     $comments[] = $newComment;
@@ -33,20 +34,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else {
         send_JSON(["message" => "No ID provided for retrieving comments"], 400);
     }
-}elseif($_SERVER["REQUEST_METHOD"] == "DELETE"){
+}elseif ($_SERVER["REQUEST_METHOD"] == "DELETE") {
+    $deleteAuthor = $_GET["author"];
+    $deleteRecipeId = $_GET["recipeId"];
 
-    if (isset($_GET["author"])) {
-        $commentId = $_GET["author"];
-
-        $index = findCommentIndex($comments, $commentId, "recipeId");
-        if ($index !== -1) {
-            array_splice($comments, $index, 1); // remove from list
-            file_put_contents($filename, json_encode($comments, JSON_PRETTY_PRINT));
-            send_JSON(["message" => "Comment deleted successfully"]);
-        } else {
-            send_JSON(["message" => "Comment not found"], 404);
+    $commentIndex = -1;
+    foreach ($comments as $index => $comment) {
+        if ($comment["author"] === $deleteAuthor && $comment["recipeId"] === $deleteRecipeId) {
+            $commentIndex = $index;
+            break;
         }
+    }
 
+    if ($commentIndex !== -1) {
+        array_splice($comments, $commentIndex, 1); // remove from list
+        file_put_contents($filename, json_encode($comments, JSON_PRETTY_PRINT));
+        send_JSON(["message" => "Comment deleted successfully"]);
+    } else {
+        send_JSON(["message" => "Comment not found"], 404);
     }
 }
 
@@ -59,5 +64,4 @@ function filterComments($comments, $id, $key) {
     }
     return $filteredComments;
 }
-//Test
 ?>

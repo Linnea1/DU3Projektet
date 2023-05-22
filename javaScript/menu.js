@@ -1,5 +1,4 @@
 function ShowMenu() {
-    console.log("hej");
     let PopupMenu = document.querySelector("#popUp");
     PopupMenu.classList.remove("hidden");
     let PopUpWindow = document.querySelector("#popUpWindow");
@@ -24,32 +23,32 @@ function ShowMenu() {
 
 
     PopupMenu.addEventListener("click", e => {
-        Disguise(e)
+        hideMenu(e)
     });
 
     Startpage.addEventListener("click", e => {
-        Disguise(e)
+        hideMenu(e)
         renderCategoriesPage()
     });
 
     Profile.addEventListener("click", e => {
-        Disguise(e)
+        hideMenu(e)
         // if-sats om du är inloggad eller ej 
         RenderUserPage();
     })
 
     ManageAccount.addEventListener("click", e => {
-        Disguise(e)
+        hideMenu(e)
         renderSettings()
     });
 
     LogOut.addEventListener("click", e => {
-        Disguise(e);
+        hideMenu(e);
         logout();
     })
 }
 
-function Disguise(object) {
+function hideMenu(object) {
     object.stopPropagation();
     document.querySelector("#popUp").classList.add("hidden");
 
@@ -57,9 +56,3 @@ function Disguise(object) {
     <p id="prompt"></p>
     `;
 }
-
-function logout() {
-    localStorage.clear();
-    renderStartPage();
-}
-

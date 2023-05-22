@@ -1,6 +1,6 @@
+
 function renderLoginPage() {
-    main.innerHTML =
-        `
+    main.innerHTML = `
         <header>
             <div class=image></div>
         </header>
@@ -12,7 +12,7 @@ function renderLoginPage() {
             <button type=submit>Login</button>
         </form>
         <button id=register>New to this? Sign up for free</button>
-        `;
+    `;
 
     // go to register
     main.querySelector("#register").addEventListener("click", renderRegisterPage);
@@ -32,7 +32,7 @@ function renderLoginPage() {
 
         // trying to log in...
         try {
-            let response = await fetching("../loginregister-api/login.php", "POST", body);
+            let response = await fetching("api/login.php", "POST", body);
             let data = await response.json();
 
             data.password = password.value;

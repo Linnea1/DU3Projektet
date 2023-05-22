@@ -1,68 +1,64 @@
 async function renderRecipe(recipe) {
-    console.log(recipe);
-    let recipe_;
-    let user = JSON.parse(localStorage.getItem('user'));
-    let usersname = user.username;
+    let currentRecipe;
+    let username = user.username;
+
     console.log(recipe);
     if (recipe.idMeal.startsWith("x_")) {
-        recipe_ = recipe;
-        let creator = recipe_.author
-        getRecipe(recipe_, creator);
+        currentRecipe = recipe;
+        let creator = currentRecipe.author
+        getRecipe(currentRecipe, creator);
     } else {
         try {
-            let resourse = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe.idMeal}`);
-            let data = await resourse.json();
-            recipe_ = data.meals[0];
-            console.log(data);
-            let creator = "TheMealDB"
-            getRecipe(recipe_, creator);
+            let response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe.idMeal}`);
+            let data = await response.json();
+            currentRecipe = data.meals[0];
+            let creator = "TheMealDB";
+            getRecipe(currentRecipe, creator);
 
         } catch (e) {
-            console.log(e);
+            popUp(e);
         }
     }
 
-    async function getRecipe(recipe_, author) {
+    async function getRecipe(currentRecipe, author) {
         const ingredients = [];
         for (let i = 1; i <= 20; i++) {
-            if (recipe_[`strIngredient${i}`]) {
+            if (currentRecipe[`strIngredient${i}`]) {
                 ingredients.push({
-                    ingredient: recipe_[`strIngredient${i}`],
-                    measurement: recipe_[`strMeasure${i}`]
+                    ingredient: currentRecipe[`strIngredient${i}`],
+                    measurement: currentRecipe[`strMeasure${i}`]
                 });
             }
         }
-        console.log(ingredients);
+
         main.innerHTML = `
-        <div class="header">
-        <button id="menu">Menu</button>
-        <p>${usersname}</p>
-        <div class=image></div>
-        <button onclick = "renderRecepiesAfterCategory()">Go Back</button>
-        </div>
-            <div class="recipe">
-                <h2><b>${recipe_.strMeal}</b></h2>
-                <img src="${recipe_.strMealThumb}"> 
-                <div class="author">
-                    <p>${author}</p>
-                </div>
-                <div class="ingredients">
-                    <h4>Ingredients</h4>
-                    <ul class="ingredientList"></ul>
-                </div>
-                <div class="howTo">
-                    <h4>How to make ${recipe.strMeal}</h4>
-                    <p>${recipe_.strInstructions}</p>
-                </div>
+            <div class="header">
+            <button id="menu">Menu</button>
+            <p>${username}</p>
+            <div class=image></div>
+            <button onclick = "renderRecepiesAfterCategory()">Go Back</button>
             </div>
-            <div  class="commentBox"></div>
-                <div class="comments">
+                <div class="recipe">
+                    <h2><b>${currentRecipe.strMeal}</b></h2>
+                    <img src="${currentRecipe.strMealThumb}"> 
+                    <div class="author">
+                        <p>${author}</p>
+                    </div>
+                    <div class="ingredients">
+                        <h4>Ingredients</h4>
+                        <ul class="ingredientList"></ul>
+                    </div>
+                    <div class="howTo">
+                        <h4>How to make ${recipe.strMeal}</h4>
+                        <p>${currentRecipe.strInstructions}</p>
+                    </div>
                 </div>
-                <div class="ratingBox">
+                <div class="commentBox"></div>
+                    <div class="comments"></div>
+                    <div class="ratingBox"></div>
                 </div>
-               
-            </div>
-            `;
+        `;
+
         const list = document.querySelector(".ingredientList");
         for (const ratio of ingredients) {
             list.innerHTML += `
@@ -72,33 +68,41 @@ async function renderRecipe(recipe) {
 
         document.querySelector("#menu").addEventListener("click", ShowMenu);
         let usersComment=false;
+
         try {
-            const response = await fetch(`/loginregister-api/comments.php?id=${recipe_.idMeal}`);
+            const response = await fetch(`api/commentsAndRatings.php?id=${currentRecipe.idMeal}`);
             const data = await response.json();
             
-            for (const comment_ of data.comments) {
+            for (const Comment of data.comments) {
                 let commentContainer = document.createElement("div");
                 commentContainer.classList.add("comment");
                 commentContainer.innerHTML = `
                     <div class="nameStarContainer">
-                        <p><b>${comment_.author}</b></p>
+                        <div class="commentPfp"></div>
+                        <p><b>${Comment.author}</b></p>
                         <div class="starContainer"></div>
                     </div>
-                    <p>${comment_.comment}</p>
-                    <p class="timestamp">${comment_.timestamp}</p>
+                    <p>${Comment.comment}</p>
+                    <p class="timestamp">${Comment.timestamp}</p>
                 `;
-                main.querySelector(".commentBox").appendChild(commentContainer);
+                main.querySelector(".commentBox").append(commentContainer);
+                console.log(Comment.pfp)
+
+                const profilePicture=commentContainer.querySelector(".commentPfp");
+                if (Comment.pfp!==undefined) { // if pfp then add it
+                    profilePicture.style.backgroundImage = `url(${Comment.pfp})`;
+                }
 
                 let nameStarContainer = commentContainer.querySelector(".nameStarContainer");
                 let starContainer = commentContainer.querySelector(".starContainer");
 
-                for (let i = 0; i < Number(comment_.rating); i++) {
+                for (let i = 0; i < Number(Comment.rating); i++) {
                     let star = document.createElement("div");
                     star.classList.add("star");
-                    starContainer.appendChild(star);
+                    starContainer.append(star);
                 }
 
-                if (comment_.author === usersname) {
+                if (Comment.author === username) {
                     let editButton = document.createElement("button");
                     let dropdownMenu = document.createElement("div");
                     editButton.classList.add("editButton");
@@ -112,8 +116,8 @@ async function renderRecipe(recipe) {
                     <div class="dropdown-item bin"></div>
                     <div class="dropdown-item edit"></div>
                     `
-                    nameStarContainer.appendChild(editButton);
-                    nameStarContainer.appendChild(dropdownMenu);
+                    nameStarContainer.append(editButton);
+                    nameStarContainer.append(dropdownMenu);
 
                     editButton.addEventListener('click', () => {
                         dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
@@ -122,18 +126,17 @@ async function renderRecipe(recipe) {
                     dropdownMenu.addEventListener('mouseleave', () => {
                         dropdownMenu.style.display = 'none';
                     });
+
+                    document.querySelector(".bin").addEventListener("click", e => {deleteComment(username, recipe)});
+
                     usersComment=true;
                 }
                 
             }
 
-            console.log(data);
-
         } catch (error) {
-            // Handle any errors
             console.error(error);
         }
-        console.log(usersComment);
         if(usersComment===false){
             document.querySelector(".ratingBox").innerHTML= `
             <p><b>Share your opinion on ${recipe.strMeal}</b></p>
@@ -161,76 +164,62 @@ async function renderRecipe(recipe) {
     async function sendComment(event) {
         event.preventDefault();
         if (user.guest) {
-            let PopupMenu = document.querySelector("#popUp");
-            PopupMenu.classList.remove("hidden");
-            let PopUpWindow = document.querySelector("#popUpWindow");
-
-            let info = document.createElement("div");
-            let OkButton = document.createElement("button");
-            let registerButton = document.createElement("button");
-
-
-
-            PopUpWindow.append(info);
-            PopUpWindow.append(OkButton);
-            PopUpWindow.append(registerButton);
-
-
-            info.textContent = "Only registered users can use this feature";
-            OkButton.textContent = "Ok";
-            registerButton.textContent = "Register or login";
-
-            OkButton.addEventListener("click", e => {
-                Disguise(e)
-            });
-
-            registerButton.addEventListener("click", e => {
-                logout();
-                Disguise(e)
-            });
+            complexPopUp("Only registered users can use this feature", "Register or login", "OK", "logout()");
         } else {
-            // if-sats här om det är en gäst eller inloggad person
             const form = main.querySelector("form");
             const dataform = new FormData(form);
-            const recipeId = recipe_.idMeal;
+            const recipeId = currentRecipe.idMeal;
             let rating;
             let comment;
+            let pfp=user.pfp
             let output = [];
+            
+            //Kanske ta bort /r
             for (const entry of dataform) {
-                output = `${output}${entry[0]}=${entry[1]}\r`;
+               // output = `${output}${entry[0]}=${entry[1]}\r`;
                 if (`${entry[0]}` === "rating") {
                     rating = `${entry[1]}`;
                 } else {
                     comment = `${entry[1]}`;
                 }
-                // console.log(output)
-                event.preventDefault();
             }
+            console.log(username)
             const commentData = {
-                usersname,
+                username,
+                pfp,
                 recipeId,
                 rating,
                 comment,
             };
-            console.log(commentData);
 
             try {
-                let response = await fetch("/loginregister-api/comments.php", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(commentData),
-                });
+                let response = await fetching("api/commentsAndRatings.php", "POST", commentData);
                 let data = await response.json();
-                console.log(response);
+       
                 if (response.ok) {
                     renderRecipe(recipe);
                 } else {
-                    // popUp(`${data.message}`);
+                    popUp(`${data.message}`);
                 }
             } catch (error) {
-                //message.textContent = `${error.message}`;
+                popUp(error.message);
             }
         }
     }
 }
 
+async function deleteComment(username, recipe){
+    console.log(recipe.idMeal)
+    try{
+    const response = await fetch(`api/commentsAndRatings.php?author=${username}&recipeId=${recipe.idMeal}`, {
+        method: "DELETE"
+    });
+    if (response.ok) {
+        renderRecipe(recipe);
+      } else {
+        console.log('Failed to delete comment');
+      }
+    }catch(error){
+        popUp(error);
+    }
+}
