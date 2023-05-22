@@ -88,5 +88,15 @@
         "username": "Molly",
         "password": "hej",
         "pfp": "api\/data\/pictures\/pfp\/1684616486.jpeg"
+    },
+    {
+        "email": "greger@hej",
+        "username": "gerger",
+        "password": "grgrereg"
+    },
+    {
+        "email": "ballong@hej",
+        "username": "ballong",
+        "password": "ballong"
     }
 ]

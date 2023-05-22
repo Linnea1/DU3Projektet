@@ -1,21 +1,43 @@
 //render all categories in the open API
 async function renderCategoriesPage() {
-    user = JSON.parse(localStorage.getItem("user"));
+    // user = JSON.parse(localStorage.getItem("user"));
     currentState("renderCategoriesPage()");
 
+    document.querySelector("header").innerHTML = `
+    <div id="menu" onclick="">
+        <div class="menuPart"></div>
+        <div class="menuPart"></div>
+        <div class="menuPart"></div>
+    </div>  
+    <div class="nameOfApplication"> The YumYumClub </div>
+    <div id="user" class="icon"></div>
+    `;
+
     main.innerHTML = `
-      <div id="sticky"></div>
-      <div class="info">
-        <header>
-          <button id="menu" onclick="">Menu</button>
-          <div class=image></div>
-        </header>
-        <h2>What kind of recepie are you looking for?</h2>
-        <input type="text" name="search" placeholder="search for recipe">
-        <p id="user">${user.username}</p>
-      </div>
-      <div class="categories"></div>
-    `
+        <div class="info">
+            <h2>What kind of recepie are you looking for?</h2>
+            <input type="text" name="search" placeholder="search for recipe">
+        </div>
+        <div class="categories"></div>
+    `;
+
+    // When the user scrolls the page, execute myFunction
+    window.onscroll = function () { headerSticky() };
+
+    // Get the header
+    let header = document.querySelector("header");
+
+    // Get the offset position of the navbar
+    let sticky = header.offsetTop;
+
+    // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+    function headerSticky() {
+        if (window.pageYOffset > sticky) {
+            header.classList.add("sticky");
+        } else {
+            header.classList.remove("sticky");
+        }
+    }
 
     const divCategories = document.querySelector(".categories");
     let searchField = main.querySelector("input");
@@ -47,10 +69,7 @@ async function renderRecipesAfterCategory(event) {
     currentState(`renderRecipesAfterCategory(${event})`)
     main.innerHTML = `
         <div class="header">
-            <button id="menu" onclick="">Menu</button>
-            <div class=image></div>
             <h2>${category}</h2>
-            <p>${user.username}</p>
             <button class="goBack">Go Back</button>
         </div>
         <div class="recipes"></div>
