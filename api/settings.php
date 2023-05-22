@@ -51,10 +51,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if (!in_array($type, $allowedFiles)){
             send_JSON(["message"=>"Wrong filetype"], 400);
         }
-        
-        if($size > 50000){
-            send_JSON(["message"=>"Filesize is too big"], 400);
-        }
 
         $ending = str_replace("image/", ".", $type);
         $filePath = "api/data/pictures/pfp/";

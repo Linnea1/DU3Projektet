@@ -1,11 +1,9 @@
 async function renderRecipe(recipe) {
-    console.log("hej");
     currentState(`renderRecipe(${JSON.stringify(recipe)})`);
 
     let currentRecipe;
     let username = user.username;
 
-    console.log(recipe);
     if (recipe.idMeal.startsWith("x_")) {
         currentRecipe = recipe;
         let creator = currentRecipe.author

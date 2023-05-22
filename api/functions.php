@@ -70,38 +70,28 @@ function change ($input, $users, $filename, $field, $secondaryField = "password"
             file_put_contents($filename, json_encode($users, JSON_PRETTY_PRINT));
 
             // change in other databases too
-            if($field == "username"){
-                $favorites = json_decode(file_get_contents("data/favourites.json"), true);
-                $comments = json_decode(file_get_contents("data/comments.json"), true);
-                $recipes = json_decode(file_get_contents("data/recipes.json"), true);
+            // if($field == "username"){
+            //     $favorites = json_decode(file_get_contents("data/favourites.json"), true);
+            //     $comments = json_decode(file_get_contents("data/comments.json"), true);
+            //     $recipes = json_decode(file_get_contents("data/recipes.json"), true);
 
-                function changeUsername ($dataBase, $key, $filePath, $input){
-                    foreach($dataBase as $index => $data){
-                        if($data[$key] == $input["username"]){
-                            $dataBase[$index][$key] = $input["new"];
+            //     function changeUsername ($dataBase, $key, $filePath, $input){
+            //         foreach($dataBase as $index => $data){
+            //             if($data[$key] == $input["username"]){
+            //                 $dataBase[$index][$key] = $input["new"];
 
-                            file_put_contents($filePath, json_encode($dataBase, JSON_PRETTY_PRINT));
-                        }
-                    }
-                }
+            //                 file_put_contents($filePath, json_encode($dataBase, JSON_PRETTY_PRINT));
+            //             }
+            //         }
+            //     }
 
-            changeUsername($favorites, "username", "data/favourites.json", $input);
-            changeUsername($comments, "author", "data/comments.json", $input);
-            changeUsername($favorites, "author", "data/favourites.json", $input);
-            }
+            // changeUsername($favorites, "username", "data/favourites.json", $input);
+            // changeUsername($comments, "author", "data/comments.json", $input);
+            // changeUsername($favorites, "author", "data/favourites.json", $input);
+            // }
             ///
 
-            if($field == "username"){
-                $favorites = json_decode(file_get_contents("data/favourites.json"), true);
-
-                foreach($favorites as $index => $favorite){
-                    if($favorite["username"] == $input["username"]){
-                        $favorites[$index]["username"] = $input["new"];
-
-                        file_put_contents("data/favourites.json", json_encode($favorites, JSON_PRETTY_PRINT));
-                    }
-                }
-            }
+            send_JSON($input["new"]);
         }
     }
     send_JSON(["message"=>"Problems with finding user"], 400); // if user cant be found / matched
