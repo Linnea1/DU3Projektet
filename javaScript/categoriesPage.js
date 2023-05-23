@@ -139,7 +139,7 @@ async function renderRecipeBoxes(data) {
             </div>
         `;
 
-        divRecipes.append(recipeDiv);
+        divRecipes.prepend(recipeDiv);
         recipeDiv.dataset.id = recipe.idMeal;
 
         recipeDiv.querySelector("#first").addEventListener("click", AddRecipesAsFavourite);

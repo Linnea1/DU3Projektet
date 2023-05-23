@@ -106,4 +106,5 @@ function swapStyleSheet(styleSheet) {
 function logout() {
     localStorage.clear();
     renderStartPage();
+    location.reload();
 }
