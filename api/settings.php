@@ -65,7 +65,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
 
                 if(move_uploaded_file($source, "data/pictures/pfp/" . $name)){
-                    $users[$index]["pfp"] = $filePath . $name;
+                    $correctName =  $filePath . $name;
+                    $users[$index]["pfp"] = $correctName;
                     file_put_contents($filename, json_encode($users, JSON_PRETTY_PRINT));
 
                     $favorites = json_decode(file_get_contents("data/favourites.json"), true);
@@ -73,17 +74,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     $recipes = json_decode(file_get_contents("data/recipes.json"), true);
 
                     //// change in other databases too
-                    function changePfp ($dataBase, $filePath){
+                    function changePfp ($dataBase, $key, $filePath, $name){
                         foreach($dataBase as $index => $data){
-                            if($data["author"] == $_POST["username"]){
-                                $dataBase[$index]["pfp"] = $filePath . $name;
+                            if($data[$key] == $_POST["username"]){
+                                $dataBase[$index]["pfp"] = $name;
 
                                 file_put_contents($filePath, json_encode($dataBase, JSON_PRETTY_PRINT));
                             }
                         }
                     }
 
-                    changePfp($comments, "data/comments.json");
+                    changePfp($comments, "author", "data/comments.json", $correctName);
                     // changeUsername($recipes, "data/recipes.json", $input);
                     ////
 
@@ -106,16 +107,16 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE"){
             file_put_contents($filename, json_encode($users, JSON_PRETTY_PRINT));
 
             //////
-            function deletedUser ($dataBase, $filePath, $input){
+            function deletedUser ($dataBase, $key, $filePath, $input){
                 foreach($dataBase as $index => $data){
-                    if($data["author"] == $input["username"]){
+                    if($data[$key] == $input["username"]){
                         $dataBase[$index]["deleted"] = true; // adds the key "deleted"
 
                         file_put_contents($filePath, json_encode($dataBase, JSON_PRETTY_PRINT));
                     }
                 }
             }
-            deletedUser($comments, "data/comments.json", $input);
+            deletedUser($comments, "author", "data/comments.json", $input);
             /////
 
             send_JSON(["message"=>"User has been deleted"]);

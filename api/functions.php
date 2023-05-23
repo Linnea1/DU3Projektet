@@ -76,19 +76,19 @@ function change ($input, $users, $filename, $field, $secondaryField = "password"
                 $comments = json_decode(file_get_contents("data/comments.json"), true);
                 $recipes = json_decode(file_get_contents("data/recipes.json"), true);
 
-                function changeUsername ($dataBase, $filePath, $input){
+                function changeUsername ($dataBase, $key, $filePath, $input){
                     foreach($dataBase as $index => $data){
-                        if($data["author"] == $input["username"]){
-                            $dataBase[$index]["author"] = $input["new"];
+                        if($data[$key] == $input["username"]){
+                            $dataBase[$index][$key] = $input["new"];
 
                             file_put_contents($filePath, json_encode($dataBase, JSON_PRETTY_PRINT));
                         }
                     }
                 }
 
-            changeUsername($favorites, "data/favourites.json", $input);
-            changeUsername($comments, "data/comments.json", $input);
-            changeUsername($recipes, "data/recipes.json", $input);
+            changeUsername($favorites, "username", "data/favourites.json", $input);
+            changeUsername($comments, "author", "data/comments.json", $input);
+            changeUsername($recipes, "author", "data/recipes.json", $input);
             }
             ///
 

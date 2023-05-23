@@ -139,5 +139,21 @@
         "rating": "2",
         "comment": "Too spicy",
         "pfp": "api\/data\/pictures\/pfp\/1684773093.jpeg"
+    },
+    {
+        "recipeId": "52878",
+        "author": "okay",
+        "timestamp": "23-05-2023 09:57",
+        "rating": "2",
+        "comment": "ok",
+        "pfp": "api\/data\/pictures\/pfp\/1684835960.jpeg"
+    },
+    {
+        "recipeId": "52878",
+        "author": "vetej",
+        "timestamp": "23-05-2023 10:01",
+        "rating": "3",
+        "comment": "dryfgjhk",
+        "pfp": null
     }
 ]
