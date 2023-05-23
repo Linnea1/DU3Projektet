@@ -92,7 +92,8 @@
     {
         "email": "greger@hej",
         "username": "gerger",
-        "password": "grgrereg"
+        "password": "grgrereg",
+        "pfp": "api\/data\/pictures\/pfp\/1684834867.jpeg"
     },
     {
         "email": "ballong@hej",
@@ -115,5 +116,10 @@
         "username": "test",
         "password": "test",
         "pfp": "api\/data\/pictures\/pfp\/1684761202.jpeg"
+    },
+    {
+        "email": "oliwer@hej.se",
+        "username": "oliwer",
+        "password": "oliwer"
     }
 ]

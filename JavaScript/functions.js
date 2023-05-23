@@ -35,6 +35,7 @@ function popUp(prompt) { // pop up
 }
 
 function complexPopUp(prompt, button1, button2, func) {
+
     document.querySelector("#popUpWindow").innerHTML = `
         <p id="prompt"></p>
     `;
@@ -104,6 +105,9 @@ function swapStyleSheet(styleSheet) {
 }
 
 function logout() {
-    localStorage.clear();
+    localStorage.setItem("user", JSON.stringify({
+        "username": "Guest",
+        "guest": true
+    }))
     renderStartPage();
 }
