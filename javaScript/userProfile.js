@@ -16,7 +16,6 @@ async function RenderUserPage(userInfo) {
 
 
         main.innerHTML = `
-            <div id="sticky"></div>
             <button class="goBack">Go Back</button>
             <button class="hidden" id="settings">Settings</button>
             <div class="userInfo">
@@ -48,7 +47,7 @@ async function RenderUserPage(userInfo) {
         document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe);
 
         try {
-            if (userInfo === user.username) {
+            if (userInfo.username === user.username) {
 
                 const response = await fetch(`api/createRecipe.php?author=${user.username}`);
                 const data = await response.json();
@@ -170,7 +169,7 @@ async function favoriteRecipes(object, user) {
                         <img src="${recipe_img}"> 
                         </div>
                         `;
-                        recipesDiv.appendChild(recipe_div);
+                        recipesDiv.prepend(recipe_div);
 
                         recipe_div.addEventListener("click", e => { renderRecipe(response) });
 
@@ -187,7 +186,7 @@ async function favoriteRecipes(object, user) {
                         <h2>${recipe_name}</h2>
                         <img src="${recipe_img}"> 
                         </div>`;
-                        recipesDiv.appendChild(recipe_div);
+                        recipesDiv.prepend(recipe_div);
 
                         recipe_div.addEventListener("click", e => { renderRecipe(responsefood.meals[0]) });
                     }
