@@ -137,5 +137,29 @@
         "rating": "2",
         "comment": "Too spicy",
         "pfp": "api\/data\/pictures\/pfp\/1684773093.jpeg"
+    },
+    {
+        "recipeId": "x_646ca06a51a34",
+        "author": "Linnea",
+        "timestamp": "23-05-2023 11:17",
+        "rating": "3",
+        "comment": "heej",
+        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
+    },
+    {
+        "recipeId": "x_646c85a57852f",
+        "author": "Linnea",
+        "timestamp": "23-05-2023 11:47",
+        "rating": "3",
+        "comment": "test",
+        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
+    },
+    {
+        "recipeId": "52974",
+        "author": "Linnea",
+        "timestamp": "23-05-2023 11:47",
+        "rating": "1",
+        "comment": "Ewww",
+        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
     }
 ]

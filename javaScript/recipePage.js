@@ -134,7 +134,6 @@ async function renderRecipe(recipe) {
                     `
                     dropdownMenu.innerHTML = `
                     <div class="dropdown-item bin"></div>
-                    <div class="dropdown-item edit"></div>
                     `
                     nameStarContainer.append(editButton);
                     nameStarContainer.append(dropdownMenu);

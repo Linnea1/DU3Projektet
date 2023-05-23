@@ -11,7 +11,7 @@ $post = json_decode(file_get_contents("php://input"), true);
 $time=time();
 $timestamp = date('d-m-Y H:i', $time);
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if($_SERVER["REQUEST_METHOD"] == "POST"){//Creat a comment
 
     $newComment = [
         "recipeId" => $post['recipeId'],
@@ -25,7 +25,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $comments[] = $newComment;
     file_put_contents($filename, json_encode($comments, JSON_PRETTY_PRINT));
     send_JSON($newComment);
-}elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
+}elseif ($_SERVER["REQUEST_METHOD"] == "GET") {//Get all comments with the same recipe ID
     if (isset($_GET["id"])) {
         $id = $_GET["id"];
 
@@ -53,6 +53,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else {
         send_JSON(["message" => "Comment not found"], 404);
     }
+}else{
+    send_JSON(["message" => "Wrong method"], 405);
 }
 
 function filterComments($comments, $id, $key) {

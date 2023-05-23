@@ -56,5 +56,59 @@
         "strMeasure2": "mkadk",
         "strMeasure3": "mmad",
         "strMealThumb": "api\/data\/pictures\/recipes\/PinkPot.jpg"
+    },
+    {
+        "idMeal": "x_646c9f292b99e",
+        "author": "Linnea",
+        "strCategory": "Beef",
+        "strMeal": "hejksa",
+        "strInstructions": "asjas",
+        "strIngredient1": "snjas",
+        "strIngredient2": "asnja",
+        "strIngredient3": "nadj",
+        "strMeasure1": "sacnklas",
+        "strMeasure2": "kakla",
+        "strMeasure3": "nala",
+        "strMealThumb": "api\/data\/pictures\/recipes\/1684840233.jpeg"
+    },
+    {
+        "idMeal": "x_646ca02f1718c",
+        "author": "Linnea",
+        "strCategory": "Beef",
+        "strMeal": "ghjkl",
+        "strInstructions": "hbknml",
+        "strIngredient1": "vbnm,",
+        "strIngredient2": "bnkmlk",
+        "strIngredient3": "gbjhnkjlk",
+        "strMeasure1": "bnm,.",
+        "strMeasure2": "adkka",
+        "strMeasure3": "hkjnlk",
+        "strMealThumb": "api\/data\/pictures\/recipes\/1684840495.gif"
+    },
+    {
+        "idMeal": "x_646ca06a51a34",
+        "author": "Linnea",
+        "strCategory": "Beef",
+        "strMeal": "gvhujio",
+        "strInstructions": "sankla",
+        "strIngredient1": "dwlna",
+        "strIngredient2": "bjn",
+        "strIngredient3": " n,m",
+        "strMeasure1": "bnjlk",
+        "strMeasure2": " nb",
+        "strMeasure3": "hbjknk",
+        "strMealThumb": "api\/data\/pictures\/recipes\/1684840554.jpeg"
+    },
+    {
+        "idMeal": "x_646ca20c79a2f",
+        "author": "Linnea",
+        "strCategory": "Breakfast",
+        "strMeal": "Egg",
+        "strInstructions": "Boil egg",
+        "strIngredient1": "Egg",
+        "strIngredient2": "Salt",
+        "strMeasure1": "3",
+        "strMeasure2": "pinch",
+        "strMealThumb": "api\/data\/pictures\/recipes\/PinkPot.jpg"
     }
 ]
