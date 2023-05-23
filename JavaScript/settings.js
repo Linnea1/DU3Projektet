@@ -33,7 +33,32 @@ function renderSettings() {
     let fileForm = main.querySelector("#upload");
 
     main.querySelector(".red").addEventListener("click", e => {
-        complexPopUp("Are you sure", "Yes", "No", "deleteAccount()");
+        document.querySelector("#popUpWindow").innerHTML = `
+            <p id="prompt"></p>
+        `;
+
+        document.querySelector("#popUp").classList.remove("hidden");
+        document.querySelector("#prompt").textContent = "Are you sure";
+
+        let firstButton = document.createElement("button");
+        let secondButton = document.createElement("button");
+
+        firstButton.textContent = "Yes";
+        secondButton.textContent = "No";
+
+        firstButton.classList = "firstButton";
+        secondButton.classList = "secondButton";
+
+        document.querySelector("#popUpWindow").append(firstButton);
+        document.querySelector("#popUpWindow").append(secondButton);
+        document.querySelector(".firstButton").addEventListener("click", e => {
+            document.querySelector("#popUp").classList.add("hidden");
+            deleteAccount()
+        });
+        document.querySelector(".secondButton").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });
+        document.querySelector("#popUpBackground").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });
+
+        // complexPopUp("Are you sure", "Yes", "No", "deleteAccount()");
     }); // "delete account"
 
     newUsername.addEventListener("keydown", changeUsername); // "change username"
@@ -104,12 +129,17 @@ function renderSettings() {
             password: user.password
         };
 
-        let response = await fetching("api/settings.php", "DELETE", body);
-        let data = await response.json();
-
-        console.log(data);
-        localStorage.clear;
-        renderStartPage();
+        try {
+            let response = await fetching("api/settings.php", "DELETE", body);
+            if (response.ok) {
+                logout();
+            } else {
+                let data = await response.json();
+                popUp(data.message);
+            }
+        } catch (error) {
+            popUp(error);
+        }
     }
 
     async function changePfp(e) {

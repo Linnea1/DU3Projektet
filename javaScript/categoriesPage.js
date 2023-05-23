@@ -3,15 +3,22 @@ async function renderCategoriesPage() {
     // user = JSON.parse(localStorage.getItem("user"));
     currentState("renderCategoriesPage()");
 
+
     document.querySelector("header").innerHTML = `
     <div id="menu" onclick="">
-        <div class="menuPart"></div>
-        <div class="menuPart"></div>
-        <div class="menuPart"></div>
+    <div class="menuPart"></div>
+    <div class="menuPart"></div>
+    <div class="menuPart"></div>
     </div>  
     <div class="nameOfApplication"> The YumYumClub </div>
     <div id="profilePicture" class="icon"></div>
     `;
+
+    if (user.guest) {
+        document.querySelector("#profilePicture").removeAttribute("style", "");
+    } else {
+        document.querySelector("#profilePicture").style.backgroundImage = `url(${user.pfp})`
+    }
 
     main.innerHTML = `
         <div class="info">
@@ -21,7 +28,6 @@ async function renderCategoriesPage() {
         <div class="categories"></div>
     `;
 
-    document.querySelector(".icon").style.backgroundImage = `url(${user.pfp})`
     // When the user scrolls the page, execute myFunction
     window.onscroll = function () { headerSticky() };
 
