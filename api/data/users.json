@@ -115,5 +115,10 @@
         "username": "test",
         "password": "test",
         "pfp": "api\/data\/pictures\/pfp\/1684761202.jpeg"
+    },
+    {
+        "email": "ryftguih@rdtftygy.se",
+        "username": "hello",
+        "password": "hii"
     }
 ]

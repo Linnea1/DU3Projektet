@@ -67,14 +67,16 @@
         "author": null,
         "timestamp": "18-05-2023 20:53",
         "rating": "3",
-        "comment": "testing"
+        "comment": "testing",
+        "pfp": "data\/comments.json"
     },
     {
         "recipeId": "53049",
         "author": null,
         "timestamp": "18-05-2023 20:58",
         "rating": "4",
-        "comment": "test"
+        "comment": "test",
+        "pfp": "data\/comments.json"
     },
     {
         "recipeId": "53064",
