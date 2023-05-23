@@ -3,7 +3,7 @@
         "email": "erica@hej",
         "username": "erica",
         "password": "hej",
-        "pfp": "\/loginregister-api\/data\/pictures\/1684317341.png"
+        "pfp": "api\/data\/pictures\/1684317341.png"
     },
     {
         "email": "erik@hej",
@@ -14,7 +14,7 @@
         "email": "ballongone@ballong.se",
         "username": "WDU",
         "password": "ballong",
-        "pfp": "\/loginregister-api\/data\/pictures\/1684147264.jpeg"
+        "pfp": "api\/data\/pictures\/1684147264.jpeg"
     },
     {
         "email": "hej@hej",
@@ -35,31 +35,31 @@
         "email": "linnea@gmail.com",
         "username": "Linnea",
         "password": "hej",
-        "pfp": "loginregister-api\/data\/pictures\/pfp\/1684755387.gif"
+        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
     },
     {
         "email": "hej@hpp.com",
         "username": "kaj",
         "password": "haha",
-        "pfp": "\/loginregister-api\/data\/pictures\/zaebucca1.png"
+        "pfp": "api\/data\/pictures\/zaebucca1.png"
     },
     {
         "email": "duehdueldhw@hdedh.se",
         "username": "euo",
         "password": "ojoj",
-        "pfp": "\/loginregister-api\/data\/pictures\/zaebucca1.png"
+        "pfp": "api\/data\/pictures\/zaebucca1.png"
     },
     {
         "email": "drftyguyhi@drfytguh.se",
         "username": "lol",
         "password": "lol",
-        "pfp": "\/loginregister-api\/data\/pictures\/336086_1674152508.jpeg"
+        "pfp": "api\/data\/pictures\/336086_1674152508.jpeg"
     },
     {
         "email": "esrdtfgyhuj@tdrftyghuji.se",
         "username": "cfgh",
         "password": "test",
-        "pfp": "loginregister-api\/data\/pictures\/pfp\/1684317297.gif"
+        "pfp": "api\/data\/pictures\/pfp\/1684317297.gif"
     },
     {
         "email": "hej@mail.com",
@@ -81,7 +81,7 @@
         "email": "edrftghj@fghj.se",
         "username": "fog",
         "password": "test",
-        "pfp": "\/loginregister-api\/data\/pictures\/1684309955.jpeg"
+        "pfp": "api\/data\/pictures\/1684309955.jpeg"
     },
     {
         "email": "mollyyy@hej.com",
