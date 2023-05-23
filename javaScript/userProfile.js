@@ -37,7 +37,10 @@ async function RenderUserPage(userInfo) {
 
         if (userInfo.pfp) { // if pfp then add it
             document.querySelector(".icon").style.backgroundImage = `url(${userInfo.pfp})`;
+        } else {
+            document.querySelector(".icon").removeAttribute("style");
         }
+
 
         if (userInfo.username == user.username) {
             document.querySelector(".create_recipe").classList.remove("hidden");
@@ -78,12 +81,6 @@ async function RenderUserPage(userInfo) {
             // Handle any errors
             popUp(error);
         }
-
-        // document.querySelector(".favorites").addEventListener("click", e => {
-        //     favoriteRecipes(e, user.username)
-        //     e.stopPropagation();
-
-        // });
     }
 }
 
@@ -98,7 +95,7 @@ async function favoriteRecipes(object, user) {
     if (divForAllRecipes.childElementCount === 0) {
 
         try {
-            let resourse = await fetch(`api/add_and_remove_favourite.php?favourites=${user}`);
+            let resourse = await fetch(`api/addAndRemoveFavourites.php?favourites=${user}`);
             let response = await resourse.json();
 
             if (!response.length == 0) {
@@ -107,7 +104,7 @@ async function favoriteRecipes(object, user) {
 
                     if (recipe.startsWith("x_")) {
 
-                        let resourse = await fetch(`api/add_and_remove_favourite.php?ownRecipe=${recipe}`);
+                        let resourse = await fetch(`api/addAndRemoveFavourites.php?ownRecipe=${recipe}`);
                         let response = await resourse.json();
 
                         let recipe_name = response.strMeal;
@@ -143,7 +140,6 @@ async function favoriteRecipes(object, user) {
                 }
 
             } else {
-
                 popUp("There is no favourites yet");
 
             }
