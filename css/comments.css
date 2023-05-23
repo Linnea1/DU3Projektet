@@ -1,0 +1,140 @@
+.commentBox{
+    background-color: white;
+    border-radius: 10px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+.inputStars{
+    display: flex;
+}
+.rating {
+    direction: rtl;
+    display: inline-block;
+}
+  
+.rating input[type="radio"] {
+    display: none;
+}
+.rating label {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url(/icons/star.png);
+    background-size: cover;
+    cursor: pointer;
+}
+  
+.rating label:hover,
+.rating label:hover ~ label,
+.rating input[type="radio"]:checked ~ label {
+    background-image: url(/icons/star-filled.png);
+}
+
+.nameStarContainer{
+    display: flex;
+    margin-bottom: 0px;
+    align-items: center;
+}
+
+.comment{
+    background-color: #fbd78e;
+    border-radius: 0px 17px 17px 17px;
+    margin: 10px;
+    padding-left: 10px;
+    width: 80%;
+    position: relative;
+}
+.comment>p{
+    margin-top: -10px;
+}
+.commentPfp {
+    margin-right: 7px;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    background-color: rgba(228, 230, 231, 255);
+
+    background-image: url(../icons/blank-face-test.webp);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.timestamp{
+    font-size: 10px;
+    color: grey;
+}
+.starContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 7px;
+    position: relative;
+}
+.star{
+    width: 14px;
+    height: 14px;
+    background-image: url(/icons/star-filled.png);
+    background-position: center;
+    background-size: cover;
+}
+textarea{
+    width: 100%;
+}
+.editButton{
+    width: 20px;
+    height: 20px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    padding: 2px;
+    background-color: #f9748b;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+}
+.dot {
+    width: 3px;
+    height: 3px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    margin-right: 2px;
+}
+.dot:last-child {
+    margin-right: 0;
+}
+.dropdownMenu {
+    position: absolute;
+    padding: 4px;
+    display: none;
+    right: 0;
+    background-color: #f9748b;
+    border-radius: 20px;
+}
+.dropdown-item {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px 12px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 15px;
+    height: 15px;
+    margin: 4px;
+}
+.edit{
+  
+    background-image: url(/icons/edit.png);
+  
+}
+.bin {
+    width: 15px;
+    height: 15px;
+    background-image: url(/icons/bin.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}

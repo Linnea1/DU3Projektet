@@ -1,0 +1,119 @@
+[
+    {
+        "email": "erica@hej",
+        "username": "erica",
+        "password": "hej",
+        "pfp": "\/loginregister-api\/data\/pictures\/1684317341.png"
+    },
+    {
+        "email": "erik@hej",
+        "username": "erik",
+        "password": "hej"
+    },
+    {
+        "email": "ballongone@ballong.se",
+        "username": "WDU",
+        "password": "ballong",
+        "pfp": "\/loginregister-api\/data\/pictures\/1684147264.jpeg"
+    },
+    {
+        "email": "hej@hej",
+        "username": "redbull",
+        "password": "redbull"
+    },
+    {
+        "email": "hej@hej.se",
+        "username": "drfg",
+        "password": "lol"
+    },
+    {
+        "email": "theo@hej.se",
+        "username": "theo",
+        "password": "thep"
+    },
+    {
+        "email": "linnea@gmail.com",
+        "username": "Linnea",
+        "password": "hej",
+        "pfp": "api\/data\/pictures\/pfp\/1684494793.gif"
+    },
+    {
+        "email": "hej@hpp.com",
+        "username": "kaj",
+        "password": "haha",
+        "pfp": "\/loginregister-api\/data\/pictures\/zaebucca1.png"
+    },
+    {
+        "email": "duehdueldhw@hdedh.se",
+        "username": "euo",
+        "password": "ojoj",
+        "pfp": "\/loginregister-api\/data\/pictures\/zaebucca1.png"
+    },
+    {
+        "email": "drftyguyhi@drfytguh.se",
+        "username": "lol",
+        "password": "lol",
+        "pfp": "\/loginregister-api\/data\/pictures\/336086_1674152508.jpeg"
+    },
+    {
+        "email": "esrdtfgyhuj@tdrftyghuji.se",
+        "username": "cfgh",
+        "password": "test",
+        "pfp": "loginregister-api\/data\/pictures\/pfp\/1684317297.gif"
+    },
+    {
+        "email": "hej@mail.com",
+        "username": "hej",
+        "password": "hej"
+    },
+    {
+        "email": "elliot@elliot",
+        "username": "elliot",
+        "password": "elliot",
+        "pfp": "api\/data\/pictures\/pfp\/1684764232.png"
+    },
+    {
+        "email": "dxgfchgvjhb@dtyfjyg.se",
+        "username": "hejhej",
+        "password": "yay"
+    },
+    {
+        "email": "edrftghj@fghj.se",
+        "username": "fog",
+        "password": "test",
+        "pfp": "\/loginregister-api\/data\/pictures\/1684309955.jpeg"
+    },
+    {
+        "email": "mollyyy@hej.com",
+        "username": "Molly",
+        "password": "hej",
+        "pfp": "api\/data\/pictures\/pfp\/1684616486.jpeg"
+    },
+    {
+        "email": "greger@hej",
+        "username": "gerger",
+        "password": "grgrereg"
+    },
+    {
+        "email": "ballong@hej",
+        "username": "ballong",
+        "password": "ballong",
+        "pfp": "api\/data\/pictures\/pfp\/1684773093.jpeg"
+    },
+    {
+        "email": "drtfygjhkj@detrfyguh.se",
+        "username": "tes",
+        "password": "test"
+    },
+    {
+        "email": "fgjhk@dxcgfhj.fytgyh",
+        "username": "yolo",
+        "password": "test"
+    },
+    {
+        "email": "fgh@fhgjh.se",
+        "username": "test",
+        "password": "test",
+        "pfp": "api\/data\/pictures\/pfp\/1684761202.jpeg"
+    }
+]
