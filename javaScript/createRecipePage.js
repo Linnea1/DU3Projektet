@@ -37,25 +37,9 @@ function renderCreateRecipe(event) {
                   <input type="text" id="strMeasure1" name="strMeasure1"><br><br>
               </div>
             </div>
-            <div class="ingredientGroup">
-              <div class="ingredientDiv1">
-                  <label for="strIngredient2">Ingredient 2:</label>
-                  <input type="text" id="strIngredient2" name="strIngredient2">
-              </div>
-              <div class="ingredientDiv2">
-                  <label for="strMeasure2">Measurement 2:</label>
-                  <input type="text" id="strMeasure2" name="strMeasure2"><br><br>
-              </div>  
-            </div>
-            <div class="ingredientGroup">
-                  <div class="ingredientDiv1">
-                      <label for="strIngredient3">Ingredient 3:</label>
-                      <input type="text" id="strIngredient3" name="strIngredient3">
-                  </div>
-                  <div class="ingredientDiv1">
-                      <label for="strMeasure3">Measurement 3:</label>
-                      <input type="text" id="strMeasure3" name="strMeasure3"><br><br>
-                  </div>
+            <div class="ingredientDiv2">
+                <label for="strMeasure1">Measurement 1:</label>
+                <input type="text" id="strMeasure1" name="strMeasure1"><br><br>
             </div>
           </div>
   
@@ -110,16 +94,15 @@ function addIngredientGroup() {
   ingredientGroup.appendChild(ingredientDiv1);
   ingredientGroup.appendChild(ingredientDiv2);
 
-
   ingredientGroupCounter++;
 }
-
-
+  
+  
 async function submitRecipe(event) {
   event.preventDefault();
   let author = user.username;
 
-  const recipeImage = main.querySelector("#picture").value;
+  const recipeImage = "api/data/pictures/recipes/PinkPot.jpg"
   const mealName = main.querySelector("#strMeal").value;
   const mealCategory = main.querySelector("#strCategory").value;
   const instructions = main.querySelector("#strInstructions").value;
@@ -154,18 +137,23 @@ async function submitRecipe(event) {
     measurements,
     recipeImage
   };
-
-  try {
-    let response = await fetching("api/createRecipe.php", "POST", recipeData);
-    let data = await response.json();
-
+  
+  const formRecipeImage = main.querySelector("#picture").files[0];
+  const request = new Request("api/createRecipe.php", {
+    method: "POST",
+    body: formData
+  });
+  try{
+    const response = await fetch(request);
+    const data = await response.json();
     if (response.ok) {
-      popUp("You have added a new recipe!")
+      popUp("New recipe created!");
     } else {
-      popUp(`${data.message}`);
+      popUp(data.message); 
     }
-  } catch (error) {
-    message.textContent = `${error.message}`;
+  }catch(error){
+    popUp(error);
   }
 }
-
+  
+  

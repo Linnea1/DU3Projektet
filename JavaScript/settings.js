@@ -121,7 +121,7 @@ function renderSettings() {
         if (user.pfp) {
             formData.append("old", user.pfp);
         }
-
+        console.log(formData);
         if (main.querySelector('input[name="pfp"]').value === "") {
             popUp("Please upload a file")
         } else {
