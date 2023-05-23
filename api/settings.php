@@ -59,10 +59,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                 $users[$index]["pfp"] = $filePath . $name;
 
-                if(isset($_POST["old"])){
-                    $correctPath = str_replace("api/data/pictures/pfp/", "data/pictures/pfp/", $_POST["old"]);
-                    unlink($correctPath);
-                }
+                // if(isset($_POST["old"])){
+                //     $correctPath = str_replace("api/data/pictures/pfp/", "data/pictures/pfp/", $_POST["old"]);
+                //     unlink($correctPath);
+                // }
 
                 if(move_uploaded_file($source, "data/pictures/pfp/" . $name)){
                     $correctName =  $filePath . $name;

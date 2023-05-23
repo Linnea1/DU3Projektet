@@ -53,6 +53,7 @@ async function renderRecipe(recipe) {
                     <h2><b>${currentRecipe.strMeal}</b></h2>
                     <img src="${currentRecipe.strMealThumb}"> 
                     <div class="author">
+                        <div id="pfp"></div>
                         <p>${author}</p>
                     </div>
                     <div class="ingredients">
@@ -69,7 +70,22 @@ async function renderRecipe(recipe) {
                     <div class="ratingBox"></div>
                 </div>
         `;
+        try {
+            const response = await fetch(`api/addAndRemoveFavourites.php?author=${author}`);
+            const data = await response.json();
 
+            if (!data.pfp) {
+                document.querySelector("#pfp").style.backgroundImage = `url(../icons/blank-face-test.webp)`;
+            } else {
+
+                document.querySelector("#pfp").style.backgroundImage = `url(${data.pfp})`
+            }
+            console.log(data.pfp);
+
+
+        } catch (e) {
+            console.log(e);
+        }
         const list = document.querySelector(".ingredientList");
         for (const ratio of ingredients) {
             list.innerHTML += `
@@ -83,6 +99,7 @@ async function renderRecipe(recipe) {
         try {
             const response = await fetch(`api/commentsAndRatings.php?id=${currentRecipe.idMeal}`);
             const data = await response.json();
+
 
             for (const Comment of data.comments) {
                 let commentContainer = document.createElement("div");

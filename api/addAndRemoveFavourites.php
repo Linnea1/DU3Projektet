@@ -63,6 +63,23 @@ if ($method == "GET") {
 
     }
 
+
+    if (isset($_GET["author"])) {
+        $author = $_GET["author"];
+
+        $filename = "data/users.json";
+        $json = file_get_contents($filename);
+        $data = json_decode($json, true);
+
+        foreach($data as $user){
+            if ($user['username'] === $author) {
+                send_JSON($user);
+            }
+        }
+        $error = ["error" => "Could not find a match"];
+        send_JSON($error, 404);
+    }
+
 }
 
 if ($method == "POST") {
