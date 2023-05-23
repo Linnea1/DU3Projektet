@@ -118,6 +118,8 @@ async function searchDish(event) {
 
 //Creating the recipes
 async function renderRecipeBoxes(data) {
+
+
     const divRecipes = document.querySelector(".recipes");
     divRecipes.innerHTML = "";
 
@@ -136,6 +138,7 @@ async function renderRecipeBoxes(data) {
             <img src="${recipe.strMealThumb}"> 
         </div>
     `;
+
         divRecipes.append(recipeDiv);
         recipeDiv.dataset.id = recipe.idMeal;
 

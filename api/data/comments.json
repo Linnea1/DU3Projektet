@@ -129,5 +129,13 @@
         "rating": "5",
         "comment": "hall\u00e5!",
         "pfp": "api\/data\/pictures\/pfp\/1684761202.jpeg"
+    },
+    {
+        "recipeId": "52997",
+        "author": "ballong",
+        "timestamp": "22-05-2023 17:25",
+        "rating": "2",
+        "comment": "Too spicy",
+        "pfp": "api\/data\/pictures\/pfp\/1684773093.jpeg"
     }
 ]

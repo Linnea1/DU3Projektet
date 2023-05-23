@@ -35,6 +35,10 @@ function popUp(prompt) { // pop up
 }
 
 function complexPopUp(prompt, button1, button2, func) {
+    document.querySelector("#popUpWindow").innerHTML = `
+        <p id="prompt"></p>
+    `;
+
     document.querySelector("#popUp").classList.remove("hidden");
     document.querySelector("#prompt").textContent = prompt;
 

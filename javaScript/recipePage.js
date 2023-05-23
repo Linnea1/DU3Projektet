@@ -41,6 +41,8 @@ async function renderRecipe(recipe) {
         <div id="profilePicture" class="icon"></div>
         `;
 
+        document.querySelector("#menu").addEventListener("click", ShowMenu);
+
         document.querySelector(".icon").style.backgroundImage = `url(${user.pfp})`
         newState("#profilePicture", `RenderUserPage(${localStorage.user})`, true);
 
@@ -75,7 +77,7 @@ async function renderRecipe(recipe) {
             `;
         }
 
-        document.querySelector("#menu").addEventListener("click", ShowMenu);
+        // document.querySelector("#menu").addEventListener("click", ShowMenu);
         let usersComment = false;
 
         try {

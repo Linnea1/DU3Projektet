@@ -49,9 +49,13 @@ async function RemoveFavourite(recipe) {
 //Checking if recipe is liked
 async function checkLiked(recipe) {
 
-    let response = await fetch(`api/add_and_remove_favourite.php?idMeal=${recipe}&user=${user.username}`);
-    let resourse = await response.json();
+    let response = await fetch(`api/add_and_remove_favourite.php?favourites=${user.username}`);
+    let data = await response.json();
 
-    return resourse
+    if (data.includes(recipe)) {
+        return true;
+    } else {
+        return false;
+    }
 
 }
