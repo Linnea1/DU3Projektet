@@ -33,9 +33,9 @@ function ShowMenu() {
     Nightmode.textContent = "Nightmode";
     LogOut.textContent = "Log out";
 
-    newState(".Startpage", "renderCategoriesPage()");
-    newState(".Profile", `RenderUserPage(${localStorage.user})`);
-    newState(".ManageAccount", "renderSettings()");
+    // newState(".Startpage", "renderCategoriesPage()");
+    // newState(".Profile", `RenderUserPage(${localStorage.user})`);
+    // newState(".ManageAccount", "renderSettings()");
 
     PopupMenu.addEventListener("click", e => {
         hideMenu(e)
@@ -49,7 +49,7 @@ function ShowMenu() {
     Profile.addEventListener("click", e => {
         hideMenu(e)
         // if-sats om du är inloggad eller ej 
-        RenderUserPage();
+        RenderUserPage(user);
     })
 
     ManageAccount.addEventListener("click", e => {

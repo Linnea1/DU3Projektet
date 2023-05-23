@@ -119,9 +119,9 @@ async function searchDish(event) {
 //Creating the recipes
 async function renderRecipeBoxes(data) {
 
-
     const divRecipes = document.querySelector(".recipes");
-    divRecipes.innerHTML = "";
+
+
 
     for (const recipeName in data.meals) {
         const recipe = data.meals[recipeName];
@@ -130,14 +130,14 @@ async function renderRecipeBoxes(data) {
         recipeDiv.classList.add("recipe");
 
         recipeDiv.innerHTML = `
-        <h2>${recipe.strMeal}</h2>
-        <div id="liker" class="${await checkLiked(recipe.idMeal) ? 'liked' : 'false'}">
-            <button id="first"></button>
-            <button id="second"></button>
-        <div>
-            <img src="${recipe.strMealThumb}"> 
-        </div>
-    `;
+            <h2>${recipe.strMeal}</h2>
+            <div id="liker" class="${await checkLiked(recipe.idMeal) ? 'liked' : 'false'}">
+                <button id="first"></button>
+                <button id="second"></button>
+            <div>
+                <img src="${recipe.strMealThumb}"> 
+            </div>
+        `;
 
         divRecipes.append(recipeDiv);
         recipeDiv.dataset.id = recipe.idMeal;
@@ -149,8 +149,47 @@ async function renderRecipeBoxes(data) {
         // newState(recipeDiv, `renderRecipe(${JSON.stringify(data.meals[recipeName])})`);
     }
 
+
+
     // let testing = document.querySelectorAll(".recipe");
     // for (const test of testing) {
     //     newState(test, `renderRecipe(${data.meals[recipeName]})`)
     // }
+}
+
+
+async function usersFavoriteRecipes(data) {
+    const divRecipes = document.querySelector(".recipes");
+
+    divRecipes.innerHTML = "";
+
+
+    for (const recipeName in data.meals) {
+        const recipe = data.meals[recipeName];
+        const recipeDiv = document.createElement("div");
+        recipeDiv.dataset.id = data.id;
+        recipeDiv.classList.add("recipe");
+
+        recipeDiv.innerHTML = `
+            <h2>${recipe.strMeal}</h2>
+            <div id="liker" class="${await checkLiked(recipe.idMeal) ? 'liked' : 'false'}">
+                <button id="first"></button>
+                <button id="second"></button>
+            <div>
+                <img src="${recipe.strMealThumb}"> 
+            </div>
+        `;
+
+        divRecipes.append(recipeDiv);
+        recipeDiv.dataset.id = recipe.idMeal;
+
+        recipeDiv.querySelector("#first").addEventListener("click", AddRecipesAsFavourite);
+        recipeDiv.querySelector("#second").addEventListener("click", AddRecipesAsFavourite);
+        recipeDiv.addEventListener("click", e => { renderRecipe(data.meals[recipeName]) });
+
+        // newState(recipeDiv, `renderRecipe(${JSON.stringify(data.meals[recipeName])})`);
+    }
+
+
+
 }

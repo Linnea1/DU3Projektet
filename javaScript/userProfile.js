@@ -16,7 +16,7 @@ async function RenderUserPage(userInfo) {
 
 
         main.innerHTML = `
-            <div id="sticky"></div>
+
             <button class="goBack">Go Back</button>
             <button class="hidden" id="settings">Settings</button>
             <div class="userInfo">
@@ -52,8 +52,8 @@ async function RenderUserPage(userInfo) {
 
                 const response = await fetch(`api/createRecipe.php?author=${user.username}`);
                 const data = await response.json();
-                renderRecipeBoxes(data);
-                document.querySelector("#own_recipe").addEventListener("click", e => { renderRecipeBoxes(data) });
+                usersFavoriteRecipes(data);
+                document.querySelector("#own_recipe").addEventListener("click", e => { usersFavoriteRecipes(data) });
 
                 document.querySelector(".favorites").addEventListener("click", e => {
                     favoriteRecipes(e, user.username)
@@ -64,9 +64,9 @@ async function RenderUserPage(userInfo) {
             } else {
                 let response = await fetch(`api/createRecipe.php?author=${userInfo.username}`);
                 const data = await response.json();
-                renderRecipeBoxes(data);
+                usersFavoriteRecipes(data);
 
-                document.querySelector("#own_recipe").addEventListener("click", e => { renderRecipeBoxes(data) });
+                document.querySelector("#own_recipe").addEventListener("click", e => { usersFavoriteRecipes(data) });
 
                 document.querySelector(".favorites").addEventListener("click", e => {
                     favoriteRecipes(e, userInfo.username)
