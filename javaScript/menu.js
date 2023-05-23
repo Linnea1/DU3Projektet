@@ -1,4 +1,9 @@
 function ShowMenu() {
+
+    document.querySelector("#popUpWindow").innerHTML = `
+        <p id="prompt"></p>
+    `;
+
     let PopupMenu = document.querySelector("#popUp");
     PopupMenu.classList.remove("hidden");
     let PopUpWindow = document.querySelector("#popUpWindow");
