@@ -12,13 +12,15 @@ body {
 
 #wrapper {
     background-color: lightpink;
-    min-height: 600px;
+    height: 600px;
     display: flex;
     flex-direction: column;
     width: 300px;
     text-align: center;
     padding: 20px;
     border-radius: 10px;
+
+    overflow: scroll;
 }
 
 main {

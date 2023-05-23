@@ -41,10 +41,6 @@
     cursor: pointer;
 }
 
-#sticky {
-    display: none;
-}
-
 .create_recipe {
     background-color: palevioletred;
     border-radius: 10px;

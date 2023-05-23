@@ -1,5 +1,6 @@
 //render all categories in the open API
 async function renderCategoriesPage() {
+    swapStyleSheet("css/catergories.css");
     // user = JSON.parse(localStorage.getItem("user"));
     currentState("renderCategoriesPage()");
 
@@ -124,7 +125,7 @@ async function searchDish(event) {
 
 //Creating the recipes
 async function renderRecipeBoxes(data) {
-
+    swapStyleSheet("css/recipes.css");
     const divRecipes = document.querySelector(".recipes");
 
 

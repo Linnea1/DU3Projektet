@@ -1,4 +1,5 @@
 async function RenderUserPage(userInfo) {
+    swapStyleSheet("css/profile.css");
     console.log(userInfo);
     if (user.guest) {
         complexPopUp("Only registered users can use this feature", "Register or login", "OK", "logout()");

@@ -1,4 +1,5 @@
 async function renderRecipe(recipe) {
+    swapStyleSheet("css/comments.css");
     currentState(`renderRecipe(${JSON.stringify(recipe)})`);
 
     let currentRecipe;
