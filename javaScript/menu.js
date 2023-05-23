@@ -49,7 +49,7 @@ function ShowMenu() {
     Profile.addEventListener("click", e => {
         hideMenu(e)
         // if-sats om du är inloggad eller ej 
-        RenderUserPage();
+        RenderUserPage(user);
     })
 
     ManageAccount.addEventListener("click", e => {
