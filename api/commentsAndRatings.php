@@ -19,7 +19,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){//Creat a comment
         "timestamp" =>$timestamp,
         "rating" => $post['rating'],
         "comment" => $post['comment'],
-        // "pfp" => $post['pfp']
     ];
 
     if (isset($post['pfp'])) {
