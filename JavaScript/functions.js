@@ -89,21 +89,41 @@ function currentState(renderFunction) {
     }));
 }
 
-function newState(element, renderFunction, Guest) { // use this when going to a new "state"
-    document.querySelector(element).addEventListener("click", e => {
-        if (Guest) {//This checks if restricted page
-            if (user.guest) {// If the user is a guest
-                complexPopUp("Only registered users can use this feature", "Register or login", "OK", "logout()")
-
-            } else {//if user is not a guest
-                state.old_states.push(state.current_state);
-                eval(renderFunction);
-            }
-        } else {
+function newState(Guest) { // use this when going to a new "state"
+    if (Guest) {//This checks if restricted page
+        if (user.guest) {// If the user is a guest
+            complexPopUp("Only registered users can use this feature", "Register or login", "OK", "logout()");
+        } else {//if user is not a guest
             state.old_states.push(state.current_state);
-            eval(renderFunction);
         }
-    })
+    } else {
+        state.old_states.push(state.current_state);
+    }
+}
+
+function basicHeader() {
+    document.querySelector("header").innerHTML = `
+    <div id="menu" onclick="">
+        <div class="menuPart"></div>
+        <div class="menuPart"></div>
+        <div class="menuPart"></div>
+    </div>  
+    <div class="nameOfApplication"> The YumYumClub </div>
+    <div id="profilePicture" class="icon"></div>
+    `;
+
+    if (user.guest) {
+        document.querySelector("#profilePicture").removeAttribute("style", "");
+    } else {
+        document.querySelector("#profilePicture").style.backgroundImage = `url(${user.pfp})`
+    }
+
+    document.querySelector("#profilePicture").addEventListener("click", e => {
+        newState();
+        RenderUserPage(user);
+    });
+
+    document.querySelector("#menu").addEventListener("click", ShowMenu);
 }
 
 function swapStyleSheet(styleSheet) {
@@ -115,7 +135,7 @@ function logout() {
     localStorage.setItem("user", JSON.stringify({
         "username": "Guest",
         "guest": true
-    }))
+    }));
     renderStartPage();
     location.reload();
 }
