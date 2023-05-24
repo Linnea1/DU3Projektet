@@ -1,5 +1,6 @@
 async function RenderUserPage(userInfo) {
-    console.log(userInfo);
+    document.querySelector("#loading").classList.remove("hidden");
+
     if (user.guest) {
         complexPopUp("Only registered users can use this feature", "Register or login", "OK", "logout()");
     } else {
@@ -30,7 +31,10 @@ async function RenderUserPage(userInfo) {
             <div class="recipes"></div>
         `;
         goBack();
-        newState("#settings", "renderSettings()");
+        document.querySelector("#settings").addEventListener("click", e => {
+            newState();
+            renderSettings();
+        })
 
         document.querySelector("#menu").addEventListener("click", ShowMenu);
 
@@ -42,7 +46,7 @@ async function RenderUserPage(userInfo) {
         }
 
 
-        if (userInfo.username == user.username) {
+        if (userInfo.username == user.username) { // is this your own profile?
             document.querySelector(".create_recipe").classList.remove("hidden");
             document.querySelector("#settings").classList.remove("hidden");
         }
@@ -82,6 +86,7 @@ async function RenderUserPage(userInfo) {
             popUp(error);
         }
     }
+    document.querySelector("#loading").classList.add("hidden");
 }
 
 

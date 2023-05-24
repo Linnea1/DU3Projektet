@@ -1,3 +1,4 @@
+
 [
     {
         "recipeId": "x_645b796d515dc",
@@ -130,7 +131,7 @@
         "timestamp": "22-05-2023 13:17",
         "rating": "5",
         "comment": "hall\u00e5!",
-        "pfp": "api\/data\/pictures\/pfp\/1684847360.gif"
+        "pfp": "api\/data\/pictures\/pfp\/1684761202.jpeg"
     },
     {
         "recipeId": "52997",
@@ -138,7 +139,7 @@
         "timestamp": "22-05-2023 17:25",
         "rating": "2",
         "comment": "Too spicy",
-        "pfp": "api\/data\/pictures\/pfp\/1684846738.jpeg"
+        "pfp": "api\/data\/pictures\/pfp\/1684773093.jpeg"
     },
     {
         "recipeId": "x_646ca06a51a34",
@@ -162,70 +163,6 @@
         "timestamp": "23-05-2023 11:47",
         "rating": "1",
         "comment": "Ewww",
-        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
-    },
-    {
-        "recipeId": "53013",
-        "author": "Linnea",
-        "timestamp": "24-05-2023 08:53",
-        "rating": "5",
-        "comment": "Really good :P",
-        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
-    },
-    {
-        "recipeId": "53000",
-        "author": "Linnea",
-        "timestamp": "24-05-2023 08:58",
-        "rating": "5",
-        "comment": "Very nice!",
-        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
-    },
-    {
-        "recipeId": "52904",
-        "author": "Linnea",
-        "timestamp": "24-05-2023 09:20",
-        "rating": "4",
-        "comment": "Very nice",
-        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
-    },
-    {
-        "recipeId": "52997",
-        "author": "Linnea",
-        "timestamp": "24-05-2023 09:20",
-        "rating": "4",
-        "comment": "Very nice",
-        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
-    },
-    {
-        "recipeId": "52966",
-        "author": "Linnea",
-        "timestamp": "24-05-2023 09:28",
-        "rating": "5",
-        "comment": "Tasty",
-        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
-    },
-    {
-        "recipeId": "x_646c9febefc0f",
-        "author": "test",
-        "timestamp": "23-05-2023 13:46",
-        "rating": "5",
-        "comment": "wow",
-        "pfp": "api\/data\/pictures\/pfp\/1684847360.gif"
-    },
-    {
-        "recipeId": "53000",
-        "author": "test",
-        "timestamp": "24-05-2023 09:39",
-        "rating": "3",
-        "comment": "test",
-        "pfp": "api\/data\/pictures\/pfp\/1684847360.gif"
-    },
-    {
-        "recipeId": "x_646ca02f1718c",
-        "author": "Linnea",
-        "timestamp": "24-05-2023 10:05",
-        "rating": "5",
-        "comment": "Testing",
         "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
     }
 ]

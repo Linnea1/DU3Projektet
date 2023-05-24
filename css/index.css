@@ -139,3 +139,30 @@ img {
 .hidden {
     display: none !important;
 }
+
+#loading {
+    position: absolute;
+    min-height: 640px;
+    width: 340px;
+    margin: -20px;
+    z-index: 3;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#loading>img {
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+#loading>div {
+    position: absolute;
+    background-color: white;
+
+    opacity: 30%;
+    height: 100%;
+    width: 100%;
+}

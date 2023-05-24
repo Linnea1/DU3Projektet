@@ -23,7 +23,6 @@ function renderSettings() {
             <p class="red">Delete account</p>
         </div>
     `;
-
     goBack();
 
     let newUsername = main.querySelector('input[name="username"]');
