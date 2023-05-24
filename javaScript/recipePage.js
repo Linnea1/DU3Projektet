@@ -96,6 +96,15 @@ async function renderRecipe(recipe) {
             const response = await fetch(`api/addAndRemoveFavourites.php?author=${author}`);
             const data = await response.json();
 
+            main.querySelector(".author").addEventListener("click", e => {
+                newState(true);
+                let CurrentUser = {
+                    username: author,
+                    pfp: data.pfp
+                };
+                RenderUserPage(CurrentUser);
+            })
+
             if (!data.pfp) { // if the author has a profilepicture, than we add it as an backgroundimage 
                 document.querySelector("#pfp").style.backgroundImage = `url(../icons/blank-face-test.webp)`;
             } else { // if the author don't have one, we take the basic picture 
