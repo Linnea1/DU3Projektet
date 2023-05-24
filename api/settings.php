@@ -59,10 +59,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                 $users[$index]["pfp"] = $filePath . $name;
 
-                // if(isset($_POST["old"])){
-                //     $correctPath = str_replace("api/data/pictures/pfp/", "data/pictures/pfp/", $_POST["old"]);
-                //     unlink($correctPath);
-                // }
+                if(isset($_POST["old"])){
+                    $correctPath = str_replace("api/data/pictures/pfp/", "data/pictures/pfp/", $_POST["old"]);
+                    unlink($correctPath);
+                }
 
                 if(move_uploaded_file($source, "data/pictures/pfp/" . $name)){
                     $correctName =  $filePath . $name;
@@ -110,6 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE"){
             function deletedUser ($dataBase, $key, $filePath, $input){
                 foreach($dataBase as $index => $data){
                     if($data[$key] == $input["username"]){
+                        send_JSON("hej", 400);
                         $dataBase[$index]["deleted"] = true; // adds the key "deleted"
 
                         file_put_contents($filePath, json_encode($dataBase, JSON_PRETTY_PRINT));
