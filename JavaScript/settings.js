@@ -188,6 +188,18 @@ function renderSettings() {
                 } else {
                     user.pfp = data;
                     localStorage.setItem("user", JSON.stringify(user));
+
+                    popUp("Successfully changed!");
+                    document.querySelector("#popUpBackground").addEventListener("click", e => {
+                        state.old_states.pop();
+                        user = JSON.parse(localStorage.getItem("user"));
+                        RenderUserPage(user);
+                    });
+                    document.querySelector(".OK").addEventListener("click", e => {
+                        state.old_states.pop();
+                        user = JSON.parse(localStorage.getItem("user"));
+                        RenderUserPage(user);
+                    });
                 }
             } catch (error) {
                 popUp(error);
