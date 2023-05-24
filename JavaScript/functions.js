@@ -112,7 +112,7 @@ function basicHeader() {
     <div id="profilePicture" class="icon"></div>
     `;
 
-    if (user.guest) {
+    if (user.guest || !user.pfp) {
         document.querySelector("#profilePicture").removeAttribute("style");
     } else {
         document.querySelector("#profilePicture").style.backgroundImage = `url(${user.pfp})`;
