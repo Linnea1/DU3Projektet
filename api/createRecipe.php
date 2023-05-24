@@ -82,7 +82,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {//upload new recipe
         }
       
     }else{//If there is no picture added, standard will be a basic picture.
-        $newRecipe['strMealThumb'] = "api/data/pictures/recipes/PinkPot.jpg";
+        $newRecipe['strMealThumb'] = "icons/PinkPot.jpg";
         $recipes[] = $newRecipe;
         file_put_contents($filename, json_encode($recipes, JSON_PRETTY_PRINT));
         send_JSON($newRecipe);
