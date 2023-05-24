@@ -113,5 +113,5 @@ function logout() {
         "guest": true
     }))
     renderStartPage();
-    location.reload();
+    // location.reload();
 }

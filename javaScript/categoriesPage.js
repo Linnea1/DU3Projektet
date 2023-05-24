@@ -1,6 +1,6 @@
 //render all categories in the open API
 async function renderCategoriesPage() {
-    // user = JSON.parse(localStorage.getItem("user"));
+    user = JSON.parse(localStorage.getItem("user"));
     currentState("renderCategoriesPage()");
 
 
@@ -72,6 +72,17 @@ async function renderCategoriesPage() {
 
 //Render specific recipes within a category
 async function renderRecipesAfterCategory(event) {
+
+    document.querySelector("header").innerHTML = `
+    <div id="menu" onclick="">
+    <div class="menuPart"></div>
+    <div class="menuPart"></div>
+    <div class="menuPart"></div>
+    </div>  
+    <div class="nameOfApplication"> The YumYumClub </div>
+    <div id="profilePicture" class="icon"></div>
+    `;
+
     let category = event.target.textContent;
     currentState(`renderRecipesAfterCategory(${event})`);
     main.innerHTML = `
@@ -114,18 +125,26 @@ async function searchDish(event) {
         <button onclick="renderCategoriesPage()">Go Back</button>
         <div class="recipes"></div>
         `;
+        try {
+            let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchField}`);
+            let data = await response.json();
 
-        let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchField}`);
-        let data = await response.json();
+            renderRecipeBoxes(data);
 
-        renderRecipeBoxes(data);
+        } catch (e) {
+            console.log(e);
+        }
     }
 }
+
+
 
 //Creating the recipes
 async function renderRecipeBoxes(data) {
 
     const divRecipes = document.querySelector(".recipes");
+
+    console.log(data);
 
 
 
@@ -155,47 +174,9 @@ async function renderRecipeBoxes(data) {
         // newState(recipeDiv, `renderRecipe(${JSON.stringify(data.meals[recipeName])})`);
     }
 
-
-
-    // let testing = document.querySelectorAll(".recipe");
-    // for (const test of testing) {
-    //     newState(test, `renderRecipe(${data.meals[recipeName]})`)
-    // }
 }
 
 
-async function usersFavoriteRecipes(data) {
-    const divRecipes = document.querySelector(".recipes");
-
-    divRecipes.innerHTML = "";
-
-
-    for (const recipeName in data.meals) {
-        const recipe = data.meals[recipeName];
-        const recipeDiv = document.createElement("div");
-        recipeDiv.dataset.id = data.id;
-        recipeDiv.classList.add("recipe");
-
-        recipeDiv.innerHTML = `
-            <h2>${recipe.strMeal}</h2>
-            <div id="liker" class="${await checkLiked(recipe.idMeal) ? 'liked' : 'false'}">
-                <button id="first"></button>
-                <button id="second"></button>
-            <div>
-                <img src="${recipe.strMealThumb}"> 
-            </div>
-        `;
-
-        divRecipes.append(recipeDiv);
-        recipeDiv.dataset.id = recipe.idMeal;
-
-        recipeDiv.querySelector("#first").addEventListener("click", AddRecipesAsFavourite);
-        recipeDiv.querySelector("#second").addEventListener("click", AddRecipesAsFavourite);
-        recipeDiv.addEventListener("click", e => { renderRecipe(data.meals[recipeName]) });
-
-        // newState(recipeDiv, `renderRecipe(${JSON.stringify(data.meals[recipeName])})`);
-    }
 
 
 
-}

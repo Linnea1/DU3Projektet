@@ -64,6 +64,7 @@ if ($method == "GET") {
     }
 
 
+
     if (isset($_GET["author"])) {
         $author = $_GET["author"];
 
@@ -73,7 +74,7 @@ if ($method == "GET") {
 
         foreach($data as $user){
             if ($user['username'] === $author) {
-                send_JSON($user);
+                send_JSON($user);  // if we find the matching user then we send it as response
             }
         }
         $error = ["error" => "Could not find a match"];

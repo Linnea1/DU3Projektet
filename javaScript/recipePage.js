@@ -41,6 +41,7 @@ async function renderRecipe(recipe) {
         <div id="profilePicture" class="icon"></div>
         `;
 
+
         document.querySelector("#menu").addEventListener("click", ShowMenu);
 
         document.querySelector(".icon").style.backgroundImage = `url(${user.pfp})`
@@ -70,14 +71,16 @@ async function renderRecipe(recipe) {
                     <div class="ratingBox"></div>
                 </div>
         `;
-        try {
+
+
+
+        try {  // fetching to get the correct picture of the author
             const response = await fetch(`api/addAndRemoveFavourites.php?author=${author}`);
             const data = await response.json();
 
-            if (!data.pfp) {
+            if (!data.pfp) { // if the author has a profilepicture, than we add it as an backgroundimage 
                 document.querySelector("#pfp").style.backgroundImage = `url(../icons/blank-face-test.webp)`;
-            } else {
-
+            } else { // if the author don't have one, we take the basic picture 
                 document.querySelector("#pfp").style.backgroundImage = `url(${data.pfp})`
             }
             console.log(data.pfp);
@@ -86,6 +89,7 @@ async function renderRecipe(recipe) {
         } catch (e) {
             console.log(e);
         }
+
         const list = document.querySelector(".ingredientList");
         for (const ratio of ingredients) {
             list.innerHTML += `
