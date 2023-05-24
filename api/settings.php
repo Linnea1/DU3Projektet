@@ -6,6 +6,12 @@ $directory = "data";
 if(!file_exists("data")){ // if no directory, create it
     mkdir($directory, 755);
 }
+if(!file_exists("data/pictures")){ // if no directory, create it
+    mkdir("data/pictures", 755);
+}
+if(!file_exists("data/pictures/pfp")){ // if no directory, create it
+    mkdir("data/pictures/pfp", 755);
+}
 if(!file_exists($filename)){ // if no file, create it
     file_put_contents($filename, "[]");
 }
