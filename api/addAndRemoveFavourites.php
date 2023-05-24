@@ -63,6 +63,21 @@ if ($method == "GET") {
 
     }
 
+    if (isset($_GET["ourOwnDatabase"])) {
+        $ownRecipeName = $_GET["ourOwnDatabase"];
+        $filenameRecipe = "data/recipes.json";
+        $jsonRecipe = file_get_contents($filenameRecipe);
+        $dataRecipe = json_decode($jsonRecipe, true);
+
+        foreach($dataRecipe as $recipe){
+            if(str_contains($recipe["strMeal"],$ownRecipeName )){ // if there is a matching id in the database
+                send_JSON($recipe); // send it as a response
+            }
+        }
+        $error = ["error" => "Could not find matching recipe"];
+        send_JSON($error, 404);
+
+    }
 
 
     if (isset($_GET["author"])) {

@@ -75,6 +75,14 @@ async function renderRecipe(recipe) {
                 </div>
         `;
 
+        main.querySelector(".author").addEventListener("click", e => {
+            newState(true);
+            let CurrentUser = {
+                username: author
+            }
+            RenderUserPage(CurrentUser);
+        })
+
         goBack();
         try {
 

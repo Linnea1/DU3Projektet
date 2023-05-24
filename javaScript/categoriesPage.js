@@ -115,6 +115,17 @@ async function searchDish(key, searchField) {
         `;
 
         try {
+
+            let resourseOwnRecipe = await fetch(`api/addAndRemoveFavourites.php?ourOwnDatabase=${searchField}`);
+            let dataOwnRecipe = await resourseOwnRecipe.json();
+            console.log(dataOwnRecipe);
+
+            if (!dataOwnRecipe.error) {
+
+                let recipe = { meals: [dataOwnRecipe] }
+                renderRecipeBoxes(recipe);
+            }
+
             let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchField}`);
             let data = await response.json();
 
@@ -135,7 +146,7 @@ async function searchDish(key, searchField) {
 async function renderRecipeBoxes(data) {
     const divRecipes = document.querySelector(".recipes");
 
-
+    console.log(data);
     let listOfIds = [];
     let listOfRatings;
     for (let i = 0; i < data.meals.length; i++) {
