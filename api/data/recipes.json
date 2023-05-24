@@ -211,17 +211,27 @@
         "strMealThumb": "api\/data\/pictures\/recipes\/1684931281.png"
     },
     {
-        "idMeal": "x_646e145fd5cef",
-        "author": "ballong",
+        "idMeal": "x_646e13f8d33b9",
+        "author": "Linnea",
         "strCategory": "Beef",
-        "strMeal": "jhgfds",
-        "strInstructions": "gfdsa",
-        "strIngredient1": "hgfds",
-        "strIngredient2": "fdsa",
-        "strIngredient3": "jhgf",
-        "strMeasure1": "gfds",
-        "strMeasure2": "gfdsa",
-        "strMeasure3": "jhgf",
+        "strMeal": "tesssst",
+        "strInstructions": "vgbhjnk",
+        "strIngredient1": "gbjh nkm",
+        "strIngredient2": "hbnj",
+        "strIngredient3": "gvbhjn",
+        "strMeasure1": "hbujn",
+        "strMeasure2": "gubhnjim",
+        "strMeasure3": "hbjnmk",
+        "strMealThumb": "api\/data\/pictures\/recipes\/PinkPot.jpg"
+    },
+    {
+        "idMeal": "x_646e176958d48",
+        "author": "Linnea",
+        "strCategory": "Beef",
+        "strMeal": "fftgyuhujo",
+        "strInstructions": "jjnhnj",
+        "strIngredient1": "dawad",
+        "strMeasure1": "fiof",
         "strMealThumb": "api\/data\/pictures\/recipes\/PinkPot.jpg"
     }
 ]

@@ -1,6 +1,21 @@
 <?php
 require_once("functions.php");
 $filename = "data/recipes.json";
+$directory = "data";
+$pictures = "data/pictures";
+$recipePictures = "data/pictures/recipes";
+
+if(!file_exists($directory)){ // if no directory, create it
+    mkdir($directory, 755);
+}
+
+if(!file_exists($pictures)){ // if no directory, create it
+    mkdir($pictures, 755);
+}
+
+if(!file_exists($recipePictures)){ // if no directory, create it
+    mkdir($recipePictures, 755);
+}
 
 if(!file_exists($filename)){
     file_put_contents($filename, "[]");
