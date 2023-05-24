@@ -136,36 +136,19 @@ async function favoriteRecipes(object, user) {
 
                         let resourse = await fetch(`api/addAndRemoveFavourites.php?ownRecipe=${recipe}`);
                         let response = await resourse.json();
+                        console.log(response)
+                        let meals=[]
+                        meals.push(response)
+                        const data = { meals: meals }; //Making sure the format for the function call is right
 
-                        let recipe_name = response.strMeal;
-                        let recipe_img = response.strMealThumb;
-                        let recipe_div = document.createElement("div");
-                        recipe_div.classList.add("recipe");
-                        recipe_div.innerHTML = `
-                        <h2>${recipe_name}</h2>
-                        <img src="${recipe_img}"> 
-                        </div>
-                        `;
-                        recipesDiv.append(recipe_div);
-
-                        recipe_div.addEventListener("click", e => { renderRecipe(response) });
+                        renderRecipeBoxes(data);
 
                     } else {
 
                         let resoursefood = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe}`);
                         let responsefood = await resoursefood.json();
-
-                        let recipe_name = responsefood.meals[0].strMeal;
-                        let recipe_img = responsefood.meals[0].strMealThumb;
-                        let recipe_div = document.createElement("div");
-                        recipe_div.classList.add("recipe");
-                        recipe_div.innerHTML = `
-                        <h2>${recipe_name}</h2>
-                        <img src="${recipe_img}"> 
-                        </div>`;
-                        recipesDiv.append(recipe_div);
-
-                        recipe_div.addEventListener("click", e => { renderRecipe(responsefood.meals[0]) });
+                        console.log(responsefood);
+                        renderRecipeBoxes(responsefood);
                     }
                 }
 
