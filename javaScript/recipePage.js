@@ -44,15 +44,19 @@ async function renderRecipe(recipe) {
         document.querySelector("#menu").addEventListener("click", ShowMenu);
 
         document.querySelector(".icon").style.backgroundImage = `url(${user.pfp})`
-        newState("#profilePicture", `RenderUserPage(${localStorage.user})`, true);
+        document.querySelector("#profilePicture").addEventListener("click", e => {
+            newState(true);
+            RenderUserPage(user);
+        })
 
         main.innerHTML = `
             
-            <button onclick = "renderRecepiesAfterCategory()">Go Back</button>
+            <button class="goBack">Go Back</button>
                 <div class="recipe">
                     <h2><b>${currentRecipe.strMeal}</b></h2>
                     <img src="${currentRecipe.strMealThumb}"> 
                     <div class="author">
+                        <div id="pfp"></div>
                         <p>${author}</p>
                     </div>
                     <div class="ingredients">
@@ -69,7 +73,23 @@ async function renderRecipe(recipe) {
                     <div class="ratingBox"></div>
                 </div>
         `;
+        goBack();
+        try {
+            const response = await fetch(`api/addAndRemoveFavourites.php?author=${author}`);
+            const data = await response.json();
 
+            if (!data.pfp) {
+                document.querySelector("#pfp").style.backgroundImage = `url(../icons/blank-face-test.webp)`;
+            } else {
+
+                document.querySelector("#pfp").style.backgroundImage = `url(${data.pfp})`
+            }
+            console.log(data.pfp);
+
+
+        } catch (e) {
+            console.log(e);
+        }
         const list = document.querySelector(".ingredientList");
         for (const ratio of ingredients) {
             list.innerHTML += `
@@ -83,6 +103,7 @@ async function renderRecipe(recipe) {
         try {
             const response = await fetch(`api/commentsAndRatings.php?id=${currentRecipe.idMeal}`);
             const data = await response.json();
+
 
             for (const Comment of data.comments) {
                 let commentContainer = document.createElement("div");
@@ -99,12 +120,16 @@ async function renderRecipe(recipe) {
                 commentContainer.innerHTML = `
                     <div class="nameStarContainer">
                         <div class="commentPfp"></div>
-                        <p onclick='RenderUserPage(${JSON.stringify(CurrentUser)})'><b>${Comment.author}</b></p>
+                        <p id="commentAuthor"><b>${Comment.author}</b></p>
                         <div class="starContainer"></div>
                     </div>
                     <p>${Comment.comment}</p>
                     <p class="timestamp">${Comment.timestamp}</p>
                 `;
+                commentContainer.querySelector("p").addEventListener("click", e => {
+                    newState(true);
+                    RenderUserPage(CurrentUser);
+                })
                 main.querySelector(".commentBox").append(commentContainer);
                 console.log(Comment.pfp)
 

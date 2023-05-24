@@ -53,3 +53,19 @@ img {
     top: -5px;
     right: -5px;
 }
+
+.author {
+    display: flex;
+    flex-direction: column;
+}
+
+#pfp {
+    height: 50px;
+    width: 50px;
+    background-size: contain;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 50px;
+    align-self: center;
+
+}
