@@ -32,24 +32,7 @@ async function renderRecipe(recipe) {
                 });
             }
         }
-        document.querySelector("header").innerHTML = `
-        <div id="menu" onclick="">
-            <div class="menuPart"></div>
-            <div class="menuPart"></div>
-            <div class="menuPart"></div>
-        </div>  
-        <div class="nameOfApplication"> The YumYumClub </div>
-        <div id="profilePicture" class="icon"></div>
-        `;
-
-
-        document.querySelector("#menu").addEventListener("click", ShowMenu);
-
-        document.querySelector(".icon").style.backgroundImage = `url(${user.pfp})`
-        document.querySelector("#profilePicture").addEventListener("click", e => {
-            newState(true);
-            RenderUserPage(user);
-        })
+        basicHeader();
 
         main.innerHTML = `
             
