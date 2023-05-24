@@ -19,8 +19,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){//Creat a comment
         "timestamp" =>$timestamp,
         "rating" => $post['rating'],
         "comment" => $post['comment'],
-        "pfp" => $post['pfp']
+        // "pfp" => $post['pfp']
     ];
+
+    if (isset($post['pfp'])) {
+        $newComment["pfp"] = $post['pfp'];
+    };
 
     $comments[] = $newComment;
     file_put_contents($filename, json_encode($comments, JSON_PRETTY_PRINT));
