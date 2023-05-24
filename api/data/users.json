@@ -136,6 +136,7 @@
     {
         "email": "hejhopp@hej.se",
         "username": "hejhopp",
-        "password": "hejsan"
+        "password": "hejsan",
+        "pfp": "api\/data\/pictures\/pfp\/1684935662.jpeg"
     }
 ]

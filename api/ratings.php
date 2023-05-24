@@ -1,6 +1,15 @@
 <?php
 require_once("functions.php");
 $filename = "data/comments.json";
+$directory = "data";
+
+if(!file_exists("data")){ // if no directory, create it
+    mkdir($directory, 755);
+}
+if(!file_exists($filename)){ // if no file, create it
+    file_put_contents($filename, "[]");
+}
+
 $data = json_decode(file_get_contents($filename), true);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
