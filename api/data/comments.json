@@ -149,14 +149,6 @@
         "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
     },
     {
-        "recipeId": "x_646c85a57852f",
-        "author": "Linnea",
-        "timestamp": "23-05-2023 11:47",
-        "rating": "3",
-        "comment": "test",
-        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
-    },
-    {
         "recipeId": "52974",
         "author": "Linnea",
         "timestamp": "23-05-2023 11:47",
@@ -261,27 +253,19 @@
         "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
     },
     {
-        "recipeId": "x_646c80bec4147",
-        "author": "DELETED USER",
-        "timestamp": "24-05-2023 12:25",
-        "rating": "4",
-        "comment": "pop",
-        "deleted": true
+        "recipeId": "x_646c85a57852f",
+        "author": "Linnea",
+        "timestamp": "24-05-2023 12:45",
+        "rating": "5",
+        "comment": "Good burger",
+        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
     },
     {
-        "recipeId": "x_646e06b7a9dab",
-        "author": "[DELETED USER]",
-        "timestamp": "24-05-2023 12:44",
-        "rating": "5",
-        "comment": "ughkj",
-        "deleted": true
-    },
-    {
-        "recipeId": "x_646e08fa44e52",
-        "author": "[DELETED USER]",
-        "timestamp": "24-05-2023 12:54",
-        "rating": "5",
-        "comment": ":)",
-        "deleted": true
+        "recipeId": "x_646e02d1136f5",
+        "author": "Linnea",
+        "timestamp": "24-05-2023 12:46",
+        "rating": "3",
+        "comment": "Hopps",
+        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
     }
 ]
