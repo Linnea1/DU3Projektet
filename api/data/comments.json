@@ -238,13 +238,6 @@
     },
     {
         "recipeId": "x_646c80bec4147",
-<<<<<<< Updated upstream
-        "author": "erik",
-        "timestamp": "24-05-2023 11:26",
-        "rating": "3",
-        "comment": "hehj",
-        "pfp": null
-=======
         "author": "Linnea",
         "timestamp": "24-05-2023 11:54",
         "rating": "3",
@@ -274,6 +267,5 @@
         "rating": "4",
         "comment": "Pretty nice!",
         "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
->>>>>>> Stashed changes
     }
 ]
