@@ -1,4 +1,5 @@
 async function RenderUserPage(userInfo) {
+    console.log(userInfo);
     document.querySelector("#loading").classList.remove("hidden");
 
     if (user.guest) {
