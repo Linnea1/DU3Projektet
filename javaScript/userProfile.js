@@ -13,8 +13,8 @@ async function RenderUserPage(userInfo) {
                 <div class="menuPart"></div>
             </div>  
             <div class="nameOfApplication"> The YumYumClub </div>
-            `;
-
+        `;
+        document.querySelector("#menu").addEventListener("click", ShowMenu);
 
         main.innerHTML = `
             <button class="goBack">Go Back</button>
@@ -36,8 +36,6 @@ async function RenderUserPage(userInfo) {
             renderSettings();
         })
 
-        document.querySelector("#menu").addEventListener("click", ShowMenu);
-
 
         if (userInfo.pfp) { // if pfp then add it
             document.querySelector(".icon").style.backgroundImage = `url(${userInfo.pfp})`;
@@ -45,7 +43,7 @@ async function RenderUserPage(userInfo) {
             document.querySelector(".icon").removeAttribute("style");
         }
 
-
+        user = JSON.parse(localStorage.getItem("user"));
         if (userInfo.username == user.username) { // is this your own profile?
             document.querySelector(".create_recipe").classList.remove("hidden");
             document.querySelector("#settings").classList.remove("hidden");

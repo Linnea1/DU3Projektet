@@ -1,6 +1,16 @@
 function renderSettings() {
     currentState("renderSettings()");
 
+    document.querySelector("header").innerHTML = `
+        <div id="menu" onclick="">
+            <div class="menuPart"></div>
+            <div class="menuPart"></div>
+            <div class="menuPart"></div>
+        </div>  
+        <div class="nameOfApplication"> The YumYumClub </div>
+    `;
+    document.querySelector("#menu").addEventListener("click", ShowMenu);
+
     main.innerHTML = `
         <button class="goBack">Go Back</button>
         <div id="settings">
@@ -76,7 +86,17 @@ function renderSettings() {
                 storage[select] = data;
                 localStorage.setItem("user", JSON.stringify(storage));
 
-                popUp("Successfully changed!")
+                popUp("Successfully changed!");
+                document.querySelector("#popUpBackground").addEventListener("click", e => {
+                    state.old_states.pop();
+                    user = JSON.parse(localStorage.getItem("user"));
+                    RenderUserPage(user);
+                });
+                document.querySelector(".OK").addEventListener("click", e => {
+                    state.old_states.pop();
+                    user = JSON.parse(localStorage.getItem("user"));
+                    RenderUserPage(user);
+                });
             } else {
                 popUp(data.message);
             }
