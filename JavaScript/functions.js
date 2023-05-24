@@ -35,6 +35,7 @@ function popUp(prompt) { // pop up
 }
 
 function complexPopUp(prompt, button1, button2, func) {
+
     document.querySelector("#popUpWindow").innerHTML = `
         <p id="prompt"></p>
     `;
@@ -53,7 +54,10 @@ function complexPopUp(prompt, button1, button2, func) {
 
     document.querySelector("#popUpWindow").append(firstButton);
     document.querySelector("#popUpWindow").append(secondButton);
-    document.querySelector(".firstButton").addEventListener("click", e => { eval(func) });
+    document.querySelector(".firstButton").addEventListener("click", e => {
+        document.querySelector("#popUp").classList.add("hidden");
+        eval(func);
+    });
     document.querySelector(".secondButton").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });
     document.querySelector("#popUpBackground").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });
 }
@@ -104,6 +108,10 @@ function swapStyleSheet(styleSheet) {
 }
 
 function logout() {
-    localStorage.clear();
+    localStorage.setItem("user", JSON.stringify({
+        "username": "Guest",
+        "guest": true
+    }))
     renderStartPage();
+    location.reload();
 }

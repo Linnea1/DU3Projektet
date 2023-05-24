@@ -3,15 +3,22 @@ async function renderCategoriesPage() {
     // user = JSON.parse(localStorage.getItem("user"));
     currentState("renderCategoriesPage()");
 
+
     document.querySelector("header").innerHTML = `
     <div id="menu" onclick="">
-        <div class="menuPart"></div>
-        <div class="menuPart"></div>
-        <div class="menuPart"></div>
+    <div class="menuPart"></div>
+    <div class="menuPart"></div>
+    <div class="menuPart"></div>
     </div>  
     <div class="nameOfApplication"> The YumYumClub </div>
     <div id="profilePicture" class="icon"></div>
     `;
+
+    if (user.guest) {
+        document.querySelector("#profilePicture").removeAttribute("style", "");
+    } else {
+        document.querySelector("#profilePicture").style.backgroundImage = `url(${user.pfp})`
+    }
 
     main.innerHTML = `
         <div class="info">
@@ -21,7 +28,6 @@ async function renderCategoriesPage() {
         <div class="categories"></div>
     `;
 
-    document.querySelector(".icon").style.backgroundImage = `url(${user.pfp})`
     // When the user scrolls the page, execute myFunction
     window.onscroll = function () { headerSticky() };
 
@@ -119,9 +125,9 @@ async function searchDish(event) {
 //Creating the recipes
 async function renderRecipeBoxes(data) {
 
-
     const divRecipes = document.querySelector(".recipes");
-    divRecipes.innerHTML = "";
+
+
 
     for (const recipeName in data.meals) {
         const recipe = data.meals[recipeName];
@@ -130,14 +136,55 @@ async function renderRecipeBoxes(data) {
         recipeDiv.classList.add("recipe");
 
         recipeDiv.innerHTML = `
-        <h2>${recipe.strMeal}</h2>
-        <div id="liker" class="${await checkLiked(recipe.idMeal) ? 'liked' : 'false'}">
-            <button id="first"></button>
-            <button id="second"></button>
-        <div>
-            <img src="${recipe.strMealThumb}"> 
-        </div>
-    `;
+            <h2>${recipe.strMeal}</h2>
+            <div id="liker" class="${await checkLiked(recipe.idMeal) ? 'liked' : 'false'}">
+                <button id="first"></button>
+                <button id="second"></button>
+            <div>
+                <img src="${recipe.strMealThumb}"> 
+            </div>
+        `;
+
+        divRecipes.prepend(recipeDiv);
+        recipeDiv.dataset.id = recipe.idMeal;
+
+        recipeDiv.querySelector("#first").addEventListener("click", AddRecipesAsFavourite);
+        recipeDiv.querySelector("#second").addEventListener("click", AddRecipesAsFavourite);
+        recipeDiv.addEventListener("click", e => { renderRecipe(data.meals[recipeName]) });
+
+        // newState(recipeDiv, `renderRecipe(${JSON.stringify(data.meals[recipeName])})`);
+    }
+
+
+
+    // let testing = document.querySelectorAll(".recipe");
+    // for (const test of testing) {
+    //     newState(test, `renderRecipe(${data.meals[recipeName]})`)
+    // }
+}
+
+
+async function usersFavoriteRecipes(data) {
+    const divRecipes = document.querySelector(".recipes");
+
+    divRecipes.innerHTML = "";
+
+
+    for (const recipeName in data.meals) {
+        const recipe = data.meals[recipeName];
+        const recipeDiv = document.createElement("div");
+        recipeDiv.dataset.id = data.id;
+        recipeDiv.classList.add("recipe");
+
+        recipeDiv.innerHTML = `
+            <h2>${recipe.strMeal}</h2>
+            <div id="liker" class="${await checkLiked(recipe.idMeal) ? 'liked' : 'false'}">
+                <button id="first"></button>
+                <button id="second"></button>
+            <div>
+                <img src="${recipe.strMealThumb}"> 
+            </div>
+        `;
 
         divRecipes.append(recipeDiv);
         recipeDiv.dataset.id = recipe.idMeal;
@@ -149,8 +196,6 @@ async function renderRecipeBoxes(data) {
         // newState(recipeDiv, `renderRecipe(${JSON.stringify(data.meals[recipeName])})`);
     }
 
-    // let testing = document.querySelectorAll(".recipe");
-    // for (const test of testing) {
-    //     newState(test, `renderRecipe(${data.meals[recipeName]})`)
-    // }
+
+
 }
