@@ -49,8 +49,9 @@ async function RenderUserPage(userInfo) {
             document.querySelector("#settings").classList.remove("hidden");
         }
 
-        document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe);
-
+        document.querySelector(".create_recipe").addEventListener("click", e => {
+            newState();
+            renderCreateRecipe()});
         try {
             if (userInfo.username === user.username) {
 
@@ -100,7 +101,7 @@ async function favoriteRecipes(object, user) {
         try {
             let resourse = await fetch(`api/addAndRemoveFavourites.php?favourites=${user}`);
             let response = await resourse.json();
-            console.log(response)
+            
             if (!response.length == 0) {
 
                 for (let recipe of response) {
