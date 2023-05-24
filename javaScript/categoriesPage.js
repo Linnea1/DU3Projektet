@@ -87,19 +87,20 @@ async function renderRecipesAfterCategory(event) {
     document.querySelector("#menu").addEventListener("click", ShowMenu);
     let all_recipes = [];
     //Fetching recipes from the open API
-    try {
-        let response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
-        let data = await response.json();
-
-        renderRecipeBoxes(data);
-    } catch (error) {
-        popUp(error);
-    }
+    
     //Fetching recipes from users
     try {
         const response = await fetch(`api/createRecipe.php?category=${category}`);
         const data = await response.json();
-        renderRecipeBoxes(data);
+        await renderRecipeBoxes(data);
+        try {
+            let response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+            let data = await response.json();
+            
+            renderRecipeBoxes(data);
+        } catch (error) {
+            popUp(error);
+        }
     } catch (error) {
         popUp(error);
     }
@@ -124,15 +125,32 @@ async function searchDish(event) {
 
 //Creating the recipes
 async function renderRecipeBoxes(data) {
-
     const divRecipes = document.querySelector(".recipes");
 
-
-
+    let listOfIds=[];
+    let listOfRatings;
+    for (let i = 0; i < data.meals.length; i++) {
+        const meal = data.meals[i];
+        listOfIds.push(meal.idMeal)
+        // Perform actions with each meal object
+    }
+    try {
+        console.log(listOfIds)
+        const requestBody = {
+            listOfIds,
+        };
+        let response = await fetching("api/ratings.php", "POST", requestBody);
+        let data = await response.json();
+        listOfRatings=data;
+    } catch (error) {
+        // Handle error
+    }
+    
     for (const recipeName in data.meals) {
         const recipe = data.meals[recipeName];
         const recipeDiv = document.createElement("div");
         recipeDiv.dataset.id = data.id;
+        
         recipeDiv.classList.add("recipe");
 
         recipeDiv.innerHTML = `
@@ -143,15 +161,34 @@ async function renderRecipeBoxes(data) {
             <div>
                 <img src="${recipe.strMealThumb}"> 
             </div>
+            <div id="rating-container">
+                <span class="stars" id="stars1"></span>
+                <span class="stars" id="stars2"></span>
+                <span class="stars" id="stars3"></span>
+                <span class="stars" id="stars4"></span>
+                <span class="stars" id="stars5"></span>
+            </div>
         `;
 
-        divRecipes.prepend(recipeDiv);
+        divRecipes.append(recipeDiv);
         recipeDiv.dataset.id = recipe.idMeal;
 
         recipeDiv.querySelector("#first").addEventListener("click", AddRecipesAsFavourite);
         recipeDiv.querySelector("#second").addEventListener("click", AddRecipesAsFavourite);
         recipeDiv.addEventListener("click", e => { renderRecipe(data.meals[recipeName]) });
 
+        const ratingContainer = recipeDiv.querySelector('#rating-container');
+
+        const filledStars = Math.round(listOfRatings[recipeName]);
+
+        for (let i = 1; i <= 5; i++) {
+        const star = recipeDiv.querySelector(`#stars${i}`);
+        if (i <= filledStars) {
+            star.classList.remove('empty');
+        } else {
+            star.classList.add('empty');
+        }
+        }
         // newState(recipeDiv, `renderRecipe(${JSON.stringify(data.meals[recipeName])})`);
     }
 
