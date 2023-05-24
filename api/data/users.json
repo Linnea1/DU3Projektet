@@ -123,8 +123,9 @@
         "password": "hii"
     },
     {
-        "email": "edfgjhkl@drtftyguyhuij.se",
+        "email": "erik@hej",
         "username": "erik",
-        "password": "hej"
+        "password": "hej",
+        "pfp": "api\/data\/pictures\/pfp\/1684928499.jpeg"
     }
 ]

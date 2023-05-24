@@ -76,7 +76,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     //// change in other databases too
                     function changePfp ($dataBase, $key, $filePath, $name){
                         foreach($dataBase as $index => $data){
-                            if($data[$key] == $_POST["username"]){
+                            if($data[$key] == $_POST["username"] && !isset($data["deleted"])){
                                 $dataBase[$index]["pfp"] = $name;
 
                                 file_put_contents($filePath, json_encode($dataBase, JSON_PRETTY_PRINT));
@@ -107,17 +107,35 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE"){
             file_put_contents($filename, json_encode($users, JSON_PRETTY_PRINT));
 
             //////
-            function deletedUser ($dataBase, $key, $filePath, $input){
-                foreach($dataBase as $index => $data){
-                    if($data[$key] == $input["username"]){
-                        send_JSON("hej", 400);
-                        $dataBase[$index]["deleted"] = true; // adds the key "deleted"
+            $comments = json_decode(file_get_contents("data/comments.json"), true);
+            $favorites = json_decode(file_get_contents("data/favourites.json"), true);
+            $recipes = json_decode(file_get_contents("data/recipes.json"), true);
 
-                        file_put_contents($filePath, json_encode($dataBase, JSON_PRETTY_PRINT));
-                    }
+            foreach($favorites as $index => $data){
+                if($data["username"] == $input["username"]){
+                    array_splice($favorites, $index, 1); // remove from list
+                    file_put_contents("data/favourites.json", json_encode($favorites, JSON_PRETTY_PRINT));
                 }
             }
-            deletedUser($comments, "author", "data/comments.json", $input);
+
+            foreach($recipes as $index => $data){
+                if($data["author"] == $input["username"]){
+                    $recipes[$index]["author"] = "[DELETED USER]";
+                    file_put_contents("data/recipes.json", json_encode($recipes, JSON_PRETTY_PRINT));
+                }
+            }
+
+
+            foreach($comments as $index => $data){
+                if($data["author"] == $input["username"]){
+                    $comments[$index]["deleted"] = true; // adds the key "deleted"
+                    $comments[$index]["author"] = "[DELETED USER]";
+                    unset($comments[$index]["pfp"]);
+
+                    file_put_contents("data/comments.json", json_encode($comments, JSON_PRETTY_PRINT));
+                }
+            }
+            
             /////
 
             send_JSON(["message"=>"User has been deleted"]);
