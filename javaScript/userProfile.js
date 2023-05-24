@@ -64,7 +64,8 @@ async function RenderUserPage(userInfo) {
 
         document.querySelector(".create_recipe").addEventListener("click", e => {
             newState();
-            renderCreateRecipe()});
+            renderCreateRecipe()
+        });
         try {
             if (userInfo.username === user.username) {
 
@@ -125,19 +126,19 @@ async function favoriteRecipes(object, user) {
     if (divForAllRecipes.childElementCount === 0) {
 
         try {
-            let resourse = await fetch(`api/addAndRemoveFavourites.php?favourites=${user}`);
+            let resourse = await fetch(`api/fetchRecipesAndFavourites.php?favourites=${user}`);
             let response = await resourse.json();
-            
+
             if (!response.length == 0) {
 
                 for (let recipe of response) {
 
                     if (recipe.startsWith("x_")) {
 
-                        let resourse = await fetch(`api/addAndRemoveFavourites.php?ownRecipe=${recipe}`);
+                        let resourse = await fetch(`api/fetchRecipesAndFavourites.php?ownRecipe=${recipe}`);
                         let response = await resourse.json();
-                        console.log(response)
-                        let meals=[]
+                        console.log(response);
+                        let meals = []
                         meals.push(response)
                         const data = { meals: meals }; //Making sure the format for the function call is right
 
@@ -147,7 +148,6 @@ async function favoriteRecipes(object, user) {
 
                         let resoursefood = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe}`);
                         let responsefood = await resoursefood.json();
-                        console.log(responsefood);
                         renderRecipeBoxes(responsefood);
                     }
                 }

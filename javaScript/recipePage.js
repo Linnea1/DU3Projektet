@@ -77,7 +77,7 @@ async function renderRecipe(recipe) {
         goBack();
         try {
 
-            const response = await fetch(`api/addAndRemoveFavourites.php?author=${author}`);
+            const response = await fetch(`api/fetchRecipesAndFavourites.php?author=${author}`);
             const data = await response.json();
 
             main.querySelector(".author").addEventListener("click", e => {

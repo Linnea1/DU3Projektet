@@ -119,7 +119,7 @@ async function searchDish(key, searchField) {
 
         try {
 
-            let resourseOwnRecipe = await fetch(`api/addAndRemoveFavourites.php?ourOwnDatabase=${searchField}`);
+            let resourseOwnRecipe = await fetch(`api/fetchRecipesAndFavourites.php?ourOwnDatabase=${searchField}`);
             let dataOwnRecipe = await resourseOwnRecipe.json();
             console.log(dataOwnRecipe);
 

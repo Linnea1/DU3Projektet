@@ -66,7 +66,7 @@ if ($method == "GET") {
                 send_JSON($recipe); // send it as a response
             }
         }
-        $error = ["error" => "Could not find matching idMeal"];
+        $error = ["error" => "Could not find matching recipe"];
         send_JSON($error, 404);
 
     }
@@ -82,7 +82,7 @@ if ($method == "GET") {
                 send_JSON($recipe); // send it as a response
             }
         }
-        $error = ["error" => "Could not find matching recipe"];
+        $error = ["error" => "Could not find a matching recipe to your input"];
         send_JSON($error, 404);
 
     }
@@ -100,7 +100,7 @@ if ($method == "GET") {
                 send_JSON($user);  // if we find the matching user then we send it as response
             }
         }
-        $error = ["error" => "Could not find a match"];
+        $error = ["error" => "Could not find a matching user"];
         send_JSON($error, 404);
     }
 

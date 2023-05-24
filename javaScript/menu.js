@@ -39,7 +39,6 @@ function ShowMenu() {
         renderCategoriesPage()
     });
 
-
     LogOut.addEventListener("click", e => {
         hideMenu(e);
         logout();
