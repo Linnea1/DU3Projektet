@@ -87,22 +87,24 @@ function renderSettings() {
                 localStorage.setItem("user", JSON.stringify(storage));
 
                 popUp("Successfully changed!");
-                document.querySelector("#popUpBackground").addEventListener("click", e => {
-                    state.old_states.pop();
-                    user = JSON.parse(localStorage.getItem("user"));
-                    RenderUserPage(user);
-                });
-                document.querySelector(".OK").addEventListener("click", e => {
-                    state.old_states.pop();
-                    user = JSON.parse(localStorage.getItem("user"));
-                    RenderUserPage(user);
-                });
+
+                document.querySelector("#popUpBackground").addEventListener("click", backToProfile);
+                document.querySelector(".OK").addEventListener("click", backToProfile);
             } else {
                 popUp(data.message);
             }
         } catch (error) {
             popUp(error);
         }
+    }
+
+    function backToProfile() {
+        state.old_states.pop();
+        user = JSON.parse(localStorage.getItem("user"));
+        RenderUserPage(user);
+
+        document.querySelector("#popUpBackground").removeEventListener("click", backToProfile);
+        document.querySelector(".OK").removeEventListener("click", backToProfile);
     }
 
     async function changeUsername(e) { // change username
@@ -188,6 +190,11 @@ function renderSettings() {
                 } else {
                     user.pfp = data;
                     localStorage.setItem("user", JSON.stringify(user));
+
+                    popUp("Successfully changed!");
+
+                    document.querySelector("#popUpBackground").addEventListener("click", backToProfile);
+                    document.querySelector(".OK").addEventListener("click", backToProfile);
                 }
             } catch (error) {
                 popUp(error);

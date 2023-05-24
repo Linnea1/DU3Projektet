@@ -56,6 +56,13 @@ async function renderRecipe(recipe) {
                 <div class="recipe">
                     <h2><b>${currentRecipe.strMeal}</b></h2>
                     <img src="${currentRecipe.strMealThumb}"> 
+                    <div id="rating-container">
+                        <span class="stars" id="stars1"></span>
+                        <span class="stars" id="stars2"></span>
+                        <span class="stars" id="stars3"></span>
+                        <span class="stars" id="stars4"></span>
+                        <span class="stars" id="stars5"></span>
+                    </div>
                     <div class="author">
                         <div id="pfp"></div>
                         <p>${author}</p>
@@ -102,6 +109,27 @@ async function renderRecipe(recipe) {
         } catch (e) {
             console.log(e);
         }
+
+        try {
+            const response = await fetch(`api/ratings.php?id=${recipe.idMeal}`);
+            const data = await response.json();
+
+            const filledStars = Math.round(data);
+
+            for (let i = 1; i <= 5; i++) {
+                const star = main.querySelector(`#stars${i}`);
+                if (i <= filledStars) {
+                    star.classList.remove('empty');
+                } else {
+                    star.classList.add('empty');
+                }
+            }
+            console.log(data);
+        } catch (e) {
+            console.log(e);
+        }
+
+
 
         const list = document.querySelector(".ingredientList");
         for (const ratio of ingredients) {

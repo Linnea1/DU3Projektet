@@ -18,7 +18,6 @@ async function fetching(URL, method, body) {
 
 //Function to display popup
 function popUp(prompt) { // pop up
-
     document.querySelector("#popUpWindow").innerHTML = `
          <p id="prompt"></p>
     `;
@@ -35,7 +34,6 @@ function popUp(prompt) { // pop up
 }
 
 function complexPopUp(prompt, button1, button2, func) {
-
     document.querySelector("#popUpWindow").innerHTML = `
         <p id="prompt"></p>
     `;
@@ -139,5 +137,5 @@ function logout() {
         "guest": true
     }));
     renderStartPage();
-    // location.reload();
+    location.reload();
 }

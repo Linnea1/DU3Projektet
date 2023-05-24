@@ -1,12 +1,13 @@
 <?php
 require_once("functions.php");
 $filename = "data/comments.json";
+$data = json_decode(file_get_contents($filename), true);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $post = json_decode(file_get_contents("php://input"), true);
     $ids = $post['listOfIds'];
 
-    $data = json_decode(file_get_contents($filename), true);
+    
 
     $ratings = [];
     foreach ($ids as $id) {
@@ -26,7 +27,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     send_JSON($ratings);
-}
+}elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
+    if (isset($_GET["id"])) {
+        $id = $_GET["id"];
+        $ratings = [];
+        foreach ($data as $element) {
+            if ($element['recipeId'] === $id && isset($element['rating'])) {
+                $ratings[] = $element['rating'];
+            }
+        }
+    
+        if (!empty($ratings)) {
+            $average = array_sum($ratings) / count($ratings);
+            $rating = $average;
+        }else{
+            $rating = 0;
+        }
+        
+        send_JSON($rating);
+    } else {
+        send_JSON(["message" => "No ID provided for retrieving comments"], 400);
+    }
 
+   
+
+    send_JSON($ratings);
+}
 
 ?>
