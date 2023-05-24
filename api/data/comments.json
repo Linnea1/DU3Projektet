@@ -269,19 +269,11 @@
         "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
     },
     {
-        "recipeId": "52795",
-        "author": "Linnea",
-        "timestamp": "24-05-2023 13:13",
+        "recipeId": "x_646c80bec4147",
+        "author": "ojojoj",
+        "timestamp": "24-05-2023 13:22",
         "rating": "5",
-        "comment": "Very good!",
-        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
-    },
-    {
-        "recipeId": "52846",
-        "author": "Linnea",
-        "timestamp": "24-05-2023 13:32",
-        "rating": "2",
-        "comment": "No",
-        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
+        "comment": "hej",
+        "pfp": null
     }
 ]

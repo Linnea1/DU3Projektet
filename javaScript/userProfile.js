@@ -139,7 +139,7 @@ async function favoriteRecipes(object, user) {
                         console.log(response)
                         let meals=[]
                         meals.push(response)
-                        const data = { meals: meals };
+                        const data = { meals: meals }; //Making sure the format for the function call is right
 
                         renderRecipeBoxes(data);
 

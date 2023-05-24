@@ -127,5 +127,10 @@
         "username": "erik",
         "password": "hej",
         "pfp": "api\/data\/pictures\/pfp\/1684928499.jpeg"
+    },
+    {
+        "email": "dfyghjkj@dfghj.se",
+        "username": "ojojoj",
+        "password": "hej"
     }
 ]

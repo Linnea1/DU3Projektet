@@ -3,6 +3,7 @@ async function renderCategoriesPage() {
 
     user = JSON.parse(localStorage.getItem("user"));
 
+    document.querySelector("#loading").classList.remove("hidden");
     currentState("renderCategoriesPage()");
 
     basicHeader();
@@ -61,11 +62,13 @@ async function renderCategoriesPage() {
     } catch (error) {
         popUp(error);
     }
+    document.querySelector("#loading").classList.add("hidden");
 }
-
 //Render specific recipes within a category
 
 async function renderRecipesAfterCategory(category) {
+    document.querySelector("#loading").classList.remove("hidden");
+
     // let category = event.target.textContent;
     currentState(`renderRecipesAfterCategory(${JSON.stringify(category)})`);
 
@@ -105,6 +108,7 @@ async function renderRecipesAfterCategory(category) {
 //Getting recipes from search
 async function searchDish(key, searchField) {
     if (key == "Enter") {
+        document.querySelector("#loading").classList.remove("hidden");
         currentState(`searchDish(${JSON.stringify(key)}, ${JSON.stringify(searchField)})`)
 
         basicHeader();
@@ -211,7 +215,7 @@ async function renderRecipeBoxes(data) {
             }
         }
     }
-
+    document.querySelector("#loading").classList.add("hidden");
 }
 
 async function usersFavoriteRecipes(data) {

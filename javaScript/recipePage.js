@@ -1,4 +1,5 @@
 async function renderRecipe(recipe) {
+    document.querySelector("#loading").classList.remove("hidden");
     currentState(`renderRecipe(${JSON.stringify(recipe)})`);
 
     let currentRecipe;
@@ -31,24 +32,7 @@ async function renderRecipe(recipe) {
                 });
             }
         }
-        document.querySelector("header").innerHTML = `
-        <div id="menu" onclick="">
-            <div class="menuPart"></div>
-            <div class="menuPart"></div>
-            <div class="menuPart"></div>
-        </div>  
-        <div class="nameOfApplication"> The YumYumClub </div>
-        <div id="profilePicture" class="icon"></div>
-        `;
-
-
-        document.querySelector("#menu").addEventListener("click", ShowMenu);
-
-        document.querySelector(".icon").style.backgroundImage = `url(${user.pfp})`
-        document.querySelector("#profilePicture").addEventListener("click", e => {
-            newState(true);
-            RenderUserPage(user);
-        })
+        basicHeader();
 
         main.innerHTML = `
             
@@ -298,6 +282,7 @@ async function renderRecipe(recipe) {
             }
         }
     }
+    document.querySelector("#loading").classList.add("hidden");
 }
 
 async function deleteComment(username, recipe) {
