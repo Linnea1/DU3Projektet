@@ -282,5 +282,12 @@
         "timestamp": "24-05-2023 13:37",
         "rating": "3",
         "comment": "helt ok"
+    },
+    {
+        "recipeId": "x_646c80bec4147",
+        "author": "user",
+        "timestamp": "24-05-2023 13:39",
+        "rating": "5",
+        "comment": "hej"
     }
 ]

@@ -1,9 +1,8 @@
 //render all categories in the open API
 async function renderCategoriesPage() {
-
+    document.querySelector("#loading").classList.remove("hidden");
     user = JSON.parse(localStorage.getItem("user"));
 
-    document.querySelector("#loading").classList.remove("hidden");
     currentState("renderCategoriesPage()");
 
     basicHeader();
@@ -139,7 +138,7 @@ async function searchDish(key, searchField) {
 
 
         } catch (e) {
-            console.log(e);
+            popUp(e);
         }
     }
 }
