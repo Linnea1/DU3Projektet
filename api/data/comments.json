@@ -275,5 +275,13 @@
         "rating": "5",
         "comment": "hej",
         "pfp": null
+    },
+    {
+        "recipeId": "52846",
+        "author": "Linnea",
+        "timestamp": "24-05-2023 13:38",
+        "rating": "2",
+        "comment": "Yes",
+        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
     }
 ]
