@@ -64,7 +64,10 @@ function complexPopUp(prompt, button1, button2, func) {
 
 //To check current state
 let state = {
-    current_state: "",
+    current_state: {
+        function_name: "",
+        params: "",
+    },
     old_states: []
 };
 
@@ -108,6 +111,7 @@ function swapStyleSheet(styleSheet) {
 }
 
 function logout() {
+    localStorage.clear();
     localStorage.setItem("user", JSON.stringify({
         "username": "Guest",
         "guest": true

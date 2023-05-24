@@ -61,7 +61,7 @@ async function renderCategoriesPage() {
             const category = data.meals[categoryName];
             const categoryDiv = document.createElement("div");
             categoryDiv.classList.add("category");
-            categoryDiv.addEventListener("click", renderRecipesAfterCategory);
+            categoryDiv.addEventListener("click", () => { renderRecipesAfterCategory(category.strCategory) });
             categoryDiv.textContent = category.strCategory;
             divCategories.append(categoryDiv);
         }
@@ -71,9 +71,9 @@ async function renderCategoriesPage() {
 }
 
 //Render specific recipes within a category
-async function renderRecipesAfterCategory(event) {
-    let category = event.target.textContent;
-    currentState(`renderRecipesAfterCategory(${event})`);
+async function renderRecipesAfterCategory(category) {
+    // let category = event.target.textContent;
+    currentState(`renderRecipesAfterCategory(${JSON.stringify(category)})`);
     main.innerHTML = `
         <div class="header">
             <h2>${category}</h2>
@@ -84,7 +84,7 @@ async function renderRecipesAfterCategory(event) {
     goBack();
 
     const divRecipes = document.querySelector(".recipes");
-    document.querySelector("#menu").addEventListener("click", ShowMenu);
+    // document.querySelector("#menu").addEventListener("click", ShowMenu);
     let all_recipes = [];
     //Fetching recipes from the open API
     try {
