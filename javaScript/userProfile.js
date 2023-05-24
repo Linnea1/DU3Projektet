@@ -1,20 +1,35 @@
 async function RenderUserPage(userInfo) {
+
     document.querySelector("#loading").classList.remove("hidden");
+    user = JSON.parse(localStorage.getItem("user"));
 
     if (user.guest) {
         complexPopUp("Only registered users can use this feature", "Register or login", "OK", "logout()");
     } else {
         currentState(`RenderUserPage(${JSON.stringify(userInfo)})`);
 
-        document.querySelector("header").innerHTML = `
-            <div id="menu" onclick="">
-                <div class="menuPart"></div>
-                <div class="menuPart"></div>
-                <div class="menuPart"></div>
-            </div>  
-            <div class="nameOfApplication"> The YumYumClub </div>
-        `;
-        document.querySelector("#menu").addEventListener("click", ShowMenu);
+        // console.log(userInfo.username.value);
+        // console.log(user.username.value);
+
+        // if (userInfo.username == user.username) {
+        //     basicHeader();
+        //     document.querySelector("#profilePicture").style.backgroundImage = `url(${user.pfp})`
+        //     console.log("samma användare");
+
+        // } else {
+        //     console.log("inte samma användare");
+        //     document.querySelector("header").innerHTML = `
+        //         <div id="menu" onclick="">
+        //         <div class="menuPart"></div>
+        //         <div class="menuPart"></div>
+        //         <div class="menuPart"></div>
+        //         </div>  
+        //         <div class="nameOfApplication"> The YumYumClub </div>
+        //         `;
+        //     document.querySelector("#menu").addEventListener("click", ShowMenu);
+
+        // }
+
 
         main.innerHTML = `
             <button class="goBack">Go Back</button>
@@ -35,15 +50,14 @@ async function RenderUserPage(userInfo) {
             newState();
             renderSettings();
         })
-
-
         if (userInfo.pfp) { // if pfp then add it
-            document.querySelector(".icon").style.backgroundImage = `url(${userInfo.pfp})`;
+            main.querySelector(".icon").style.backgroundImage = `url(${userInfo.pfp})`;
         } else {
             document.querySelector(".icon").removeAttribute("style");
+
         }
 
-        user = JSON.parse(localStorage.getItem("user"));
+
         if (userInfo.username == user.username) { // is this your own profile?
             document.querySelector(".create_recipe").classList.remove("hidden");
             document.querySelector("#settings").classList.remove("hidden");
@@ -53,6 +67,16 @@ async function RenderUserPage(userInfo) {
 
         try {
             if (userInfo.username === user.username) {
+
+                document.querySelector("header").innerHTML = `
+                <div id="menu" onclick="">
+                <div class="menuPart"></div>
+                <div class="menuPart"></div>
+                <div class="menuPart"></div>
+                </div>  
+                <div class="nameOfApplication"> The YumYumClub </div>
+                `;
+                document.querySelector("#menu").addEventListener("click", ShowMenu);
 
                 const response = await fetch(`api/createRecipe.php?author=${user.username}`);
                 const data = await response.json();
@@ -66,6 +90,9 @@ async function RenderUserPage(userInfo) {
                 });
 
             } else {
+                basicHeader();
+                document.querySelector("#profilePicture").style.backgroundImage = `url(${user.pfp})`
+
                 let response = await fetch(`api/createRecipe.php?author=${userInfo.username}`);
                 const data = await response.json();
                 usersFavoriteRecipes(data);

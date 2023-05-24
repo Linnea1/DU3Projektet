@@ -235,5 +235,13 @@
         "rating": "4",
         "comment": "gott",
         "pfp": "api\/data\/pictures\/pfp\/1684846738.jpeg"
+    },
+    {
+        "recipeId": "52878",
+        "author": "erik",
+        "timestamp": "24-05-2023 11:34",
+        "rating": "1",
+        "comment": "Not my favourite",
+        "pfp": "api\/data\/pictures\/pfp\/1684928499.jpeg"
     }
 ]

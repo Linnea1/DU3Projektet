@@ -102,6 +102,8 @@ function newState(Guest) { // use this when going to a new "state"
 }
 
 function basicHeader() {
+    let user = JSON.parse(localStorage.getItem("user"));
+
     document.querySelector("header").innerHTML = `
     <div id="menu" onclick="">
         <div class="menuPart"></div>
@@ -113,9 +115,9 @@ function basicHeader() {
     `;
 
     if (user.guest) {
-        document.querySelector("#profilePicture").removeAttribute("style", "");
+        document.querySelector("#profilePicture").removeAttribute("style");
     } else {
-        document.querySelector("#profilePicture").style.backgroundImage = `url(${user.pfp})`
+        document.querySelector("#profilePicture").style.backgroundImage = `url(${user.pfp})`;
     }
 
     document.querySelector("#profilePicture").addEventListener("click", e => {

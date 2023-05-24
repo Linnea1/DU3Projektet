@@ -121,5 +121,11 @@
         "email": "ryftguih@rdtftygy.se",
         "username": "hello",
         "password": "hii"
+    },
+    {
+        "email": "erik@hej",
+        "username": "erik",
+        "password": "hej",
+        "pfp": "api\/data\/pictures\/pfp\/1684928499.jpeg"
     }
 ]
