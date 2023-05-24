@@ -78,7 +78,7 @@ function change ($input, $users, $filename, $field, $secondaryField = "password"
 
                 function changeUsername ($dataBase, $key, $filePath, $input){
                     foreach($dataBase as $index => $data){
-                        if($data[$key] == $input["username"]){
+                        if($data[$key] == $input["username"] && !isset($data["deleted"])){
                             $dataBase[$index][$key] = $input["new"];
 
                             file_put_contents($filePath, json_encode($dataBase, JSON_PRETTY_PRINT));
