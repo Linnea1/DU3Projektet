@@ -100,7 +100,7 @@ async function favoriteRecipes(object, user) {
         try {
             let resourse = await fetch(`api/addAndRemoveFavourites.php?favourites=${user}`);
             let response = await resourse.json();
-
+            console.log(response)
             if (!response.length == 0) {
 
                 for (let recipe of response) {

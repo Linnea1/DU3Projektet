@@ -140,5 +140,19 @@
         "strMeasure2": "3",
         "strMeasure3": "3",
         "strMealThumb": "api\/data\/pictures\/recipes\/PinkPot.jpg"
+    },
+    {
+        "idMeal": "x_646e02d1136f5",
+        "author": "Linnea",
+        "strCategory": "Beef",
+        "strMeal": "Yummyyy",
+        "strInstructions": "hihadiadi",
+        "strIngredient1": "r5t678",
+        "strIngredient2": "sakasdkl",
+        "strIngredient3": "askmad",
+        "strMeasure1": "ghjkl",
+        "strMeasure2": "saklnas",
+        "strMeasure3": "dakmda",
+        "strMealThumb": "api\/data\/pictures\/recipes\/1684931281.png"
     }
 ]

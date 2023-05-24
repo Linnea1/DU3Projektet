@@ -146,7 +146,6 @@ async function searchDish(key, searchField) {
 async function renderRecipeBoxes(data) {
     const divRecipes = document.querySelector(".recipes");
 
-    console.log(data);
     let listOfIds = [];
     let listOfRatings;
     for (let i = 0; i < data.meals.length; i++) {
@@ -201,8 +200,6 @@ async function renderRecipeBoxes(data) {
             renderRecipe(data.meals[recipeName])
         });
 
-        const ratingContainer = recipeDiv.querySelector('#rating-container');
-
         const filledStars = Math.round(listOfRatings[recipeName]);
 
         for (let i = 1; i <= 5; i++) {
@@ -217,15 +214,30 @@ async function renderRecipeBoxes(data) {
 
 }
 
-
-
-
-
 async function usersFavoriteRecipes(data) {
     const divRecipes = document.querySelector(".recipes");
 
     divRecipes.innerHTML = "";
 
+    let listOfIds = [];
+    let listOfRatings;
+    for (let i = 0; i < data.meals.length; i++) {
+        const meal = data.meals[i];
+        listOfIds.push(meal.idMeal)
+        // Perform actions with each meal object
+    }
+    try {
+        console.log(listOfIds)
+        const requestBody = {
+            listOfIds,
+        };
+        let response = await fetching("api/ratings.php", "POST", requestBody);
+        let data = await response.json();
+        listOfRatings = data;
+        console.log(listOfRatings);
+    } catch (error) {
+        // Handle error
+    }
 
     for (const recipeName in data.meals) {
         const recipe = data.meals[recipeName];
@@ -241,6 +253,13 @@ async function usersFavoriteRecipes(data) {
             <div>
                 <img src="${recipe.strMealThumb}">
             </div>
+            <div id="rating-container">
+                <span class="stars" id="stars1"></span>
+                <span class="stars" id="stars2"></span>
+                <span class="stars" id="stars3"></span>
+                <span class="stars" id="stars4"></span>
+                <span class="stars" id="stars5"></span>
+            </div>
         `;
 
         divRecipes.append(recipeDiv);
@@ -251,6 +270,17 @@ async function usersFavoriteRecipes(data) {
         recipeDiv.addEventListener("click", e => {
             renderRecipe(data.meals[recipeName])
         });
+
+        const filledStars = Math.round(listOfRatings[recipeName]);
+
+        for (let i = 1; i <= 5; i++) {
+            const star = recipeDiv.querySelector(`#stars${i}`);
+            if (i <= filledStars) {
+                star.classList.remove('empty');
+            } else {
+                star.classList.add('empty');
+            }
+        }
     }
 
 }

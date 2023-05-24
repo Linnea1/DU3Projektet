@@ -149,14 +149,6 @@
         "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
     },
     {
-        "recipeId": "x_646c85a57852f",
-        "author": "Linnea",
-        "timestamp": "23-05-2023 11:47",
-        "rating": "3",
-        "comment": "test",
-        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
-    },
-    {
         "recipeId": "52974",
         "author": "Linnea",
         "timestamp": "23-05-2023 11:47",
@@ -266,6 +258,22 @@
         "timestamp": "24-05-2023 12:11",
         "rating": "4",
         "comment": "Pretty nice!",
+        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
+    },
+    {
+        "recipeId": "x_646c85a57852f",
+        "author": "Linnea",
+        "timestamp": "24-05-2023 12:45",
+        "rating": "5",
+        "comment": "Good burger",
+        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
+    },
+    {
+        "recipeId": "x_646e02d1136f5",
+        "author": "Linnea",
+        "timestamp": "24-05-2023 12:46",
+        "rating": "3",
+        "comment": "Hopps",
         "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
     }
 ]

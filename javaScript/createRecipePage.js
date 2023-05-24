@@ -163,6 +163,7 @@ async function submitRecipe(event) {
     const data = await response.json();
     if (response.ok) {
       popUp("New recipe created!");
+      RenderUserPage(user);
     } else {
       popUp(data.message); 
     }
