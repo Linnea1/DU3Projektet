@@ -136,6 +136,7 @@ async function renderRecipeBoxes(data) {
         let response = await fetching("api/ratings.php", "POST", requestBody);
         let data = await response.json();
         listOfRatings=data;
+        console.log(listOfRatings);
     } catch (error) {
         // Handle error
     }
@@ -173,6 +174,19 @@ async function renderRecipeBoxes(data) {
             newState();
             renderRecipe(data.meals[recipeName])
         });
+
+        const ratingContainer = recipeDiv.querySelector('#rating-container');
+
+        const filledStars = Math.round(listOfRatings[recipeName]);
+
+        for (let i = 1; i <= 5; i++) {
+        const star = recipeDiv.querySelector(`#stars${i}`);
+        if (i <= filledStars) {
+            star.classList.remove('empty');
+        } else {
+            star.classList.add('empty');
+        }
+        }
     }
 }
 
