@@ -1,4 +1,5 @@
 async function renderRecipe(recipe) {
+    document.querySelector("#loading").classList.remove("hidden");
     currentState(`renderRecipe(${JSON.stringify(recipe)})`);
 
     let currentRecipe;
@@ -298,6 +299,7 @@ async function renderRecipe(recipe) {
             }
         }
     }
+    document.querySelector("#loading").classList.add("hidden");
 }
 
 async function deleteComment(username, recipe) {

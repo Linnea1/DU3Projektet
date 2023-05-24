@@ -152,7 +152,7 @@
         "strIngredient3": "hbgvfc",
         "strMeasure1": "kjhg",
         "strMeasure2": "jhgv",
-        "strMeasure3": "hgfd",
+        "strMeasure3": "hgfd"
     },
     {
         "idMeal": "x_646dfdeb16bfd",
@@ -194,6 +194,20 @@
         "strMeasure1": "oiref",
         "strMeasure2": "kiefrdw",
         "strMeasure3": "oikujyhtgrfew",
+        "strMealThumb": "api\/data\/pictures\/recipes\/PinkPot.jpg"
+    },
+    {
+        "idMeal": "x_646e0dc276084",
+        "author": "test",
+        "strCategory": "Beef",
+        "strMeal": "iujyrfedwsqa",
+        "strInstructions": "ikuyrefdws",
+        "strIngredient1": "kiuytrfedws",
+        "strIngredient2": "oikuytgrfed",
+        "strIngredient3": "lokjuhytgrfe",
+        "strMeasure1": "loikujytrfedw",
+        "strMeasure2": "kiujytrfe",
+        "strMeasure3": "ikuytgrfedws",
         "strMealThumb": "api\/data\/pictures\/recipes\/PinkPot.jpg"
     }
 ]

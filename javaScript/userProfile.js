@@ -145,7 +145,7 @@ async function favoriteRecipes(object, user) {
                         <img src="${recipe_img}"> 
                         </div>
                         `;
-                        recipesDiv.prepend(recipe_div);
+                        recipesDiv.append(recipe_div);
 
                         recipe_div.addEventListener("click", e => { renderRecipe(response) });
 
@@ -162,7 +162,7 @@ async function favoriteRecipes(object, user) {
                         <h2>${recipe_name}</h2>
                         <img src="${recipe_img}"> 
                         </div>`;
-                        recipesDiv.prepend(recipe_div);
+                        recipesDiv.append(recipe_div);
 
                         recipe_div.addEventListener("click", e => { renderRecipe(responsefood.meals[0]) });
                     }
