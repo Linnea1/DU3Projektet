@@ -73,7 +73,7 @@ function renderCreateRecipe(event) {
   RegisterButton.addEventListener("submit", submitRecipe);
   // let message = main.querySelector("#message");
 }
-  
+
 let ingredientGroupCounter = 3;
 
 function addIngredientGroup() {
@@ -112,8 +112,8 @@ function addIngredientGroup() {
 
   ingredientGroupCounter++;
 }
-  
-  
+
+
 async function submitRecipe(event) {
   event.preventDefault();
   let author = user.username;
@@ -135,8 +135,8 @@ async function submitRecipe(event) {
       measurements.push(measurement);
     }
   }
-  
-  const formData=new FormData(document.querySelector("#form"));
+
+  const formData = new FormData(document.querySelector("#form"));
   formData.append("author", author);
   formData.append("mealName", mealName);
   formData.append("mealCategory", mealCategory);
@@ -154,22 +154,23 @@ async function submitRecipe(event) {
     measurements,
     recipeImage
   };
-  
+
   const formRecipeImage = main.querySelector("#picture").files[0];
   const request = new Request("api/createRecipe.php", {
     method: "POST",
     body: formData
   });
-  try{
+  try {
     const response = await fetch(request);
     const data = await response.json();
     if (response.ok) {
       popUp("New recipe created!");
+      state.old_states.pop();
       RenderUserPage(user);
     } else {
-      popUp(data.message); 
+      popUp(data.message);
     }
-  }catch(error){
+  } catch (error) {
     popUp(error);
   }
 }

@@ -62,7 +62,7 @@ function renderSettings() {
         document.querySelector("#popUpWindow").append(secondButton);
         document.querySelector(".firstButton").addEventListener("click", e => {
             document.querySelector("#popUp").classList.add("hidden");
-            deleteAccount()
+            deleteAccount();
         });
         document.querySelector(".secondButton").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });
         document.querySelector("#popUpBackground").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });

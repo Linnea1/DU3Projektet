@@ -29,7 +29,6 @@ async function AddRecipesAsFavourite(event) {
     }
 }
 
-
 async function RemoveFavourite(recipe) {
     let parent = recipe.parentElement
     let idOfMeal = parent.dataset.id;
