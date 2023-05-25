@@ -13,6 +13,16 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
 }
+h2{
+    font-family: Caveat;
+    font-size: 40px;
+    color: #3dd8d2;
+}
+
+/* .info{
+    background-color: #3dd8d2;
+    border-radius: 50% 50% 0px 0px;
+} */
 
 .category {
     width: auto;
@@ -25,12 +35,12 @@
     border-radius: 10px;
     font-weight: bolder;
     font-size: 15px;
+    border: 1px solid #FF8DA1;
 }
 
 .category:hover {
-    background-color: rgb(186, 242, 237);
-
-    border: 1px solid black;
+    border: 1px solid #F9748B;
+    cursor: pointer;
 }
 
 #sticky {
@@ -77,6 +87,6 @@ background-image: url(/icons/Background4.png);
 background-size: cover;
 background-position: center;
 }
-
-main{}
-  
+#wrapper{
+    background-image: url(/icons/Leaves.png);;
+}
