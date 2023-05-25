@@ -307,5 +307,29 @@
         "rating": "5",
         "comment": "The best ",
         "pfp": "api\/data\/pictures\/pfp\/1684846738.jpeg"
+    },
+    {
+        "recipeId": "52812",
+        "author": "Linnea",
+        "timestamp": "25-05-2023 11:09",
+        "rating": "3",
+        "comment": "It's Okej",
+        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
+    },
+    {
+        "recipeId": "52873",
+        "author": "Linnea",
+        "timestamp": "25-05-2023 11:28",
+        "rating": "4",
+        "comment": "Very good",
+        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
+    },
+    {
+        "recipeId": "52982",
+        "author": "Linnea",
+        "timestamp": "25-05-2023 11:57",
+        "rating": "5",
+        "comment": "Very nice!",
+        "pfp": "api\/data\/pictures\/pfp\/1684755387.gif"
     }
 ]

@@ -17,6 +17,9 @@ $timestamp = date('d-m-Y H:i', $time);
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){//Creat a comment
 
+    if($post['rating']==null){
+        send_JSON(["message" => "Please put a rating"], 400);
+    }
     $newComment = [
         "recipeId" => $post['recipeId'],
         "author" => $post['username'],
@@ -24,7 +27,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){//Creat a comment
         "rating" => $post['rating'],
         "comment" => $post['comment'],
     ];
-
+    
     if (isset($post['pfp'])) {
         $newComment["pfp"] = $post['pfp'];
     };
