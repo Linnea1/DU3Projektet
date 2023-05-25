@@ -121,7 +121,6 @@ if ($method == "POST") {
                 $error = ["error" => "This recipe is already added to your favourites"];
                 send_JSON($error, 400); // eller 406?
             }
-
             $userData["idMeal"][] = $idMeal; //update the array of favourites 
             $json = json_encode($data, JSON_PRETTY_PRINT);
             file_put_contents($filename, $json); // update the database
@@ -140,33 +139,31 @@ if ($method == "POST") {
     $json = json_encode($data, JSON_PRETTY_PRINT);
     file_put_contents($filename, $json); //update the databse and send back the user as response
     send_JSON($newUser);
-        
+    
 }
 
+
+
 if ($method == "DELETE") {
-    
     $requestJSON = file_get_contents("php://input");
-    $requestDATA = json_decode($requestJSON,true);
+    $requestDATA = json_decode($requestJSON, true);
 
-    $username = $requestDATA["username"];  // take out the two keys and their value
+    $username = $requestDATA["username"];
     $idMeal = $requestDATA["idMeal"];
-    // $userExists = false;
-    
-    foreach ($data as &$user) {
-        if ($user['username'] == $username) { // if the user does exist in favourites.json
 
-            foreach($user["idMeal"] as $index => $value){
-                if ($value == $idMeal) { // find the matching recipe 
-                    array_splice($user["idMeal"], $index, 1); // delete it
+    foreach ($data as $userIndex => $user) {
+        if ($user['username'] == $username) {
+            foreach ($user["idMeal"] as $mealIndex => $value) {
+                if ($value == $idMeal) {
+                    array_splice($data[$userIndex]["idMeal"], $mealIndex, 1);
                     $json = json_encode($data, JSON_PRETTY_PRINT);
-                    file_put_contents($filename, $json); // update the code and send back the whole user
+                    file_put_contents($filename, $json);
                     send_JSON($user);
                 }
             }
-            
         }
     }
-
 }
+
 
 ?>
