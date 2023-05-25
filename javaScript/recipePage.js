@@ -66,13 +66,13 @@ async function renderRecipe(recipe) {
                 </div>
         `;
 
-        main.querySelector(".author").addEventListener("click", e => {
-            newState(true);
-            let CurrentUser = {
-                username: author,
-            }
-            RenderUserPage(CurrentUser);
-        })
+        // main.querySelector(".author").addEventListener("click", e => {
+        //     newState(true);
+        //     let CurrentUser = {
+        //         username: author,
+        //     }
+        //     RenderUserPage(CurrentUser);
+        // })
 
         goBack();
         try {
@@ -94,7 +94,6 @@ async function renderRecipe(recipe) {
             } else { // if the author don't have one, we take the basic picture 
                 document.querySelector("#pfp").style.backgroundImage = `url(${data.pfp})`
             }
-            console.log(data.pfp);
 
 
         } catch (e) {
@@ -115,7 +114,6 @@ async function renderRecipe(recipe) {
                     star.classList.add('empty');
                 }
             }
-            console.log(data);
         } catch (e) {
             console.log(e);
         }
@@ -145,7 +143,6 @@ async function renderRecipe(recipe) {
                 };
                 if (Comment.pfp !== undefined) {
                     // let CurrentUserPfpf = {"pfp": Comment.pfp};
-                    console.log(JSON.stringify(Comment.pfp));
                     CurrentUser.pfp = JSON.stringify(Comment.pfp);
                 }
 
@@ -163,7 +160,6 @@ async function renderRecipe(recipe) {
                     RenderUserPage(CurrentUser);
                 })
                 main.querySelector(".commentBox").append(commentContainer);
-                console.log(Comment.pfp)
 
                 const profilePicture = commentContainer.querySelector(".commentPfp");
                 if (Comment.pfp !== undefined) { // if pfp then add it
@@ -211,7 +207,7 @@ async function renderRecipe(recipe) {
             }
 
         } catch (error) {
-            console.error(error);
+            console.error(error);   ///// vad är detta
         }
         if (usersComment === false) {
             document.querySelector(".ratingBox").innerHTML = `

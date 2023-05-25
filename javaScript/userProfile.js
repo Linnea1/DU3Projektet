@@ -7,28 +7,6 @@ async function RenderUserPage(userInfo) {
     } else {
         currentState(`RenderUserPage(${JSON.stringify(userInfo)})`);
 
-        // console.log(userInfo.username.value);
-        // console.log(user.username.value);
-
-        // if (userInfo.username == user.username) {
-        //     basicHeader();
-        //     document.querySelector("#profilePicture").style.backgroundImage = `url(${user.pfp})`
-        //     console.log("samma användare");
-
-        // } else {
-        //     console.log("inte samma användare");
-        //     document.querySelector("header").innerHTML = `
-        //         <div id="menu" onclick="">
-        //         <div class="menuPart"></div>
-        //         <div class="menuPart"></div>
-        //         <div class="menuPart"></div>
-        //         </div>  
-        //         <div class="nameOfApplication"> The YumYumClub </div>
-        //         `;
-        //     document.querySelector("#menu").addEventListener("click", ShowMenu);
-
-        // }
-
 
         main.innerHTML = `
             <button class="goBack">Go Back</button>
@@ -81,11 +59,11 @@ async function RenderUserPage(userInfo) {
 
                 const response = await fetch(`api/createRecipe.php?author=${user.username}`);
                 const data = await response.json();
-                usersFavoriteRecipes(data);
-                document.querySelector("#own_recipe").addEventListener("click", e => { usersFavoriteRecipes(data) });
+                usersFavoriteRecipes(data, true);////// kanske ta bort false som argument
+                document.querySelector("#own_recipe").addEventListener("click", e => { usersFavoriteRecipes(data, true) });////// kanske ta bort false som argument
 
                 document.querySelector(".favorites").addEventListener("click", e => {
-                    favoriteRecipes(e, user.username)
+                    favoriteRecipes(e, user.username, true)////// kanske ta bort false som argument
                     e.stopPropagation();
 
                 });
@@ -96,12 +74,12 @@ async function RenderUserPage(userInfo) {
 
                 let response = await fetch(`api/createRecipe.php?author=${userInfo.username}`);
                 const data = await response.json();
-                usersFavoriteRecipes(data);
+                usersFavoriteRecipes(data, false);   ////// kanske ta bort false som argument
 
-                document.querySelector("#own_recipe").addEventListener("click", e => { usersFavoriteRecipes(data) });
+                document.querySelector("#own_recipe").addEventListener("click", e => { usersFavoriteRecipes(data, false) });///// kanske ta e som argument
 
                 document.querySelector(".favorites").addEventListener("click", e => {
-                    favoriteRecipes(e, userInfo.username)
+                    favoriteRecipes(e, userInfo.username, false)   ///// kanske ta bort false som argument
                     e.stopPropagation();
 
                 });
@@ -116,7 +94,11 @@ async function RenderUserPage(userInfo) {
 }
 
 
-async function favoriteRecipes(object, user) {
+async function favoriteRecipes(object, user, e) { ///////// kanske ta bort e som argument
+
+    if (e === false) { //////// kanske ta bort if-satsen
+        e === true;
+    };
 
     let divForAllRecipes = document.querySelector(".favorites");
     let recipesDiv = document.querySelector(".recipes");
@@ -142,13 +124,13 @@ async function favoriteRecipes(object, user) {
                         meals.push(response)
                         const data = { meals: meals }; //Making sure the format for the function call is right
 
-                        renderRecipeBoxes(data);
+                        renderRecipeBoxes(data, e); ////////////kanske ta bort e som argument
 
                     } else {
 
                         let resoursefood = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe}`);
                         let responsefood = await resoursefood.json();
-                        renderRecipeBoxes(responsefood);
+                        renderRecipeBoxes(responsefood, e); ////////////kanske ta bort e som argument
                     }
                 }
 

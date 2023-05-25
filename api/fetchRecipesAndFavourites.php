@@ -40,16 +40,16 @@ if ($method == "GET") {
     }
     
 
-    if (isset($_GET["favourites"])) {
+    if (isset($_GET["favourites"])) { 
         $username = $_GET["favourites"];
         // echo $newData;
         
         foreach($data as $user){    
             if ($user['username'] === $username) {
-                send_JSON($user["idMeal"]);
+                send_JSON($user["idMeal"]);  // Gets all the users favourite recipes
             }
         }
-        $error = ["error" => "There are no liked recipes"];
+        $error = ["error" => "There are no liked recipes"];  // if there are no favourites
         send_JSON($error, 400);
     
     }

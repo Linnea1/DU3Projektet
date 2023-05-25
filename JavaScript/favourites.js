@@ -7,9 +7,9 @@ async function AddRecipesAsFavourite(event) {
         const recipe = event.target.parentElement;
         recipe.classList.toggle("liked");
 
-
         let parent = recipe.parentElement
         let idOfMeal = parent.dataset.id;
+
 
         if (recipe.classList.contains("liked")) {
             try {
@@ -28,6 +28,7 @@ async function AddRecipesAsFavourite(event) {
         }
     }
 }
+
 
 async function RemoveFavourite(recipe) {
     let parent = recipe.parentElement

@@ -90,12 +90,12 @@ async function renderRecipesAfterCategory(category) {
     try {
         const response = await fetch(`api/createRecipe.php?category=${category}`);
         const data = await response.json();
-        await renderRecipeBoxes(data);
+        await renderRecipeBoxes(data, false); ////////////kanske ta bort false som argument
         try {
             let response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
             let data = await response.json();
 
-            renderRecipeBoxes(data);
+            renderRecipeBoxes(data, false); ////////////kanske ta bort false som argument
         } catch (error) {
             popUp(error);
         }
@@ -121,24 +121,27 @@ async function searchDish(key, searchField) {
 
             let resourseOwnRecipe = await fetch(`api/fetchRecipesAndFavourites.php?ourOwnDatabase=${searchField}`);
             let dataOwnRecipe = await resourseOwnRecipe.json();
-            console.log(dataOwnRecipe);
 
             if (!dataOwnRecipe.error) {
 
                 let recipe = { meals: [dataOwnRecipe] }
-                renderRecipeBoxes(recipe);
+                renderRecipeBoxes(recipe, false); ////////////kanske ta bort false som argument
             }
 
+        } catch (error) {
+            popUp(error);
+        }
+        try {
             let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchField}`);
             let data = await response.json();
 
-            renderRecipeBoxes(data);
+            renderRecipeBoxes(data, false); ////////////kanske ta bort false som argument
 
             goBack();
 
 
-        } catch (e) {
-            popUp(e);
+        } catch (error) {
+            popUp(error);
         }
     }
 }
@@ -146,80 +149,113 @@ async function searchDish(key, searchField) {
 
 
 //Creating the recipes
-async function renderRecipeBoxes(data) {
-    const divRecipes = document.querySelector(".recipes");
+async function renderRecipeBoxes(data, e) { ////////////kanske ta bort e som argument
 
-    let listOfIds = [];
-    let listOfRatings;
-    for (let i = 0; i < data.meals.length; i++) {
-        const meal = data.meals[i];
-        listOfIds.push(meal.idMeal)
-        // Perform actions with each meal object
-    }
-    try {
-        console.log(listOfIds)
-        const requestBody = {
-            listOfIds,
-        };
-        let response = await fetching("api/ratings.php", "POST", requestBody);
-        let data = await response.json();
-        listOfRatings = data;
-        console.log(listOfRatings);
-    } catch (error) {
-        // Handle error
-    }
+    if (data.meals === null) {
+        document.querySelector("#loading").classList.add("hidden");
+        console.log("null");
+        popUp("Could not find a matching recipe to your input");
 
-    for (const recipeName in data.meals) {
-        const recipe = data.meals[recipeName];
-        const recipeDiv = document.createElement("div");
-        recipeDiv.dataset.id = data.id;
+    } else {
+        const divRecipes = document.querySelector(".recipes");
 
-        recipeDiv.classList.add("recipe");
+        let listOfIds = [];
+        let listOfRatings;
+        for (let i = 0; i < data.meals.length; i++) {
+            const meal = data.meals[i];
+            listOfIds.push(meal.idMeal)
+            // Perform actions with each meal object
+        }
+        try {
+            console.log(listOfIds)
+            const requestBody = {
+                listOfIds,
+            };
+            let response = await fetching("api/ratings.php", "POST", requestBody);
+            let data = await response.json();
+            listOfRatings = data;
+            console.log(listOfRatings);
+        } catch (error) {
+            // Handle error
+        }
 
-        recipeDiv.innerHTML = `
-            <h2>${recipe.strMeal}</h2>
-            <div id="liker" class="${await checkLiked(recipe.idMeal) ? 'liked' : 'false'}">
+        for (const recipeName in data.meals) {
+            const recipe = data.meals[recipeName];
+            const recipeDiv = document.createElement("div");
+            recipeDiv.dataset.id = recipe.idMeal;
+
+            recipeDiv.classList.add("recipe");
+
+            if (e === false) {   /// ta kanske bort detta, ingen if-sats
+
+                recipeDiv.innerHTML = `
+                <h2>${recipe.strMeal}</h2>
+                <div id="liker" class="${await checkLiked(recipe.idMeal) ? 'liked' : 'false'}">
                 <button id="first"></button>
-                <button id="second"></button>
-            <div>
-                <img src="${recipe.strMealThumb}"> 
-            </div>
-            <div id="rating-container">
-                <span class="stars" id="stars1"></span>
-                <span class="stars" id="stars2"></span>
-                <span class="stars" id="stars3"></span>
-                <span class="stars" id="stars4"></span>
-                <span class="stars" id="stars5"></span>
-            </div>
-        `;
+                 <button id="second"></button>
+                 <div>
+                <div>
+                    <img src="${recipe.strMealThumb}"> 
+                </div>
+                <div id="rating-container">
+                    <span class="stars" id="stars1"></span>
+                    <span class="stars" id="stars2"></span>
+                    <span class="stars" id="stars3"></span>
+                    <span class="stars" id="stars4"></span>
+                    <span class="stars" id="stars5"></span>
+                </div>
+                `;
 
-        divRecipes.append(recipeDiv);
-        recipeDiv.dataset.id = recipe.idMeal;
+                recipeDiv.querySelector("#first").addEventListener("click", AddRecipesAsFavourite);
+                recipeDiv.querySelector("#second").addEventListener("click", AddRecipesAsFavourite); ////// kanske ta bort om det blir dåligt
 
-        recipeDiv.querySelector("#first").addEventListener("click", AddRecipesAsFavourite);
-        recipeDiv.querySelector("#second").addEventListener("click", AddRecipesAsFavourite);
-        recipeDiv.addEventListener("click", e => {
-            newState();
-            renderRecipe(data.meals[recipeName])
-        });
-
-        const filledStars = Math.round(listOfRatings[recipeName]);
-
-        for (let i = 1; i <= 5; i++) {
-            const star = recipeDiv.querySelector(`#stars${i}`);
-            if (i <= filledStars) {
-                star.classList.remove('empty');
             } else {
-                star.classList.add('empty');
+                recipeDiv.innerHTML = `
+                <h2>${recipe.strMeal}</h2>
+                <div>
+                    <img src="${recipe.strMealThumb}"> 
+                </div>
+                <div id="rating-container">
+                    <span class="stars" id="stars1"></span>
+                    <span class="stars" id="stars2"></span>
+                    <span class="stars" id="stars3"></span>
+                    <span class="stars" id="stars4"></span>
+                    <span class="stars" id="stars5"></span>
+                </div>
+                `;
+            }
+
+            divRecipes.append(recipeDiv);
+            recipeDiv.dataset.id = recipe.idMeal;
+
+
+            recipeDiv.addEventListener("click", e => {
+                // newState();
+                renderRecipe(data.meals[recipeName])
+            });
+            divRecipes.append(recipeDiv);
+            recipeDiv.dataset.id = recipe.idMeal;
+
+
+            const filledStars = Math.round(listOfRatings[recipeName]);
+
+            for (let i = 1; i <= 5; i++) {
+                const star = recipeDiv.querySelector(`#stars${i}`);
+                if (i <= filledStars) {
+                    star.classList.remove('empty');
+                } else {
+                    star.classList.add('empty');
+                }
             }
         }
     }
+
     document.querySelector("#loading").classList.add("hidden");
 }
 
-async function usersFavoriteRecipes(data) {
-    const divRecipes = document.querySelector(".recipes");
+async function usersFavoriteRecipes(data, e) {   /// ta kanske bort e som argument
 
+    const divRecipes = document.querySelector(".recipes");
     divRecipes.innerHTML = "";
 
     let listOfIds = [];
@@ -230,14 +266,13 @@ async function usersFavoriteRecipes(data) {
         // Perform actions with each meal object
     }
     try {
-        console.log(listOfIds)
         const requestBody = {
             listOfIds,
         };
         let response = await fetching("api/ratings.php", "POST", requestBody);
         let data = await response.json();
         listOfRatings = data;
-        console.log(listOfRatings);
+
     } catch (error) {
         // Handle error
     }
@@ -248,13 +283,33 @@ async function usersFavoriteRecipes(data) {
         recipeDiv.dataset.id = data.id;
         recipeDiv.classList.add("recipe");
 
-        recipeDiv.innerHTML = `
-            <h2>${recipe.strMeal}</h2>
-            <div id="liker" class="${await checkLiked(recipe.idMeal) ? 'liked' : 'false'}">
+        if (e === false) {                             /// ta kanske bort detta, ingen if-sats
+
+            recipeDiv.innerHTML = `
+                <h2>${recipe.strMeal}</h2>
+                <div id="liker" class="${await checkLiked(recipe.idMeal) ? 'liked' : 'false'}">
                 <button id="first"></button>
                 <button id="second"></button>
+                <div>
+                <div>
+                    <img src="${recipe.strMealThumb}">
+                </div>
+                <div id="rating-container">
+                    <span class="stars" id="stars1"></span>
+                    <span class="stars" id="stars2"></span>
+                    <span class="stars" id="stars3"></span>
+                    <span class="stars" id="stars4"></span>
+                    <span class="stars" id="stars5"></span>
+                </div>
+                `;
+
+            recipeDiv.querySelector("#first").addEventListener("click", AddRecipesAsFavourite);
+            recipeDiv.querySelector("#second").addEventListener("click", AddRecipesAsFavourite);  /// Detta kanske ska ner
+        } else {   /// Hela delen i else kan behöva tas bort
+            recipeDiv.innerHTML = `
+            <h2>${recipe.strMeal}</h2>
             <div>
-                <img src="${recipe.strMealThumb}">
+                <img src="${recipe.strMealThumb}"> 
             </div>
             <div id="rating-container">
                 <span class="stars" id="stars1"></span>
@@ -263,13 +318,14 @@ async function usersFavoriteRecipes(data) {
                 <span class="stars" id="stars4"></span>
                 <span class="stars" id="stars5"></span>
             </div>
-        `;
+            `;
+        }
+
 
         divRecipes.append(recipeDiv);
         recipeDiv.dataset.id = recipe.idMeal;
 
-        recipeDiv.querySelector("#first").addEventListener("click", AddRecipesAsFavourite);
-        recipeDiv.querySelector("#second").addEventListener("click", AddRecipesAsFavourite);
+
         recipeDiv.addEventListener("click", e => {
             renderRecipe(data.meals[recipeName])
         });

@@ -291,5 +291,21 @@
         "rating": "5",
         "comment": "hej",
         "pfp": "api\/data\/pictures\/pfp\/1684935662.jpeg"
+    },
+    {
+        "recipeId": "52878",
+        "author": "[DELETED USER]",
+        "timestamp": "24-05-2023 18:10",
+        "rating": "2",
+        "comment": "A bit dry",
+        "deleted": true
+    },
+    {
+        "recipeId": "52965",
+        "author": "ballong",
+        "timestamp": "24-05-2023 19:11",
+        "rating": "5",
+        "comment": "The best ",
+        "pfp": "api\/data\/pictures\/pfp\/1684846738.jpeg"
     }
 ]
