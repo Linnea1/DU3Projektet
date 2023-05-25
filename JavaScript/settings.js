@@ -97,17 +97,17 @@ function renderSettings() {
     passwordButton.addEventListener("click", changePassword); // "change password"
     fileForm.addEventListener("submit", changePfp); // change pfp
 
-    async function change(body, URL, method, select) {
+    async function change(body, URL, method, select, newValue) {
         try {
             let response = await fetching(URL, method, body);
             let data = await response.json();
 
             if (response.status == 200) {
                 let storage = JSON.parse(localStorage.getItem("user"));
-                storage[select] = data;
+                storage[select] = newValue;
                 localStorage.setItem("user", JSON.stringify(storage));
 
-                popUp("Successfully changed!");
+                popUp(data.message);
 
                 document.querySelector("#popUpBackground").addEventListener("click", backToProfile);
                 document.querySelector(".OK").addEventListener("click", backToProfile);
@@ -134,11 +134,11 @@ function renderSettings() {
         } else {
             let body = {
                 username: JSON.parse(localStorage.getItem("user")).username,
-                new: newUsername.value,
+                new_username: newUsername.value,
                 password: JSON.parse(localStorage.getItem("user")).password
             };
 
-            await change(body, "api/settings.php", "PATCH", "username");
+            await change(body, "api/settings.php", "PATCH", "username", newUsername.value);
         }
     }
 
@@ -148,11 +148,11 @@ function renderSettings() {
         } else {
             let body = {
                 email: JSON.parse(localStorage.getItem("user")).email,
-                new: newEmail.value,
+                new_email: newEmail.value,
                 password: JSON.parse(localStorage.getItem("user")).password
             };
 
-            await change(body, "api/settings.php", "PATCH", "email");
+            await change(body, "api/settings.php", "PATCH", "email", newEmail.value);
         }
     }
 
@@ -161,13 +161,12 @@ function renderSettings() {
             popUp("Please do not leave any empty fields");
         } else {
             let body = {
-                old: oldPassword.value,
-                new: newPassword.value,
-                password: JSON.parse(localStorage.getItem("user")).password,
+                password: oldPassword.value,
+                new_password: newPassword.value,
                 username: JSON.parse(localStorage.getItem("user")).username
             };
 
-            await change(body, "api/settings.php", "PATCH", "password");
+            await change(body, "api/settings.php", "PATCH", "password", newPassword.value);
         }
     }
 

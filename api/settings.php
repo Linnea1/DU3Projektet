@@ -20,21 +20,20 @@ $input = json_decode(file_get_contents("php://input"), true);
 
 if($_SERVER["REQUEST_METHOD"] == "PATCH"){
 
-    if (isset($input["old"], 
-                $input["new"],
-                $input["password"], 
+    if (isset($input["password"], 
+                $input["new_password"], 
                 $input["username"])){
         change($input, $users, $filename, "password", "username"); // change password
     }
 
     if (isset($input["username"], 
-                $input["new"], 
+                $input["new_username"], 
                 $input["password"])){
         change($input, $users, $filename, "username"); // change username
     }
 
     if (isset($input["email"], 
-                $input["new"], 
+                $input["new_email"], 
                 $input["password"])){
         change($input, $users, $filename, "email"); // change email
     }
@@ -98,7 +97,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     }
 
                     changePfp($comments, "author", "data/comments.json", $correctName);
-                    // changeUsername($recipes, "data/recipes.json", $input);
                     ////
 
                     send_JSON($filePath . $name);
@@ -107,6 +105,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
 
             }
+            send_JSON(["message"=>"Problems with finding user"], 400);
         }
 
     }

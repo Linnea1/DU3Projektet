@@ -126,7 +126,7 @@
     },
     {
         "recipeId": "53071",
-        "author": "test",
+        "author": null,
         "timestamp": "22-05-2023 13:17",
         "rating": "5",
         "comment": "hall\u00e5!",
@@ -198,7 +198,7 @@
     },
     {
         "recipeId": "x_646c9febefc0f",
-        "author": "test",
+        "author": null,
         "timestamp": "23-05-2023 13:46",
         "rating": "5",
         "comment": "wow",
@@ -206,7 +206,7 @@
     },
     {
         "recipeId": "53000",
-        "author": "test",
+        "author": null,
         "timestamp": "24-05-2023 09:39",
         "rating": "3",
         "comment": "test",
@@ -310,7 +310,7 @@
     },
     {
         "recipeId": "x_646c80bec4147",
-        "author": "test",
+        "author": null,
         "timestamp": "25-05-2023 10:17",
         "rating": "1",
         "comment": "HEJ!",
