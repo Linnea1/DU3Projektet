@@ -18,6 +18,9 @@ $json = file_get_contents($filename);
 $data = json_decode($json, true);
 $method = $_SERVER["REQUEST_METHOD"];
 
+$requestJSON = file_get_contents("php://input");
+$requestDATA = json_decode($requestJSON,true);
+
 if ($method == "GET") {
 
     if (isset($_GET["idMeal"],$_GET["user"])) { // checks if the keys exists
@@ -108,8 +111,6 @@ if ($method == "GET") {
 
 if ($method == "POST") {
 
-    $requestJSON = file_get_contents("php://input");
-    $requestDATA = json_decode($requestJSON,true);
     
     $username = $requestDATA['username']; // take out the two keys that are sent in the request
     $idMeal = $requestDATA['idMeal'];
@@ -136,6 +137,7 @@ if ($method == "POST") {
         "username" => $username,
         "idMeal" => [$idMeal],
     ];
+
     $data[] = $newUser;
     $json = json_encode($data, JSON_PRETTY_PRINT);
     file_put_contents($filename, $json); //update the databse and send back the user as response
@@ -143,30 +145,25 @@ if ($method == "POST") {
         
 }
 
+
 if ($method == "DELETE") {
-    
-    $requestJSON = file_get_contents("php://input");
-    $requestDATA = json_decode($requestJSON,true);
 
-    $username = $requestDATA["username"];  // take out the two keys and their value
-    $idMeal = $requestDATA["idMeal"];
-    // $userExists = false;
-    
-    foreach ($data as &$user) {
-        if ($user['username'] == $username) { // if the user does exist in favourites.json
 
-            foreach($user["idMeal"] as $index => $value){
-                if ($value == $idMeal) { // find the matching recipe 
-                    array_splice($user["idMeal"], $index, 1); // delete it
+    $username = $requestDATA["username"]; // take out the two keys and their value
+    $idMeal = $requestDATA["idMeal"];   // take out the two keys and their value
+
+    foreach ($data as $userIndex => $user) {
+        if ($user['username'] == $username) {  // if the user does exist in favourites.json
+            foreach ($user["idMeal"] as $mealIndex => $value) {
+                if ($value == $idMeal) {
+                    array_splice($data[$userIndex]["idMeal"], $mealIndex, 1);    // delete it
                     $json = json_encode($data, JSON_PRETTY_PRINT);
-                    file_put_contents($filename, $json); // update the code and send back the whole user
+                    file_put_contents($filename, $json);  // update the code and send back the whole user
                     send_JSON($user);
                 }
             }
-            
         }
     }
-
 }
 
 ?>
