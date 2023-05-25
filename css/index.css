@@ -9,6 +9,11 @@
     color: var(--brown);
 }
 
+@font-face {
+    font-family: Caveat;
+    src: url("/css/fonts/Caveat/Caveat-VariableFont_wght.ttf");
+}
+
 body {
     margin: 0px;
     display: flex;
@@ -106,8 +111,22 @@ footer {
     margin-top: auto;
 }
 
-.recepie {
-    background-color: beige;
+.recipe {
+    /* background-color: beige; */
+    background-color: #efc571;
+    /* position: relative; */
+    /* background-color: #fbd78e; */
+    margin: 10px 0px;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.recipe:hover {
+    background-color: #e8d6b1;
+}
+
+.recipe>h2 {
+    font-family: Caveat;
 }
 
 img {

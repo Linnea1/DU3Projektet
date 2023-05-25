@@ -2,6 +2,15 @@
     width: 100%;
 }
 
+/* .recipes:nth-child(even) {
+}
+
+.recipes:nth-child(odd) {
+} */
+.odd.recipe {
+    background-color: skyblue;
+}
+
 .recipe {
     position: relative;
     background-color: #fbd78e;
@@ -11,9 +20,10 @@
     /* border: 1px solid gray; */
 }
 
+/* 
 .recipe>h2 {
     font-size: 15px;
-}
+} */
 
 .recipe:hover {
     /* background-color: rgb(186, 242, 237);
