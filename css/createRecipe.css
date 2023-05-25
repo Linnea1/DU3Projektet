@@ -6,12 +6,22 @@ form{
     display: flex;
     flex-direction: column;
 }
-#ingredients{
 
-}
 input{
     margin: 0%;
 }
+
 select{
     margin-bottom: 15px;
+}
+
+.goBack {
+    background-image: url("/icons/pil.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 40px;
+    width: 45px;
+    border-radius: 10px;
+    border: none;
+
 }
