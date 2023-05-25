@@ -288,3 +288,15 @@ input {
     border: none;
 
 }
+
+
+#pfp {
+    height: 50px;
+    width: 50px;
+    background-size: contain;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 50px;
+    align-self: center;
+
+}
