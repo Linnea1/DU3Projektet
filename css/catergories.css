@@ -16,7 +16,7 @@
 
 .category {
     width: auto;
-    background-color: white;
+    color: white;
     margin: 10px;
     height: 50px;
     display: flex;
@@ -25,8 +25,6 @@
     border-radius: 10px;
     font-weight: bolder;
     font-size: 15px;
-    border: 1px solid gray;
-
 }
 
 .category:hover {
@@ -35,9 +33,50 @@
     border: 1px solid black;
 }
 
-/**/
+#sticky {
+    position: sticky;
+    top: 0;
+    /* top 0 av margin, inte wrapper */
+    margin: -20px;
+    display: flex;
+    align-items: stretch;
+    height: 50px;
+    background-color: fuchsia;
+}
 
-/* h2 {
-    background-color: aqua;
-    padding: 5px;
-} */
+.stars {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url('/icons/star-filled.png'); /* Replace with your filled star image */
+    background-size: cover;
+}
+  
+.stars.empty {
+    background-image: url('/icons/star.png'); /* Replace with your empty star image */
+}
+
+.background1 {
+background-image: url(/icons/Background1.png);
+background-size: cover;
+background-position: center;
+}
+
+.background2 {
+background-image: url(/icons/Background2.png);
+background-size: cover;
+background-position: center;
+}
+
+.background3 {
+background-image: url(/icons/Background3.png);
+}
+
+.background4 {
+background-image: url(/icons/Background4.png);
+background-size: cover;
+background-position: center;
+}
+
+main{}
+  
