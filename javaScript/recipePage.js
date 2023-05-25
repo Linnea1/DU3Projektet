@@ -32,8 +32,9 @@ async function renderRecipe(recipe) {
                 });
             }
         }
-        basicHeader();
 
+        swapStyleSheet("css/comments.css");
+        basicHeader();
         main.innerHTML = `
             
             <button class="goBack">Go Back</button>

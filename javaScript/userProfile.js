@@ -7,7 +7,7 @@ async function RenderUserPage(userInfo) {
     } else {
         currentState(`RenderUserPage(${JSON.stringify(userInfo)})`);
 
-
+        swapStyleSheet("css/profile.css");
         main.innerHTML = `
             <button class="goBack">Go Back</button>
             <button class="hidden" id="settings">Settings</button>

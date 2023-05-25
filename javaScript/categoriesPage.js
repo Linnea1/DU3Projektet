@@ -82,6 +82,7 @@ async function renderRecipesAfterCategory(category) {
     // let category = event.target.textContent;
     currentState(`renderRecipesAfterCategory(${JSON.stringify(category)})`);
 
+    swapStyleSheet("css/recipes.css");
     basicHeader();
 
     main.innerHTML = `

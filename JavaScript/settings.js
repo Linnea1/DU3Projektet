@@ -1,6 +1,7 @@
 function renderSettings() {
     currentState("renderSettings()");
 
+    swapStyleSheet("css/settings.css");
     document.querySelector("header").innerHTML = `
         <div id="menu" onclick="">
             <div class="menuPart"></div>
