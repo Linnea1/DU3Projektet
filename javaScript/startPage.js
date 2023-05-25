@@ -8,6 +8,7 @@ function renderStartPage() {
         }))
     }
 
+    swapStyleSheet("css/start.css");
     document.querySelector("header").innerHTML = `
         <header>
             <div class=image></div>

@@ -36,10 +36,18 @@ h2 {
 button {
     border-radius: 50px;
     font-weight: bold;
-    color: #f9f1eb;
+    color: rgb(247, 233, 223);
     border: none;
 
     transition: box-shadow 0.2s;
+}
+
+button:hover {
+    color: #f6e9e0;
+}
+
+button:active {
+    color: #f9f1eb;
 }
 
 #login {

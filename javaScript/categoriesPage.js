@@ -5,8 +5,8 @@ async function renderCategoriesPage() {
 
     currentState("renderCategoriesPage()");
 
+    swapStyleSheet("css/catergories.css");
     basicHeader();
-
     main.innerHTML = `
         <div class="info">
             <h2>What kind of recepie are you looking for?</h2>
