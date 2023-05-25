@@ -17,8 +17,8 @@ function renderStartPage() {
     main.innerHTML = `
         <h2>Welcome to YumYumClub</h2>
         <p id=message></p>
-        <button onclick="renderLoginPage()">Login</button>
-        <button onclick="renderRegisterPage()">Register</button> 
-        <button onclick="renderCategoriesPage()">Continue as Guest</button>  
+        <button id="login" onclick="renderLoginPage()">Login</button>
+        <button id="register" onclick="renderRegisterPage()">Register</button> 
+        <button id="guest" onclick="renderCategoriesPage()">Continue as Guest</button>  
     `;
 }

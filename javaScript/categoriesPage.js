@@ -6,14 +6,21 @@ async function renderCategoriesPage() {
 
 
     document.querySelector("header").innerHTML = `
-    <div id="menu" onclick="">
-    <div class="menuPart"></div>
-    <div class="menuPart"></div>
-    <div class="menuPart"></div>
-    </div>  
+    <div id="testt" class="closed">
+        <div id="menu" onclick="">
+            <div class="menuPart"></div>
+            <div class="menuPart"></div>
+            <div class="menuPart"></div>
+        </div>  
+    </div>
     <div class="nameOfApplication"> The YumYumClub </div>
     <div id="profilePicture" class="icon"></div>
     `;
+    document.querySelector("#menu").addEventListener("click", e => {
+        document.querySelector("#menu").classList.toggle("spin")
+        document.querySelector("#testt").classList.toggle("test")
+        document.querySelector("#testt").classList.toggle("closed")
+    });
 
     if (user.guest) {
         document.querySelector("#profilePicture").removeAttribute("style", "");

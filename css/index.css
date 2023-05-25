@@ -1,5 +1,6 @@
 * {
     font-family: Arial, Helvetica, sans-serif;
+    color: #41000d
 }
 
 body {
@@ -11,7 +12,7 @@ body {
 }
 
 #wrapper {
-    background-color: lightpink;
+    background-color: #f9f1eb;
     height: 600px;
     display: flex;
     flex-direction: column;
@@ -62,17 +63,16 @@ header {
     height: 4px;
     width: 40px;
     margin: 8px 0px;
-    background-color: black;
+    background-color: #41000d;
 }
 
 .image {
     background-image: url("../icons/test-01.png");
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
     background-size: contain;
     border-radius: 50px;
     text-align: center;
-    border: 1px solid black;
 }
 
 h2 {
@@ -94,8 +94,6 @@ button {
     font-size: 16px;
     padding: 10px;
     width: 90%;
-    border-radius: 10px;
-    border: 1px solid black;
 }
 
 footer {
@@ -140,4 +138,65 @@ img {
 
 .hidden {
     display: none !important;
+}
+
+/* :) /////////////// */
+
+
+
+input {
+    border: none;
+}
+
+#menu {
+    transition: transform 1s;
+}
+
+.spin {
+    transform: rotate(90deg);
+    position: absolute;
+    right: 10px;
+}
+
+#testt {
+    /* animation-name: example;
+    animation-duration: 1s;
+    animation-direction: reverse; */
+
+
+}
+
+.test {
+    display: block;
+    animation-name: example;
+    animation-duration: 1s;
+    position: absolute;
+    background-color: #f9f1eb;
+    width: 250px;
+    height: 600px;
+
+    /* box-shadow: 10px 0px 10px #41000d; */
+    /* 
+    animation-name: example;
+    animation-duration: 1s;
+    animation-direction: reverse; */
+}
+
+/* .closed {
+    animation-name: example;
+    animation-direction: reverse;
+    animation-duration: 1s;
+
+    transform: translateX(0%);
+    transition: transform 1s ease;
+} */
+
+@keyframes example {
+    0% {
+        width: 0px;
+    }
+
+    100% {
+        width: 250px;
+    }
 }
