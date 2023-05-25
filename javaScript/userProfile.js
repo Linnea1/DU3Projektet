@@ -42,16 +42,16 @@ async function RenderUserPage(userInfo) {
 
         document.querySelector(".create_recipe").addEventListener("click", e => {
             newState();
-            renderCreateRecipe()
+            renderCreateRecipe();
         });
         try {
             if (userInfo.username === user.username) {
 
                 document.querySelector("header").innerHTML = `
                 <div id="menu" onclick="">
-                <div class="menuPart"></div>
-                <div class="menuPart"></div>
-                <div class="menuPart"></div>
+                    <div class="menuPart"></div>
+                    <div class="menuPart"></div>
+                    <div class="menuPart"></div>
                 </div>  
                 <div class="nameOfApplication"> The YumYumClub </div>
                 `;
@@ -65,7 +65,6 @@ async function RenderUserPage(userInfo) {
                 document.querySelector(".favorites").addEventListener("click", e => {
                     favoriteRecipes(e, user.username, true)////// kanske ta bort false som argument
                     e.stopPropagation();
-
                 });
 
             } else {
