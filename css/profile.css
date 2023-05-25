@@ -3,9 +3,19 @@
     src: url("/css/fonts/Caveat/Caveat-VariableFont_wght.ttf");
 }
 
-#wrapper {
+/* #wrapper {
+    background-color: var(--beige);
+    max-height: 650px;
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    overflow: scroll;
+    margin: 20px;
     background-image: url("/icons/Leaves.png");
-}
+} */
 
 .icon {
     height: 150px;
