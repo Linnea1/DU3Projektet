@@ -19,35 +19,26 @@ h2 {
     background-size: 20px 20px;
 }
 
-/* header {
-    height: 150px;
-    border-radius: 20px;
-
+header {
     display: flex;
     justify-content: center;
-    align-items: center;
-
-    background-color: #e5e5f7;
-    opacity: 0.8;
-    background-image: linear-gradient(#444cf7 1px, transparent 1px), linear-gradient(to right, #444cf7 1px, #e5e5f7 1px);
-    background-size: 20px 20px;
-} */
+}
 
 button {
     border-radius: 50px;
     font-weight: bold;
-    color: rgb(247, 233, 223);
+    color: var(--brown);
     border: none;
 
     transition: box-shadow 0.2s;
 }
 
 button:hover {
-    color: #f6e9e0;
+    color: var(--beige);
 }
 
 button:active {
-    color: #f9f1eb;
+    color: var(--beige)
 }
 
 #login {

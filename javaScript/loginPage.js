@@ -8,7 +8,7 @@ function renderLoginPage() {
             <input type=password id=password placeholder=Password>
             <button id=login type=submit>Login</button>
         </form>
-        <button id=register>New to this? Sign up for free</button>
+        <button id=register>New to this?</br>Sign up for free</button>
     `;
 
     // go to register
