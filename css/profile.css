@@ -3,12 +3,15 @@
     src: url("/css/fonts/Caveat/Caveat-VariableFont_wght.ttf");
 }
 
+#wrapper {
+    background-image: url("/icons/Leaves.png");
+}
+
 .icon {
     height: 150px;
     width: 150px;
     border-radius: 50%;
     background-color: rgba(228, 230, 231, 255);
-
     background-image: url(../icons/blank-face-test.webp);
     background-position: center;
     background-size: cover;
@@ -34,11 +37,6 @@
     transition-duration: 1s;
 }
 
-/* .columns>*:hover {
-    color: rgb(81, 65, 65); */
-/* transition-property: "background-color"; */
-/* transition-duration: 1s; */
-/* } */
 
 .userInfo {
     display: flex;
@@ -47,10 +45,6 @@
     align-items: center;
 }
 
-/* .userInfo>h2 {
-    font-family: Caveat;
-
-} */
 
 .red {
     color: red;
@@ -63,7 +57,6 @@
     border-radius: 10px;
     padding: 10px;
     margin: 10px 0px;
-    /* transition-property: "background-color"; */
     transition-property: background-color;
     transition-duration: 1s;
 }
@@ -100,11 +93,8 @@
     background-repeat: no-repeat;
     height: 40px;
     width: 45px;
-    /* margin: 0px;
-    margin-left: 0px; */
     border-radius: 10px;
     border: none;
-    /* margin-left: -50px; */
 
 }
 
@@ -114,8 +104,7 @@
     width: 135px;
     border-radius: 40px;
     background-color: white;
-    border: 2px solid #3dd8d2;
-    /* margin-right: 20px; */
+    border: 2px solid #f9748b;
     transition-property: background-color;
     transition-duration: 1s;
 }
@@ -126,7 +115,6 @@
     cursor: pointer;
 }
 
-/* #f9768c, #ff8fa1 */
 .chosen {
     background-color: #f9748b;
     color: white;
