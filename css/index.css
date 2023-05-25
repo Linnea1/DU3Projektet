@@ -1,6 +1,12 @@
 * {
+    --brown: #41000d;
+    --yellow: #fbd78e;
+    --red: #f9748b;
+    --blue: #3dd8d2;
+    --beige: #f9f1eb;
+
     font-family: Arial, Helvetica, sans-serif;
-    color: #41000d
+    color: var(--brown);
 }
 
 body {
@@ -12,7 +18,7 @@ body {
 }
 
 #wrapper {
-    background-color: #f9f1eb;
+    background-color: var(--beige);
     height: 600px;
     display: flex;
     flex-direction: column;
@@ -109,6 +115,12 @@ img {
     border-radius: 10px;
 }
 
+.icon {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
 #popUp {
     position: absolute;
     min-height: 640px;
@@ -199,4 +211,31 @@ input {
     100% {
         width: 250px;
     }
+}
+
+#loading {
+    position: absolute;
+    min-height: 640px;
+    width: 340px;
+    margin: -20px;
+    z-index: 3;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#loading>img {
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+#loading>div {
+    position: absolute;
+    background-color: white;
+
+    opacity: 30%;
+    height: 100%;
+    width: 100%;
 }

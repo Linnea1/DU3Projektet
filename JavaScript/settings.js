@@ -15,21 +15,29 @@ function renderSettings() {
     main.innerHTML = `
         <button class="goBack">Go Back</button>
         <div id="settings">
-            <form id="upload">
-                <label for="pfp">Change profile picture</label>
-                <input type="file" name="pfp">
-                <button type="submit">Upload</button>
-            </form>
+            <div>
+                <form id="upload">
+                    <label for="pfp">Change profile picture</label>
+                    <input type="file" name="pfp">
+                    <button type="submit">Upload</button>
+                </form>
+            </div>
             
-            <label for="email">Change email</label>
-            <input type="text" placeholder="New email" name="email">
+            <div>
+                <label for="email">Change email</label>
+                <input type="text" placeholder="New email" name="email">
+            </div>
 
-            <label for="username">Change username</label>
-            <input type="text" placeholder="New username" name="username" autocomplete="off">
+            <div>
+                <label for="username">Change username</label>
+                <input type="text" placeholder="New username" name="username" autocomplete="off">
+            </div>
         
-            <label for="password">Change password</label>
-            <input type="password" placeholder="Old password" name="passwordold" autocomplete="off">
-            <input type="password" placeholder="New password" name="passwordnew">
+            <div>
+                <label for="password">Change password</label>
+                <input type="password" placeholder="Old password" name="passwordold" autocomplete="off">
+                <input type="password" placeholder="New password" name="passwordnew">
+            </div>
             
             <p class="red">Delete account</p>
         </div>
