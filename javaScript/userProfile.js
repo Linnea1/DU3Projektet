@@ -60,9 +60,13 @@ async function RenderUserPage(userInfo) {
                 const response = await fetch(`api/createRecipe.php?author=${user.username}`);
                 const data = await response.json();
                 usersFavoriteRecipes(data, true);////// kanske ta bort false som argument
-                document.querySelector("#own_recipe").addEventListener("click", e => { usersFavoriteRecipes(data, true) });////// kanske ta bort false som argument
+                document.querySelector("#own_recipe").addEventListener("click", e => {
+                    document.querySelector("#loading").classList.remove("hidden");
+                    usersFavoriteRecipes(data, true)
+                });////// kanske ta bort false som argument
 
                 document.querySelector(".favorites").addEventListener("click", e => {
+                    document.querySelector("#loading").classList.remove("hidden");
                     favoriteRecipes(e, user.username, true)////// kanske ta bort false som argument
                     e.stopPropagation();
 
@@ -76,9 +80,13 @@ async function RenderUserPage(userInfo) {
                 const data = await response.json();
                 usersFavoriteRecipes(data, false);   ////// kanske ta bort false som argument
 
-                document.querySelector("#own_recipe").addEventListener("click", e => { usersFavoriteRecipes(data, false) });///// kanske ta e som argument
+                document.querySelector("#own_recipe").addEventListener("click", e => {
+                    document.querySelector("#loading").classList.remove("hidden");
+                    usersFavoriteRecipes(data, false)
+                });///// kanske ta e som argument
 
                 document.querySelector(".favorites").addEventListener("click", e => {
+                    document.querySelector("#loading").classList.remove("hidden");
                     favoriteRecipes(e, userInfo.username, false)   ///// kanske ta bort false som argument
                     e.stopPropagation();
 
@@ -90,7 +98,6 @@ async function RenderUserPage(userInfo) {
             popUp(error);
         }
     }
-    document.querySelector("#loading").classList.add("hidden");
 }
 
 

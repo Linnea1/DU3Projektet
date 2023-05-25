@@ -353,5 +353,5 @@ async function usersFavoriteRecipes(data, e) {   /// ta kanske bort e som argume
             }
         }
     }
-
+    document.querySelector("#loading").classList.add("hidden");
 }

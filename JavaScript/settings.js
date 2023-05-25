@@ -15,28 +15,32 @@ function renderSettings() {
     main.innerHTML = `
         <button class="goBack">Go Back</button>
         <div id="settings">
-            <div>
-                <form id="upload">
-                    <label for="pfp">Change profile picture</label>
-                    <input type="file" name="pfp">
+            <div id="pfpHolder">
+                <form id="uploadPfp">
+                    <p>Change profile picture</p>
+                    <input type="file" id="pfp" name="pfp">
+                    <label for="pfp">Choose a file...</label>
                     <button type="submit">Upload</button>
                 </form>
             </div>
             
-            <div>
-                <label for="email">Change email</label>
+            <div id="emailHolder">
+                <p>Change email</p>
                 <input type="text" placeholder="New email" name="email">
+                <button>Upload</button>
             </div>
 
-            <div>
-                <label for="username">Change username</label>
+            <div id="usernameHolder">
+                <p>Change username</p>
                 <input type="text" placeholder="New username" name="username" autocomplete="off">
+                <button>Upload</button>
             </div>
         
-            <div>
-                <label for="password">Change password</label>
+            <div id="passwordHolder">
+                <p>Change password</p>
                 <input type="password" placeholder="Old password" name="passwordold" autocomplete="off">
                 <input type="password" placeholder="New password" name="passwordnew">
+                <button>Upload</button>
             </div>
             
             <p class="red">Delete account</p>
@@ -48,7 +52,16 @@ function renderSettings() {
     let newEmail = main.querySelector('input[name="email"]');
     let newPassword = main.querySelector('input[name="passwordnew"]');
     let oldPassword = main.querySelector('input[name="passwordold"]');
-    let fileForm = main.querySelector("#upload");
+
+    let emailButton = main.querySelector("#emailHolder > button");
+    let usernameButton = main.querySelector("#usernameHolder > button");
+    let passwordButton = main.querySelector("#passwordHolder > button");
+
+    let fileForm = main.querySelector("#uploadPfp");
+    let pfpInput = main.querySelector("#pfp");
+    let pfpLabel = main.querySelector("label");
+
+    pfpInput.addEventListener("click", e => { pfpLabel.classList.add("selected") });
 
     main.querySelector(".red").addEventListener("click", e => {
         document.querySelector("#popUpWindow").innerHTML = `
@@ -79,11 +92,10 @@ function renderSettings() {
         // complexPopUp("Are you sure", "Yes", "No", "deleteAccount()");
     }); // "delete account"
 
-    newUsername.addEventListener("keydown", changeUsername); // "change username"
-    newEmail.addEventListener("keydown", changeEmail); // "change username"
-    newPassword.addEventListener("keydown", changePassword); // "change username"
-    oldPassword.addEventListener("keydown", changePassword);
-    fileForm.addEventListener("submit", changePfp);
+    usernameButton.addEventListener("click", changeUsername); // "change username"
+    emailButton.addEventListener("click", changeEmail); // "change username"
+    passwordButton.addEventListener("click", changePassword); // "change password"
+    fileForm.addEventListener("submit", changePfp); // change pfp
 
     async function change(body, URL, method, select) {
         try {
@@ -117,7 +129,9 @@ function renderSettings() {
     }
 
     async function changeUsername(e) { // change username
-        if (e.key === "Enter") {
+        if (newUsername.value === "") {
+            popUp("Please do not leave an empty field");
+        } else {
             let body = {
                 username: JSON.parse(localStorage.getItem("user")).username,
                 new: newUsername.value,
@@ -129,7 +143,9 @@ function renderSettings() {
     }
 
     async function changeEmail(e) { // change email
-        if (e.key === "Enter") {
+        if (newEmail.value === "") {
+            popUp("Please do not leave an empty field");
+        } else {
             let body = {
                 email: JSON.parse(localStorage.getItem("user")).email,
                 new: newEmail.value,
@@ -141,7 +157,9 @@ function renderSettings() {
     }
 
     async function changePassword(e) { // change password
-        if (e.key === "Enter") {
+        if (newPassword.value === "" || oldPassword.value === "") {
+            popUp("Please do not leave any empty fields");
+        } else {
             let body = {
                 old: oldPassword.value,
                 new: newPassword.value,
@@ -183,7 +201,8 @@ function renderSettings() {
         }
         console.log(formData);
         if (main.querySelector('input[name="pfp"]').value === "") {
-            popUp("Please upload a file")
+            popUp("Please upload a file");
+            pfpLabel.classList.remove("selected");
         } else {
             const request = new Request("api/settings.php", {
                 method: "POST",
@@ -196,6 +215,7 @@ function renderSettings() {
 
                 if (data.message) {
                     popUp(data.message);
+                    pfpLabel.classList.remove("selected");
                 } else {
                     user.pfp = data;
                     localStorage.setItem("user", JSON.stringify(user));
