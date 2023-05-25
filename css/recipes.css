@@ -97,14 +97,17 @@ img {
     align-self: center;
 
 }
+
 .stars {
     display: inline-block;
     width: 20px;
     height: 20px;
-    background-image: url('/icons/star-filled.png'); /* Replace with your filled star image */
+    background-image: url('/icons/star-filled.png');
+    /* Replace with your filled star image */
     background-size: cover;
 }
-  
+
 .stars.empty {
-    background-image: url('/icons/star.png'); /* Replace with your empty star image */
+    background-image: url('/icons/star.png');
+    /* Replace with your empty star image */
 }

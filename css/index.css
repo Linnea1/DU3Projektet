@@ -277,3 +277,14 @@ input {
     height: 100%;
     width: 100%;
 }
+
+.goBack {
+    background-image: url("/icons/pil.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 40px;
+    width: 45px;
+    border-radius: 10px;
+    border: none;
+
+}

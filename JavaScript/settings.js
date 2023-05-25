@@ -13,7 +13,7 @@ function renderSettings() {
     document.querySelector("#menu").addEventListener("click", ShowMenu);
 
     main.innerHTML = `
-        <button class="goBack">Go Back</button>
+        <button class="goBack"></button>
         <div id="settings">
             <div id="pfpHolder">
                 <form id="uploadPfp">
