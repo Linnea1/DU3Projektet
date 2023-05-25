@@ -4,7 +4,8 @@ function renderCreateRecipe(event) {
     <button class="goBack"></button>
     <form id="form">
       <p id=message></p>
-      <label for="picture">Picture:</label>
+      <p>Picture:</p>
+      <label for="picture" id="pictureLabel">Choose a file...</label>
       <input type="file" id="picture" name="picture"><br>
 
       <label for="strMeal">Meal Name:</label>
@@ -61,12 +62,12 @@ function renderCreateRecipe(event) {
         </div>
       </div>
 
-      <button type="button" onclick="addIngredientGroup()">Add more ingredients</button>
+      <button id="add" onclick="addIngredientGroup()">Add more ingredients</button>
 
       <label for="strInstructions">Instructions:</label>
       <textarea id="strInstructions" name="strInstructions"></textarea><br><br>
 
-      <input type="submit" value="Submit">
+      <input class="submit" type="submit" value="Submit">
     </form>
   `;
   goBack();

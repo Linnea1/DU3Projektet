@@ -68,7 +68,7 @@ header {
 .nameOfApplication {
     font-size: 20px;
     padding: 10px 6px 0px 5px;
-    border: 1px solid black;
+    border: 1px solid var(--brown);
     /* height: auto; */
     margin: 0px 5px;
     border-radius: 10px;
@@ -97,6 +97,13 @@ header {
     text-align: center;
 }
 
+    {
+    font-size: 30px;
+}
+
+/* .userInfo>h2 {
+
+} */
 
 input {
     text-align: center;
@@ -105,7 +112,8 @@ input {
     margin: 10px;
     font-size: 16px;
     border-radius: 10px;
-    border: 1px solid black;
+
+    box-sizing: border-box;
 }
 
 button {
@@ -171,8 +179,23 @@ img {
 
 #popUpWindow {
     position: absolute;
-    background-color: white;
+    background-color: var(--beige);
     width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #41000d47;
+}
+
+#popUpWindow button {
+    border: 2px solid var(--brown);
+    border-radius: 5px;
+    background-color: var(--beige);
+
+    transition: 0.5s;
+}
+
+#popUpWindow button:hover {
+    background-color: var(--brown);
+    color: var(--beige);
 }
 
 .hidden {
