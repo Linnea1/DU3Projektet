@@ -221,6 +221,7 @@ function renderSettings() {
                     localStorage.setItem("user", JSON.stringify(user));
 
                     popUp("Successfully changed!");
+                    pfpLabel.classList.remove("selected");
 
                     document.querySelector("#popUpBackground").addEventListener("click", backToProfile);
                     document.querySelector(".OK").addEventListener("click", backToProfile);

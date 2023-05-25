@@ -22,18 +22,28 @@ label {
 }
 
 label:hover {
-    background-color: black;
+    background-color: var(--brown);
     color: var(--beige);
 }
 
 .selected {
-    background-color: black;
+    background-color: var(--brown);
     color: var(--beige);
 }
 
-button {
+#settings button {
     border-radius: 5px;
     border: none;
     background-color: var(--brown);
     color: var(--beige);
+
+    transition: 0.2s;
+}
+
+#settings button:hover {
+    background-color: #631b29;
+}
+
+#settings>div p {
+    font-weight: bold;
 }

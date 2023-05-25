@@ -10,7 +10,7 @@ function renderRegisterPage() {
             <input type=password id=password placeholder=Password>
             <button id=register type=submit>Register</button>
         </form>
-        <button id=login>Already got an account? Login here</button>
+        <button id=login>Already got an account?</br>Login here</button>
     `;
 
     let ButtonForLogin = main.querySelector("#login");

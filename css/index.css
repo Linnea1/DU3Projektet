@@ -5,13 +5,25 @@
     --blue: #3dd8d2;
     --beige: #f9f1eb;
 
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Varela;
     color: var(--brown);
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+    display: none;
 }
 
 @font-face {
     font-family: Caveat;
     src: url("/css/fonts/Caveat/Caveat-VariableFont_wght.ttf");
+}
+
+@font-face {
+    font-family: Varela;
+    src: url("/css/fonts/Varela_Round/VarelaRound-Regular.ttf");
 }
 
 body {
@@ -60,10 +72,9 @@ header {
 }
 
 #profilePicture {
-    height: 40px;
-    width: 40px;
-    border: 2px solid black;
-    border-radius: 50px;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
 }
 
 #menu {
@@ -82,7 +93,7 @@ header {
     height: 150px;
     width: 150px;
     background-size: contain;
-    border-radius: 50px;
+    border-radius: 50%;
     text-align: center;
 }
 
@@ -138,6 +149,8 @@ img {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+
+    background-image: url("/icons/blank-face-test.webp");
 }
 
 #popUp {
