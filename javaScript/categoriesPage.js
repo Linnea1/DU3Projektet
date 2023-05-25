@@ -52,23 +52,35 @@ async function renderCategoriesPage() {
     searchField.addEventListener("keyup", searchDish);
     document.querySelector("#menu").addEventListener("click", ShowMenu);
 
-    newState("#profilePicture", `RenderUserPage(${localStorage.user})`, true);
+    // Array of background classes
+const catagroriesBackground = ["background1", "background2", "background3", "background4"];
 
-    try {
-        const response = await fetch("https://www.themealdb.com/api/json/v1/1/list.php?c=list");
-        const data = await response.json();
+try {
+  const response = await fetch("https://www.themealdb.com/api/json/v1/1/list.php?c=list");
+  const data = await response.json();
 
-        for (const categoryName in data.meals) {
-            const category = data.meals[categoryName];
-            const categoryDiv = document.createElement("div");
-            categoryDiv.classList.add("category");
-            categoryDiv.addEventListener("click", renderRecipesAfterCategory);
-            categoryDiv.textContent = category.strCategory;
-            divCategories.append(categoryDiv);
-        }
-    } catch (error) {
-        popUp(error);
-    }
+  for (const categoryName in data.meals) {
+    const category = data.meals[categoryName];
+    const categoryDiv = document.createElement("div");
+    categoryDiv.classList.add("category");
+
+    // Assign a random background class to the category
+    const randomBackground = catagroriesBackground[Math.floor(Math.random() * catagroriesBackground.length)];
+    categoryDiv.classList.add(randomBackground);
+
+    categoryDiv.addEventListener("click", () => {
+      newState();
+      renderRecipesAfterCategory(category.strCategory);
+    });
+
+    categoryDiv.textContent = category.strCategory;
+    divCategories.append(categoryDiv);
+  }
+} catch (error) {
+  popUp(error);
+}
+
+    document.querySelector("#loading").classList.add("hidden");
 }
 
 //Render specific recipes within a category
