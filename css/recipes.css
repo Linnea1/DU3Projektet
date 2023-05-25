@@ -2,11 +2,6 @@
     width: 100%;
 }
 
-/* .recipes:nth-child(even) {
-}
-
-.recipes:nth-child(odd) {
-} */
 .odd.recipe {
     background-color: #b34256;
 }
@@ -21,23 +16,15 @@
     margin: 10px 0px;
     border-radius: 10px;
     padding: 5px;
-    /* border: 1px solid gray; */
 }
 
-/* 
-.recipe>h2 {
-    font-size: 15px;
-} */
 
 .recipe:hover {
-    /* background-color: rgb(186, 242, 237);
-    border: 1px solid black; */
     background-color: #ff8fa1;
 }
 
 img {
     height: 200px;
-
 }
 
 #liker>button {

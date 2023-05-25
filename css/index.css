@@ -118,6 +118,7 @@ footer {
 }
 
 .recipe {
+    position: relative;
     background-color: #f9748b;
     margin: 10px 0px;
     border-radius: 10px;

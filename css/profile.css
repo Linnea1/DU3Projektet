@@ -81,7 +81,6 @@
 }
 
 .buttons {
-
     display: flex;
     justify-content: space-between;
     padding: 0px 10px;
@@ -89,7 +88,6 @@
 
 
 #settings {
-
     height: 40px;
     width: 135px;
     border-radius: 40px;
@@ -100,8 +98,7 @@
 }
 
 #settings:hover {
-
-    background-color: #3dd8d2;
+    background-color: #f9748b;
     cursor: pointer;
 }
 
@@ -113,13 +110,11 @@
 #liker>button {
     height: 30px;
     width: 30px;
-
     background-color: #eff0ea;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 50%;
-
     border: none;
 }
 

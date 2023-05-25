@@ -13,7 +13,6 @@ function ShowMenu() {
     let LogOut = document.createElement("button");
 
     Startpage.classList.add("Startpage");
-    Startpage.classList.add("goBack");
     Nightmode.classList.add("Nightmode");
     LogOut.classList.add("LogOut");
 
