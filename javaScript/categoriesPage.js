@@ -9,7 +9,7 @@ async function renderCategoriesPage() {
     basicHeader();
     main.innerHTML = `
         <div class="info">
-            <h2>What kind of recepie are you looking for?</h2>
+            <h2>What kind of recipe are you looking for?</h2>
             <input type="text" name="search" placeholder="search for recipe">
         </div>
         <div class="categories"></div>
@@ -190,11 +190,18 @@ async function renderRecipeBoxes(data, e) { ////////////kanske ta bort e som arg
         } catch (error) {
             // Handle error
         }
-
+        let evenOrOdd = 0;
         for (const recipeName in data.meals) {
             const recipe = data.meals[recipeName];
             const recipeDiv = document.createElement("div");
             recipeDiv.dataset.id = recipe.idMeal;
+
+            evenOrOdd++
+            if (evenOrOdd %= 2) {
+                recipeDiv.classList.add("odd");
+            } else {
+                recipeDiv.classList.add("even");
+            }
 
             recipeDiv.classList.add("recipe");
 
@@ -289,11 +296,22 @@ async function usersFavoriteRecipes(data, e) {   /// ta kanske bort e som argume
         // Handle error
     }
 
+    let evenOrOdd = 0;
+
     for (const recipeName in data.meals) {
         const recipe = data.meals[recipeName];
         const recipeDiv = document.createElement("div");
         recipeDiv.dataset.id = data.id;
         recipeDiv.classList.add("recipe");
+
+        console.log(recipeName);
+        evenOrOdd++
+        console.log(evenOrOdd);
+        if (evenOrOdd %= 2) {
+            recipeDiv.classList.add("odd");
+        } else {
+            recipeDiv.classList.add("even");
+        }
 
         if (e === false) {                             /// ta kanske bort detta, ingen if-sats
 
