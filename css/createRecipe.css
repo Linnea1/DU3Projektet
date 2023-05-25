@@ -63,3 +63,22 @@ select {
 .submit:hover {
     background-color: #ffe4ad;
 }
+
+input {
+    margin: 0%;
+}
+
+select {
+    margin-bottom: 15px;
+}
+
+.goBack {
+    background-image: url("/icons/pil.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 40px;
+    width: 45px;
+    border-radius: 10px;
+    border: none;
+
+}

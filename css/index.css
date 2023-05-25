@@ -78,9 +78,6 @@ header {
     border-radius: 50%;
 }
 
-#menu {
-    /* border: 1px solid black; */
-}
 
 .menuPart {
     height: 4px;
@@ -98,7 +95,7 @@ header {
     text-align: center;
 }
 
-h2 {
+    {
     font-size: 30px;
 }
 
@@ -129,10 +126,8 @@ footer {
 }
 
 .recipe {
-    /* background-color: beige; */
+    position: relative;
     background-color: #f9748b;
-    /* position: relative; */
-    /* background-color: #fbd78e; */
     margin: 10px 0px;
     border-radius: 10px;
     padding: 5px;
@@ -291,4 +286,32 @@ input {
     opacity: 30%;
     height: 100%;
     width: 100%;
+}
+
+.goBack {
+    background-image: url("/icons/pil.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 40px;
+    width: 45px;
+    border-radius: 10px;
+    border: none;
+
+}
+
+
+#pfp {
+    height: 50px;
+    width: 50px;
+    background-size: contain;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 50px;
+    align-self: center;
+
+}
+
+.author {
+    display: flex;
+    flex-direction: column;
 }

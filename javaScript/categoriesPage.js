@@ -88,7 +88,7 @@ async function renderRecipesAfterCategory(category) {
     main.innerHTML = `
         <div class="header">
             <h2>${category}</h2>
-            <button class="goBack">Go Back</button>
+            <button class="goBack"></button>
         </div>
         <div class="recipes"></div>
     `;
@@ -125,7 +125,7 @@ async function searchDish(key, searchField) {
         basicHeader();
         swapStyleSheet("css/recipes.css");
         document.querySelector("main").innerHTML = `
-            <button class="goBack">Go Back</button>
+            <button class="goBack"></button>
             <div class="recipes"></div>
         `;
 

@@ -1,7 +1,7 @@
 function renderCreateRecipe(event) {
   swapStyleSheet("css/createRecipe.css");
   main.innerHTML = `
-    <button class="goBack">Go Back</button>
+    <button class="goBack"></button>
     <form id="form">
       <p id=message></p>
       <p>Picture:</p>
