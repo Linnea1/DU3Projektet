@@ -39,10 +39,6 @@ if($_SERVER["REQUEST_METHOD"] == "PATCH"){
         change($input, $users, $filename, "email"); // change email
     }
 
-    // if(isset($input["file"], 
-    // $input["username"], 
-    // $input["password"]))
-
     send_JSON(["message"=>"Wrong parameters"], 405);
 }
 
@@ -133,7 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE"){
 
             foreach($recipes as $index => $data){
                 if($data["author"] == $input["username"]){
-                    $recipes[$index]["author"] = "[DELETED USER]";
+                    array_splice($recipes, $index, 1); // remove from list
                     file_put_contents("data/recipes.json", json_encode($recipes, JSON_PRETTY_PRINT));
                 }
             }

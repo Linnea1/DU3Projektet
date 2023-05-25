@@ -183,20 +183,6 @@
         "strMealThumb": "api\/data\/pictures\/recipes\/PinkPot.jpg"
     },
     {
-        "idMeal": "x_646e08fa44e52",
-        "author": "[DELETED USER]",
-        "strCategory": "Chicken",
-        "strMeal": "oikurefdws",
-        "strInstructions": "poiuytgrfedws",
-        "strIngredient1": "oikfred",
-        "strIngredient2": "olr",
-        "strIngredient3": "iouytrfed",
-        "strMeasure1": "oiref",
-        "strMeasure2": "kiefrdw",
-        "strMeasure3": "oikujyhtgrfew",
-        "strMealThumb": "api\/data\/pictures\/recipes\/PinkPot.jpg"
-    },
-    {
         "idMeal": "x_646e02d1136f5",
         "author": "Linnea",
         "strCategory": "Beef",
