@@ -165,10 +165,27 @@ ul {
     display: inline-block;
     width: 20px;
     height: 20px;
-    background-image: url('/icons/star-filled.png'); /* Replace with your filled star image */
+    background-image: url('/icons/star-filled.png');
+    /* Replace with your filled star image */
     background-size: cover;
 }
-  
+
 .stars.empty {
-    background-image: url('/icons/star.png'); /* Replace with your empty star image */
+    background-image: url('/icons/star.png');
+    /* Replace with your empty star image */
+}
+
+form>button {
+    border: 2px solid #f9748b;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0px;
+    transition-property: background-color;
+    transition-duration: 1s;
+}
+
+form>button:hover {
+    background-color: #f9748b;
+    cursor: pointer;
 }

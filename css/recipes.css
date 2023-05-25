@@ -98,6 +98,11 @@ img {
 
 }
 
+.author {
+    display: flex;
+    flex-direction: column;
+}
+
 .stars {
     display: inline-block;
     width: 20px;
