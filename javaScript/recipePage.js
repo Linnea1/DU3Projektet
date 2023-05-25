@@ -1,5 +1,5 @@
 async function renderRecipe(recipe) {
-    swapStyleSheet("css/comments.css");
+    document.querySelector("#loading").classList.remove("hidden");
     currentState(`renderRecipe(${JSON.stringify(recipe)})`);
 
     let currentRecipe;
@@ -32,28 +32,23 @@ async function renderRecipe(recipe) {
                 });
             }
         }
-        document.querySelector("header").innerHTML = `
-        <div id="menu" onclick="">
-            <div class="menuPart"></div>
-            <div class="menuPart"></div>
-            <div class="menuPart"></div>
-        </div>  
-        <div class="nameOfApplication"> The YumYumClub </div>
-        <div id="profilePicture" class="icon"></div>
-        `;
-
-        document.querySelector("#menu").addEventListener("click", ShowMenu);
-
-        document.querySelector(".icon").style.backgroundImage = `url(${user.pfp})`
-        newState("#profilePicture", `RenderUserPage(${localStorage.user})`, true);
+        basicHeader();
 
         main.innerHTML = `
             
-            <button onclick = "renderRecepiesAfterCategory()">Go Back</button>
+            <button class="goBack">Go Back</button>
                 <div class="recipe">
                     <h2><b>${currentRecipe.strMeal}</b></h2>
                     <img src="${currentRecipe.strMealThumb}"> 
+                    <div id="rating-container">
+                        <span class="stars" id="stars1"></span>
+                        <span class="stars" id="stars2"></span>
+                        <span class="stars" id="stars3"></span>
+                        <span class="stars" id="stars4"></span>
+                        <span class="stars" id="stars5"></span>
+                    </div>
                     <div class="author">
+                        <div id="pfp"></div>
                         <p>${author}</p>
                     </div>
                     <div class="ingredients">
@@ -71,6 +66,60 @@ async function renderRecipe(recipe) {
                 </div>
         `;
 
+        // main.querySelector(".author").addEventListener("click", e => {
+        //     newState(true);
+        //     let CurrentUser = {
+        //         username: author,
+        //     }
+        //     RenderUserPage(CurrentUser);
+        // })
+
+        goBack();
+        try {
+
+            const response = await fetch(`api/fetchRecipesAndFavourites.php?author=${author}`);
+            const data = await response.json();
+
+            main.querySelector(".author").addEventListener("click", e => {
+                newState(true);
+                let CurrentUser = {
+                    username: author,
+                    pfp: data.pfp
+                };
+                RenderUserPage(CurrentUser);
+            })
+
+            if (!data.pfp) { // if the author has a profilepicture, than we add it as an backgroundimage 
+                document.querySelector("#pfp").style.backgroundImage = `url(../icons/blank-face-test.webp)`;
+            } else { // if the author don't have one, we take the basic picture 
+                document.querySelector("#pfp").style.backgroundImage = `url(${data.pfp})`
+            }
+
+
+        } catch (e) {
+            console.log(e);
+        }
+
+        try {
+            const response = await fetch(`api/ratings.php?id=${recipe.idMeal}`);
+            const data = await response.json();
+
+            const filledStars = Math.round(data);
+
+            for (let i = 1; i <= 5; i++) {
+                const star = main.querySelector(`#stars${i}`);
+                if (i <= filledStars) {
+                    star.classList.remove('empty');
+                } else {
+                    star.classList.add('empty');
+                }
+            }
+        } catch (e) {
+            console.log(e);
+        }
+
+
+
         const list = document.querySelector(".ingredientList");
         for (const ratio of ingredients) {
             list.innerHTML += `
@@ -85,6 +134,7 @@ async function renderRecipe(recipe) {
             const response = await fetch(`api/commentsAndRatings.php?id=${currentRecipe.idMeal}`);
             const data = await response.json();
 
+
             for (const Comment of data.comments) {
                 let commentContainer = document.createElement("div");
                 commentContainer.classList.add("comment");
@@ -93,21 +143,23 @@ async function renderRecipe(recipe) {
                 };
                 if (Comment.pfp !== undefined) {
                     // let CurrentUserPfpf = {"pfp": Comment.pfp};
-                    console.log(JSON.stringify(Comment.pfp));
                     CurrentUser.pfp = JSON.stringify(Comment.pfp);
                 }
 
                 commentContainer.innerHTML = `
                     <div class="nameStarContainer">
                         <div class="commentPfp"></div>
-                        <p onclick='RenderUserPage(${JSON.stringify(CurrentUser)})'><b>${Comment.author}</b></p>
+                        <p id="commentAuthor"><b>${Comment.author}</b></p>
                         <div class="starContainer"></div>
                     </div>
                     <p>${Comment.comment}</p>
                     <p class="timestamp">${Comment.timestamp}</p>
                 `;
+                commentContainer.querySelector("p").addEventListener("click", e => {
+                    newState(true);
+                    RenderUserPage(CurrentUser);
+                })
                 main.querySelector(".commentBox").append(commentContainer);
-                console.log(Comment.pfp)
 
                 const profilePicture = commentContainer.querySelector(".commentPfp");
                 if (Comment.pfp !== undefined) { // if pfp then add it
@@ -135,7 +187,6 @@ async function renderRecipe(recipe) {
                     `
                     dropdownMenu.innerHTML = `
                     <div class="dropdown-item bin"></div>
-                    <div class="dropdown-item edit"></div>
                     `
                     nameStarContainer.append(editButton);
                     nameStarContainer.append(dropdownMenu);
@@ -156,7 +207,7 @@ async function renderRecipe(recipe) {
             }
 
         } catch (error) {
-            console.error(error);
+            console.error(error);   ///// vad är detta
         }
         if (usersComment === false) {
             document.querySelector(".ratingBox").innerHTML = `
@@ -227,6 +278,7 @@ async function renderRecipe(recipe) {
             }
         }
     }
+    document.querySelector("#loading").classList.add("hidden");
 }
 
 async function deleteComment(username, recipe) {

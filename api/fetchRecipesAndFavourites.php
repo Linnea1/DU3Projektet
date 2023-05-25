@@ -5,6 +5,14 @@ ini_set("display_errors", 1);
 require_once "functions.php";
 
 $filename = "data/favourites.json";
+$directory = "data";
+
+if(!file_exists("data")){ // if no directory, create it
+    mkdir($directory, 755);
+}
+if(!file_exists($filename)){ // if no file, create it
+    file_put_contents($filename, "[]");
+}
 
 $json = file_get_contents($filename);
 $data = json_decode($json, true);
@@ -32,16 +40,16 @@ if ($method == "GET") {
     }
     
 
-    if (isset($_GET["favourites"])) {
+    if (isset($_GET["favourites"])) { 
         $username = $_GET["favourites"];
         // echo $newData;
         
         foreach($data as $user){    
             if ($user['username'] === $username) {
-                send_JSON($user["idMeal"]);
+                send_JSON($user["idMeal"]);  // Gets all the users favourite recipes
             }
         }
-        $error = ["error" => "There are no liked recipes"];
+        $error = ["error" => "There are no liked recipes"];  // if there are no favourites
         send_JSON($error, 400);
     
     }
@@ -58,9 +66,42 @@ if ($method == "GET") {
                 send_JSON($recipe); // send it as a response
             }
         }
-        $error = ["error" => "Could not find matching idMeal"];
+        $error = ["error" => "Could not find matching recipe"];
         send_JSON($error, 404);
 
+    }
+
+    if (isset($_GET["ourOwnDatabase"])) {
+        $ownRecipeName = $_GET["ourOwnDatabase"];
+        $filenameRecipe = "data/recipes.json";
+        $jsonRecipe = file_get_contents($filenameRecipe);
+        $dataRecipe = json_decode($jsonRecipe, true);
+
+        foreach($dataRecipe as $recipe){
+            if(str_contains($recipe["strMeal"],$ownRecipeName )){ // if there is a matching id in the database
+                send_JSON($recipe); // send it as a response
+            }
+        }
+        $error = ["error" => "Could not find a matching recipe to your input"];
+        send_JSON($error, 404);
+
+    }
+
+
+    if (isset($_GET["author"])) {
+        $author = $_GET["author"];
+
+        $filename = "data/users.json";
+        $json = file_get_contents($filename);
+        $data = json_decode($json, true);
+
+        foreach($data as $user){
+            if ($user['username'] === $author) {
+                send_JSON($user);  // if we find the matching user then we send it as response
+            }
+        }
+        $error = ["error" => "Could not find a matching user"];
+        send_JSON($error, 404);
     }
 
 }

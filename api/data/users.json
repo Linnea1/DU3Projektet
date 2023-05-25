@@ -6,11 +6,6 @@
         "pfp": "api\/data\/pictures\/1684317341.png"
     },
     {
-        "email": "erik@hej",
-        "username": "erik",
-        "password": "hej"
-    },
-    {
         "email": "ballongone@ballong.se",
         "username": "WDU",
         "password": "ballong",
@@ -99,7 +94,7 @@
         "email": "ballong@hej",
         "username": "ballong",
         "password": "ballong",
-        "pfp": "api\/data\/pictures\/pfp\/1684773093.jpeg"
+        "pfp": "api\/data\/pictures\/pfp\/1684846738.jpeg"
     },
     {
         "email": "drtfygjhkj@detrfyguh.se",
@@ -115,7 +110,7 @@
         "email": "fgh@fhgjh.se",
         "username": "test",
         "password": "test",
-        "pfp": "api\/data\/pictures\/pfp\/1684761202.jpeg"
+        "pfp": "api\/data\/pictures\/pfp\/1684928560.jpeg"
     },
     {
         "email": "sredtfyguhijokpl@dtfytguhijokpl.l",
@@ -126,5 +121,22 @@
         "email": "ryftguih@rdtftygy.se",
         "username": "hello",
         "password": "hii"
+    },
+    {
+        "email": "erik@hej",
+        "username": "erik",
+        "password": "hej",
+        "pfp": "api\/data\/pictures\/pfp\/1684928499.jpeg"
+    },
+    {
+        "email": "dfyghjkj@dfghj.se",
+        "username": "ojojoj",
+        "password": "hej"
+    },
+    {
+        "email": "hejhopp@hej.se",
+        "username": "hejhopp",
+        "password": "hejsan",
+        "pfp": "api\/data\/pictures\/pfp\/1684935662.jpeg"
     }
 ]

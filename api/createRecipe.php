@@ -1,6 +1,21 @@
 <?php
 require_once("functions.php");
 $filename = "data/recipes.json";
+$directory = "data";
+$pictures = "data/pictures";
+$recipePictures = "data/pictures/recipes";
+
+if(!file_exists($directory)){ // if no directory, create it
+    mkdir($directory, 755);
+}
+
+if(!file_exists($pictures)){ // if no directory, create it
+    mkdir($pictures, 755);
+}
+
+if(!file_exists($recipePictures)){ // if no directory, create it
+    mkdir($recipePictures, 755);
+}
 
 if(!file_exists($filename)){
     file_put_contents($filename, "[]");
@@ -47,10 +62,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {//upload new recipe
             send_JSON(["message"=>"Wrong filetype"], 415);
         }
         
-        // if($size > 50000){
-        //     send_JSON(["message"=>"Filesize is too big"], 400);
-        // }
-        
         $ending = str_replace("image/", ".", $type);
         $filePath = "data/pictures/recipes/";
         $name = $time . $ending;
@@ -71,7 +82,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {//upload new recipe
         }
       
     }else{//If there is no picture added, standard will be a basic picture.
-        $newRecipe['strMealThumb'] = "api/data/pictures/recipes/PinkPot.jpg";
+        $newRecipe['strMealThumb'] = "icons/PinkPot.jpg";
         $recipes[] = $newRecipe;
         file_put_contents($filename, json_encode($recipes, JSON_PRETTY_PRINT));
         send_JSON($newRecipe);

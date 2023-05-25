@@ -1,32 +1,11 @@
 //render all categories in the open API
 async function renderCategoriesPage() {
-    swapStyleSheet("css/catergories.css");
-    // user = JSON.parse(localStorage.getItem("user"));
+    document.querySelector("#loading").classList.remove("hidden");
+    user = JSON.parse(localStorage.getItem("user"));
+
     currentState("renderCategoriesPage()");
 
-
-    document.querySelector("header").innerHTML = `
-    <div id="testt" class="closed">
-        <div id="menu" onclick="">
-            <div class="menuPart"></div>
-            <div class="menuPart"></div>
-            <div class="menuPart"></div>
-        </div>  
-    </div>
-    <div class="nameOfApplication"> The YumYumClub </div>
-    <div id="profilePicture" class="icon"></div>
-    `;
-    document.querySelector("#menu").addEventListener("click", e => {
-        document.querySelector("#menu").classList.toggle("spin")
-        document.querySelector("#testt").classList.toggle("test")
-        document.querySelector("#testt").classList.toggle("closed")
-    });
-
-    if (user.guest) {
-        document.querySelector("#profilePicture").removeAttribute("style", "");
-    } else {
-        document.querySelector("#profilePicture").style.backgroundImage = `url(${user.pfp})`
-    }
+    basicHeader();
 
     main.innerHTML = `
         <div class="info">
@@ -56,10 +35,13 @@ async function renderCategoriesPage() {
 
     const divCategories = document.querySelector(".categories");
     let searchField = main.querySelector("input");
-    searchField.addEventListener("keyup", searchDish);
+    searchField.addEventListener("keyup", e => {
+        if (e.key == "Enter") {
+            newState();
+        }
+        searchDish(e.key, e.target.value);
+    });
     document.querySelector("#menu").addEventListener("click", ShowMenu);
-
-    newState("#profilePicture", `RenderUserPage(${localStorage.user})`, true);
 
     try {
         const response = await fetch("https://www.themealdb.com/api/json/v1/1/list.php?c=list");
@@ -69,19 +51,28 @@ async function renderCategoriesPage() {
             const category = data.meals[categoryName];
             const categoryDiv = document.createElement("div");
             categoryDiv.classList.add("category");
-            categoryDiv.addEventListener("click", renderRecipesAfterCategory);
+            categoryDiv.addEventListener("click", () => {
+                newState();
+                renderRecipesAfterCategory(category.strCategory)
+            });
             categoryDiv.textContent = category.strCategory;
             divCategories.append(categoryDiv);
         }
     } catch (error) {
         popUp(error);
     }
+    document.querySelector("#loading").classList.add("hidden");
 }
-
 //Render specific recipes within a category
-async function renderRecipesAfterCategory(event) {
-    let category = event.target.textContent;
-    currentState(`renderRecipesAfterCategory(${event})`);
+
+async function renderRecipesAfterCategory(category) {
+    document.querySelector("#loading").classList.remove("hidden");
+
+    // let category = event.target.textContent;
+    currentState(`renderRecipesAfterCategory(${JSON.stringify(category)})`);
+
+    basicHeader();
+
     main.innerHTML = `
         <div class="header">
             <h2>${category}</h2>
@@ -92,91 +83,199 @@ async function renderRecipesAfterCategory(event) {
     goBack();
 
     const divRecipes = document.querySelector(".recipes");
-    document.querySelector("#menu").addEventListener("click", ShowMenu);
     let all_recipes = [];
     //Fetching recipes from the open API
-    try {
-        let response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
-        let data = await response.json();
 
-        renderRecipeBoxes(data);
-    } catch (error) {
-        popUp(error);
-    }
     //Fetching recipes from users
     try {
         const response = await fetch(`api/createRecipe.php?category=${category}`);
         const data = await response.json();
-        renderRecipeBoxes(data);
+        await renderRecipeBoxes(data, false); ////////////kanske ta bort false som argument
+        try {
+            let response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+            let data = await response.json();
+
+            renderRecipeBoxes(data, false); ////////////kanske ta bort false som argument
+        } catch (error) {
+            popUp(error);
+        }
     } catch (error) {
         popUp(error);
     }
 }
 
 //Getting recipes from search
-async function searchDish(event) {
-    if (event.key == "Enter") {
-        let searchField = event.target.value
+async function searchDish(key, searchField) {
+    if (key == "Enter") {
+        document.querySelector("#loading").classList.remove("hidden");
+        currentState(`searchDish(${JSON.stringify(key)}, ${JSON.stringify(searchField)})`)
+
+        basicHeader();
 
         document.querySelector("main").innerHTML = `
-        <button onclick="renderCategoriesPage()">Go Back</button>
-        <div class="recipes"></div>
+            <button class="goBack">Go Back</button>
+            <div class="recipes"></div>
         `;
 
-        let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchField}`);
-        let data = await response.json();
+        try {
 
-        renderRecipeBoxes(data);
+            let resourseOwnRecipe = await fetch(`api/fetchRecipesAndFavourites.php?ourOwnDatabase=${searchField}`);
+            let dataOwnRecipe = await resourseOwnRecipe.json();
+
+            if (!dataOwnRecipe.error) {
+
+                let recipe = { meals: [dataOwnRecipe] }
+                renderRecipeBoxes(recipe, false); ////////////kanske ta bort false som argument
+            }
+
+        } catch (error) {
+            popUp(error);
+        }
+        try {
+            let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchField}`);
+            let data = await response.json();
+
+            renderRecipeBoxes(data, false); ////////////kanske ta bort false som argument
+
+            goBack();
+
+
+        } catch (error) {
+            popUp(error);
+        }
     }
 }
+
+
 
 //Creating the recipes
-async function renderRecipeBoxes(data) {
-    swapStyleSheet("css/recipes.css");
-    const divRecipes = document.querySelector(".recipes");
+async function renderRecipeBoxes(data, e) { ////////////kanske ta bort e som argument
 
+    if (data.meals === null) {
+        document.querySelector("#loading").classList.add("hidden");
+        console.log("null");
+        popUp("Could not find a matching recipe to your input");
 
+    } else {
+        const divRecipes = document.querySelector(".recipes");
 
-    for (const recipeName in data.meals) {
-        const recipe = data.meals[recipeName];
-        const recipeDiv = document.createElement("div");
-        recipeDiv.dataset.id = data.id;
-        recipeDiv.classList.add("recipe");
+        let listOfIds = [];
+        let listOfRatings;
+        for (let i = 0; i < data.meals.length; i++) {
+            const meal = data.meals[i];
+            listOfIds.push(meal.idMeal)
+            // Perform actions with each meal object
+        }
+        try {
+            console.log(listOfIds)
+            const requestBody = {
+                listOfIds,
+            };
+            let response = await fetching("api/ratings.php", "POST", requestBody);
+            let data = await response.json();
+            listOfRatings = data;
+            console.log(listOfRatings);
+        } catch (error) {
+            // Handle error
+        }
 
-        recipeDiv.innerHTML = `
-            <h2>${recipe.strMeal}</h2>
-            <div id="liker" class="${await checkLiked(recipe.idMeal) ? 'liked' : 'false'}">
+        for (const recipeName in data.meals) {
+            const recipe = data.meals[recipeName];
+            const recipeDiv = document.createElement("div");
+            recipeDiv.dataset.id = recipe.idMeal;
+
+            recipeDiv.classList.add("recipe");
+
+            if (e === false) {   /// ta kanske bort detta, ingen if-sats
+
+                recipeDiv.innerHTML = `
+                <h2>${recipe.strMeal}</h2>
+                <div id="liker" class="${await checkLiked(recipe.idMeal) ? 'liked' : 'false'}">
                 <button id="first"></button>
-                <button id="second"></button>
-            <div>
-                <img src="${recipe.strMealThumb}"> 
-            </div>
-        `;
+                 <button id="second"></button>
+                 <div>
+                <div>
+                    <img src="${recipe.strMealThumb}"> 
+                </div>
+                <div id="rating-container">
+                    <span class="stars" id="stars1"></span>
+                    <span class="stars" id="stars2"></span>
+                    <span class="stars" id="stars3"></span>
+                    <span class="stars" id="stars4"></span>
+                    <span class="stars" id="stars5"></span>
+                </div>
+                `;
 
-        divRecipes.prepend(recipeDiv);
-        recipeDiv.dataset.id = recipe.idMeal;
+                recipeDiv.querySelector("#first").addEventListener("click", AddRecipesAsFavourite);
+                recipeDiv.querySelector("#second").addEventListener("click", AddRecipesAsFavourite); ////// kanske ta bort om det blir dåligt
 
-        recipeDiv.querySelector("#first").addEventListener("click", AddRecipesAsFavourite);
-        recipeDiv.querySelector("#second").addEventListener("click", AddRecipesAsFavourite);
-        recipeDiv.addEventListener("click", e => { renderRecipe(data.meals[recipeName]) });
+            } else {
+                recipeDiv.innerHTML = `
+                <h2>${recipe.strMeal}</h2>
+                <div>
+                    <img src="${recipe.strMealThumb}"> 
+                </div>
+                <div id="rating-container">
+                    <span class="stars" id="stars1"></span>
+                    <span class="stars" id="stars2"></span>
+                    <span class="stars" id="stars3"></span>
+                    <span class="stars" id="stars4"></span>
+                    <span class="stars" id="stars5"></span>
+                </div>
+                `;
+            }
 
-        // newState(recipeDiv, `renderRecipe(${JSON.stringify(data.meals[recipeName])})`);
+            divRecipes.append(recipeDiv);
+            recipeDiv.dataset.id = recipe.idMeal;
+
+
+            recipeDiv.addEventListener("click", e => {
+                // newState();
+                renderRecipe(data.meals[recipeName])
+            });
+            divRecipes.append(recipeDiv);
+            recipeDiv.dataset.id = recipe.idMeal;
+
+
+            const filledStars = Math.round(listOfRatings[recipeName]);
+
+            for (let i = 1; i <= 5; i++) {
+                const star = recipeDiv.querySelector(`#stars${i}`);
+                if (i <= filledStars) {
+                    star.classList.remove('empty');
+                } else {
+                    star.classList.add('empty');
+                }
+            }
+        }
     }
 
-
-
-    // let testing = document.querySelectorAll(".recipe");
-    // for (const test of testing) {
-    //     newState(test, `renderRecipe(${data.meals[recipeName]})`)
-    // }
+    document.querySelector("#loading").classList.add("hidden");
 }
 
+async function usersFavoriteRecipes(data, e) {   /// ta kanske bort e som argument
 
-async function usersFavoriteRecipes(data) {
     const divRecipes = document.querySelector(".recipes");
-
     divRecipes.innerHTML = "";
 
+    let listOfIds = [];
+    let listOfRatings;
+    for (let i = 0; i < data.meals.length; i++) {
+        const meal = data.meals[i];
+        listOfIds.push(meal.idMeal)
+        // Perform actions with each meal object
+    }
+    try {
+        const requestBody = {
+            listOfIds,
+        };
+        let response = await fetching("api/ratings.php", "POST", requestBody);
+        let data = await response.json();
+        listOfRatings = data;
+
+    } catch (error) {
+        // Handle error
+    }
 
     for (const recipeName in data.meals) {
         const recipe = data.meals[recipeName];
@@ -184,26 +283,63 @@ async function usersFavoriteRecipes(data) {
         recipeDiv.dataset.id = data.id;
         recipeDiv.classList.add("recipe");
 
-        recipeDiv.innerHTML = `
-            <h2>${recipe.strMeal}</h2>
-            <div id="liker" class="${await checkLiked(recipe.idMeal) ? 'liked' : 'false'}">
+        if (e === false) {                             /// ta kanske bort detta, ingen if-sats
+
+            recipeDiv.innerHTML = `
+                <h2>${recipe.strMeal}</h2>
+                <div id="liker" class="${await checkLiked(recipe.idMeal) ? 'liked' : 'false'}">
                 <button id="first"></button>
                 <button id="second"></button>
+                <div>
+                <div>
+                    <img src="${recipe.strMealThumb}">
+                </div>
+                <div id="rating-container">
+                    <span class="stars" id="stars1"></span>
+                    <span class="stars" id="stars2"></span>
+                    <span class="stars" id="stars3"></span>
+                    <span class="stars" id="stars4"></span>
+                    <span class="stars" id="stars5"></span>
+                </div>
+                `;
+
+            recipeDiv.querySelector("#first").addEventListener("click", AddRecipesAsFavourite);
+            recipeDiv.querySelector("#second").addEventListener("click", AddRecipesAsFavourite);  /// Detta kanske ska ner
+        } else {   /// Hela delen i else kan behöva tas bort
+            recipeDiv.innerHTML = `
+            <h2>${recipe.strMeal}</h2>
             <div>
                 <img src="${recipe.strMealThumb}"> 
             </div>
-        `;
+            <div id="rating-container">
+                <span class="stars" id="stars1"></span>
+                <span class="stars" id="stars2"></span>
+                <span class="stars" id="stars3"></span>
+                <span class="stars" id="stars4"></span>
+                <span class="stars" id="stars5"></span>
+            </div>
+            `;
+        }
+
 
         divRecipes.append(recipeDiv);
         recipeDiv.dataset.id = recipe.idMeal;
 
-        recipeDiv.querySelector("#first").addEventListener("click", AddRecipesAsFavourite);
-        recipeDiv.querySelector("#second").addEventListener("click", AddRecipesAsFavourite);
-        recipeDiv.addEventListener("click", e => { renderRecipe(data.meals[recipeName]) });
 
-        // newState(recipeDiv, `renderRecipe(${JSON.stringify(data.meals[recipeName])})`);
+        recipeDiv.addEventListener("click", e => {
+            renderRecipe(data.meals[recipeName])
+        });
+
+        const filledStars = Math.round(listOfRatings[recipeName]);
+
+        for (let i = 1; i <= 5; i++) {
+            const star = recipeDiv.querySelector(`#stars${i}`);
+            if (i <= filledStars) {
+                star.classList.remove('empty');
+            } else {
+                star.classList.add('empty');
+            }
+        }
     }
-
-
 
 }

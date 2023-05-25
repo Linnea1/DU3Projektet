@@ -1,6 +1,16 @@
 function renderSettings() {
     currentState("renderSettings()");
 
+    document.querySelector("header").innerHTML = `
+        <div id="menu" onclick="">
+            <div class="menuPart"></div>
+            <div class="menuPart"></div>
+            <div class="menuPart"></div>
+        </div>  
+        <div class="nameOfApplication"> The YumYumClub </div>
+    `;
+    document.querySelector("#menu").addEventListener("click", ShowMenu);
+
     main.innerHTML = `
         <button class="goBack">Go Back</button>
         <div id="settings">
@@ -23,7 +33,6 @@ function renderSettings() {
             <p class="red">Delete account</p>
         </div>
     `;
-
     goBack();
 
     let newUsername = main.querySelector('input[name="username"]');
@@ -53,7 +62,7 @@ function renderSettings() {
         document.querySelector("#popUpWindow").append(secondButton);
         document.querySelector(".firstButton").addEventListener("click", e => {
             document.querySelector("#popUp").classList.add("hidden");
-            deleteAccount()
+            deleteAccount();
         });
         document.querySelector(".secondButton").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });
         document.querySelector("#popUpBackground").addEventListener("click", e => { document.querySelector("#popUp").classList.add("hidden") });
@@ -77,13 +86,25 @@ function renderSettings() {
                 storage[select] = data;
                 localStorage.setItem("user", JSON.stringify(storage));
 
-                popUp("Successfully changed!")
+                popUp("Successfully changed!");
+
+                document.querySelector("#popUpBackground").addEventListener("click", backToProfile);
+                document.querySelector(".OK").addEventListener("click", backToProfile);
             } else {
                 popUp(data.message);
             }
         } catch (error) {
             popUp(error);
         }
+    }
+
+    function backToProfile() {
+        state.old_states.pop();
+        user = JSON.parse(localStorage.getItem("user"));
+        RenderUserPage(user);
+
+        document.querySelector("#popUpBackground").removeEventListener("click", backToProfile);
+        document.querySelector(".OK").removeEventListener("click", backToProfile);
     }
 
     async function changeUsername(e) { // change username
@@ -169,6 +190,11 @@ function renderSettings() {
                 } else {
                     user.pfp = data;
                     localStorage.setItem("user", JSON.stringify(user));
+
+                    popUp("Successfully changed!");
+
+                    document.querySelector("#popUpBackground").addEventListener("click", backToProfile);
+                    document.querySelector(".OK").addEventListener("click", backToProfile);
                 }
             } catch (error) {
                 popUp(error);

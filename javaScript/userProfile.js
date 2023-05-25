@@ -1,19 +1,11 @@
 async function RenderUserPage(userInfo) {
-    swapStyleSheet("css/profile.css");
-    console.log(userInfo);
+    document.querySelector("#loading").classList.remove("hidden");
+    user = JSON.parse(localStorage.getItem("user"));
+
     if (user.guest) {
         complexPopUp("Only registered users can use this feature", "Register or login", "OK", "logout()");
     } else {
         currentState(`RenderUserPage(${JSON.stringify(userInfo)})`);
-
-        document.querySelector("header").innerHTML = `
-            <div id="menu" onclick="">
-                <div class="menuPart"></div>
-                <div class="menuPart"></div>
-                <div class="menuPart"></div>
-            </div>  
-            <div class="nameOfApplication"> The YumYumClub </div>
-            `;
 
 
         main.innerHTML = `
@@ -31,48 +23,63 @@ async function RenderUserPage(userInfo) {
             <div class="recipes"></div>
         `;
         goBack();
-        newState("#settings", "renderSettings()");
-
-        document.querySelector("#menu").addEventListener("click", ShowMenu);
-
-
+        document.querySelector("#settings").addEventListener("click", e => {
+            newState();
+            renderSettings();
+        })
         if (userInfo.pfp) { // if pfp then add it
-            document.querySelector(".icon").style.backgroundImage = `url(${userInfo.pfp})`;
+            main.querySelector(".icon").style.backgroundImage = `url(${userInfo.pfp})`;
         } else {
             document.querySelector(".icon").removeAttribute("style");
+
         }
 
 
-        if (userInfo.username == user.username) {
+        if (userInfo.username == user.username) { // is this your own profile?
             document.querySelector(".create_recipe").classList.remove("hidden");
             document.querySelector("#settings").classList.remove("hidden");
         }
 
-        document.querySelector(".create_recipe").addEventListener("click", renderCreateRecipe);
-
+        document.querySelector(".create_recipe").addEventListener("click", e => {
+            newState();
+            renderCreateRecipe()
+        });
         try {
             if (userInfo.username === user.username) {
 
+                document.querySelector("header").innerHTML = `
+                <div id="menu" onclick="">
+                <div class="menuPart"></div>
+                <div class="menuPart"></div>
+                <div class="menuPart"></div>
+                </div>  
+                <div class="nameOfApplication"> The YumYumClub </div>
+                `;
+                document.querySelector("#menu").addEventListener("click", ShowMenu);
+
                 const response = await fetch(`api/createRecipe.php?author=${user.username}`);
                 const data = await response.json();
-                usersFavoriteRecipes(data);
-                document.querySelector("#own_recipe").addEventListener("click", e => { usersFavoriteRecipes(data) });
+                usersFavoriteRecipes(data, true);////// kanske ta bort false som argument
+                document.querySelector("#own_recipe").addEventListener("click", e => { usersFavoriteRecipes(data, true) });////// kanske ta bort false som argument
 
                 document.querySelector(".favorites").addEventListener("click", e => {
-                    favoriteRecipes(e, user.username)
+                    favoriteRecipes(e, user.username, true)////// kanske ta bort false som argument
                     e.stopPropagation();
 
                 });
 
             } else {
+                basicHeader();
+                document.querySelector("#profilePicture").style.backgroundImage = `url(${user.pfp})`
+
                 let response = await fetch(`api/createRecipe.php?author=${userInfo.username}`);
                 const data = await response.json();
-                usersFavoriteRecipes(data);
+                usersFavoriteRecipes(data, false);   ////// kanske ta bort false som argument
 
-                document.querySelector("#own_recipe").addEventListener("click", e => { usersFavoriteRecipes(data) });
+                document.querySelector("#own_recipe").addEventListener("click", e => { usersFavoriteRecipes(data, false) });///// kanske ta e som argument
 
                 document.querySelector(".favorites").addEventListener("click", e => {
-                    favoriteRecipes(e, userInfo.username)
+                    favoriteRecipes(e, userInfo.username, false)   ///// kanske ta bort false som argument
                     e.stopPropagation();
 
                 });
@@ -83,10 +90,15 @@ async function RenderUserPage(userInfo) {
             popUp(error);
         }
     }
+    document.querySelector("#loading").classList.add("hidden");
 }
 
 
-async function favoriteRecipes(object, user) {
+async function favoriteRecipes(object, user, e) { ///////// kanske ta bort e som argument
+
+    if (e === false) { //////// kanske ta bort if-satsen
+        e === true;
+    };
 
     let divForAllRecipes = document.querySelector(".favorites");
     let recipesDiv = document.querySelector(".recipes");
@@ -96,7 +108,7 @@ async function favoriteRecipes(object, user) {
     if (divForAllRecipes.childElementCount === 0) {
 
         try {
-            let resourse = await fetch(`api/addAndRemoveFavourites.php?favourites=${user}`);
+            let resourse = await fetch(`api/fetchRecipesAndFavourites.php?favourites=${user}`);
             let response = await resourse.json();
 
             if (!response.length == 0) {
@@ -105,38 +117,20 @@ async function favoriteRecipes(object, user) {
 
                     if (recipe.startsWith("x_")) {
 
-                        let resourse = await fetch(`api/addAndRemoveFavourites.php?ownRecipe=${recipe}`);
+                        let resourse = await fetch(`api/fetchRecipesAndFavourites.php?ownRecipe=${recipe}`);
                         let response = await resourse.json();
+                        console.log(response);
+                        let meals = []
+                        meals.push(response)
+                        const data = { meals: meals }; //Making sure the format for the function call is right
 
-                        let recipe_name = response.strMeal;
-                        let recipe_img = response.strMealThumb;
-                        let recipe_div = document.createElement("div");
-                        recipe_div.classList.add("recipe");
-                        recipe_div.innerHTML = `
-                        <h2>${recipe_name}</h2>
-                        <img src="${recipe_img}"> 
-                        </div>
-                        `;
-                        recipesDiv.prepend(recipe_div);
-
-                        recipe_div.addEventListener("click", e => { renderRecipe(response) });
+                        renderRecipeBoxes(data, e); ////////////kanske ta bort e som argument
 
                     } else {
 
                         let resoursefood = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe}`);
                         let responsefood = await resoursefood.json();
-
-                        let recipe_name = responsefood.meals[0].strMeal;
-                        let recipe_img = responsefood.meals[0].strMealThumb;
-                        let recipe_div = document.createElement("div");
-                        recipe_div.classList.add("recipe");
-                        recipe_div.innerHTML = `
-                        <h2>${recipe_name}</h2>
-                        <img src="${recipe_img}"> 
-                        </div>`;
-                        recipesDiv.prepend(recipe_div);
-
-                        recipe_div.addEventListener("click", e => { renderRecipe(responsefood.meals[0]) });
+                        renderRecipeBoxes(responsefood, e); ////////////kanske ta bort e som argument
                     }
                 }
 
