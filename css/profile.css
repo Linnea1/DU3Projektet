@@ -1,3 +1,8 @@
+@font-face {
+    font-family: Caveat;
+    src: url("/css/fonts/Caveat/Caveat-VariableFont_wght.ttf");
+}
+
 .icon {
     height: 150px;
     width: 150px;
@@ -8,6 +13,7 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    border: 2px solid black;
 }
 
 .columns {
@@ -23,11 +29,16 @@
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.5);
     width: 100%;
+    border-radius: 10px;
+    transition-property: background-color;
+    transition-duration: 1s;
 }
 
-.columns>*:hover {
-    color: gray;
-}
+/* .columns>*:hover {
+    color: rgb(81, 65, 65); */
+/* transition-property: "background-color"; */
+/* transition-duration: 1s; */
+/* } */
 
 .userInfo {
     display: flex;
@@ -36,19 +47,29 @@
     align-items: center;
 }
 
+/* .userInfo>h2 {
+    font-family: Caveat;
+
+} */
+
 .red {
     color: red;
     cursor: pointer;
 }
 
 .create_recipe {
-    background-color: #3dd8d2;
+    border: 2px solid #f9748b;
+    background-color: white;
     border-radius: 10px;
     padding: 10px;
+    margin: 10px 0px;
+    /* transition-property: "background-color"; */
+    transition-property: background-color;
+    transition-duration: 1s;
 }
 
 .create_recipe:hover {
-    background-color: rgb(188, 94, 125);
+    background-color: #f9748b;
     cursor: pointer;
 }
 
@@ -64,4 +85,49 @@
 .test {
     height: 100px;
     width: 100px;
+}
+
+.buttons {
+
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 10px;
+}
+
+.goBack {
+    background-image: url("/icons/pil.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 40px;
+    width: 45px;
+    /* margin: 0px;
+    margin-left: 0px; */
+    border-radius: 10px;
+    border: none;
+    /* margin-left: -50px; */
+
+}
+
+#settings {
+
+    height: 40px;
+    width: 135px;
+    border-radius: 40px;
+    background-color: white;
+    border: 2px solid #3dd8d2;
+    /* margin-right: 20px; */
+    transition-property: background-color;
+    transition-duration: 1s;
+}
+
+#settings:hover {
+
+    background-color: #3dd8d2;
+    cursor: pointer;
+}
+
+/* #f9768c, #ff8fa1 */
+.chosen {
+    background-color: #f9748b;
+    color: white;
 }

@@ -9,15 +9,17 @@ async function RenderUserPage(userInfo) {
 
         swapStyleSheet("css/profile.css");
         main.innerHTML = `
-            <button class="goBack">Go Back</button>
+        <div class="buttons">
+            <button class="goBack"></button>
             <button class="hidden" id="settings">Settings</button>
+        </div>
             <div class="userInfo">
                 <div class="icon"></div>
                 <h2><b>${userInfo.username}</b></h2>
             </div>
             <div class="create_recipe hidden">Create new recipe</div>
             <div class="columns">
-                <div id="own_recipe" class="profileButton">Recipes</div>
+                <div id="own_recipe" class="profileButton chosen">Recipes</div>
                 <div class="favorites" class="profileButton">Favorites</div>
             </div>
             <div class="recipes"></div>
@@ -61,11 +63,16 @@ async function RenderUserPage(userInfo) {
                 const data = await response.json();
                 usersFavoriteRecipes(data, true);////// kanske ta bort false som argument
                 document.querySelector("#own_recipe").addEventListener("click", e => {
+                    document.querySelector("#own_recipe").classList.add("chosen");
+                    document.querySelector(".favorites").classList.remove("chosen");
+
                     document.querySelector("#loading").classList.remove("hidden");
                     usersFavoriteRecipes(data, true)
                 });////// kanske ta bort false som argument
 
                 document.querySelector(".favorites").addEventListener("click", e => {
+                    document.querySelector(".favorites").classList.add("chosen");
+                    document.querySelector("#own_recipe").classList.remove("chosen");
                     document.querySelector("#loading").classList.remove("hidden");
                     favoriteRecipes(e, user.username, true)////// kanske ta bort false som argument
                     e.stopPropagation();
@@ -81,11 +88,17 @@ async function RenderUserPage(userInfo) {
                 usersFavoriteRecipes(data, false);   ////// kanske ta bort false som argument
 
                 document.querySelector("#own_recipe").addEventListener("click", e => {
+                    document.querySelector("#own_recipe").classList.add("chosen");
+                    document.querySelector(".favorites").classList.remove("chosen");
+
                     document.querySelector("#loading").classList.remove("hidden");
                     usersFavoriteRecipes(data, false)
                 });///// kanske ta e som argument
 
                 document.querySelector(".favorites").addEventListener("click", e => {
+                    document.querySelector(".favorites").classList.add("chosen");
+                    document.querySelector("#own_recipe").classList.remove("chosen");
+
                     document.querySelector("#loading").classList.remove("hidden");
                     favoriteRecipes(e, userInfo.username, false)   ///// kanske ta bort false som argument
                     e.stopPropagation();
