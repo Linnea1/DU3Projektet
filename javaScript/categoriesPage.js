@@ -123,7 +123,7 @@ async function searchDish(key, searchField) {
         currentState(`searchDish(${JSON.stringify(key)}, ${JSON.stringify(searchField)})`)
 
         basicHeader();
-
+        swapStyleSheet("css/recipes.css");
         document.querySelector("main").innerHTML = `
             <button class="goBack"></button>
             <div class="recipes"></div>

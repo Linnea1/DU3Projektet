@@ -98,7 +98,7 @@
     },
     {
         "email": "drtfygjhkj@detrfyguh.se",
-        "username": "tes",
+        "username": "okej",
         "password": "test"
     },
     {
@@ -108,14 +108,14 @@
     },
     {
         "email": "ghkj@fgh.",
-        "username": "test",
-        "password": "test",
-        "pfp": "api\/data\/pictures\/pfp\/1685014800.gif"
+        "username": "tess",
+        "password": "hej",
+        "pfp": "api\/data\/pictures\/pfp\/1685023991.jpeg"
     },
     {
-        "email": "sredtfyguhijokpl@dtfytguhijokpl.l",
+        "email": "rfytguyhij@fcgvhbj.se",
         "username": "slow",
-        "password": "hej"
+        "password": "hoppsan"
     },
     {
         "email": "ryftguih@rdtftygy.se",
@@ -138,5 +138,10 @@
         "username": "hejhopp",
         "password": "hejsan",
         "pfp": "api\/data\/pictures\/pfp\/1684935662.jpeg"
+    },
+    {
+        "email": "fghj@fghjk.se",
+        "username": "toot",
+        "password": "toot"
     }
 ]

@@ -26,25 +26,27 @@
     src: url("/css/fonts/Varela_Round/VarelaRound-Regular.ttf");
 }
 
-body {
+/* body {
     margin: 0px;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
-}
+} */
 
 #wrapper {
     background-color: var(--beige);
-    height: 600px;
+    max-height: 750px;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
-    width: 300px;
+    min-width: 300px;
+    min-height: 500px;
     text-align: center;
     padding: 20px;
     border-radius: 10px;
-
     overflow: scroll;
+    background-image: url("/icons/Leaves.png");
 }
 
 main {
@@ -66,7 +68,7 @@ header {
 .nameOfApplication {
     font-size: 20px;
     padding: 10px 6px 0px 5px;
-    border: 1px solid black;
+    border: 1px solid var(--brown);
     /* height: auto; */
     margin: 0px 5px;
     border-radius: 10px;
@@ -103,7 +105,8 @@ input {
     margin: 10px;
     font-size: 16px;
     border-radius: 10px;
-    border: 1px solid black;
+
+    box-sizing: border-box;
 }
 
 button {
@@ -169,8 +172,23 @@ img {
 
 #popUpWindow {
     position: absolute;
-    background-color: white;
+    background-color: var(--beige);
     width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #41000d47;
+}
+
+#popUpWindow button {
+    border: 2px solid var(--brown);
+    border-radius: 5px;
+    background-color: var(--beige);
+
+    transition: 0.5s;
+}
+
+#popUpWindow button:hover {
+    background-color: var(--brown);
+    color: var(--beige);
 }
 
 .hidden {
@@ -291,4 +309,44 @@ input {
 .author {
     display: flex;
     flex-direction: column;
+}
+
+#liker>button {
+    height: 30px;
+    width: 30px;
+    background-color: #eff0ea;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    border: none;
+}
+
+#liker>button:hover {
+    background-color: #e4e8d0;
+}
+
+#liker #first {
+    background-image: url(/icons/like_empty.png);
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+
+#liker #second {
+    background-image: url(/icons/like_full.png);
+    background-size: contain;
+    transition: opacity .5s;
+    opacity: 0;
+    display: none;
+
+    transition: 1s display;
+}
+
+#liker.liked #second {
+    position: absolute;
+    display: block;
+    opacity: 1;
+    top: -5px;
+    right: -5px;
 }

@@ -1,3 +1,11 @@
+.recipe {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.recipe:hover {
+    background-color: rgba(255, 255, 255, 0);
+}
+
 .commentBox {
     background-color: white;
     border-radius: 10px;

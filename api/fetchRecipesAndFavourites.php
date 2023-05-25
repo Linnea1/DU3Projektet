@@ -4,8 +4,9 @@ ini_set("display_errors", 1);
 
 require_once "functions.php";
 
-$filename = "data/favourites.json";
 $directory = "data";
+$filename = "data/favourites.json";
+$filenameOwnRecipes = "data/recipes.json";
 
 if(!file_exists("data")){ // if no directory, create it
     mkdir($directory, 755);
@@ -14,9 +15,17 @@ if(!file_exists($filename)){ // if no file, create it
     file_put_contents($filename, "[]");
 }
 
+if(!file_exists($filenameOwnRecipes)){ // if no file, create it
+    file_put_contents($filenameOwnRecipes, "[]");
+}
+
 $json = file_get_contents($filename);
 $data = json_decode($json, true);
 $method = $_SERVER["REQUEST_METHOD"];
+
+
+$jsonRecipe = file_get_contents($filenameOwnRecipes);
+$dataRecipe = json_decode($jsonRecipe, true);
 
 if ($method == "GET") {
 
@@ -57,11 +66,8 @@ if ($method == "GET") {
     if (isset($_GET["ownRecipe"])) { // checks after key
 
         $ownRecipe = $_GET["ownRecipe"];
-        $filename = "data/recipes.json";
-        $json = file_get_contents($filename);
-        $data = json_decode($json, true);
 
-        foreach($data as $recipe){
+        foreach($dataRecipe as $recipe){
             if($recipe["idMeal"] === $ownRecipe){ // if there is a matching id in the database
                 send_JSON($recipe); // send it as a response
             }
@@ -72,10 +78,8 @@ if ($method == "GET") {
     }
 
     if (isset($_GET["ourOwnDatabase"])) {
+
         $ownRecipeName = $_GET["ourOwnDatabase"];
-        $filenameRecipe = "data/recipes.json";
-        $jsonRecipe = file_get_contents($filenameRecipe);
-        $dataRecipe = json_decode($jsonRecipe, true);
 
         foreach($dataRecipe as $recipe){
             if(str_contains($recipe["strMeal"],$ownRecipeName )){ // if there is a matching id in the database

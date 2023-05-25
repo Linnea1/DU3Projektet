@@ -28,7 +28,10 @@ function incorrectChar ($splitWord, $value){ // characters outside the english a
  // universal for most "change" settings
 function change ($input, $users, $filename, $field, $secondaryField = "password"){
     // field decides what will be changed
-    if($input[$field] == $input["new"]){ // cant be the same
+    $new = "new_";
+    $new .= $field;
+
+    if($input[$field] == $input[$new]){ // cant be the same
         send_JSON(["message"=>"New $field cannot be the same as old $field"], 400); 
     }
 
@@ -42,32 +45,32 @@ function change ($input, $users, $filename, $field, $secondaryField = "password"
                 $copiedArray = $array; // array needs to be copied so original array isn't damaged
                 array_splice($copiedArray, $index, 1);
                 foreach($copiedArray as $owned){
-                    if($owned[$field] == $input["new"]){
+                    if($owned[$field] == $input[$new]){
                         send_JSON(["message"=>"This $field is already taken, please try again"], 400); 
                     }
                 }
             }
 
             if ($field == "password"){ // old password needs to be correct
-                if ($input[$field] != $input["old"]) {
+                if ($input[$field] != $user["password"]) {
                     send_JSON(["message"=>"Incorrect password, please try again"], 400); 
                 }
             }
 
-            tooShort($input["new"], $field); // make sure its not too short
+            tooShort($input[$new], $field); // make sure its not too short
 
-            $split = str_split($input["new"]); // or has illegal characters
+            $split = str_split($input[$new]); // or has illegal characters
             incorrectChar($split, $field);
 
             if($field == "email"){ // email needs to have @ and .
-                if(!preg_match("/(@)(.)/", $input["new"])){
+                if(!preg_match("/(@)(.)/", $input[$new])){
                     send_JSON(["message"=>"Please enter a valid email"], 400); 
                 }
             }
             ////////////// checks are done, can now be changed!
 
             // send_JSON($input["username"], 400);
-            $users[$index][$field] = $input["new"];
+            $users[$index][$field] = $input[$new];
             file_put_contents($filename, json_encode($users, JSON_PRETTY_PRINT));
 
             // change in other databases too
@@ -79,7 +82,7 @@ function change ($input, $users, $filename, $field, $secondaryField = "password"
                 function changeUsername ($dataBase, $key, $filePath, $input){
                     foreach($dataBase as $index => $data){
                         if($data[$key] == $input["username"] && !isset($data["deleted"])){
-                            $dataBase[$index][$key] = $input["new"];
+                            $dataBase[$index][$key] = $input[$new];
 
                             file_put_contents($filePath, json_encode($dataBase, JSON_PRETTY_PRINT));
                         }
@@ -92,7 +95,7 @@ function change ($input, $users, $filename, $field, $secondaryField = "password"
             }
             ///
 
-            send_JSON($input["new"]);
+            send_JSON(["message"=>"Successfully updated $field!"]);
         }
     }
     send_JSON(["message"=>"Problems with finding user"], 400); // if user cant be found / matched
