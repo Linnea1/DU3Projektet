@@ -32,8 +32,6 @@ function renderLoginPage() {
             let response = await fetching("api/login.php", "POST", body);
             let data = await response.json();
 
-            data.password = password.value;
-
             if (!response.ok) {
                 errorMessage.innerHTML = `<span>${data.message}</span>.`; // error message
             } else {
@@ -45,8 +43,8 @@ function renderLoginPage() {
                 // logged in! (adding function later)
                 renderCategoriesPage()
             }
-        } catch (err) { // if something went wrong
-            errorMessage.textContent = `Error: ${err.message}`;
+        } catch (error) { // if something went wrong
+            errorMessage.textContent = `Error: ${error.message}`;
         }
     });
 }

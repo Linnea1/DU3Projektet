@@ -117,9 +117,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
 
             }
+
         }
         send_JSON(["message"=>"Problems with finding user"], 404);
-
+            
+        
     }
     send_JSON(["message"=>"Send a file"], 421);
 }
