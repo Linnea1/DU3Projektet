@@ -143,5 +143,10 @@
         "email": "fghj@fghjk.se",
         "username": "toot",
         "password": "toot"
+    },
+    {
+        "email": "fgjhkl@dfghjk.",
+        "username": "test",
+        "password": "test"
     }
 ]

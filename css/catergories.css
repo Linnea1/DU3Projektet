@@ -20,11 +20,6 @@ h2 {
     color: var(--brown);
 }
 
-/* .info{
-    background-color: #3dd8d2;
-    border-radius: 50% 50% 0px 0px;
-} */
-
 .category {
     width: auto;
     color: white;
@@ -78,9 +73,4 @@ h2 {
     background-image: url(/icons/Background4.png);
     background-size: cover;
     background-position: center;
-}
-
-#wrapper {
-    background-image: url(/icons/Leaves.png);
-    ;
 }
