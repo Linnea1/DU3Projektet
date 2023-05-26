@@ -53,7 +53,7 @@ if ($method == "GET") {
             }
         }
         $error = ["error" => "There are no liked recipes"];  // if there are no favourites
-        send_JSON($error, 400);
+        send_JSON($error, 404);
     
     }
 
@@ -118,10 +118,10 @@ if ($method == "POST") {
     foreach($data as &$userData){
         if ($userData["username"] == $username) { // find the correct user
 
-            if (in_array($idMeal, $userData["idMeal"])) { // if the user is trying to add a recipe that already exists in the array
-                $error = ["error" => "This recipe is already added to your favourites"];
-                send_JSON($error, 400); // eller 406?
-            }
+            // if (in_array($idMeal, $userData["idMeal"])) { // if the user is trying to add a recipe that already exists in the array
+            //     $error = ["error" => "This recipe is already added to your favourites"];
+            //     send_JSON($error, 400); // eller 406?
+            // }
 
             $userData["idMeal"][] = $idMeal; //update the array of favourites 
             $json = json_encode($data, JSON_PRETTY_PRINT);
@@ -165,5 +165,7 @@ if ($method == "DELETE") {
         }
     }
 }
+
+ send_JSON(["message"=>"Wrong method"], 405);
 
 ?>
