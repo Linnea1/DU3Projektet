@@ -49,6 +49,8 @@ body {
     border-radius: 20px;
     overflow: scroll;
     background-image: url("/icons/Leaves.png");
+
+    position: absolute;
 }
 
 main {
