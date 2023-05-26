@@ -34,6 +34,12 @@
     height: 100vh;
 } */
 
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #wrapper {
     background-color: var(--beige);
     max-height: 750px;
@@ -151,8 +157,8 @@ img {
 
 #popUp {
     position: absolute;
-    min-height: 640px;
-    width: 340px;
+    height: 100%;
+    width: 100%;
     margin: -20px;
 
     display: flex;
