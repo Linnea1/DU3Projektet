@@ -283,10 +283,10 @@ input {
     position: absolute;
     min-height: 640px;
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0px;
     z-index: 3;
-
+    top: 0;
+    right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -375,4 +375,18 @@ input {
     opacity: 1;
     top: -5px;
     right: -5px;
+}
+
+.stars {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url('/icons/star-filled.png');
+    /* Replace with your filled star image */
+    background-size: cover;
+}
+
+.stars.empty {
+    background-image: url('/icons/star.png');
+    /* Replace with your empty star image */
 }
