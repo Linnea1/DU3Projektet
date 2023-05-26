@@ -117,46 +117,6 @@
     color: white;
 }
 
-/* #liker>button {
-    height: 30px;
-    width: 30px;
-    background-color: #eff0ea;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 50%;
-    border: none;
-}
-
-#liker>button:hover {
-    background-color: #e4e8d0;
-}
-
-#liker #first {
-    background-image: url(/icons/like_empty.png);
-    position: absolute;
-    top: -5px;
-    right: -5px;
-}
-
-#liker #second {
-    background-image: url(/icons/like_full.png);
-    background-size: contain;
-    transition: opacity .5s;
-    opacity: 0;
-    display: none;
-
-    transition: 1s display;
-}
-
-#liker.liked #second {
-    position: absolute;
-    display: block;
-    opacity: 1;
-    top: -5px;
-    right: -5px;
-} */
-
 .stars {
     display: inline-block;
     width: 20px;
