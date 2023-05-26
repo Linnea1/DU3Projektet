@@ -16,7 +16,7 @@ async function renderCategoriesPage() {
     `;
 
     // When the user scrolls the page, execute myFunction
-    window.onscroll = function () { headerSticky() };
+  /*   window.onscroll = function () { headerSticky() };
 
     // Get the header
     let header = document.querySelector("header");
@@ -32,7 +32,7 @@ async function renderCategoriesPage() {
             header.classList.remove("sticky");
         }
     }
-
+ */
     const divCategories = document.querySelector(".categories");
     let searchField = main.querySelector("input");
     searchField.addEventListener("keyup", e => {

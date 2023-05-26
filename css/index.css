@@ -59,10 +59,15 @@ header {
     margin-bottom: 10px;
 }
 
-.sticky {
+/* .sticky {
     position: fixed;
     top: 0;
     width: 100%
+} */
+
+.stickyHeader {
+    position: sticky;
+    top: 0;
 }
 
 .nameOfApplication {

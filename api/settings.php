@@ -15,6 +15,17 @@ if(!file_exists("data/pictures/pfp")){ // if no directory, create it
 if(!file_exists($filename)){ // if no file, create it
     file_put_contents($filename, "[]");
 }
+if(!file_exists("data/favourites.json")){ // if no file, create it
+    file_put_contents("data/favourites.json", "[]");
+}
+if(!file_exists("data/comments.json")){ // if no file, create it
+    file_put_contents("data/favourites.json", "[]");
+}
+if(!file_exists("data/recipes.json")){ // if no file, create it
+    file_put_contents("data/favourites.json", "[]");
+}
+
+
 $users = json_decode(file_get_contents($filename), true);
 $input = json_decode(file_get_contents("php://input"), true);
 
@@ -71,10 +82,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                 $users[$index]["pfp"] = $filePath . $name;
 
-                if(isset($_POST["old"])){
-                    $correctPath = str_replace("api/data/pictures/pfp/", "data/pictures/pfp/", $_POST["old"]);
-                    unlink($correctPath);
-                }
+                // if(isset($_POST["old"])){
+                //     $correctPath = str_replace("api/data/pictures/pfp/", "data/pictures/pfp/", $_POST["old"]);
+                //     unlink($correctPath);
+                // }
 
                 if(move_uploaded_file($source, "data/pictures/pfp/" . $name)){
                     $correctName =  $filePath . $name;
@@ -101,11 +112,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                     send_JSON($filePath . $name);
                 } else {
-                    send_JSON(["message"=>"File could not be added to server, please try again"], 400);
+                    send_JSON(["message"=>"File could not be added to server, please try again"], 409);
                 }
 
             }
-            send_JSON(["message"=>"Problems with finding user"], 400);
+            send_JSON(["message"=>"Problems with finding user"], 404);
         }
 
     }
