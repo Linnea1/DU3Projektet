@@ -23,8 +23,6 @@ async function renderCategoriesPage() {
         }
         searchDish(e.key, e.target.value);
     });
-    document.querySelector("#menu").addEventListener("click", ShowMenu);
-
 
     // Array of background classes
     const catagroriesBackground = ["background1", "background2", "background3", "background4"];

@@ -148,5 +148,11 @@
         "email": "fgjhkl@dfghjk.",
         "username": "test",
         "password": "test"
+    },
+    {
+        "email": "gubbe@hej.com",
+        "username": "Gubbe",
+        "password": "hej",
+        "pfp": "api\/data\/pictures\/pfp\/1685087399.png"
     }
 ]

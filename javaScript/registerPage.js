@@ -48,7 +48,6 @@ function renderRegisterPage() {
         } catch (error) {
             message.textContent = `${error.message}`;
         }
-
     });
 }
 
