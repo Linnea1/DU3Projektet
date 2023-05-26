@@ -3,7 +3,7 @@
         "email": "erica@hej",
         "username": "erica",
         "password": "hej",
-        "pfp": "api\/data\/pictures\/1684317341.png"
+        "pfp": "api\/data\/pictures\/pfp\/1685086925.jpeg"
     },
     {
         "email": "ballongone@ballong.se",
@@ -148,5 +148,11 @@
         "email": "fgjhkl@dfghjk.",
         "username": "test",
         "password": "test"
+    },
+    {
+        "email": "lo@hej",
+        "username": "lolo",
+        "password": "lolo",
+        "pfp": "api\/data\/pictures\/pfp\/1685087358.jpeg"
     }
 ]

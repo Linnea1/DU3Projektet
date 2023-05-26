@@ -76,9 +76,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $ending = str_replace("image/", ".", $type);
         $filePath = "api/data/pictures/pfp/";
         $name = $time . $ending;
-        
+
         foreach($users as $index => $user){
-            if($user["username"] == $username && $user["password"] == $password){
+
+            if($user['username'] == $username && $user['password'] == $password){
 
                 $users[$index]["pfp"] = $filePath . $name;
 
@@ -116,8 +117,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
 
             }
-            send_JSON(["message"=>"Problems with finding user"], 404);
         }
+        send_JSON(["message"=>"Problems with finding user"], 404);
 
     }
     send_JSON(["message"=>"Send a file"], 421);
