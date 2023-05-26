@@ -26,13 +26,10 @@
     src: url("/css/fonts/Varela_Round/VarelaRound-Regular.ttf");
 }
 
-/* body {
+body {
     margin: 0px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-} */
+    background-color: black;
+}
 
 body {
     display: flex;
@@ -50,7 +47,7 @@ body {
     flex-direction: column;
     text-align: center;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 20px;
     overflow: scroll;
     background-image: url("/icons/Leaves.png");
 }
@@ -137,9 +134,9 @@ footer {
     padding: 5px;
 }
 
-.recipe:hover {
+/* .recipe:hover {
     background-color: #ff8fa1;
-}
+} */
 
 .recipe>h2 {
     font-family: Caveat;
