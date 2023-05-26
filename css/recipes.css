@@ -10,18 +10,18 @@
     background-color: #f9748b;
 }
 
-.recipe {
+/* .recipe {
     position: relative;
     background-color: #ff8fa1;
     margin: 10px 0px;
     border-radius: 10px;
     padding: 5px;
-}
+} */
 
 
-.recipe:hover {
+/* .recipe:hover {
     background-color: #ff8fa1;
-}
+} */
 
 img {
     height: 200px;
