@@ -116,7 +116,7 @@ async function searchDish(key, searchField) {
             let resourseOwnRecipe = await fetch(`api/fetchRecipesAndFavourites.php?ourOwnDatabase=${searchField}`);
             let dataOwnRecipe = await resourseOwnRecipe.json();
 
-            if (!dataOwnRecipe.error) {
+            if (!dataOwnRecipe.message) {
 
                 console.log("error här");
                 let recipe = { meals: [dataOwnRecipe] }
@@ -146,18 +146,18 @@ async function searchDish(key, searchField) {
 //Creating the recipes
 async function renderRecipeBoxes(data, e, a) { ////////////kanske ta bort e som argument
 
-    console.log(data);
-    console.log(a);
     const divRecipes = document.querySelector(".recipes");
 
     if (data.meals === null) {
         a++;
-        if (a == 3) {
+        if (a == 2) {
             if (document.querySelector(".recipes").childElementCount === 0) {
                 divRecipes.innerHTML = `
                     <div> No recipes </div>    
                 `;
                 a = 1;
+                document.querySelector("#loading").classList.add("hidden");
+
             }
             console.log("Nu har den fetchat från båda");
             b = 0;
@@ -165,12 +165,8 @@ async function renderRecipeBoxes(data, e, a) { ////////////kanske ta bort e som 
         }
     }
 
-    if (data.meals === null) {
+    if (!data.meals === null) {
         console.log("null");
-        // console.log(data.meals);
-        //     document.querySelector("#loading").classList.add("hidden");
-        //     console.log("null");
-        //     popUp("Could not find a matching recipe to your input");
     } else {
 
         let listOfIds = [];
@@ -270,8 +266,8 @@ async function renderRecipeBoxes(data, e, a) { ////////////kanske ta bort e som 
             }
         }
     }
-
     document.querySelector("#loading").classList.add("hidden");
+
 }
 
 async function usersFavoriteRecipes(data, e) {   /// ta kanske bort e som argument
