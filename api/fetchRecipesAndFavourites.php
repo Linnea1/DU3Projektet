@@ -118,10 +118,10 @@ if ($method == "POST") {
     foreach($data as &$userData){
         if ($userData["username"] == $username) { // find the correct user
 
-            // if (in_array($idMeal, $userData["idMeal"])) { // if the user is trying to add a recipe that already exists in the array
-            //     $error = ["error" => "This recipe is already added to your favourites"];
-            //     send_JSON($error, 400); // eller 406?
-            // }
+            if (in_array($idMeal, $userData["idMeal"])) { // if the user is trying to add a recipe that already exists in the array
+                $error = ["error" => "This recipe is already added to your favourites"];
+                send_JSON($error, 400); // eller 406?
+            }
 
             $userData["idMeal"][] = $idMeal; //update the array of favourites 
             $json = json_encode($data, JSON_PRETTY_PRINT);
