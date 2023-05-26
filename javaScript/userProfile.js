@@ -100,7 +100,6 @@ async function RenderUserPage(userInfo) {
 
                     document.querySelector("#loading").classList.remove("hidden");
                     favoriteRecipes(e, userInfo.username, false)
-                    e.stopPropagation();
 
                 });
             }
@@ -113,11 +112,8 @@ async function RenderUserPage(userInfo) {
 }
 
 
-async function favoriteRecipes(object, user, e) {
+async function favoriteRecipes(object, user, ownAccout) {
 
-    if (e === false) {
-        e === true;
-    };
 
     let divForAllRecipes = document.querySelector(".favorites");
     let recipesDiv = document.querySelector(".recipes");
@@ -138,18 +134,16 @@ async function favoriteRecipes(object, user, e) {
 
                         let resourse = await fetch(`api/fetchRecipesAndFavourites.php?ownRecipe=${recipe}`);
                         let response = await resourse.json();
-                        console.log(response);
                         let meals = []
                         meals.push(response)
                         const data = { meals: meals }; //Making sure the format for the function call is right
-
-                        renderRecipeBoxes(data, e);
+                        renderRecipeBoxes(data, ownAccout);
 
                     } else {
 
                         let resoursefood = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe}`);
                         let responsefood = await resoursefood.json();
-                        renderRecipeBoxes(responsefood, e);
+                        renderRecipeBoxes(responsefood, ownAccout);
                     }
                 }
 
@@ -158,7 +152,7 @@ async function favoriteRecipes(object, user, e) {
 
             }
         } catch (e) {
-            console.log(e);
+            popUp(e);
 
         }
     }

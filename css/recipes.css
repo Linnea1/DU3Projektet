@@ -10,18 +10,6 @@
     background-color: #f9748b;
 }
 
-/* .recipe {
-    position: relative;
-    background-color: #ff8fa1;
-    margin: 10px 0px;
-    border-radius: 10px;
-    padding: 5px;
-} */
-
-
-/* .recipe:hover {
-    background-color: #ff8fa1;
-} */
 
 img {
     height: 200px;
@@ -45,14 +33,14 @@ img {
 }
 
 #liker #first {
-    background-image: url(/icons/like_empty.png);
+    background-image: url("../icons/like_empty.png");
     position: absolute;
     top: -5px;
     right: -5px;
 }
 
 #liker #second {
-    background-image: url(/icons/like_full.png);
+    background-image: url("../icons/like_full.png");
     background-size: contain;
     transition: opacity .5s;
     opacity: 0;
@@ -94,12 +82,12 @@ img {
     display: inline-block;
     width: 20px;
     height: 20px;
-    background-image: url('/icons/star-filled.png');
+    background-image: url('../icons/star-filled.png');
     /* Replace with your filled star image */
     background-size: cover;
 }
 
 .stars.empty {
-    background-image: url('/icons/star.png');
+    background-image: url('../icons/star.png');
     /* Replace with your empty star image */
 }

@@ -1,10 +1,10 @@
-let a = 1;
+let counter = 1;
 //render all categories in the open API
 async function renderCategoriesPage() {
     document.querySelector("#loading").classList.remove("hidden");
     user = JSON.parse(localStorage.getItem("user"));
 
-    a = 1;
+    counter = 1;
     currentState("renderCategoriesPage()");
 
     swapStyleSheet("css/catergories.css");
@@ -110,6 +110,7 @@ async function searchDish(key, searchField) {
             <button class="goBack"></button>
             <div class="recipes"></div>
         `;
+        goBack();
 
         try {
 
@@ -117,10 +118,9 @@ async function searchDish(key, searchField) {
             let dataOwnRecipe = await resourseOwnRecipe.json();
 
             if (!dataOwnRecipe.message) {
-
-                console.log("error här");
+                // för att få rätt format på datan
                 let recipe = { meals: [dataOwnRecipe] }
-                renderRecipeBoxes(recipe, false, a = 1);
+                renderRecipeBoxes(recipe, false, counter = 1);
             }
 
         } catch (error) {
@@ -130,9 +130,7 @@ async function searchDish(key, searchField) {
             let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchField}`);
             let data = await response.json();
 
-            renderRecipeBoxes(data, false, a = 1);
-
-            goBack();
+            renderRecipeBoxes(data, false, counter = 1);
 
 
         } catch (error) {
@@ -144,68 +142,64 @@ async function searchDish(key, searchField) {
 
 
 //Creating the recipes
-async function renderRecipeBoxes(data, e, a) {
+async function renderRecipeBoxes(data, ownAccount, counter) {
 
     const divRecipes = document.querySelector(".recipes");
 
     if (data.meals === null) {
-        a++;
-        if (a == 2) {
+        counter++;
+        if (counter == 2) {
             if (document.querySelector(".recipes").childElementCount === 0) {
                 divRecipes.innerHTML = `
                     <div> No recipes </div>    
                 `;
-                a = 1;
+                counter = 1;
                 document.querySelector("#loading").classList.add("hidden");
 
             }
-            console.log("Nu har den fetchat från båda");
-            b = 0;
 
         }
     }
 
-    if (!data.meals === null) {
-        console.log("null");
-    } else {
+    // loops through ids in data and pushes in array
+    let listOfIds = [];
+    let listOfRatings;
+    for (let i = 0; i < data.meals.length; i++) {
+        const meal = data.meals[i];
+        listOfIds.push(meal.idMeal)
+        // Perform actions with each meal object
+    }
+    try {
+        const requestBody = {
+            listOfIds,
+        };
+        let response = await fetching("api/ratings.php", "POST", requestBody);
+        let data = await response.json();
+        listOfRatings = data;
 
-        let listOfIds = [];
-        let listOfRatings;
-        for (let i = 0; i < data.meals.length; i++) {
-            const meal = data.meals[i];
-            listOfIds.push(meal.idMeal)
-            // Perform actions with each meal object
+    } catch (error) {
+        // Handle error
+        popUp(error);
+    }
+    //decides witch class the recipe should have
+    let evenOrOdd = 0;
+    for (const recipeName in data.meals) {
+        const recipe = data.meals[recipeName];
+        const recipeDiv = document.createElement("div");
+        recipeDiv.dataset.id = recipe.idMeal;
+
+        evenOrOdd++
+        if (evenOrOdd %= 2) {
+            recipeDiv.classList.add("odd");
+        } else {
+            recipeDiv.classList.add("even");
         }
-        try {
-            console.log(listOfIds)
-            const requestBody = {
-                listOfIds,
-            };
-            let response = await fetching("api/ratings.php", "POST", requestBody);
-            let data = await response.json();
-            listOfRatings = data;
-            console.log(listOfRatings);
-        } catch (error) {
-            // Handle error
-        }
-        let evenOrOdd = 0;
-        for (const recipeName in data.meals) {
-            const recipe = data.meals[recipeName];
-            const recipeDiv = document.createElement("div");
-            recipeDiv.dataset.id = recipe.idMeal;
 
-            evenOrOdd++
-            if (evenOrOdd %= 2) {
-                recipeDiv.classList.add("odd");
-            } else {
-                recipeDiv.classList.add("even");
-            }
+        recipeDiv.classList.add("recipe");
 
-            recipeDiv.classList.add("recipe");
+        if (ownAccount === false) {
 
-            if (e === false) {
-
-                recipeDiv.innerHTML = `
+            recipeDiv.innerHTML = `
                 <h2>${recipe.strMeal}</h2>
                 <div id="liker" class="${await checkLiked(recipe.idMeal) ? 'liked' : 'false'}">
                 <button id="first"></button>
@@ -223,11 +217,11 @@ async function renderRecipeBoxes(data, e, a) {
                 </div>
                 `;
 
-                recipeDiv.querySelector("#first").addEventListener("click", AddRecipesAsFavourite);
-                recipeDiv.querySelector("#second").addEventListener("click", AddRecipesAsFavourite);
+            recipeDiv.querySelector("#first").addEventListener("click", AddRecipesAsFavourite);
+            recipeDiv.querySelector("#second").addEventListener("click", AddRecipesAsFavourite);
 
-            } else {
-                recipeDiv.innerHTML = `
+        } else {
+            recipeDiv.innerHTML = `
                 <h2>${recipe.strMeal}</h2>
                 <div>
                     <img src="${recipe.strMealThumb}"> 
@@ -240,29 +234,28 @@ async function renderRecipeBoxes(data, e, a) {
                     <span class="stars" id="stars5"></span>
                 </div>
                 `;
-            }
+        }
 
-            divRecipes.append(recipeDiv);
-            recipeDiv.dataset.id = recipe.idMeal;
-
-
-            recipeDiv.addEventListener("click", e => {
-                newState();
-                renderRecipe(data.meals[recipeName])
-            });
-            divRecipes.append(recipeDiv);
-            recipeDiv.dataset.id = recipe.idMeal;
+        divRecipes.append(recipeDiv);
+        recipeDiv.dataset.id = recipe.idMeal;
 
 
-            const filledStars = Math.round(listOfRatings[recipeName]);
+        recipeDiv.addEventListener("click", e => {
+            newState();
+            renderRecipe(data.meals[recipeName])
+        });
+        divRecipes.append(recipeDiv);
+        recipeDiv.dataset.id = recipe.idMeal;
 
-            for (let i = 1; i <= 5; i++) {
-                const star = recipeDiv.querySelector(`#stars${i}`);
-                if (i <= filledStars) {
-                    star.classList.remove('empty');
-                } else {
-                    star.classList.add('empty');
-                }
+
+        const filledStars = Math.round(listOfRatings[recipeName]);
+
+        for (let i = 1; i <= 5; i++) {
+            const star = recipeDiv.querySelector(`#stars${i}`);
+            if (i <= filledStars) {
+                star.classList.remove('empty');
+            } else {
+                star.classList.add('empty');
             }
         }
     }
@@ -270,7 +263,8 @@ async function renderRecipeBoxes(data, e, a) {
 
 }
 
-async function usersFavoriteRecipes(data, e) {
+/// this function is used when you are on your profile. This function empties .recipes so you wont get double
+async function usersFavoriteRecipes(data, ownAccount) {
 
     const divRecipes = document.querySelector(".recipes");
     divRecipes.innerHTML = "";
@@ -302,16 +296,14 @@ async function usersFavoriteRecipes(data, e) {
         recipeDiv.dataset.id = data.id;
         recipeDiv.classList.add("recipe");
 
-        console.log(recipeName);
         evenOrOdd++
-        console.log(evenOrOdd);
         if (evenOrOdd %= 2) {
             recipeDiv.classList.add("odd");
         } else {
             recipeDiv.classList.add("even");
         }
 
-        if (e === false) {
+        if (ownAccount === false) {
 
             recipeDiv.innerHTML = `
                 <h2>${recipe.strMeal}</h2>

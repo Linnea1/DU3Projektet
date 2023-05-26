@@ -80,7 +80,6 @@ function goBack() { // use this to make the go back button work
 }
 
 function currentState(renderFunction) {
-    console.log(state);
 
     state.current_state = renderFunction;
     localStorage.setItem("state", JSON.stringify({

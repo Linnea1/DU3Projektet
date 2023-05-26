@@ -43,34 +43,34 @@ h2 {
     display: inline-block;
     width: 20px;
     height: 20px;
-    background-image: url('/icons/star-filled.png');
+    background-image: url('../icons/star-filled.png');
     /* Replace with your filled star image */
     background-size: cover;
 }
 
 .stars.empty {
-    background-image: url('/icons/star.png');
+    background-image: url('../icons/star.png');
     /* Replace with your empty star image */
 }
 
 .background1 {
-    background-image: url(/icons/Background1.png);
+    background-image: url("../icons/Background1.png");
     background-size: cover;
     background-position: center;
 }
 
 .background2 {
-    background-image: url(/icons/Background2.png);
+    background-image: url("../icons/Background2.png");
     background-size: cover;
     background-position: center;
 }
 
 .background3 {
-    background-image: url(/icons/Background3.png);
+    background-image: url("../icons/Background3.png");
 }
 
 .background4 {
-    background-image: url(/icons/Background4.png);
+    background-image: url("../icons/Background4.png");
     background-size: cover;
     background-position: center;
 }

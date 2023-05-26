@@ -61,6 +61,7 @@ function renderSettings() {
     let pfpInput = main.querySelector("#pfp");
     let pfpLabel = main.querySelector("label");
 
+    //input to add picture
     pfpInput.addEventListener("click", e => { pfpLabel.classList.add("selected") });
 
     main.querySelector(".red").addEventListener("click", e => {
@@ -198,7 +199,6 @@ function renderSettings() {
         if (user.pfp) {
             formData.append("old", user.pfp);
         }
-        console.log(formData);
         if (main.querySelector('input[name="pfp"]').value === "") {
             popUp("Please upload a file");
             pfpLabel.classList.remove("selected");
@@ -212,7 +212,7 @@ function renderSettings() {
                 const response = await fetch(request);
                 const data = await response.json();
 
-                if (data.message) {
+                if (!response.ok) {
                     popUp(data.message);
                     pfpLabel.classList.remove("selected");
                 } else {

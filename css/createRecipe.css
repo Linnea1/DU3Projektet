@@ -10,8 +10,6 @@ form {
     align-items: center;
 }
 
-#ingredients {}
-
 select {
     margin-bottom: 15px;
     text-align: center;
@@ -73,7 +71,7 @@ select {
 }
 
 .goBack {
-    background-image: url("/icons/pil.png");
+    background-image: url("../icons/pil.png");
     background-size: contain;
     background-repeat: no-repeat;
     height: 40px;

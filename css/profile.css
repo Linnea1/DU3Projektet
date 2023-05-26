@@ -22,7 +22,7 @@
     width: 150px;
     border-radius: 50%;
     background-color: rgba(228, 230, 231, 255);
-    background-image: url(../icons/blank-face-test.webp);
+    background-image: url("../icons/blank-face-test.webp");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

@@ -19,10 +19,10 @@ if(!file_exists("data/favourites.json")){ // if no file, create it
     file_put_contents("data/favourites.json", "[]");
 }
 if(!file_exists("data/comments.json")){ // if no file, create it
-    file_put_contents("data/favourites.json", "[]");
+    file_put_contents("data/comments.json", "[]");
 }
 if(!file_exists("data/recipes.json")){ // if no file, create it
-    file_put_contents("data/favourites.json", "[]");
+    file_put_contents("data/recipes.json", "[]");
 }
 
 

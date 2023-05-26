@@ -10,6 +10,7 @@
 
     scrollbar-width: none;
     -ms-overflow-style: none;
+    box-sizing: border-box;
 }
 
 *::-webkit-scrollbar {
@@ -18,24 +19,18 @@
 
 @font-face {
     font-family: Caveat;
-    src: url("/css/fonts/Caveat/Caveat-VariableFont_wght.ttf");
+    src: url("../css/fonts/Caveat/Caveat-VariableFont_wght.ttf");
 }
 
 @font-face {
     font-family: Varela;
-    src: url("/css/fonts/Varela_Round/VarelaRound-Regular.ttf");
+    src: url("../css/fonts/Varela_Round/VarelaRound-Regular.ttf");
 }
 
 body {
     margin: 0px;
     background-color: black;
 }
-
-/* body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
 
 #wrapper {
     background-color: var(--beige);
@@ -49,17 +44,18 @@ body {
     padding: 20px;
     border-radius: 20px;
     overflow: scroll;
-    background-image: url("/icons/Leaves.png");
+    background-image: url("../icons/Leaves.png");
 
     position: absolute;
 }
 
 main {
     overflow: scroll;
+    flex-grow: 1;
 }
 
 header {
-    width: 100%;
+    flex-basis: 50px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
@@ -74,7 +70,6 @@ header {
     font-size: 20px;
     padding: 10px 6px 0px 5px;
     border: 1px solid var(--brown);
-    /* height: auto; */
     margin: 0px 5px;
     border-radius: 10px;
 }
@@ -126,6 +121,7 @@ button {
 
 footer {
     margin-top: auto;
+    flex-basis: 50px;
 }
 
 .recipe {
@@ -136,9 +132,6 @@ footer {
     padding: 5px;
 }
 
-/* .recipe:hover {
-    background-color: #ff8fa1;
-} */
 
 .recipe>h2 {
     font-family: Caveat;
@@ -154,7 +147,7 @@ img {
     background-size: cover;
     background-repeat: no-repeat;
 
-    background-image: url("/icons/blank-face-test.webp");
+    background-image: url("../icons/blank-face-test.webp");
 }
 
 #popUp {
@@ -226,61 +219,9 @@ input {
     border: none;
 }
 
-#menu {
-    transition: transform 1s;
-}
-
-.spin {
-    transform: rotate(90deg);
-    position: absolute;
-    right: 10px;
-}
-
-#testt {
-    /* animation-name: example;
-    animation-duration: 1s;
-    animation-direction: reverse; */
-
-
-}
-
-.test {
-    display: block;
-    animation-name: example;
-    animation-duration: 1s;
-    position: absolute;
-    background-color: #f9f1eb;
-    width: 250px;
-    height: 600px;
-
-    /* box-shadow: 10px 0px 10px #41000d; */
-    /* 
-    animation-name: example;
-    animation-duration: 1s;
-    animation-direction: reverse; */
-}
-
-/* .closed {
-    animation-name: example;
-    animation-direction: reverse;
-    animation-duration: 1s;
-
-    transform: translateX(0%);
-    transition: transform 1s ease;
-} */
-
-@keyframes example {
-    0% {
-        width: 0px;
-    }
-
-    100% {
-        width: 250px;
-    }
-}
 
 #loading {
-    position: absolute;
+    /* position: absolute;
     min-height: 640px;
     width: 100%;
     margin: 0px;
@@ -290,7 +231,20 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
-    justify-self: center;
+    justify-self: center; */
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
 }
 
 #loading>img {
@@ -309,7 +263,7 @@ input {
 }
 
 .goBack {
-    background-image: url("/icons/pil.png");
+    background-image: url("../icons/pil.png");
     background-size: contain;
     background-repeat: no-repeat;
     height: 40px;
@@ -322,6 +276,7 @@ input {
 
 
 #pfp {
+    background-image: url("../icons/blank-face-test.webp");
     height: 50px;
     width: 50px;
     background-size: contain;
@@ -353,14 +308,14 @@ input {
 }
 
 #liker #first {
-    background-image: url(/icons/like_empty.png);
+    background-image: url("../icons/like_empty.png");
     position: absolute;
     top: -5px;
     right: -5px;
 }
 
 #liker #second {
-    background-image: url(/icons/like_full.png);
+    background-image: url("../icons/like_full.png");
     background-size: contain;
     transition: opacity .5s;
     opacity: 0;
@@ -381,12 +336,12 @@ input {
     display: inline-block;
     width: 20px;
     height: 20px;
-    background-image: url('/icons/star-filled.png');
+    background-image: url('../icons/star-filled.png');
     /* Replace with your filled star image */
     background-size: cover;
 }
 
 .stars.empty {
-    background-image: url('/icons/star.png');
+    background-image: url('../icons/star.png');
     /* Replace with your empty star image */
 }

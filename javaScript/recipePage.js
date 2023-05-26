@@ -38,42 +38,34 @@ async function renderRecipe(recipe) {
         main.innerHTML = `
             
             <button class="goBack"></button>
-                <div class="recipe">
-                    <h2><b>${currentRecipe.strMeal}</b></h2>
-                    <img src="${currentRecipe.strMealThumb}"> 
-                    <div id="rating-container">
-                        <span class="stars" id="stars1"></span>
-                        <span class="stars" id="stars2"></span>
-                        <span class="stars" id="stars3"></span>
-                        <span class="stars" id="stars4"></span>
-                        <span class="stars" id="stars5"></span>
-                    </div>
-                    <div class="author">
-                        <div id="pfp"></div>
-                        <p>${author}</p>
-                    </div>
-                    <div class="ingredients">
-                        <h4>Ingredients</h4>
-                        <ul class="ingredientList"></ul>
-                    </div>
-                    <div class="howTo">
-                        <h4>How to make ${recipe.strMeal}</h4>
-                        <p>${currentRecipe.strInstructions}</p>
-                    </div>
+            <div class="recipe">
+                <h2><b>${currentRecipe.strMeal}</b></h2>
+                <img src="${currentRecipe.strMealThumb}"> 
+                <div id="rating-container">
+                    <span class="stars" id="stars1"></span>
+                    <span class="stars" id="stars2"></span>
+                    <span class="stars" id="stars3"></span>
+                    <span class="stars" id="stars4"></span>
+                    <span class="stars" id="stars5"></span>
                 </div>
-                <div class="commentBox"></div>
-                    <div class="comments"></div>
-                    <div class="ratingBox"></div>
+                <div class="author">
+                    <div id="pfp"></div>
+                    <p>${author}</p>
                 </div>
+                <div class="ingredients">
+                    <h4>Ingredients</h4>
+                    <ul class="ingredientList"></ul>
+                </div>
+                <div class="howTo">
+                    <h4>How to make ${recipe.strMeal}</h4>
+                    <p>${currentRecipe.strInstructions}</p>
+                </div>
+            </div>
+            <div class="commentBox"></div>
+                <div class="comments"></div>
+                <div class="ratingBox"></div>
+            </div>
         `;
-
-        // main.querySelector(".author").addEventListener("click", e => {
-        //     newState(true);
-        //     let CurrentUser = {
-        //         username: author,
-        //     }
-        //     RenderUserPage(CurrentUser);
-        // })
 
         goBack();
         try {
@@ -81,7 +73,7 @@ async function renderRecipe(recipe) {
             const response = await fetch(`api/fetchRecipesAndFavourites.php?author=${author}`);
             const data = await response.json();
 
-            main.querySelector(".author").addEventListener("click", e => {
+            document.querySelector(".author").addEventListener("click", e => {
                 newState(true);
                 let CurrentUser = {
                     username: author,
@@ -91,14 +83,14 @@ async function renderRecipe(recipe) {
             })
 
             if (!data.pfp) { // if the author has a profilepicture, than we add it as an backgroundimage 
-                document.querySelector("#pfp").style.backgroundImage = `url(../icons/blank-face-test.webp)`;
+                document.querySelector("#pfp").style.backgroundImage = `../url(icons/blank-face-test.webp)`;
             } else { // if the author don't have one, we take the basic picture 
                 document.querySelector("#pfp").style.backgroundImage = `url(${data.pfp})`
             }
 
 
         } catch (e) {
-            console.log(e);
+            popUp(e);
         }
 
         try {
@@ -116,7 +108,7 @@ async function renderRecipe(recipe) {
                 }
             }
         } catch (e) {
-            console.log(e);
+            popUp(e);
         }
 
 
@@ -127,8 +119,7 @@ async function renderRecipe(recipe) {
                 <li><b>${ratio.ingredient}</b> ${ratio.measurement}</li>
             `;
         }
-
-        // document.querySelector("#menu").addEventListener("click", ShowMenu);
+        // if the user has not commented on the recipe
         let usersComment = false;
 
         try {
@@ -143,7 +134,6 @@ async function renderRecipe(recipe) {
                     "username": Comment.author
                 };
                 if (Comment.pfp !== undefined) {
-                    // let CurrentUserPfpf = {"pfp": Comment.pfp};
                     CurrentUser.pfp = JSON.stringify(Comment.pfp);
                 }
 
@@ -175,7 +165,7 @@ async function renderRecipe(recipe) {
                     star.classList.add("star");
                     starContainer.append(star);
                 }
-
+                // the user can delete her comment
                 if (Comment.author === username) {
                     let editButton = document.createElement("button");
                     let dropdownMenu = document.createElement("div");
@@ -201,14 +191,14 @@ async function renderRecipe(recipe) {
                     });
 
                     document.querySelector(".bin").addEventListener("click", e => { deleteComment(username, recipe) });
-
+                    // if the user has commented on the recipe
                     usersComment = true;
                 }
 
             }
 
         } catch (error) {
-            console.error(error);   ///// vad är detta
+            popUp(error);
         }
         if (usersComment === false) {
             document.querySelector(".ratingBox").innerHTML = `
@@ -245,18 +235,14 @@ async function renderRecipe(recipe) {
             let rating;
             let comment;
             let pfp = user.pfp
-            let output = [];
 
-            //Kanske ta bort /r
             for (const entry of dataform) {
-                // output = `${output}${entry[0]}=${entry[1]}\r`;
                 if (`${entry[0]}` === "rating") {
                     rating = `${entry[1]}`;
                 } else {
                     comment = `${entry[1]}`;
                 }
             }
-            console.log(username)
             const commentData = {
                 username,
                 pfp,
@@ -275,7 +261,7 @@ async function renderRecipe(recipe) {
                     popUp(`${data.message}`);
                 }
             } catch (error) {
-                popUp(error.message);
+                popUp(error);
             }
         }
     }
@@ -283,7 +269,6 @@ async function renderRecipe(recipe) {
 }
 
 async function deleteComment(username, recipe) {
-    console.log(recipe.idMeal)
     try {
         const response = await fetch(`api/commentsAndRatings.php?author=${username}&recipeId=${recipe.idMeal}`, {
             method: "DELETE"
@@ -291,7 +276,7 @@ async function deleteComment(username, recipe) {
         if (response.ok) {
             renderRecipe(recipe);
         } else {
-            console.log('Failed to delete comment');
+            popUp('Failed to delete comment');
         }
     } catch (error) {
         popUp(error);

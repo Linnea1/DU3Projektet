@@ -11,7 +11,7 @@ if(!file_exists($filename)){ // if no file, create it
 }
 
 $data = json_decode(file_get_contents($filename), true);
-
+// all recipes
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $post = json_decode(file_get_contents("php://input"), true);
     $ids = $post['listOfIds'];
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     send_JSON($ratings);
-}elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
+}elseif ($_SERVER["REQUEST_METHOD"] == "GET") {  /// only one recipe
     if (isset($_GET["id"])) {
         $id = $_GET["id"];
         $ratings = [];

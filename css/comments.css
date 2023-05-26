@@ -31,7 +31,7 @@
     display: inline-block;
     width: 30px;
     height: 30px;
-    background-image: url(/icons/star.png);
+    background-image: url("../icons/star.png");
     background-size: cover;
     cursor: pointer;
 }
@@ -39,7 +39,7 @@
 .rating label:hover,
 .rating label:hover~label,
 .rating input[type="radio"]:checked~label {
-    background-image: url(/icons/star-filled.png);
+    background-image: url("../icons/star-filled.png");
 }
 
 .nameStarContainer {
@@ -61,6 +61,7 @@
     margin-top: -10px;
 }
 
+
 .commentPfp {
     margin-right: 7px;
     height: 32px;
@@ -68,7 +69,7 @@
     border-radius: 50%;
     background-color: rgba(228, 230, 231, 255);
 
-    background-image: url(../icons/blank-face-test.webp);
+    background-image: url("../icons/blank-face-test.webp");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -90,7 +91,7 @@
 .star {
     width: 14px;
     height: 14px;
-    background-image: url(/icons/star-filled.png);
+    background-image: url("../icons/star-filled.png");
     background-position: center;
     background-size: cover;
 }
@@ -148,16 +149,16 @@ textarea {
     margin: 4px;
 }
 
-.edit {
+/* .edit {
 
-    background-image: url(/icons/edit.png);
+    background-image: url("../icons/edit.png");
 
-}
+} */
 
 .bin {
     width: 15px;
     height: 15px;
-    background-image: url(/icons/bin.png);
+    background-image: url("../icons/bin.png");
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;

@@ -146,7 +146,6 @@ async function submitRecipe(event) {
   formData.append("ingredients", ingredients);
   formData.append("measurements", measurements);
 
-  console.log(formData);
   const recipeData = {
     author,
     mealName,

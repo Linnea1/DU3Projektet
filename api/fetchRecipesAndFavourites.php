@@ -12,12 +12,17 @@ if(!file_exists("data")){ // if no directory, create it
     mkdir($directory, 755);
 }
 if(!file_exists($filename)){ // if no file, create it
-    file_put_contents($filename, "[]");
+    file_put_contents("data/favourites.json", "[]");
 }
 
-if(!file_exists($filenameOwnRecipes)){ // if no file, create it
-    file_put_contents($filenameOwnRecipes, "[]");
+if(!file_exists("data/recipes.json")){ // if no file, create it
+    file_put_contents("data/recipes.json", "[]");
 }
+
+if(!file_exists("data/users.json")){ // if no file, create it
+    file_put_contents("data/users.json", "[]");
+}
+
 
 $json = file_get_contents($filename);
 $data = json_decode($json, true);
@@ -82,7 +87,7 @@ if ($method == "GET") {
         $ownRecipeName = $_GET["ourOwnDatabase"];
 
         foreach($dataRecipe as $recipe){
-            if(str_contains($recipe["strMeal"],$ownRecipeName )){ // if there is a matching id in the database
+            if(strstr($recipe["strMeal"],$ownRecipeName )){ // if there is a matching id in the database
                 send_JSON($recipe); // send it as a response
             }
         }
