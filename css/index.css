@@ -274,7 +274,8 @@ input {
     position: absolute;
     min-height: 640px;
     width: 100%;
-    margin: -20px;
+    margin-left: auto;
+    margin-right: auto;
     z-index: 3;
 
     display: flex;
