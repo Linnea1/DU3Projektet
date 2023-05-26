@@ -10,9 +10,7 @@ function renderStartPage() {
 
     swapStyleSheet("css/start.css");
     document.querySelector("header").innerHTML = `
-        <header>
-            <div class=image></div>
-        </header>
+        <div class=image></div>
     `;
 
     main.innerHTML = `
