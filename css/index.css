@@ -31,6 +31,12 @@ body {
     background-color: black;
 }
 
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #wrapper {
     background-color: var(--beige);
     max-height: 900px;
@@ -51,16 +57,11 @@ main {
 }
 
 header {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
 }
-
-/* .sticky {
-    position: fixed;
-    top: 0;
-    width: 100%
-} */
 
 .stickyHeader {
     position: sticky;
@@ -91,12 +92,15 @@ header {
 }
 
 .image {
+    margin-left:auto;
+    margin-right: auto;
     background-image: url("../icons/test-01.png");
     height: 150px;
     width: 150px;
     background-size: contain;
     border-radius: 50%;
     text-align: center;
+    justify-self: center;
 }
 
 
@@ -153,8 +157,8 @@ img {
 
 #popUp {
     position: absolute;
-    min-height: 640px;
-    width: 340px;
+    height: 100%;
+    width: 100%;
     margin: -20px;
 
     display: flex;
@@ -269,13 +273,14 @@ input {
 #loading {
     position: absolute;
     min-height: 640px;
-    width: 340px;
+    width: 100%;
     margin: -20px;
     z-index: 3;
 
     display: flex;
     justify-content: center;
     align-items: center;
+    justify-self: center;
 }
 
 #loading>img {
