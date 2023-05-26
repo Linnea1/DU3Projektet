@@ -251,7 +251,7 @@ async function renderRecipeBoxes(data, e, a) { ////////////kanske ta bort e som 
 
 
             recipeDiv.addEventListener("click", e => {
-                // newState();
+                newState();
                 renderRecipe(data.meals[recipeName])
             });
             divRecipes.append(recipeDiv);
@@ -359,6 +359,7 @@ async function usersFavoriteRecipes(data, e) {   /// ta kanske bort e som argume
 
 
         recipeDiv.addEventListener("click", e => {
+            newState();
             renderRecipe(data.meals[recipeName])
         });
 
