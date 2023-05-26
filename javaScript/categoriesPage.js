@@ -1,8 +1,10 @@
+let a = 0;
 //render all categories in the open API
 async function renderCategoriesPage() {
     document.querySelector("#loading").classList.remove("hidden");
     user = JSON.parse(localStorage.getItem("user"));
 
+    a = 0;
     currentState("renderCategoriesPage()");
 
     swapStyleSheet("css/catergories.css");
@@ -117,7 +119,7 @@ async function searchDish(key, searchField) {
             if (!dataOwnRecipe.error) {
 
                 let recipe = { meals: [dataOwnRecipe] }
-                renderRecipeBoxes(recipe, false); ////////////kanske ta bort false som argument
+                renderRecipeBoxes(recipe, false, a = 1); ////////////kanske ta bort false som argument
             }
 
         } catch (error) {
@@ -127,7 +129,7 @@ async function searchDish(key, searchField) {
             let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchField}`);
             let data = await response.json();
 
-            renderRecipeBoxes(data, false); ////////////kanske ta bort false som argument
+            renderRecipeBoxes(data, false, a = 1); ////////////kanske ta bort false som argument
 
             goBack();
 
@@ -141,14 +143,28 @@ async function searchDish(key, searchField) {
 
 
 //Creating the recipes
-async function renderRecipeBoxes(data, e) { ////////////kanske ta bort e som argument
+async function renderRecipeBoxes(data, e, a) { ////////////kanske ta bort e som argument
 
     if (data.meals === null) {
-        document.querySelector("#loading").classList.add("hidden");
-        console.log("null");
-        popUp("Could not find a matching recipe to your input");
+        a++;
+        if (b = 2) {
+            if (document.querySelector(".recipes").childElementCount === 0) {
+                divRecipes.innerHTML = `
+                    <div> No recipes </div>    
+                `;
+                a = 0;
+            }
+            console.log("Nu har den fetchat från båda");
+            b = 0;
 
-    } else {
+        }
+    }
+
+    // if (data.meals === null) {
+    //     document.querySelector("#loading").classList.add("hidden");
+    //     console.log("null");
+    //     popUp("Could not find a matching recipe to your input");
+    else {
         const divRecipes = document.querySelector(".recipes");
 
         let listOfIds = [];
