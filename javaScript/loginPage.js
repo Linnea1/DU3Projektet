@@ -32,6 +32,8 @@ function renderLoginPage() {
             let response = await fetching("api/login.php", "POST", body);
             let data = await response.json();
 
+            data.password = password.value; // add password
+
             if (!response.ok) {
                 errorMessage.innerHTML = `<span>${data.message}</span>.`; // error message
             } else {
