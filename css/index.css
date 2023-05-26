@@ -68,7 +68,6 @@ header {
 .stickyHeader {
     position: sticky;
     top: 0;
-    /* Add other styles as needed */
 }
 
 .nameOfApplication {
