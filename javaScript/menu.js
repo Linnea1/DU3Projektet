@@ -9,19 +9,19 @@ function ShowMenu() {
     let PopUpWindow = document.querySelector("#popUpWindow");
 
     let Startpage = document.createElement("button");
-    let Nightmode = document.createElement("button");
+    // let Nightmode = document.createElement("button");
     let LogOut = document.createElement("button");
 
     Startpage.classList.add("Startpage");
-    Nightmode.classList.add("Nightmode");
+    // Nightmode.classList.add("Nightmode");
     LogOut.classList.add("LogOut");
 
     PopUpWindow.append(Startpage);
-    PopUpWindow.append(Nightmode);
+    // PopUpWindow.append(Nightmode);
     PopUpWindow.append(LogOut);
 
     Startpage.textContent = "Startpage";
-    Nightmode.textContent = "Nightmode";
+    // Nightmode.textContent = "Nightmode";
     if (user.guest) {
         LogOut.textContent = "Login or register";
     } else {
