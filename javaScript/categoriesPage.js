@@ -1,10 +1,10 @@
-let a = 0;
+let a = 1;
 //render all categories in the open API
 async function renderCategoriesPage() {
     document.querySelector("#loading").classList.remove("hidden");
     user = JSON.parse(localStorage.getItem("user"));
 
-    a = 0;
+    a = 1;
     currentState("renderCategoriesPage()");
 
     swapStyleSheet("css/catergories.css");
@@ -118,6 +118,7 @@ async function searchDish(key, searchField) {
 
             if (!dataOwnRecipe.error) {
 
+                console.log("error här");
                 let recipe = { meals: [dataOwnRecipe] }
                 renderRecipeBoxes(recipe, false, a = 1); ////////////kanske ta bort false som argument
             }
@@ -145,14 +146,18 @@ async function searchDish(key, searchField) {
 //Creating the recipes
 async function renderRecipeBoxes(data, e, a) { ////////////kanske ta bort e som argument
 
+    console.log(data);
+    console.log(a);
+    const divRecipes = document.querySelector(".recipes");
+
     if (data.meals === null) {
         a++;
-        if (b = 2) {
+        if (a == 3) {
             if (document.querySelector(".recipes").childElementCount === 0) {
                 divRecipes.innerHTML = `
                     <div> No recipes </div>    
                 `;
-                a = 0;
+                a = 1;
             }
             console.log("Nu har den fetchat från båda");
             b = 0;
@@ -160,12 +165,13 @@ async function renderRecipeBoxes(data, e, a) { ////////////kanske ta bort e som 
         }
     }
 
-    // if (data.meals === null) {
-    //     document.querySelector("#loading").classList.add("hidden");
-    //     console.log("null");
-    //     popUp("Could not find a matching recipe to your input");
-    else {
-        const divRecipes = document.querySelector(".recipes");
+    if (data.meals === null) {
+        console.log("null");
+        // console.log(data.meals);
+        //     document.querySelector("#loading").classList.add("hidden");
+        //     console.log("null");
+        //     popUp("Could not find a matching recipe to your input");
+    } else {
 
         let listOfIds = [];
         let listOfRatings;
