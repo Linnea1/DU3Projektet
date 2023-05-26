@@ -8,7 +8,7 @@ function send_JSON ($data, $code = 200){
 
 function tooShort ($input, $value){ // cant be too short
     if(strlen($input) < 3){
-        send_JSON(["message"=>"The $value needs to be 3 characters or more"], 400); 
+        send_JSON(["message"=>"The $value needs to be 3 characters or more"], 406); 
     }
 }
 
@@ -20,7 +20,7 @@ function incorrectChar ($splitWord, $value){ // characters outside the english a
 
     foreach($splitWord as $char){
         if(!in_array($char, $allowed)){
-            send_JSON(["message"=>"Character not allowed in $value"], 400); 
+            send_JSON(["message"=>"Character not allowed in $value"], 406); 
         }
     }
 }
@@ -32,7 +32,7 @@ function change ($input, $users, $filename, $field, $secondaryField = "password"
     $new .= $field;
 
     if($input[$field] == $input[$new]){ // cant be the same
-        send_JSON(["message"=>"New $field cannot be the same as old $field"], 400); 
+        send_JSON(["message"=>"New $field cannot be the same as old $field"], 406); 
     }
 
     foreach ($users as $index => $user) {
@@ -46,7 +46,7 @@ function change ($input, $users, $filename, $field, $secondaryField = "password"
                 array_splice($copiedArray, $index, 1);
                 foreach($copiedArray as $owned){
                     if($owned[$field] == $input[$new]){
-                        send_JSON(["message"=>"This $field is already taken, please try again"], 400); 
+                        send_JSON(["message"=>"This $field is already taken, please try again"], 409); 
                     }
                 }
             }
@@ -64,12 +64,11 @@ function change ($input, $users, $filename, $field, $secondaryField = "password"
 
             if($field == "email"){ // email needs to have @ and .
                 if(!preg_match("/(@)(.)/", $input[$new])){
-                    send_JSON(["message"=>"Please enter a valid email"], 400); 
+                    send_JSON(["message"=>"Please enter a valid email"], 406); 
                 }
             }
             ////////////// checks are done, can now be changed!
 
-            // send_JSON($input["username"], 400);
             $users[$index][$field] = $input[$new];
             file_put_contents($filename, json_encode($users, JSON_PRETTY_PRINT));
 
@@ -98,7 +97,6 @@ function change ($input, $users, $filename, $field, $secondaryField = "password"
             send_JSON(["message"=>"Successfully updated $field!"]);
         }
     }
-    send_JSON(["message"=>"Problems with finding user"], 400); // if user cant be found / matched
+    send_JSON(["message"=>"Problems with finding user"], 404); // if user cant be found / matched
 }
-// send_JSON(["message"=>"$input"], 400);
 ?>
