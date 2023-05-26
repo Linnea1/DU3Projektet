@@ -84,12 +84,12 @@ async function renderRecipesAfterCategory(category) {
     try {
         const response = await fetch(`api/createRecipe.php?category=${category}`);
         const data = await response.json();
-        await renderRecipeBoxes(data, false); ////////////kanske ta bort false som argument
+        await renderRecipeBoxes(data, false);
         try {
             let response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
             let data = await response.json();
 
-            renderRecipeBoxes(data, false); ////////////kanske ta bort false som argument
+            renderRecipeBoxes(data, false);
         } catch (error) {
             popUp(error);
         }
@@ -120,7 +120,7 @@ async function searchDish(key, searchField) {
 
                 console.log("error här");
                 let recipe = { meals: [dataOwnRecipe] }
-                renderRecipeBoxes(recipe, false, a = 1); ////////////kanske ta bort false som argument
+                renderRecipeBoxes(recipe, false, a = 1);
             }
 
         } catch (error) {
@@ -130,7 +130,7 @@ async function searchDish(key, searchField) {
             let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchField}`);
             let data = await response.json();
 
-            renderRecipeBoxes(data, false, a = 1); ////////////kanske ta bort false som argument
+            renderRecipeBoxes(data, false, a = 1);
 
             goBack();
 
@@ -144,7 +144,7 @@ async function searchDish(key, searchField) {
 
 
 //Creating the recipes
-async function renderRecipeBoxes(data, e, a) { ////////////kanske ta bort e som argument
+async function renderRecipeBoxes(data, e, a) {
 
     const divRecipes = document.querySelector(".recipes");
 
@@ -203,7 +203,7 @@ async function renderRecipeBoxes(data, e, a) { ////////////kanske ta bort e som 
 
             recipeDiv.classList.add("recipe");
 
-            if (e === false) {   /// ta kanske bort detta, ingen if-sats
+            if (e === false) {
 
                 recipeDiv.innerHTML = `
                 <h2>${recipe.strMeal}</h2>
@@ -224,7 +224,7 @@ async function renderRecipeBoxes(data, e, a) { ////////////kanske ta bort e som 
                 `;
 
                 recipeDiv.querySelector("#first").addEventListener("click", AddRecipesAsFavourite);
-                recipeDiv.querySelector("#second").addEventListener("click", AddRecipesAsFavourite); ////// kanske ta bort om det blir dåligt
+                recipeDiv.querySelector("#second").addEventListener("click", AddRecipesAsFavourite);
 
             } else {
                 recipeDiv.innerHTML = `
@@ -270,7 +270,7 @@ async function renderRecipeBoxes(data, e, a) { ////////////kanske ta bort e som 
 
 }
 
-async function usersFavoriteRecipes(data, e) {   /// ta kanske bort e som argument
+async function usersFavoriteRecipes(data, e) {
 
     const divRecipes = document.querySelector(".recipes");
     divRecipes.innerHTML = "";
@@ -311,7 +311,7 @@ async function usersFavoriteRecipes(data, e) {   /// ta kanske bort e som argume
             recipeDiv.classList.add("even");
         }
 
-        if (e === false) {                             /// ta kanske bort detta, ingen if-sats
+        if (e === false) {
 
             recipeDiv.innerHTML = `
                 <h2>${recipe.strMeal}</h2>

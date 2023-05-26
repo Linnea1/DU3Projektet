@@ -61,20 +61,20 @@ async function RenderUserPage(userInfo) {
 
                 const response = await fetch(`api/createRecipe.php?author=${user.username}`);
                 const data = await response.json();
-                usersFavoriteRecipes(data, true);////// kanske ta bort false som argument
+                usersFavoriteRecipes(data, true);
                 document.querySelector("#own_recipe").addEventListener("click", e => {
                     document.querySelector("#own_recipe").classList.add("chosen");
                     document.querySelector(".favorites").classList.remove("chosen");
 
                     document.querySelector("#loading").classList.remove("hidden");
                     usersFavoriteRecipes(data, true)
-                });////// kanske ta bort false som argument
+                });
 
                 document.querySelector(".favorites").addEventListener("click", e => {
                     document.querySelector(".favorites").classList.add("chosen");
                     document.querySelector("#own_recipe").classList.remove("chosen");
                     document.querySelector("#loading").classList.remove("hidden");
-                    favoriteRecipes(e, user.username, true)////// kanske ta bort false som argument
+                    favoriteRecipes(e, user.username, true)
                     e.stopPropagation();
                 });
 
@@ -84,7 +84,7 @@ async function RenderUserPage(userInfo) {
 
                 let response = await fetch(`api/createRecipe.php?author=${userInfo.username}`);
                 const data = await response.json();
-                usersFavoriteRecipes(data, false);   ////// kanske ta bort false som argument
+                usersFavoriteRecipes(data, false);
 
                 document.querySelector("#own_recipe").addEventListener("click", e => {
                     document.querySelector("#own_recipe").classList.add("chosen");
@@ -92,14 +92,14 @@ async function RenderUserPage(userInfo) {
 
                     document.querySelector("#loading").classList.remove("hidden");
                     usersFavoriteRecipes(data, false)
-                });///// kanske ta e som argument
+                });
 
                 document.querySelector(".favorites").addEventListener("click", e => {
                     document.querySelector(".favorites").classList.add("chosen");
                     document.querySelector("#own_recipe").classList.remove("chosen");
 
                     document.querySelector("#loading").classList.remove("hidden");
-                    favoriteRecipes(e, userInfo.username, false)   ///// kanske ta bort false som argument
+                    favoriteRecipes(e, userInfo.username, false)
                     e.stopPropagation();
 
                 });
@@ -113,9 +113,9 @@ async function RenderUserPage(userInfo) {
 }
 
 
-async function favoriteRecipes(object, user, e) { ///////// kanske ta bort e som argument
+async function favoriteRecipes(object, user, e) {
 
-    if (e === false) { //////// kanske ta bort if-satsen
+    if (e === false) {
         e === true;
     };
 
@@ -143,13 +143,13 @@ async function favoriteRecipes(object, user, e) { ///////// kanske ta bort e som
                         meals.push(response)
                         const data = { meals: meals }; //Making sure the format for the function call is right
 
-                        renderRecipeBoxes(data, e); ////////////kanske ta bort e som argument
+                        renderRecipeBoxes(data, e);
 
                     } else {
 
                         let resoursefood = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe}`);
                         let responsefood = await resoursefood.json();
-                        renderRecipeBoxes(responsefood, e); ////////////kanske ta bort e som argument
+                        renderRecipeBoxes(responsefood, e);
                     }
                 }
 
