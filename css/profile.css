@@ -1,13 +1,32 @@
+@font-face {
+    font-family: Caveat;
+    src: url("/css/fonts/Caveat/Caveat-VariableFont_wght.ttf");
+}
+
+/* #wrapper {
+    background-color: var(--beige);
+    max-height: 650px;
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    overflow: scroll;
+    margin: 20px;
+    background-image: url("/icons/Leaves.png");
+} */
+
 .icon {
     height: 150px;
     width: 150px;
     border-radius: 50%;
     background-color: rgba(228, 230, 231, 255);
-
     background-image: url(../icons/blank-face-test.webp);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    border: 2px solid black;
 }
 
 .columns {
@@ -23,11 +42,11 @@
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.5);
     width: 100%;
+    border-radius: 10px;
+    transition-property: background-color;
+    transition-duration: 1s;
 }
 
-.columns>*:hover {
-    color: gray;
-}
 
 .userInfo {
     display: flex;
@@ -36,23 +55,24 @@
     align-items: center;
 }
 
+
 .red {
     color: red;
     cursor: pointer;
 }
 
-#sticky {
-    display: none;
-}
-
 .create_recipe {
-    background-color: palevioletred;
+    border: 2px solid #f9748b;
+    background-color: white;
     border-radius: 10px;
     padding: 10px;
+    margin: 10px 0px;
+    transition-property: background-color;
+    transition-duration: 1s;
 }
 
 .create_recipe:hover {
-    background-color: rgb(188, 94, 125);
+    background-color: #f9748b;
     cursor: pointer;
 }
 
@@ -68,4 +88,31 @@
 .test {
     height: 100px;
     width: 100px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 10px;
+}
+
+
+#settings {
+    height: 40px;
+    width: 135px;
+    border-radius: 40px;
+    background-color: white;
+    border: 2px solid #f9748b;
+    transition-property: background-color;
+    transition-duration: 1s;
+}
+
+#settings:hover {
+    background-color: #f9748b;
+    cursor: pointer;
+}
+
+.chosen {
+    background-color: #f9748b;
+    color: white;
 }

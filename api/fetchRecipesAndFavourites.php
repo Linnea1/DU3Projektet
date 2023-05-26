@@ -4,8 +4,9 @@ ini_set("display_errors", 1);
 
 require_once "functions.php";
 
-$filename = "data/favourites.json";
 $directory = "data";
+$filename = "data/favourites.json";
+$filenameOwnRecipes = "data/recipes.json";
 
 if(!file_exists("data")){ // if no directory, create it
     mkdir($directory, 755);
@@ -14,12 +15,17 @@ if(!file_exists($filename)){ // if no file, create it
     file_put_contents($filename, "[]");
 }
 
+if(!file_exists($filenameOwnRecipes)){ // if no file, create it
+    file_put_contents($filenameOwnRecipes, "[]");
+}
+
 $json = file_get_contents($filename);
 $data = json_decode($json, true);
 $method = $_SERVER["REQUEST_METHOD"];
 
-$requestJSON = file_get_contents("php://input");
-$requestDATA = json_decode($requestJSON,true);
+
+$jsonRecipe = file_get_contents($filenameOwnRecipes);
+$dataRecipe = json_decode($jsonRecipe, true);
 
 if ($method == "GET") {
 
@@ -52,40 +58,35 @@ if ($method == "GET") {
                 send_JSON($user["idMeal"]);  // Gets all the users favourite recipes
             }
         }
-        $error = ["error" => "There are no liked recipes"];  // if there are no favourites
-        send_JSON($error, 404);
+        $error = ["message" => "There are no liked recipes"];  // if there are no favourites
+        send_JSON($error, 400);
     
     }
 
     if (isset($_GET["ownRecipe"])) { // checks after key
 
         $ownRecipe = $_GET["ownRecipe"];
-        $filename = "data/recipes.json";
-        $json = file_get_contents($filename);
-        $data = json_decode($json, true);
 
-        foreach($data as $recipe){
+        foreach($dataRecipe as $recipe){
             if($recipe["idMeal"] === $ownRecipe){ // if there is a matching id in the database
                 send_JSON($recipe); // send it as a response
             }
         }
-        $error = ["error" => "Could not find matching recipe"];
+        $error = ["message" => "Could not find matching recipe"];
         send_JSON($error, 404);
 
     }
 
     if (isset($_GET["ourOwnDatabase"])) {
+
         $ownRecipeName = $_GET["ourOwnDatabase"];
-        $filenameRecipe = "data/recipes.json";
-        $jsonRecipe = file_get_contents($filenameRecipe);
-        $dataRecipe = json_decode($jsonRecipe, true);
 
         foreach($dataRecipe as $recipe){
             if(str_contains($recipe["strMeal"],$ownRecipeName )){ // if there is a matching id in the database
                 send_JSON($recipe); // send it as a response
             }
         }
-        $error = ["error" => "Could not find a matching recipe to your input"];
+        $error = ["message" => "Could not find a matching recipe to your input"];
         send_JSON($error, 404);
 
     }
@@ -103,7 +104,7 @@ if ($method == "GET") {
                 send_JSON($user);  // if we find the matching user then we send it as response
             }
         }
-        $error = ["error" => "Could not find a matching user"];
+        $error = ["message" => "Could not find a matching user"];
         send_JSON($error, 404);
     }
 
@@ -111,6 +112,8 @@ if ($method == "GET") {
 
 if ($method == "POST") {
 
+    $requestJSON = file_get_contents("php://input");
+    $requestDATA = json_decode($requestJSON,true);
     
     $username = $requestDATA['username']; // take out the two keys that are sent in the request
     $idMeal = $requestDATA['idMeal'];
@@ -119,7 +122,7 @@ if ($method == "POST") {
         if ($userData["username"] == $username) { // find the correct user
 
             if (in_array($idMeal, $userData["idMeal"])) { // if the user is trying to add a recipe that already exists in the array
-                $error = ["error" => "This recipe is already added to your favourites"];
+                $error = ["message" => "This recipe is already added to your favourites"];
                 send_JSON($error, 400); // eller 406?
             }
 
@@ -137,7 +140,6 @@ if ($method == "POST") {
         "username" => $username,
         "idMeal" => [$idMeal],
     ];
-
     $data[] = $newUser;
     $json = json_encode($data, JSON_PRETTY_PRINT);
     file_put_contents($filename, $json); //update the databse and send back the user as response
@@ -145,27 +147,31 @@ if ($method == "POST") {
         
 }
 
-
 if ($method == "DELETE") {
+    
+    $requestJSON = file_get_contents("php://input");
+    $requestDATA = json_decode($requestJSON,true);
 
+    $username = $requestDATA["username"];  // take out the two keys and their value
+    $idMeal = $requestDATA["idMeal"];
+    // $userExists = false;
+    
+    foreach ($data as &$user) {
+        if ($user['username'] == $username) { // if the user does exist in favourites.json
 
-    $username = $requestDATA["username"]; // take out the two keys and their value
-    $idMeal = $requestDATA["idMeal"];   // take out the two keys and their value
-
-    foreach ($data as $userIndex => $user) {
-        if ($user['username'] == $username) {  // if the user does exist in favourites.json
-            foreach ($user["idMeal"] as $mealIndex => $value) {
-                if ($value == $idMeal) {
-                    array_splice($data[$userIndex]["idMeal"], $mealIndex, 1);    // delete it
+            foreach($user["idMeal"] as $index => $value){
+                if ($value == $idMeal) { // find the matching recipe 
+                    array_splice($user["idMeal"], $index, 1); // delete it
                     $json = json_encode($data, JSON_PRETTY_PRINT);
-                    file_put_contents($filename, $json);  // update the code and send back the whole user
+                    file_put_contents($filename, $json); // update the code and send back the whole user
                     send_JSON($user);
                 }
             }
+            
         }
     }
-}
+    send_JSON(["message"=>"recipe could not be deleted"], 400);
 
- send_JSON(["message"=>"Wrong method"], 405);
+}
 
 ?>

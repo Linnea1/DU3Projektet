@@ -2,37 +2,50 @@
     width: 100%;
 }
 
-.recipe {
+.odd.recipe {
+    background-color: #b34256;
+}
+
+.even.recipe {
+    background-color: #f9748b;
+}
+
+/* .recipe {
     position: relative;
-    background-color: white;
+    background-color: #ff8fa1;
     margin: 10px 0px;
     border-radius: 10px;
     padding: 5px;
-    border: 1px solid gray;
-}
+} */
 
-.recipe>h2 {
-    font-size: 15px;
-}
 
-.recipe:hover {
-    background-color: rgb(186, 242, 237);
-    border: 1px solid black;
-}
+/* .recipe:hover {
+    background-color: #ff8fa1;
+} */
 
 img {
     height: 200px;
-
 }
 
 #liker>button {
     height: 30px;
     width: 30px;
+
+    background-color: #eff0ea;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+
+    border: none;
+}
+
+#liker>button:hover {
+    background-color: #e4e8d0;
 }
 
 #liker #first {
     background-image: url(/icons/like_empty.png);
-    background-size: contain;
     position: absolute;
     top: -5px;
     right: -5px;
@@ -44,6 +57,8 @@ img {
     transition: opacity .5s;
     opacity: 0;
     display: none;
+
+    transition: 1s display;
 }
 
 #liker.liked #second {
@@ -68,4 +83,23 @@ img {
     border-radius: 50px;
     align-self: center;
 
+}
+
+.author {
+    display: flex;
+    flex-direction: column;
+}
+
+.stars {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url('/icons/star-filled.png');
+    /* Replace with your filled star image */
+    background-size: cover;
+}
+
+.stars.empty {
+    background-image: url('/icons/star.png');
+    /* Replace with your empty star image */
 }

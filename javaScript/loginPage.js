@@ -6,9 +6,9 @@ function renderLoginPage() {
         <form>
             <input type=text id=username placeholder=Username>
             <input type=password id=password placeholder=Password>
-            <button type=submit>Login</button>
+            <button id=login type=submit>Login</button>
         </form>
-        <button id=register>New to this? Sign up for free</button>
+        <button id=register>New to this?</br>Sign up for free</button>
     `;
 
     // go to register
@@ -32,8 +32,6 @@ function renderLoginPage() {
             let response = await fetching("api/login.php", "POST", body);
             let data = await response.json();
 
-            data.password = password.value;
-
             if (!response.ok) {
                 errorMessage.innerHTML = `<span>${data.message}</span>.`; // error message
             } else {
@@ -45,8 +43,8 @@ function renderLoginPage() {
                 // logged in! (adding function later)
                 renderCategoriesPage()
             }
-        } catch (err) { // if something went wrong
-            errorMessage.textContent = `Error: ${err.message}`;
+        } catch (error) { // if something went wrong
+            errorMessage.textContent = `Error: ${error.message}`;
         }
     });
 }

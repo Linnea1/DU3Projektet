@@ -1,9 +1,11 @@
 function renderCreateRecipe(event) {
+  swapStyleSheet("css/createRecipe.css");
   main.innerHTML = `
-    <button class="goBack">Go Back</button>
+    <button class="goBack"></button>
     <form id="form">
       <p id=message></p>
-      <label for="picture">Picture:</label>
+      <p>Picture:</p>
+      <label for="picture" id="pictureLabel">Choose a file...</label>
       <input type="file" id="picture" name="picture"><br>
 
       <label for="strMeal">Meal Name:</label>
@@ -30,42 +32,42 @@ function renderCreateRecipe(event) {
       <div id="ingredients">
         <div class="ingredientGroup">
           <div class="ingredientDiv1">
-              <label for="strIngredient1">Ingredient 1:</label>
-              <input type="text" id="strIngredient1" name="strIngredient1">
+            <label for="strIngredient1">Ingredient 1:</label>
+            <input type="text" id="strIngredient1" name="strIngredient1">
           </div>
           <div class="ingredientDiv2">
-              <label for="strMeasure1">Measurement 1:</label>
-              <input type="text" id="strMeasure1" name="strMeasure1"><br><br>
+            <label for="strMeasure1">Measurement 1:</label>
+            <input type="text" id="strMeasure1" name="strMeasure1"><br><br>
           </div>
         </div>
         <div class="ingredientGroup">
           <div class="ingredientDiv1">
-              <label for="strIngredient2">Ingredient 2:</label>
-              <input type="text" id="strIngredient2" name="strIngredient2">
+            <label for="strIngredient2">Ingredient 2:</label>
+            <input type="text" id="strIngredient2" name="strIngredient2">
           </div>
           <div class="ingredientDiv2">
-              <label for="strMeasure2">Measurement 2:</label>
-              <input type="text" id="strMeasure2" name="strMeasure2"><br><br>
+            <label for="strMeasure2">Measurement 2:</label>
+            <input type="text" id="strMeasure2" name="strMeasure2"><br><br>
           </div>  
         </div>
         <div class="ingredientGroup">
-              <div class="ingredientDiv1">
-                  <label for="strIngredient3">Ingredient 3:</label>
-                  <input type="text" id="strIngredient3" name="strIngredient3">
-              </div>
-              <div class="ingredientDiv1">
-                  <label for="strMeasure3">Measurement 3:</label>
-                  <input type="text" id="strMeasure3" name="strMeasure3"><br><br>
-              </div>
+          <div class="ingredientDiv1">
+            <label for="strIngredient3">Ingredient 3:</label>
+            <input type="text" id="strIngredient3" name="strIngredient3">
+          </div>
+          <div class="ingredientDiv1">
+            <label for="strMeasure3">Measurement 3:</label>
+            <input type="text" id="strMeasure3" name="strMeasure3"><br><br>
+          </div>
         </div>
       </div>
 
-      <button type="button" onclick="addIngredientGroup()">Add more ingredients</button>
+      <button id="add" onclick="addIngredientGroup()">Add more ingredients</button>
 
       <label for="strInstructions">Instructions:</label>
       <textarea id="strInstructions" name="strInstructions"></textarea><br><br>
 
-      <input type="submit" value="Submit">
+      <input class="submit" type="submit" value="Submit">
     </form>
   `;
   goBack();

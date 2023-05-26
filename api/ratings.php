@@ -58,9 +58,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         send_JSON(["message" => "No ID provided for retrieving comments"], 400);
     }
 
-   
-
     send_JSON($ratings);
+}else{
+    send_JSON(["message"=>"Wrong method"], 405);
 }
 
 ?>

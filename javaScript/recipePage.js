@@ -32,11 +32,12 @@ async function renderRecipe(recipe) {
                 });
             }
         }
-        basicHeader();
 
+        swapStyleSheet("css/comments.css");
+        basicHeader();
         main.innerHTML = `
             
-            <button class="goBack">Go Back</button>
+            <button class="goBack"></button>
                 <div class="recipe">
                     <h2><b>${currentRecipe.strMeal}</b></h2>
                     <img src="${currentRecipe.strMealThumb}"> 

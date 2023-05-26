@@ -1,6 +1,7 @@
 function renderSettings() {
     currentState("renderSettings()");
 
+    swapStyleSheet("css/settings.css");
     document.querySelector("header").innerHTML = `
         <div id="menu" onclick="">
             <div class="menuPart"></div>
@@ -12,23 +13,35 @@ function renderSettings() {
     document.querySelector("#menu").addEventListener("click", ShowMenu);
 
     main.innerHTML = `
-        <button class="goBack">Go Back</button>
+        <button class="goBack"></button>
         <div id="settings">
-            <form id="upload">
-                <label for="pfp">Change profile picture</label>
-                <input type="file" name="pfp">
-                <button type="submit">Upload</button>
-            </form>
+            <div id="pfpHolder">
+                <form id="uploadPfp">
+                    <p>Change profile picture</p>
+                    <input type="file" id="pfp" name="pfp">
+                    <label for="pfp">Choose a file...</label>
+                    <button type="submit">Upload</button>
+                </form>
+            </div>
             
-            <label for="email">Change email</label>
-            <input type="text" placeholder="New email" name="email">
+            <div id="emailHolder">
+                <p>Change email</p>
+                <input type="text" placeholder="New email" name="email">
+                <button>Upload</button>
+            </div>
 
-            <label for="username">Change username</label>
-            <input type="text" placeholder="New username" name="username" autocomplete="off">
+            <div id="usernameHolder">
+                <p>Change username</p>
+                <input type="text" placeholder="New username" name="username" autocomplete="off">
+                <button>Upload</button>
+            </div>
         
-            <label for="password">Change password</label>
-            <input type="password" placeholder="Old password" name="passwordold" autocomplete="off">
-            <input type="password" placeholder="New password" name="passwordnew">
+            <div id="passwordHolder">
+                <p>Change password</p>
+                <input type="password" placeholder="Old password" name="passwordold" autocomplete="off">
+                <input type="password" placeholder="New password" name="passwordnew">
+                <button>Upload</button>
+            </div>
             
             <p class="red">Delete account</p>
         </div>
@@ -39,7 +52,16 @@ function renderSettings() {
     let newEmail = main.querySelector('input[name="email"]');
     let newPassword = main.querySelector('input[name="passwordnew"]');
     let oldPassword = main.querySelector('input[name="passwordold"]');
-    let fileForm = main.querySelector("#upload");
+
+    let emailButton = main.querySelector("#emailHolder > button");
+    let usernameButton = main.querySelector("#usernameHolder > button");
+    let passwordButton = main.querySelector("#passwordHolder > button");
+
+    let fileForm = main.querySelector("#uploadPfp");
+    let pfpInput = main.querySelector("#pfp");
+    let pfpLabel = main.querySelector("label");
+
+    pfpInput.addEventListener("click", e => { pfpLabel.classList.add("selected") });
 
     main.querySelector(".red").addEventListener("click", e => {
         document.querySelector("#popUpWindow").innerHTML = `
@@ -70,23 +92,22 @@ function renderSettings() {
         // complexPopUp("Are you sure", "Yes", "No", "deleteAccount()");
     }); // "delete account"
 
-    newUsername.addEventListener("keydown", changeUsername); // "change username"
-    newEmail.addEventListener("keydown", changeEmail); // "change username"
-    newPassword.addEventListener("keydown", changePassword); // "change username"
-    oldPassword.addEventListener("keydown", changePassword);
-    fileForm.addEventListener("submit", changePfp);
+    usernameButton.addEventListener("click", changeUsername); // "change username"
+    emailButton.addEventListener("click", changeEmail); // "change username"
+    passwordButton.addEventListener("click", changePassword); // "change password"
+    fileForm.addEventListener("submit", changePfp); // change pfp
 
-    async function change(body, URL, method, select) {
+    async function change(body, URL, method, select, newValue) {
         try {
             let response = await fetching(URL, method, body);
             let data = await response.json();
 
             if (response.status == 200) {
                 let storage = JSON.parse(localStorage.getItem("user"));
-                storage[select] = data;
+                storage[select] = newValue;
                 localStorage.setItem("user", JSON.stringify(storage));
 
-                popUp("Successfully changed!");
+                popUp(data.message);
 
                 document.querySelector("#popUpBackground").addEventListener("click", backToProfile);
                 document.querySelector(".OK").addEventListener("click", backToProfile);
@@ -108,39 +129,44 @@ function renderSettings() {
     }
 
     async function changeUsername(e) { // change username
-        if (e.key === "Enter") {
+        if (newUsername.value === "") {
+            popUp("Please do not leave an empty field");
+        } else {
             let body = {
                 username: JSON.parse(localStorage.getItem("user")).username,
-                new: newUsername.value,
+                new_username: newUsername.value,
                 password: JSON.parse(localStorage.getItem("user")).password
             };
 
-            await change(body, "api/settings.php", "PATCH", "username");
+            await change(body, "api/settings.php", "PATCH", "username", newUsername.value);
         }
     }
 
     async function changeEmail(e) { // change email
-        if (e.key === "Enter") {
+        if (newEmail.value === "") {
+            popUp("Please do not leave an empty field");
+        } else {
             let body = {
                 email: JSON.parse(localStorage.getItem("user")).email,
-                new: newEmail.value,
+                new_email: newEmail.value,
                 password: JSON.parse(localStorage.getItem("user")).password
             };
 
-            await change(body, "api/settings.php", "PATCH", "email");
+            await change(body, "api/settings.php", "PATCH", "email", newEmail.value);
         }
     }
 
     async function changePassword(e) { // change password
-        if (e.key === "Enter") {
+        if (newPassword.value === "" || oldPassword.value === "") {
+            popUp("Please do not leave any empty fields");
+        } else {
             let body = {
-                old: oldPassword.value,
-                new: newPassword.value,
-                password: JSON.parse(localStorage.getItem("user")).password,
+                password: oldPassword.value,
+                new_password: newPassword.value,
                 username: JSON.parse(localStorage.getItem("user")).username
             };
 
-            await change(body, "api/settings.php", "PATCH", "password");
+            await change(body, "api/settings.php", "PATCH", "password", newPassword.value);
         }
     }
 
@@ -174,7 +200,8 @@ function renderSettings() {
         }
         console.log(formData);
         if (main.querySelector('input[name="pfp"]').value === "") {
-            popUp("Please upload a file")
+            popUp("Please upload a file");
+            pfpLabel.classList.remove("selected");
         } else {
             const request = new Request("api/settings.php", {
                 method: "POST",
@@ -187,11 +214,13 @@ function renderSettings() {
 
                 if (data.message) {
                     popUp(data.message);
+                    pfpLabel.classList.remove("selected");
                 } else {
                     user.pfp = data;
                     localStorage.setItem("user", JSON.stringify(user));
 
                     popUp("Successfully changed!");
+                    pfpLabel.classList.remove("selected");
 
                     document.querySelector("#popUpBackground").addEventListener("click", backToProfile);
                     document.querySelector(".OK").addEventListener("click", backToProfile);

@@ -8,9 +8,9 @@ function renderRegisterPage() {
             <input type=text id=email placeholder=email>
             <input type=text id=username placeholder=Username>
             <input type=password id=password placeholder=Password>
-            <button type=submit>Register</button>
+            <button id=register type=submit>Register</button>
         </form>
-        <button id=login>Already got an account? Login here</button>
+        <button id=login>Already got an account?</br>Login here</button>
     `;
 
     let ButtonForLogin = main.querySelector("#login");
@@ -48,7 +48,6 @@ function renderRegisterPage() {
         } catch (error) {
             message.textContent = `${error.message}`;
         }
-
     });
 }
 

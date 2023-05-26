@@ -8,17 +8,16 @@ function renderStartPage() {
         }))
     }
 
+    swapStyleSheet("css/start.css");
     document.querySelector("header").innerHTML = `
-        <header>
-            <div class=image></div>
-        </header>
+        <div class=image></div>
     `;
 
     main.innerHTML = `
         <h2>Welcome to YumYumClub</h2>
         <p id=message></p>
-        <button onclick="renderLoginPage()">Login</button>
-        <button onclick="renderRegisterPage()">Register</button> 
-        <button onclick="renderCategoriesPage()">Continue as Guest</button>  
+        <button id="login" onclick="renderLoginPage()">Login</button>
+        <button id="register" onclick="renderRegisterPage()">Register</button> 
+        <button id="guest" onclick="renderCategoriesPage()">Continue as Guest</button>  
     `;
 }

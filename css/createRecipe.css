@@ -1,3 +1,84 @@
-.ingreadientGroup{
+.ingredientGroup {
     display: flex;
+}
+
+form {
+    padding: 0%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#ingredients {}
+
+select {
+    margin-bottom: 15px;
+    text-align: center;
+    background-color: white;
+    border: none;
+    height: 40px;
+    width: 100px;
+    font-size: 15px;
+}
+
+#picture {
+    display: none;
+}
+
+#pictureLabel {
+    margin-bottom: 5px;
+    font-weight: bold;
+    display: inline-block;
+    border: 2px solid var(--brown);
+    padding: 10px;
+    width: 150px;
+
+    transition: background-color 0.4s;
+}
+
+#pictureLabel:hover {
+    background-color: var(--brown);
+    color: var(--beige);
+}
+
+#add {
+    background-color: var(--blue);
+    color: var(--beige);
+    border-radius: 10px;
+    border: none;
+
+    transition: 0.5s;
+}
+
+#add:hover {
+    background-color: #6be8e4;
+}
+
+.submit {
+    background-color: var(--yellow);
+    transition: 0.5s;
+}
+
+.submit:hover {
+    background-color: #ffe4ad;
+}
+
+input {
+    margin: 0%;
+}
+
+select {
+    margin-bottom: 15px;
+}
+
+.goBack {
+    background-image: url("/icons/pil.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 40px;
+    width: 45px;
+    border-radius: 10px;
+    border: none;
+
 }

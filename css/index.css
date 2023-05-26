@@ -1,24 +1,56 @@
 * {
-    font-family: Arial, Helvetica, sans-serif;
+    --brown: #41000d;
+    --yellow: #fbd78e;
+    --red: #f9748b;
+    --blue: #3dd8d2;
+    --beige: #f9f1eb;
+
+    font-family: Varela;
+    color: var(--brown);
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+@font-face {
+    font-family: Caveat;
+    src: url("/css/fonts/Caveat/Caveat-VariableFont_wght.ttf");
+}
+
+@font-face {
+    font-family: Varela;
+    src: url("/css/fonts/Varela_Round/VarelaRound-Regular.ttf");
 }
 
 body {
     margin: 0px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+    background-color: black;
 }
 
-#wrapper {
-    background-color: lightpink;
-    min-height: 600px;
+/* body {
     display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+#wrapper {
+    background-color: var(--beige);
+    max-height: 900px;
+    max-width: 500px;
+    display: flex;
+    min-height: 100vh;
     flex-direction: column;
-    width: 300px;
     text-align: center;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 20px;
+    overflow: scroll;
+    background-image: url("/icons/Leaves.png");
+
+    position: absolute;
 }
 
 main {
@@ -26,56 +58,52 @@ main {
 }
 
 header {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
 }
 
-.sticky {
-    position: fixed;
+.stickyHeader {
+    position: sticky;
     top: 0;
-    width: 100%
 }
 
 .nameOfApplication {
     font-size: 20px;
     padding: 10px 6px 0px 5px;
-    border: 1px solid black;
+    border: 1px solid var(--brown);
     /* height: auto; */
     margin: 0px 5px;
+    border-radius: 10px;
 }
 
 #profilePicture {
-    height: 40px;
-    width: 40px;
-    border: 2px solid black;
-    border-radius: 50px;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
 }
 
-#menu {
-    /* border: 1px solid black; */
-}
 
 .menuPart {
     height: 4px;
     width: 40px;
     margin: 8px 0px;
-    background-color: black;
+    background-color: #41000d;
 }
 
 .image {
+    margin-left: auto;
+    margin-right: auto;
     background-image: url("../icons/test-01.png");
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
     background-size: contain;
-    border-radius: 50px;
+    border-radius: 50%;
     text-align: center;
-    border: 1px solid black;
+    justify-self: center;
 }
 
-h2 {
-    font-size: 30px;
-}
 
 input {
     text-align: center;
@@ -84,7 +112,8 @@ input {
     margin: 10px;
     font-size: 16px;
     border-radius: 10px;
-    border: 1px solid black;
+
+    box-sizing: border-box;
 }
 
 button {
@@ -92,16 +121,26 @@ button {
     font-size: 16px;
     padding: 10px;
     width: 90%;
-    border-radius: 10px;
-    border: 1px solid black;
 }
 
 footer {
     margin-top: auto;
 }
 
-.recepie {
-    background-color: beige;
+.recipe {
+    position: relative;
+    background-color: #f9748b;
+    margin: 10px 0px;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+/* .recipe:hover {
+    background-color: #ff8fa1;
+} */
+
+.recipe>h2 {
+    font-family: Caveat;
 }
 
 img {
@@ -109,16 +148,28 @@ img {
     border-radius: 10px;
 }
 
+.icon {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    background-image: url("/icons/blank-face-test.webp");
+}
+
 #popUp {
     position: absolute;
-    min-height: 640px;
-    width: 340px;
-    margin: -20px;
+    height: 100vh;
+    width: 100vw;
 
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 2;
+
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
 }
 
 #popUpBackground {
@@ -128,28 +179,117 @@ img {
     opacity: 50%;
     height: 100%;
     width: 100%;
+
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
 }
 
 #popUpWindow {
     position: absolute;
-    background-color: white;
+    background-color: var(--beige);
     width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #41000d47;
+
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+#popUpWindow button {
+    border: 2px solid var(--brown);
+    border-radius: 5px;
+    background-color: var(--beige);
+
+    transition: 0.5s;
+}
+
+#popUpWindow button:hover {
+    background-color: var(--brown);
+    color: var(--beige);
 }
 
 .hidden {
     display: none !important;
 }
 
+/* :) /////////////// */
+
+
+
+input {
+    border: none;
+}
+
+#menu {
+    transition: transform 1s;
+}
+
+.spin {
+    transform: rotate(90deg);
+    position: absolute;
+    right: 10px;
+}
+
+#testt {
+    /* animation-name: example;
+    animation-duration: 1s;
+    animation-direction: reverse; */
+
+
+}
+
+.test {
+    display: block;
+    animation-name: example;
+    animation-duration: 1s;
+    position: absolute;
+    background-color: #f9f1eb;
+    width: 250px;
+    height: 600px;
+
+    /* box-shadow: 10px 0px 10px #41000d; */
+    /* 
+    animation-name: example;
+    animation-duration: 1s;
+    animation-direction: reverse; */
+}
+
+/* .closed {
+    animation-name: example;
+    animation-direction: reverse;
+    animation-duration: 1s;
+
+    transform: translateX(0%);
+    transition: transform 1s ease;
+} */
+
+@keyframes example {
+    0% {
+        width: 0px;
+    }
+
+    100% {
+        width: 250px;
+    }
+}
+
 #loading {
     position: absolute;
     min-height: 640px;
-    width: 340px;
-    margin: -20px;
+    width: 100%;
+    margin: 0px;
     z-index: 3;
-
+    top: 0;
+    right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    justify-self: center;
 }
 
 #loading>img {
@@ -165,4 +305,87 @@ img {
     opacity: 30%;
     height: 100%;
     width: 100%;
+}
+
+.goBack {
+    background-image: url("/icons/pil.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 40px;
+    width: 45px;
+    border-radius: 10px;
+    border: none;
+    background-color: #41000d00;
+
+}
+
+
+#pfp {
+    height: 50px;
+    width: 50px;
+    background-size: contain;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 50px;
+    align-self: center;
+
+}
+
+.author {
+    display: flex;
+    flex-direction: column;
+}
+
+#liker>button {
+    height: 30px;
+    width: 30px;
+    background-color: #eff0ea;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    border: none;
+}
+
+#liker>button:hover {
+    background-color: #e4e8d0;
+}
+
+#liker #first {
+    background-image: url(/icons/like_empty.png);
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+
+#liker #second {
+    background-image: url(/icons/like_full.png);
+    background-size: contain;
+    transition: opacity .5s;
+    opacity: 0;
+    display: none;
+
+    transition: 1s display;
+}
+
+#liker.liked #second {
+    position: absolute;
+    display: block;
+    opacity: 1;
+    top: -5px;
+    right: -5px;
+}
+
+.stars {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url('/icons/star-filled.png');
+    /* Replace with your filled star image */
+    background-size: cover;
+}
+
+.stars.empty {
+    background-image: url('/icons/star.png');
+    /* Replace with your empty star image */
 }

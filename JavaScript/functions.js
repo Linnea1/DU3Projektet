@@ -18,6 +18,7 @@ async function fetching(URL, method, body) {
 
 //Function to display popup
 function popUp(prompt) { // pop up
+    document.querySelector("#loading").classList.add("hidden");
     document.querySelector("#popUpWindow").innerHTML = `
          <p id="prompt"></p>
     `;
@@ -34,6 +35,7 @@ function popUp(prompt) { // pop up
 }
 
 function complexPopUp(prompt, button1, button2, func) {
+    document.querySelector("#loading").classList.add("hidden");
     document.querySelector("#popUpWindow").innerHTML = `
         <p id="prompt"></p>
     `;

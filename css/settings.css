@@ -1,0 +1,49 @@
+#settings>div {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.red {
+    color: var(--red);
+}
+
+#pfp {
+    display: none;
+}
+
+label {
+    font-weight: bold;
+    display: inline-block;
+    border: 2px solid var(--brown);
+    padding: 10px;
+    width: 150px;
+
+    transition: background-color 0.4s;
+}
+
+label:hover {
+    background-color: var(--brown);
+    color: var(--beige);
+}
+
+.selected {
+    background-color: var(--brown);
+    color: var(--beige);
+}
+
+#settings button {
+    border-radius: 5px;
+    border: none;
+    background-color: var(--brown);
+    color: var(--beige);
+
+    transition: 0.2s;
+}
+
+#settings button:hover {
+    background-color: #631b29;
+}
+
+#settings>div p {
+    font-weight: bold;
+}

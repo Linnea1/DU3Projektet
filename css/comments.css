@@ -1,21 +1,32 @@
-.commentBox{
+.recipe {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.recipe:hover {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.commentBox {
     background-color: white;
     border-radius: 10px;
     text-align: left;
     display: flex;
     flex-direction: column;
 }
-.inputStars{
+
+.inputStars {
     display: flex;
 }
+
 .rating {
     direction: rtl;
     display: inline-block;
 }
-  
+
 .rating input[type="radio"] {
     display: none;
 }
+
 .rating label {
     display: inline-block;
     width: 30px;
@@ -24,20 +35,20 @@
     background-size: cover;
     cursor: pointer;
 }
-  
+
 .rating label:hover,
-.rating label:hover ~ label,
-.rating input[type="radio"]:checked ~ label {
+.rating label:hover~label,
+.rating input[type="radio"]:checked~label {
     background-image: url(/icons/star-filled.png);
 }
 
-.nameStarContainer{
+.nameStarContainer {
     display: flex;
     margin-bottom: 0px;
     align-items: center;
 }
 
-.comment{
+.comment {
     background-color: #fbd78e;
     border-radius: 0px 17px 17px 17px;
     margin: 10px;
@@ -45,9 +56,11 @@
     width: 80%;
     position: relative;
 }
-.comment>p{
+
+.comment>p {
     margin-top: -10px;
 }
+
 .commentPfp {
     margin-right: 7px;
     height: 32px;
@@ -60,28 +73,33 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
-.timestamp{
+
+.timestamp {
     font-size: 10px;
     color: grey;
 }
-.starContainer{
+
+.starContainer {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-left: 7px;
     position: relative;
 }
-.star{
+
+.star {
     width: 14px;
     height: 14px;
     background-image: url(/icons/star-filled.png);
     background-position: center;
     background-size: cover;
 }
-textarea{
+
+textarea {
     width: 100%;
 }
-.editButton{
+
+.editButton {
     width: 20px;
     height: 20px;
     border: none;
@@ -95,6 +113,7 @@ textarea{
     justify-content: center;
     margin-left: auto;
 }
+
 .dot {
     width: 3px;
     height: 3px;
@@ -102,9 +121,11 @@ textarea{
     border-radius: 50%;
     margin-right: 2px;
 }
+
 .dot:last-child {
     margin-right: 0;
 }
+
 .dropdownMenu {
     position: absolute;
     padding: 4px;
@@ -113,6 +134,7 @@ textarea{
     background-color: #f9748b;
     border-radius: 20px;
 }
+
 .dropdown-item {
     background-color: transparent;
     border: none;
@@ -125,11 +147,13 @@ textarea{
     height: 15px;
     margin: 4px;
 }
-.edit{
-  
+
+.edit {
+
     background-image: url(/icons/edit.png);
-  
+
 }
+
 .bin {
     width: 15px;
     height: 15px;
@@ -137,4 +161,25 @@ textarea{
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
+}
+
+
+/* nya här */
+ul {
+    text-align: left;
+}
+
+form>button {
+    border: 2px solid #f9748b;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0px;
+    transition-property: background-color;
+    transition-duration: 1s;
+}
+
+form>button:hover {
+    background-color: #f9748b;
+    cursor: pointer;
 }
