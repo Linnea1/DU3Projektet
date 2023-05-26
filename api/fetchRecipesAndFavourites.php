@@ -58,7 +58,7 @@ if ($method == "GET") {
                 send_JSON($user["idMeal"]);  // Gets all the users favourite recipes
             }
         }
-        $error = ["error" => "There are no liked recipes"];  // if there are no favourites
+        $error = ["message" => "There are no liked recipes"];  // if there are no favourites
         send_JSON($error, 400);
     
     }
@@ -72,7 +72,7 @@ if ($method == "GET") {
                 send_JSON($recipe); // send it as a response
             }
         }
-        $error = ["error" => "Could not find matching recipe"];
+        $error = ["message" => "Could not find matching recipe"];
         send_JSON($error, 404);
 
     }
@@ -86,7 +86,7 @@ if ($method == "GET") {
                 send_JSON($recipe); // send it as a response
             }
         }
-        $error = ["error" => "Could not find a matching recipe to your input"];
+        $error = ["message" => "Could not find a matching recipe to your input"];
         send_JSON($error, 404);
 
     }
@@ -104,7 +104,7 @@ if ($method == "GET") {
                 send_JSON($user);  // if we find the matching user then we send it as response
             }
         }
-        $error = ["error" => "Could not find a matching user"];
+        $error = ["message" => "Could not find a matching user"];
         send_JSON($error, 404);
     }
 
@@ -122,7 +122,7 @@ if ($method == "POST") {
         if ($userData["username"] == $username) { // find the correct user
 
             if (in_array($idMeal, $userData["idMeal"])) { // if the user is trying to add a recipe that already exists in the array
-                $error = ["error" => "This recipe is already added to your favourites"];
+                $error = ["message" => "This recipe is already added to your favourites"];
                 send_JSON($error, 400); // eller 406?
             }
 
@@ -170,6 +170,7 @@ if ($method == "DELETE") {
             
         }
     }
+    send_JSON(["message"=>"recipe could not be deleted"], 400);
 
 }
 
