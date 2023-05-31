@@ -62,7 +62,7 @@ function renderCreateRecipe(event) {
         </div>
       </div>
 
-      <button id="add" onclick="addIngredientGroup()">Add more ingredients</button>
+      <button id="add" type="button" onclick="addIngredientGroup()">Add more ingredients</button>
 
       <label for="strInstructions">Instructions:</label>
       <textarea id="strInstructions" name="strInstructions"></textarea><br><br>
